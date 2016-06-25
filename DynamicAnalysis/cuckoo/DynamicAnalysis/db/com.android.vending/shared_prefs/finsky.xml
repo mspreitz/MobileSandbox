@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <long name="dailyhygiene-holdoff-expiration-timestamp-ms" value="-9223372036854775808" />
+    <boolean name="auto_update_enabled" value="true" />
+    <boolean name="accepted-anti-malware-consent" value="true" />
+    <boolean name="update_over_wifi_only" value="true" />
+</map>

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="external_storage_fsid" value="-1" />
+    <string name="system_release">4.4.2</string>
+</map>

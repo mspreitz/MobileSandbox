@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="settings_version" value="3" />
+    <string name="cohort">696</string>
+    <string name="cy">DE</string>
+    <boolean name="shake_to_send_feedback" value="true" />
+    <string name="zb">79=AJpnYkWpmGwpeqOcG8VQFFlsGcN-23NFjr3PC6PagYNZkUGFTK5jUx5AWjc3hg42QInj9S0ALRwmTRbb9KvBcHvLbZxM3_eO37GbWkXJHW0tAHAU3jOdY4uHCQBq8-Ug</string>
+    <string name="distance_units"></string>
+</map>

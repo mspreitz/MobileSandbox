@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="mobile_downloads_enabled" value="true" />
+    <boolean name="check_accounts_sync_status" value="false" />
+    <boolean name="legacy_downloads_have_app_level_drm" value="false" />
+</map>

@@ -1,0 +1,41 @@
+-----------------
+May 22, 2016 12:58:25 PM UTC
+Loading Xposed v54 (for Zygote)...
+Running ROM 'android_x86-userdebug 4.4.2 KVT49L eng.cwhuang.20140520.175817 test-keys' with fingerprint 'Android-x86/android_x86/x86:4.4.2/KVT49L/eng.cwhuang.20140520.175817:userdebug/test-keys'
+Loading modules from /data/app/com.emulator.antidetect-1.apk
+  Loading class com.emulator.antidetect.HookLauncher
+Loading modules from /data/app/com.cuckoodroid.droidmon-1.apk
+  Loading class com.cuckoodroid.droidmon.InstrumentationManager
+-----------------
+Jun 8, 2016 9:50:24 AM UTC
+Loading Xposed v54 (for Zygote)...
+Running ROM 'android_x86-userdebug 4.4.2 KVT49L eng.cwhuang.20140520.175817 test-keys' with fingerprint 'Android-x86/android_x86/x86:4.4.2/KVT49L/eng.cwhuang.20140520.175817:userdebug/test-keys'
+Loading modules from /data/app/com.emulator.antidetect-1.apk
+  Loading class com.emulator.antidetect.HookLauncher
+Loading modules from /data/app/com.cuckoodroid.droidmon-1.apk
+  Loading class com.cuckoodroid.droidmon.InstrumentationManager
+-----------------
+Jun 8, 2016 10:13:00 AM UTC
+Loading Xposed v54 (for Zygote)...
+Running ROM 'android_x86-userdebug 4.4.2 KVT49L eng.cwhuang.20140520.175817 test-keys' with fingerprint 'Android-x86/android_x86/x86:4.4.2/KVT49L/eng.cwhuang.20140520.175817:userdebug/test-keys'
+Loading modules from /data/app/com.emulator.antidetect-1.apk
+  Loading class com.emulator.antidetect.HookLauncher
+Loading modules from /data/app/com.cuckoodroid.droidmon-1.apk
+  Loading class com.cuckoodroid.droidmon.InstrumentationManager
+Droidmon-error:/data/local/tmp/hooks.json: open failed: ENOENT (No such file or directory)
+-----------------
+Jun 22, 2016 9:10:23 AM UTC
+Loading Xposed v54 (for Zygote)...
+Running ROM 'android_x86-userdebug 4.4.2 KVT49L eng.cwhuang.20140520.175817 test-keys' with fingerprint 'Android-x86/android_x86/x86:4.4.2/KVT49L/eng.cwhuang.20140520.175817:userdebug/test-keys'
+Loading modules from /data/app/com.emulator.antidetect-1.apk
+  Loading class com.emulator.antidetect.HookLauncher
+Loading modules from /data/app/com.cuckoodroid.droidmon-1.apk
+  Loading class com.cuckoodroid.droidmon.InstrumentationManager
+-----------------
+Jun 22, 2016 9:41:07 AM UTC
+Loading Xposed v54 (for Zygote)...
+Running ROM 'android_x86-userdebug 4.4.2 KVT49L eng.cwhuang.20140520.175817 test-keys' with fingerprint 'Android-x86/android_x86/x86:4.4.2/KVT49L/eng.cwhuang.20140520.175817:userdebug/test-keys'
+Loading modules from /data/app/com.emulator.antidetect-1.apk
+  Loading class com.emulator.antidetect.HookLauncher
+Loading modules from /data/app/com.cuckoodroid.droidmon-1.apk
+  Loading class com.cuckoodroid.droidmon.InstrumentationManager

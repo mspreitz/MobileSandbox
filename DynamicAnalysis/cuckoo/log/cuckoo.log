@@ -1,0 +1,375 @@
+2016-06-24 14:37:03,140 [lib.cuckoo.core.resultserver] WARNING: Cannot bind ResultServer on port 2042, trying another port.
+2016-06-24 14:37:03,142 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-24 14:37:03,620 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-24 14:37:03,639 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-24 14:37:04,770 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/32.apk" (task=1)
+2016-06-24 14:37:04,891 [lib.cuckoo.core.scheduler] INFO: Task #1: acquired machine cuckoo (label=cuckoo)
+2016-06-24 14:37:04,914 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 21342 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/1/dump.pcap)
+2016-06-24 14:37:09,304 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-24 14:37:19,385 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-24 14:39:22,387 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-24 14:39:35,906 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-24 14:40:06,720 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-24 14:40:07,058 [lib.cuckoo.core.scheduler] INFO: Task #1: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/1)
+2016-06-24 14:40:07,170 [lib.cuckoo.core.scheduler] INFO: Task #1: analysis procedure completed
+2016-06-24 14:45:06,576 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-24 14:45:07,074 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-24 14:45:07,095 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-24 14:45:08,243 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/33.apk" (task=2)
+2016-06-24 14:45:08,364 [lib.cuckoo.core.scheduler] INFO: Task #2: acquired machine cuckoo (label=cuckoo)
+2016-06-24 14:45:08,384 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 25407 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/2/dump.pcap)
+2016-06-24 14:45:12,713 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-24 14:45:22,793 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-24 14:47:25,496 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-24 14:47:37,832 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-24 14:48:09,110 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-24 14:48:09,575 [lib.cuckoo.core.scheduler] INFO: Task #2: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/2)
+2016-06-24 14:48:09,858 [lib.cuckoo.core.scheduler] INFO: Task #2: analysis procedure completed
+2016-06-24 14:53:23,627 [lib.cuckoo.core.resultserver] WARNING: Cannot bind ResultServer on port 2042, trying another port.
+2016-06-24 14:53:23,630 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-24 14:53:24,147 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-24 14:53:24,165 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-24 14:53:25,311 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/33.apk" (task=3)
+2016-06-24 14:53:25,323 [lib.cuckoo.core.scheduler] INFO: File already exists at "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/binaries/aed3d43ec1557c051d3a80a216b356fa6758905a5c5b2db038717ad668d8a5f6"
+2016-06-24 14:53:25,440 [lib.cuckoo.core.scheduler] INFO: Task #3: acquired machine cuckoo (label=cuckoo)
+2016-06-24 14:53:25,461 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 27647 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/3/dump.pcap)
+2016-06-24 14:53:29,627 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-24 14:53:39,703 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-24 14:55:42,592 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-24 14:55:54,834 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-24 14:56:25,805 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-24 14:56:26,189 [lib.cuckoo.core.scheduler] INFO: Task #3: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/3)
+2016-06-24 14:56:26,583 [lib.cuckoo.core.scheduler] INFO: Task #3: analysis procedure completed
+2016-06-24 14:58:44,545 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-24 14:58:45,087 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-24 14:58:45,109 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-24 14:58:46,284 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/34.apk" (task=4)
+2016-06-24 14:58:46,399 [lib.cuckoo.core.scheduler] INFO: Task #4: acquired machine cuckoo (label=cuckoo)
+2016-06-24 14:58:46,422 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 29079 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/4/dump.pcap)
+2016-06-24 14:58:50,731 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-24 14:59:00,814 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-24 15:01:03,753 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-24 15:01:20,472 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-24 15:01:51,702 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-24 15:01:52,251 [lib.cuckoo.core.scheduler] INFO: Task #4: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/4)
+2016-06-24 15:01:52,614 [lib.cuckoo.core.scheduler] INFO: Task #4: analysis procedure completed
+2016-06-24 15:03:12,686 [lib.cuckoo.core.resultserver] WARNING: Cannot bind ResultServer on port 2042, trying another port.
+2016-06-24 15:03:12,689 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-24 15:03:13,243 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-24 15:03:13,262 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-24 15:03:14,407 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/35.apk" (task=5)
+2016-06-24 15:03:14,559 [lib.cuckoo.core.scheduler] INFO: Task #5: acquired machine cuckoo (label=cuckoo)
+2016-06-24 15:03:14,582 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 29531 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/5/dump.pcap)
+2016-06-24 15:03:18,655 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-24 15:03:28,737 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-24 15:05:31,946 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-24 15:05:42,518 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-24 15:06:14,698 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-24 15:06:15,051 [lib.cuckoo.core.scheduler] INFO: Task #5: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/5)
+2016-06-24 15:06:15,433 [lib.cuckoo.core.scheduler] INFO: Task #5: analysis procedure completed
+2016-06-25 12:41:21,132 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-25 12:41:22,153 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-25 12:41:22,174 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-25 12:41:23,331 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/37.apk" (task=6)
+2016-06-25 12:41:23,486 [lib.cuckoo.core.scheduler] INFO: Task #6: acquired machine cuckoo (label=cuckoo)
+2016-06-25 12:41:23,541 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 3075 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/6/dump.pcap)
+2016-06-25 12:41:32,328 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-25 12:41:45,490 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-25 12:43:49,469 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-25 12:44:04,147 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-25 12:44:35,817 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-25 12:44:36,400 [lib.cuckoo.core.scheduler] INFO: Task #6: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/6)
+2016-06-25 12:44:36,490 [lib.cuckoo.core.scheduler] INFO: Task #6: analysis procedure completed
+2016-06-25 12:53:36,827 [lib.cuckoo.core.resultserver] WARNING: Cannot bind ResultServer on port 2042, trying another port.
+2016-06-25 12:53:36,830 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-25 12:53:37,309 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-25 12:53:37,327 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-25 12:53:38,504 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/37.apk" (task=7)
+2016-06-25 12:53:38,517 [lib.cuckoo.core.scheduler] INFO: File already exists at "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/binaries/b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce"
+2016-06-25 12:53:38,633 [lib.cuckoo.core.scheduler] INFO: Task #7: acquired machine cuckoo (label=cuckoo)
+2016-06-25 12:53:38,656 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 3773 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/7/dump.pcap)
+2016-06-25 12:53:42,659 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-25 12:53:54,749 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-25 12:55:57,571 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-25 12:56:11,300 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-25 12:56:42,584 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-25 12:56:42,939 [lib.cuckoo.core.scheduler] INFO: Task #7: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/7)
+2016-06-25 12:56:43,021 [lib.cuckoo.core.scheduler] INFO: Task #7: analysis procedure completed
+2016-06-25 13:00:09,343 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-25 13:00:09,788 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-25 13:00:09,807 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-25 13:00:10,965 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/37.apk" (task=8)
+2016-06-25 13:00:10,981 [lib.cuckoo.core.scheduler] INFO: File already exists at "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/binaries/b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce"
+2016-06-25 13:00:11,157 [lib.cuckoo.core.scheduler] INFO: Task #8: acquired machine cuckoo (label=cuckoo)
+2016-06-25 13:00:11,173 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 4317 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/8/dump.pcap)
+2016-06-25 13:00:15,411 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-25 13:00:27,494 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-25 13:02:29,775 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-25 13:02:48,546 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-25 13:03:19,987 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-25 13:03:20,366 [lib.cuckoo.core.scheduler] INFO: Task #8: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/8)
+2016-06-25 13:03:20,480 [lib.cuckoo.core.scheduler] INFO: Task #8: analysis procedure completed
+2016-06-25 13:04:50,635 [lib.cuckoo.core.resultserver] WARNING: Cannot bind ResultServer on port 2042, trying another port.
+2016-06-25 13:04:50,638 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-25 13:04:51,146 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-25 13:04:51,167 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-25 13:04:52,342 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/37.apk" (task=9)
+2016-06-25 13:04:52,357 [lib.cuckoo.core.scheduler] INFO: File already exists at "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/binaries/b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce"
+2016-06-25 13:04:52,466 [lib.cuckoo.core.scheduler] INFO: Task #9: acquired machine cuckoo (label=cuckoo)
+2016-06-25 13:04:52,492 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 4776 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/9/dump.pcap)
+2016-06-25 13:04:56,550 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-25 13:05:08,533 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-25 13:07:11,357 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-25 13:07:24,571 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-25 13:08:01,283 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-25 13:08:01,631 [lib.cuckoo.core.scheduler] INFO: Task #9: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/9)
+2016-06-25 13:08:01,756 [lib.cuckoo.core.scheduler] INFO: Task #9: analysis procedure completed
+2016-06-25 13:08:26,478 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-25 13:08:27,832 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-25 13:08:27,850 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-25 13:08:28,993 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/37.apk" (task=10)
+2016-06-25 13:08:29,004 [lib.cuckoo.core.scheduler] INFO: File already exists at "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/binaries/b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce"
+2016-06-25 13:08:29,095 [lib.cuckoo.core.scheduler] INFO: Task #10: acquired machine cuckoo (label=cuckoo)
+2016-06-25 13:08:29,121 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 5345 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/10/dump.pcap)
+2016-06-25 13:08:33,282 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-25 13:08:46,371 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-25 13:10:49,211 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-25 13:11:14,154 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-25 13:11:46,343 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-25 13:11:46,678 [lib.cuckoo.core.scheduler] INFO: Task #10: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/10)
+2016-06-25 13:11:46,772 [lib.cuckoo.core.scheduler] INFO: Task #10: analysis procedure completed
+2016-06-25 13:19:46,441 [lib.cuckoo.core.resultserver] WARNING: Cannot bind ResultServer on port 2042, trying another port.
+2016-06-25 13:19:46,444 [lib.cuckoo.core.scheduler] INFO: Using "virtualbox" machine manager
+2016-06-25 13:19:46,966 [lib.cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2016-06-25 13:19:46,987 [lib.cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2016-06-25 13:19:48,147 [lib.cuckoo.core.scheduler] INFO: Starting analysis of FILE "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/Samples/37.apk" (task=11)
+2016-06-25 13:19:48,162 [lib.cuckoo.core.scheduler] INFO: File already exists at "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/binaries/b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce"
+2016-06-25 13:19:48,269 [lib.cuckoo.core.scheduler] INFO: Task #11: acquired machine cuckoo (label=cuckoo)
+2016-06-25 13:19:48,290 [modules.auxiliary.sniffer] INFO: Started sniffer with PID 5830 (interface=vboxnet0, host=192.168.56.10, dump path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/11/dump.pcap)
+2016-06-25 13:19:52,511 [lib.cuckoo.core.guest] INFO: Starting analysis on guest (id=cuckoo, ip=192.168.56.10)
+2016-06-25 13:20:04,271 [lib.cuckoo.core.guest] INFO: Get process list
+2016-06-25 13:22:07,198 [lib.cuckoo.core.guest] INFO: cuckoo: analysis completed successfully
+2016-06-25 13:22:21,355 [lib.cuckoo.common.objects] WARNING: Unable to import pydeep (install with `pip install pydeep`)
+2016-06-25 13:22:52,859 [lib.cuckoo.core.plugins] ERROR: Failed to run the reporting module "MongoDB":
+Traceback (most recent call last):
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/lib/cuckoo/core/plugins.py", line 504, in process
+    current.run(self.results)
+  File "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/modules/reporting/mongodb.py", line 87, in run
+    if "cuckoo_schema" in self.db.collection_names():
+  File "/usr/lib/python2.7/site-packages/pymongo/database.py", line 517, in collection_names
+    ReadPreference.PRIMARY) as (sock_info, slave_okay):
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 752, in _socket_for_reads
+    with self._get_socket(read_preference) as sock_info:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/usr/lib/python2.7/site-packages/pymongo/mongo_client.py", line 716, in _get_socket
+    server = self._get_topology().select_server(selector)
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 142, in select_server
+    address))
+  File "/usr/lib/python2.7/site-packages/pymongo/topology.py", line 118, in select_servers
+    self._error_message(selector))
+ServerSelectionTimeoutError: 127.0.0.1:27017: [Errno 111] Connection refused
+2016-06-25 13:22:53,194 [lib.cuckoo.core.scheduler] INFO: Task #11: reports generation completed (path=/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/analyses/11)
+2016-06-25 13:22:53,301 [lib.cuckoo.core.scheduler] INFO: Task #11: analysis procedure completed

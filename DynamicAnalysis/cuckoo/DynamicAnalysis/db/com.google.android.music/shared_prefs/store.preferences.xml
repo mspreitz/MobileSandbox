@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="media.store.import.db.version">MediaStore.700</string>
+    <long name="media.store.import.fs_id" value="-1" />
+    <long name="media.store.import.version" value="10" />
+    <boolean name="media.store.cache.migration.tried" value="true" />
+    <long name="media.store.import.time" value="1466588507637" />
+</map>

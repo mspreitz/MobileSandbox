@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="GEL.GSAPrefs.now_enabled" value="false" />
+    <int name="GSAPrefs.debug_features_level" value="0" />
+    <boolean name="GSAPrefs.first_run_screens_shown" value="false" />
+    <string name="GEL.GSAPrefs.gel_tag">GEL</string>
+    <boolean name="GSAPrefs.hotword_enabled" value="true" />
+    <boolean name="GEL.GSAPrefs.log_gel_events" value="false" />
+</map>

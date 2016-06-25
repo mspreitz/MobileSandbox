@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="last_seen_binary" value="58" />
+    <boolean name="cleaned_up_debug_log" value="true" />
+    <boolean name="cleaned_up_sdcard" value="true" />
+</map>

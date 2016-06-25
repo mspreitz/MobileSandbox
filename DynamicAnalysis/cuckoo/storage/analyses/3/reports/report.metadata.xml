@@ -1,0 +1,28 @@
+<?xml version='1.0' ?>
+<!--
+Cuckoo Sandbox malware analysis report
+http://www.cuckoosandbox.org
+-->
+<malwareMetaData xmlns='http://xml/metadataSharing.xsd' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://xml/metadataSharing.xsd' version="1.100000" id="cuckoo:d0400193264a2470962e98a3d1b61e3e">
+    <author>Cuckoo Sandbox 1.2</author>
+    <comment>Report created with Cuckoo Sandbox 1.2 automated and open source malware sandbox: http://www.cuckoosandbox.org</comment>
+    <timestamp>2016-06-24T14:53:25</timestamp>
+    <objects>
+        <file id="d0400193264a2470962e98a3d1b61e3e">
+            <md5>d0400193264a2470962e98a3d1b61e3e</md5>
+            <sha1>7fa10a458a8f0857ecac94c699cff63c96cc9024</sha1>
+            <sha512>84c52674a883cca451a03272b4af0c42ded9d5b9c0154e6a3b43f78a3e8f6d08775a440f42af9573ee9a2169f2eaef44902b37cb7bdc6daa4eedb394ea202039</sha512>
+            <size>100776</size>
+            <crc32>B13EB269</crc32>
+            <fileType>Java archive data (JAR)</fileType>
+            <extraHash type="ssdeep"/>
+        </file>
+    </objects>
+    <objectProperties>
+        <objectProperty>
+            <references>file[@id='d0400193264a2470962e98a3d1b61e3e']</references>
+            <property type="filename">33.apk</property>
+        </objectProperty>
+    </objectProperties>
+    <relationships/>
+</malwareMetaData>

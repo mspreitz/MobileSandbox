@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="sw_update_circle" value="false" />
+    <long name="sw_ctv_marker_time" value="-1" />
+    <boolean name="sw_ctv_paused" value="false" />
+    <string name="home_time_zone">GMT</string>
+    <boolean name="notif_app_open" value="false" />
+    <int name="intent.extra.alarm.global.id" value="8" />
+    <string name="volume_button_setting">0</string>
+    <boolean name="vol_def_done" value="true" />
+    <long name="sw_ctv_interval_start" value="-1" />
+    <long name="sw_ctv_interval" value="0" />
+    <boolean name="sw_ctv_timer_mode" value="false" />
+    <long name="sw_ctv_current_interval" value="0" />
+    <long name="sw_ctv_accum_time" value="0" />
+</map>

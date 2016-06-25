@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="pref_key_sms_delivery_reports" value="false" />
+    <string name="pref_key_ringtone">content://settings/system/notification_sound</string>
+    <boolean name="pref_key_auto_delete" value="false" />
+    <boolean name="pref_key_vibrate" value="false" />
+    <boolean name="pref_key_mms_read_reports" value="false" />
+    <boolean name="pref_key_mms_retrieval_during_roaming" value="false" />
+    <boolean name="pref_key_enable_notifications" value="true" />
+    <boolean name="pref_key_mms_delivery_reports" value="false" />
+    <boolean name="pref_key_mms_group_mms" value="true" />
+    <boolean name="pref_key_mms_auto_retrieval" value="true" />
+</map>

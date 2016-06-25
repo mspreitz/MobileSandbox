@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="sent_requests_delayed_request" value="2" />
+    <int name="current_queue_size" value="0" />
+    <int name="total_successful_requests" value="4" />
+    <string name="request_type_seen_so_far">delayed_request</string>
+    <int name="peak_queue_size" value="2" />
+    <int name="total_sent_requests" value="2" />
+    <int name="total_enqueued_requests" value="2" />
+    <long name="age_of_oldest_request_hours" value="0" />
+</map>

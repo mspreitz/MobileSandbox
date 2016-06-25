@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="hitsInDb" value="0" />
+    <int name="hitsDispatched" value="2" />
+    <int name="hitsReceived" value="2" />
+</map>

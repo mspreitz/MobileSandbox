@@ -1,0 +1,75 @@
+<?xml version='1.0' ?>
+<!--
+Cuckoo Sandbox malware analysis report
+http://www.cuckoosandbox.org
+-->
+<malwareMetaData xmlns='http://xml/metadataSharing.xsd' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://xml/metadataSharing.xsd' version="1.100000" id="cuckoo:187fff83aeda545eb9d7a28e27ddeca8">
+    <author>Cuckoo Sandbox 1.2</author>
+    <comment>Report created with Cuckoo Sandbox 1.2 automated and open source malware sandbox: http://www.cuckoosandbox.org</comment>
+    <timestamp>2016-06-25T13:08:28</timestamp>
+    <objects>
+        <file id="187fff83aeda545eb9d7a28e27ddeca8">
+            <md5>187fff83aeda545eb9d7a28e27ddeca8</md5>
+            <sha1>bc63590e6bff6ad988d151c4717078d7cde3891a</sha1>
+            <sha512>e2fc79eb33724a255d7b71f7c7b271f69aa72626da38cbae55b4c5fda12dbe795d96f933aa60096ac90a696021a5209539192a7d6ccc00d864b8e7f6e160c118</sha512>
+            <size>145473</size>
+            <crc32>8F85F400</crc32>
+            <fileType>Zip archive data, at least v2.0 to extract</fileType>
+            <extraHash type="ssdeep"/>
+        </file>
+        <uri id="http://www.gstatic.com/android/config_update/02022016-sms-blacklist-metadata.txt">
+            <uriString>http://www.gstatic.com/android/config_update/02022016-sms-blacklist-metadata.txt</uriString>
+            <protocol>http</protocol>
+            <hostname>www.gstatic.com</hostname>
+            <port>80</port>
+            <path>/android/config_update/02022016-sms-blacklist-metadata.txt</path>
+            <ipProtocol>tcp</ipProtocol>
+        </uri>
+        <uri id="http://www.gstatic.com/android/config_update/02022016-sms-blacklist.txt">
+            <uriString>http://www.gstatic.com/android/config_update/02022016-sms-blacklist.txt</uriString>
+            <protocol>http</protocol>
+            <hostname>www.gstatic.com</hostname>
+            <port>80</port>
+            <path>/android/config_update/02022016-sms-blacklist.txt</path>
+            <ipProtocol>tcp</ipProtocol>
+        </uri>
+        <ip id="87.245.198.44-87.245.198.44">
+            <startAddress type="ipv4">87.245.198.44</startAddress>
+            <endAddress type="ipv4">87.245.198.44</endAddress>
+        </ip>
+    </objects>
+    <objectProperties>
+        <objectProperty>
+            <references>file[@id='187fff83aeda545eb9d7a28e27ddeca8']</references>
+            <property type="filename">37.apk</property>
+        </objectProperty>
+        <objectProperty>
+            <references>uri[@id='http://www.gstatic.com/android/config_update/02022016-sms-blacklist-metadata.txt']</references>
+            <property type="httpMethod">GET</property>
+            <property type="userAgent">AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)</property>
+        </objectProperty>
+        <objectProperty>
+            <references>uri[@id='http://www.gstatic.com/android/config_update/02022016-sms-blacklist.txt']</references>
+            <property type="httpMethod">GET</property>
+            <property type="userAgent">AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)</property>
+        </objectProperty>
+    </objectProperties>
+    <relationships>
+        <relationship type="isServerOfService" id="1">
+            <source>ip[@id='87.245.198.44-87.245.198.44']</source>
+            <target>uri[@id='http://www.gstatic.com/android/config_update/02022016-sms-blacklist-metadata.txt']</target>
+        </relationship>
+        <relationship type="isServerOfService" id="2">
+            <source>ip[@id='87.245.198.44-87.245.198.44']</source>
+            <target>uri[@id='http://www.gstatic.com/android/config_update/02022016-sms-blacklist.txt']</target>
+        </relationship>
+        <relationship type="contactedBy" id="3">
+            <source>file[@id='187fff83aeda545eb9d7a28e27ddeca8']</source>
+            <target>uri[@id='http://www.gstatic.com/android/config_update/02022016-sms-blacklist-metadata.txt']</target>
+        </relationship>
+        <relationship type="contactedBy" id="4">
+            <source>file[@id='187fff83aeda545eb9d7a28e27ddeca8']</source>
+            <target>uri[@id='http://www.gstatic.com/android/config_update/02022016-sms-blacklist.txt']</target>
+        </relationship>
+    </relationships>
+</malwareMetaData>

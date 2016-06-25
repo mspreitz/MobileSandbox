@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <long name="last.update.time" value="0" />
+    <long name="scheduled.trigger.time" value="0" />
+    <int name="account" value="0" />
+    <long name="last.attempt.time" value="0" />
+    <boolean name="current.update.mixes.refreshed" value="false" />
+    <boolean name="initialized" value="false" />
+    <long name="connectivity.recovery.time" value="0" />
+    <long name="app.use.time" value="0" />
+    <long name="current.update.time" value="0" />
+</map>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="connection_status" value="true" />
+    <boolean name="setupwizard.gservices_changed" value="true" />
+    <int name="lastActivity" value="10013" />
+</map>

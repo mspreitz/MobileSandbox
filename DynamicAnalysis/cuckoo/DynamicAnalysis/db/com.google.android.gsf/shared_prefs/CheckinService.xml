@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <long name="CheckinTask_securityToken" value="4278974469605850045" />
+    <string name="CheckinService_cachedGlExt"></string>
+    <string name="CheckinService_lastSim">no-sim
+no-imsi</string>
+    <long name="OperationScheduler_lastSuccessTimeMillis" value="1465379441466" />
+    <long name="CheckinTask_bookmark" value="1463920732154" />
+    <boolean name="OperationScheduler_enabledState" value="true" />
+    <string name="CheckinService_lastBuild">Android-x86/android_x86/x86:4.4.2/KVT49L/eng.cwhuang.20140520.175817:userdebug/test-keys
+unknown
+unknown</string>
+</map>

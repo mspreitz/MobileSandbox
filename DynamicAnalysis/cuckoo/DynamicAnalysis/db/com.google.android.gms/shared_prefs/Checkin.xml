@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="OperationScheduler_errorCount" value="10" />
+    <long name="OperationScheduler_lastErrorTimeMillis" value="1466592196856" />
+    <long name="OperationScheduler_lastSuccessTimeMillis" value="1465379441468" />
+    <string name="CheckinService_lastBuild">Android-x86/android_x86/x86:4.4.2/KVT49L/eng.cwhuang.20140520.175817:userdebug/test-keys
+unknown
+unknown</string>
+    <long name="CheckinTask_bookmark" value="1465379439450" />
+    <string name="CheckinService_cachedGlExt"></string>
+    <string name="CheckinService_lastSim">no-sim
+no-imsi</string>
+    <boolean name="OperationScheduler_enabledState" value="true" />
+</map>

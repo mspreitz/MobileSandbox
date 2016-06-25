@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="libAppDataSearchExt_x86.so__enabled__" value="true" />
+    <boolean name="libAppDataSearchExt_x86.so" value="true" />
+    <string name="ds__downloads_json__">[{&quot;minVersion&quot;:0,&quot;filename&quot;:&quot;libAppDataSearchExt_x86.so&quot;,&quot;sha1&quot;:&quot;2fe798a546ed0482c3421b49f332093079c9025b&quot;,&quot;sizeBytes&quot;:3945676,&quot;url&quot;:&quot;https:\/\/dl.google.com\/android\/appdatasearch\/libAppDataSearchExt_x86.v3.so&quot;,&quot;destination&quot;:&quot;&quot;}]</string>
+    <long name="ds__next_alarm__" value="43245775" />
+    <long name="ds__last_process__" value="45685" />
+    <string name="libAppDataSearchExt_x86.so__dest__"></string>
+    <long name="ds__last_reset__" value="45685" />
+    <string name="libAppDataSearchExt_x86.so__sha1__">2fe798a546ed0482c3421b49f332093079c9025b</string>
+</map>

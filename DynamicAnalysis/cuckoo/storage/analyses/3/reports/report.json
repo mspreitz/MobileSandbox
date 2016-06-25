@@ -1,0 +1,3376 @@
+{
+    "info": {
+        "category": "file", 
+        "package": "", 
+        "started": "2016-06-24 14:53:25", 
+        "custom": "", 
+        "machine": {
+            "shutdown_on": "2016-06-24 14:55:52", 
+            "label": "cuckoo", 
+            "manager": "VirtualBox", 
+            "started_on": "2016-06-24 14:53:25", 
+            "id": 3, 
+            "name": "cuckoo"
+        }, 
+        "ended": "2016-06-24 14:55:52", 
+        "version": "1.2", 
+        "duration": 147, 
+        "id": 3
+    }, 
+    "procmemory": [], 
+    "network": {
+        "udp": [
+            {
+                "src": "192.168.56.10", 
+                "dst": "129.70.132.37", 
+                "offset": 1567756, 
+                "time": 0.00972294807434082, 
+                "dport": 123, 
+                "sport": 38677
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "129.70.132.37", 
+                "offset": 1567862, 
+                "time": 98.81137609481812, 
+                "dport": 123, 
+                "sport": 43335
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1624481, 
+                "time": 3.3499910831451416, 
+                "dport": 53, 
+                "sport": 3358
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1624655, 
+                "time": 1.9936740398406982, 
+                "dport": 53, 
+                "sport": 10039
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1624867, 
+                "time": 0.03517794609069824, 
+                "dport": 53, 
+                "sport": 23237
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1625096, 
+                "time": 9.202957153320312e-05, 
+                "dport": 53, 
+                "sport": 32040
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1625356, 
+                "time": 3.377669095993042, 
+                "dport": 53, 
+                "sport": 40444
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1625530, 
+                "time": 14.108066082000732, 
+                "dport": 53, 
+                "sport": 44923
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1625759, 
+                "time": 3.377479076385498, 
+                "dport": 53, 
+                "sport": 48778
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1625949, 
+                "time": 3.389863967895508, 
+                "dport": 53, 
+                "sport": 54051
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1626139, 
+                "time": 3.350783109664917, 
+                "dport": 53, 
+                "sport": 58413
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1626331, 
+                "time": 3.3251709938049316, 
+                "dport": 53, 
+                "sport": 63810
+            }
+        ], 
+        "irc": [], 
+        "http": [], 
+        "smtp": [], 
+        "tcp": [
+            {
+                "src": "192.168.56.1", 
+                "dst": "192.168.56.10", 
+                "offset": 496, 
+                "time": 126.88609910011292, 
+                "dport": 5555, 
+                "sport": 32876
+            }, 
+            {
+                "src": "192.168.56.1", 
+                "dst": "192.168.56.10", 
+                "offset": 2092, 
+                "time": 126.95037198066711, 
+                "dport": 5555, 
+                "sport": 32886
+            }, 
+            {
+                "src": "192.168.56.1", 
+                "dst": "192.168.56.10", 
+                "offset": 1520654, 
+                "time": 0.8211140632629395, 
+                "dport": 5555, 
+                "sport": 60540
+            }, 
+            {
+                "src": "192.168.56.1", 
+                "dst": "192.168.56.10", 
+                "offset": 1521612, 
+                "time": 0.8323400020599365, 
+                "dport": 5555, 
+                "sport": 60698
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.166.188", 
+                "offset": 1568230, 
+                "time": 98.83903408050537, 
+                "dport": 5228, 
+                "sport": 33935
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.166.188", 
+                "offset": 1574385, 
+                "time": 14.144892930984497, 
+                "dport": 5228, 
+                "sport": 41099
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.166.188", 
+                "offset": 1580384, 
+                "time": 50.494601011276245, 
+                "dport": 5228, 
+                "sport": 41101
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.166.188", 
+                "offset": 1586540, 
+                "time": 26.286184072494507, 
+                "dport": 5228, 
+                "sport": 59146
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.184.188", 
+                "offset": 1592696, 
+                "time": 0.3809969425201416, 
+                "dport": 5228, 
+                "sport": 33434
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.184.188", 
+                "offset": 1598852, 
+                "time": 4.901514053344727, 
+                "dport": 5228, 
+                "sport": 33903
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.184.188", 
+                "offset": 1605008, 
+                "time": 1.8004169464111328, 
+                "dport": 5228, 
+                "sport": 48604
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.184.188", 
+                "offset": 1612589, 
+                "time": 0.9315590858459473, 
+                "dport": 5228, 
+                "sport": 55523
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.184.188", 
+                "offset": 1618587, 
+                "time": 8.002156972885132, 
+                "dport": 5228, 
+                "sport": 58134
+            }
+        ], 
+        "hosts": [
+            "129.70.132.37", 
+            "64.233.166.188", 
+            "64.233.184.188", 
+            "8.8.4.4"
+        ], 
+        "pcap_sha256": "0ba7e30c72e6077b8f09857f415b79f689bff66b65e12db9982b71a859ab5bf7", 
+        "dns": [
+            {
+                "type": "A", 
+                "request": "2.android.pool.ntp.org", 
+                "answers": [
+                    {
+                        "data": "5.100.133.221", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "148.251.84.200", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "129.70.132.37", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "85.25.210.112", 
+                        "type": "A"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "mtalk.google.com", 
+                "answers": [
+                    {
+                        "data": "64.233.184.188", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "mobile-gtalk.l.google.com", 
+                        "type": "CNAME"
+                    }, 
+                    {
+                        "data": "64.233.166.188", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "mobile-gtalk.l.google.com", 
+                        "type": "CNAME"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "mm.admob.com.8.8.8.8", 
+                "answers": []
+            }, 
+            {
+                "type": "A", 
+                "request": "2.android.pool.ntp.org.8.8.8.8", 
+                "answers": []
+            }, 
+            {
+                "type": "A", 
+                "request": "r.admob.com", 
+                "answers": []
+            }, 
+            {
+                "type": "A", 
+                "request": "mm.admob.com", 
+                "answers": []
+            }, 
+            {
+                "type": "A", 
+                "request": "r.admob.com.8.8.8.8", 
+                "answers": []
+            }
+        ], 
+        "domains": [
+            {
+                "ip": "", 
+                "domain": "r.admob.com"
+            }, 
+            {
+                "ip": "", 
+                "domain": "2.android.pool.ntp.org.8.8.8.8"
+            }, 
+            {
+                "ip": "64.233.166.188", 
+                "domain": "mtalk.google.com"
+            }, 
+            {
+                "ip": "192.53.103.108", 
+                "domain": "2.android.pool.ntp.org"
+            }, 
+            {
+                "ip": "", 
+                "domain": "r.admob.com.8.8.8.8"
+            }, 
+            {
+                "ip": "", 
+                "domain": "mm.admob.com.8.8.8.8"
+            }, 
+            {
+                "ip": "", 
+                "domain": "mm.admob.com"
+            }
+        ], 
+        "sorted_pcap_sha256": "20f835fc348326ff09330f0d1e1d3c2990f0ac957436d91c211c4b152aec8513", 
+        "icmp": []
+    }, 
+    "virustotal": {
+        "scan_id": "aed3d43ec1557c051d3a80a216b356fa6758905a5c5b2db038717ad668d8a5f6-1454407943", 
+        "sha1": "7fa10a458a8f0857ecac94c699cff63c96cc9024", 
+        "resource": "d0400193264a2470962e98a3d1b61e3e", 
+        "response_code": 1, 
+        "scan_date": "2016-02-02 10:12:23", 
+        "permalink": "https://www.virustotal.com/file/aed3d43ec1557c051d3a80a216b356fa6758905a5c5b2db038717ad668d8a5f6/analysis/1454407943/", 
+        "verbose_msg": "Scan finished, information embedded", 
+        "sha256": "aed3d43ec1557c051d3a80a216b356fa6758905a5c5b2db038717ad668d8a5f6", 
+        "positives": 35, 
+        "total": 54, 
+        "md5": "d0400193264a2470962e98a3d1b61e3e", 
+        "scans": {
+            "Bkav": {
+                "detected": false, 
+                "version": "1.3.0.7400", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "MicroWorld-eScan": {
+                "detected": true, 
+                "version": "12.0.250.0", 
+                "result": "Android.Monitor.GpsSpyTracker.C", 
+                "update": "20160203"
+            }, 
+            "nProtect": {
+                "detected": false, 
+                "version": "2016-02-01.01", 
+                "result": null, 
+                "update": "20160201"
+            }, 
+            "CAT-QuickHeal": {
+                "detected": true, 
+                "version": "14.00", 
+                "result": "Android.Spyset.A (PUP)", 
+                "update": "20160202"
+            }, 
+            "McAfee": {
+                "detected": true, 
+                "version": "6.0.6.653", 
+                "result": "Artemis!D0400193264A", 
+                "update": "20160203"
+            }, 
+            "Malwarebytes": {
+                "detected": false, 
+                "version": "2.1.1.1115", 
+                "result": null, 
+                "update": "20160203"
+            }, 
+            "Zillya": {
+                "detected": false, 
+                "version": "2.0.0.2643", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "AegisLab": {
+                "detected": true, 
+                "version": "4.2", 
+                "result": "Monitor.Androidos.Spyset!c", 
+                "update": "20160202"
+            }, 
+            "TheHacker": {
+                "detected": false, 
+                "version": "6.8.0.5.823", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "Alibaba": {
+                "detected": true, 
+                "version": "1.0", 
+                "result": "A.H.Pri.Spysat.B", 
+                "update": "20160202"
+            }, 
+            "K7GW": {
+                "detected": true, 
+                "version": "9.213.18621", 
+                "result": "Spyware ( 0048d7dc1 )", 
+                "update": "20160202"
+            }, 
+            "K7AntiVirus": {
+                "detected": false, 
+                "version": "9.213.18618", 
+                "result": null, 
+                "update": "20160203"
+            }, 
+            "Agnitum": {
+                "detected": false, 
+                "version": "5.5.1.3", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "F-Prot": {
+                "detected": true, 
+                "version": "4.7.1.166", 
+                "result": "AndroidOS/Spyset.A", 
+                "update": "20160129"
+            }, 
+            "Symantec": {
+                "detected": true, 
+                "version": "20151.1.0.32", 
+                "result": "Trojan.Gen.2", 
+                "update": "20160202"
+            }, 
+            "ESET-NOD32": {
+                "detected": true, 
+                "version": "12967", 
+                "result": "a variant of Android/Monitor.Spyset.A potentially unsafe", 
+                "update": "20160202"
+            }, 
+            "TrendMicro-HouseCall": {
+                "detected": true, 
+                "version": "9.800.0.1009", 
+                "result": "AndroidOS_SPYSAT.B", 
+                "update": "20160203"
+            }, 
+            "Avast": {
+                "detected": true, 
+                "version": "8.0.1489.320", 
+                "result": "Android:SpySat-B [PUP]", 
+                "update": "20160202"
+            }, 
+            "ClamAV": {
+                "detected": false, 
+                "version": "0.98.5.0", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "GData": {
+                "detected": true, 
+                "version": "25", 
+                "result": "Android.Monitor.GpsSpyTracker.C", 
+                "update": "20160202"
+            }, 
+            "Kaspersky": {
+                "detected": true, 
+                "version": "15.0.1.13", 
+                "result": "not-a-virus:HEUR:Monitor.AndroidOS.Spyset.a", 
+                "update": "20160203"
+            }, 
+            "BitDefender": {
+                "detected": true, 
+                "version": "7.2", 
+                "result": "Android.Monitor.GpsSpyTracker.C", 
+                "update": "20160203"
+            }, 
+            "NANO-Antivirus": {
+                "detected": true, 
+                "version": "1.0.14.5798", 
+                "result": "Trojan.Android.Spyset.dapbok", 
+                "update": "20160202"
+            }, 
+            "SUPERAntiSpyware": {
+                "detected": false, 
+                "version": "5.6.0.1032", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "ByteHero": {
+                "detected": false, 
+                "version": "1.0.0.1", 
+                "result": null, 
+                "update": "20160203"
+            }, 
+            "Tencent": {
+                "detected": true, 
+                "version": "1.0.0.1", 
+                "result": "Android.Trojan.Spst.Wnvk", 
+                "update": "20160203"
+            }, 
+            "Ad-Aware": {
+                "detected": true, 
+                "version": "3.0.2.1015", 
+                "result": "Android.Monitor.GpsSpyTracker.C", 
+                "update": "20160203"
+            }, 
+            "Emsisoft": {
+                "detected": true, 
+                "version": "3.5.0.642", 
+                "result": "Android.Monitor.GpsSpyTracker.C (B)", 
+                "update": "20160203"
+            }, 
+            "Comodo": {
+                "detected": true, 
+                "version": "24071", 
+                "result": "UnclassifiedMalware", 
+                "update": "20160202"
+            }, 
+            "F-Secure": {
+                "detected": true, 
+                "version": "11.0.19100.45", 
+                "result": "Monitoring-Tool:Android/SpyTrack.B", 
+                "update": "20160202"
+            }, 
+            "DrWeb": {
+                "detected": true, 
+                "version": "7.0.17.11230", 
+                "result": "Program.Spyset.3.origin", 
+                "update": "20160203"
+            }, 
+            "VIPRE": {
+                "detected": true, 
+                "version": "46940", 
+                "result": "Trojan.AndroidOS.Generic.A", 
+                "update": "20160203"
+            }, 
+            "TrendMicro": {
+                "detected": true, 
+                "version": "9.740.0.1012", 
+                "result": "AndroidOS_SPYSAT.B", 
+                "update": "20160203"
+            }, 
+            "McAfee-GW-Edition": {
+                "detected": false, 
+                "version": "v2015", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "Sophos": {
+                "detected": true, 
+                "version": "4.98.0", 
+                "result": "Andr/SpyTrack-A", 
+                "update": "20160203"
+            }, 
+            "Cyren": {
+                "detected": true, 
+                "version": "5.4.16.7", 
+                "result": "AndroidOS/Spyset.A", 
+                "update": "20160203"
+            }, 
+            "Jiangmin": {
+                "detected": false, 
+                "version": "16.0.100", 
+                "result": null, 
+                "update": "20160203"
+            }, 
+            "Avira": {
+                "detected": true, 
+                "version": "8.3.2.4", 
+                "result": "ANDROID/SpSt.A.15", 
+                "update": "20160203"
+            }, 
+            "Antiy-AVL": {
+                "detected": true, 
+                "version": "1.0.0.1", 
+                "result": "RiskWare[Monitor]/AndroidOS.Spyset.a", 
+                "update": "20160202"
+            }, 
+            "Arcabit": {
+                "detected": true, 
+                "version": "1.0.0.653", 
+                "result": "Android.Monitor.GpsSpyTracker.C", 
+                "update": "20160203"
+            }, 
+            "ViRobot": {
+                "detected": false, 
+                "version": "2014.3.20.0", 
+                "result": null, 
+                "update": "20160203"
+            }, 
+            "AhnLab-V3": {
+                "detected": true, 
+                "version": "2016.02.03.00", 
+                "result": "Android-Spyware/SpyTrack.1bc1", 
+                "update": "20160202"
+            }, 
+            "Microsoft": {
+                "detected": false, 
+                "version": "1.1.12400.0", 
+                "result": null, 
+                "update": "20160203"
+            }, 
+            "TotalDefense": {
+                "detected": false, 
+                "version": "37.1.62.1", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "VBA32": {
+                "detected": false, 
+                "version": "3.12.26.4", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "ALYac": {
+                "detected": false, 
+                "version": "1.0.1.8", 
+                "result": null, 
+                "update": "20160203"
+            }, 
+            "Baidu-International": {
+                "detected": true, 
+                "version": "3.5.1.41473", 
+                "result": "Hacktool.Android.Spyset.A", 
+                "update": "20160202"
+            }, 
+            "Zoner": {
+                "detected": false, 
+                "version": "1.0", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "Rising": {
+                "detected": true, 
+                "version": "25.0.0.18", 
+                "result": "APK:Trojan.spytrack.a/Android!7.105F [F]", 
+                "update": "20160202"
+            }, 
+            "Ikarus": {
+                "detected": true, 
+                "version": "T3.2.0.4.0", 
+                "result": "PUA.AndroidOS.Spytrack", 
+                "update": "20160202"
+            }, 
+            "Fortinet": {
+                "detected": true, 
+                "version": "5.1.220.0", 
+                "result": "Adware/Spyset!Android", 
+                "update": "20160202"
+            }, 
+            "AVG": {
+                "detected": true, 
+                "version": "16.0.0.4522", 
+                "result": "Android/Spyse", 
+                "update": "20160203"
+            }, 
+            "Panda": {
+                "detected": false, 
+                "version": "4.6.4.2", 
+                "result": null, 
+                "update": "20160202"
+            }, 
+            "Qihoo-360": {
+                "detected": true, 
+                "version": "1.0.0.1120", 
+                "result": "Android mobile malware", 
+                "update": "20160203"
+            }
+        }
+    }, 
+    "droidmon": {}, 
+    "signatures": [
+        {
+            "families": [], 
+            "description": "File has been identified by at least one AntiVirus on VirusTotal as malicious (Osint)", 
+            "severity": 2, 
+            "references": [], 
+            "alert": false, 
+            "data": [], 
+            "name": "android_antivirus_virustotal"
+        }, 
+        {
+            "families": [], 
+            "description": "Application Uses Reflection Methods (Static)", 
+            "severity": 2, 
+            "references": [], 
+            "alert": false, 
+            "data": [
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Static API Call", 
+                            "value": "1 Lcom/admob/android/ads/j;->a(Ljava/lang/String; Landroid/view/animation/Animation;)V (0x4e) ---> Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object; [Ljava/lang/Object;)Ljava/lang/Object;"
+                        }
+                    ]
+                }
+            ], 
+            "name": "android_reflection_code"
+        }, 
+        {
+            "families": [], 
+            "description": "Application Asks For Dangerous Permissions (Static)", 
+            "severity": 3, 
+            "references": [], 
+            "alert": false, 
+            "data": [
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.INTERNET", 
+                            "value": "Allows an application to create network sockets."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.ACCESS_FINE_LOCATION", 
+                            "value": "Access fine location sources, such as the Global Positioning System on the phone, where available. Malicious applications can use this to determine where you are and may consume additional battery power."
+                        }
+                    ]
+                }
+            ], 
+            "name": "android_dangerous_permissions"
+        }, 
+        {
+            "families": [], 
+            "description": "File has been identified by more the 10 AntiVirus on VirusTotal as malicious (Osint)", 
+            "severity": 4, 
+            "references": [], 
+            "alert": false, 
+            "data": [
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "MicroWorld-eScan", 
+                            "value": "Android.Monitor.GpsSpyTracker.C"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "CAT-QuickHeal", 
+                            "value": "Android.Spyset.A (PUP)"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "McAfee", 
+                            "value": "Artemis!D0400193264A"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "F-Prot", 
+                            "value": "AndroidOS/Spyset.A"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "ESET-NOD32", 
+                            "value": "a variant of Android/Monitor.Spyset.A potentially unsafe"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "TrendMicro-HouseCall", 
+                            "value": "AndroidOS_SPYSAT.B"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Avast", 
+                            "value": "Android:SpySat-B [PUP]"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "GData", 
+                            "value": "Android.Monitor.GpsSpyTracker.C"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Kaspersky", 
+                            "value": "not-a-virus:HEUR:Monitor.AndroidOS.Spyset.a"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "BitDefender", 
+                            "value": "Android.Monitor.GpsSpyTracker.C"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "NANO-Antivirus", 
+                            "value": "Trojan.Android.Spyset.dapbok"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Emsisoft", 
+                            "value": "Android.Monitor.GpsSpyTracker.C (B)"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Comodo", 
+                            "value": "UnclassifiedMalware"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "F-Secure", 
+                            "value": "Monitoring-Tool:Android/SpyTrack.B"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "DrWeb", 
+                            "value": "Program.Spyset.3.origin"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "VIPRE", 
+                            "value": "Trojan.AndroidOS.Generic.A"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Sophos", 
+                            "value": "Andr/SpyTrack-A"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Ikarus", 
+                            "value": "PUA.AndroidOS.Spytrack"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Fortinet", 
+                            "value": "Adware/Spyset!Android"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "AVG", 
+                            "value": "Android/Spyse"
+                        }
+                    ]
+                }
+            ], 
+            "name": "android_antivirus_virustotal_threshold"
+        }
+    ], 
+    "static": {}, 
+    "apkinfo": {
+        "files": [
+            {
+                "size": 2858, 
+                "type": "Unknown", 
+                "name": "res/drawable/icon.png", 
+                "md5": "6af217b95fc0df8001d7219c759ef48e"
+            }, 
+            {
+                "size": 7111, 
+                "type": "Unknown", 
+                "name": "res/drawable/spysat.png", 
+                "md5": "6dbaab6d88b9aa4956af1a296463b871"
+            }, 
+            {
+                "size": 513, 
+                "type": "Unknown", 
+                "name": "res/layout/main.xml", 
+                "md5": "a77fe500f2931c8398b69fc5df2628f2"
+            }, 
+            {
+                "size": 2309, 
+                "type": "Unknown", 
+                "name": "AndroidManifest.xml", 
+                "md5": "70bf912ce384dbe6bd23d07ba619614e"
+            }, 
+            {
+                "size": 11685, 
+                "type": "Unknown", 
+                "name": "resources.arsc", 
+                "md5": "f4dd3aa4eab1a58c9074da69c96cc56b"
+            }, 
+            {
+                "size": 457, 
+                "type": "Unknown", 
+                "name": "res/layout-qwerty/setup.xml", 
+                "md5": "96f090f44998140f53165fe45eb48157"
+            }, 
+            {
+                "size": 159225, 
+                "type": "Unknown", 
+                "name": "classes.dex", 
+                "md5": "ae41bd6dce697d1a16d830fa85874be7"
+            }, 
+            {
+                "size": 594, 
+                "type": "Unknown", 
+                "name": "META-INF/MANIFEST.MF", 
+                "md5": "a4da0d6380e2f7af6e001f3eb92c6f44"
+            }, 
+            {
+                "size": 647, 
+                "type": "Unknown", 
+                "name": "META-INF/CERT.SF", 
+                "md5": "7612f3afabb4b4402ff0967a4882256c"
+            }, 
+            {
+                "size": 947, 
+                "type": "Unknown", 
+                "name": "META-INF/CERT.RSA", 
+                "md5": "37d9958fe1a3c69f4f158485a7736b76"
+            }
+        ], 
+        "hidden_payload": [], 
+        "certificate": {
+            "text": "Certificate:\n    Data:\n        Version: 3 (0x2)\n        Serial Number: 1270400383 (0x4bb8c57f)\n    Signature Algorithm: sha1WithRSAEncryption\n        Issuer: C=PL, ST=podkarpackie, L=Stalowa Wola, O=SYNTEO, CN=Lukasz Lojek\n        Validity\n            Not Before: Apr  4 16:59:43 2010 GMT\n            Not After : Mar 29 16:59:43 2035 GMT\n        Subject: C=PL, ST=podkarpackie, L=Stalowa Wola, O=SYNTEO, CN=Lukasz Lojek\n        Subject Public Key Info:\n            Public Key Algorithm: rsaEncryption\n                Public-Key: (1024 bit)\n                Modulus:\n                    00:a2:fc:52:4d:72:71:56:8b:b2:03:31:fc:08:04:\n                    2c:1d:36:76:b2:e1:a9:5f:05:7f:fa:27:22:2c:eb:\n                    bd:e5:d3:94:94:8a:ac:af:f2:36:bd:1e:7a:22:0d:\n                    49:11:bc:28:bc:a4:8a:bf:cc:dc:30:e8:fc:f6:ac:\n                    ca:dc:df:fd:87:59:9d:7e:61:25:15:6b:79:4c:05:\n                    50:42:42:6e:97:c6:93:0c:a9:07:4a:0f:22:69:68:\n                    ad:7b:98:2c:58:17:e9:3a:42:7a:af:4b:3f:83:9f:\n                    84:0a:26:0c:9d:22:eb:33:5f:3b:82:a9:ca:a6:9d:\n                    86:c6:ca:d9:f6:b6:b6:31:c9\n                Exponent: 65537 (0x10001)\n    Signature Algorithm: sha1WithRSAEncryption\n         20:96:d1:18:df:33:65:a9:1c:e6:84:e6:b6:30:e8:53:a0:bd:\n         02:9f:cd:70:0a:9d:2c:79:a9:30:67:99:3b:d0:cb:79:8e:33:\n         cd:3f:b6:14:63:63:09:e7:35:bc:b0:fe:6c:ab:fc:b0:2f:5e:\n         52:12:54:77:1a:0a:b5:68:94:bf:58:8a:a3:23:57:ea:91:35:\n         d6:7f:70:d0:cf:9d:9a:0a:fc:48:a9:de:ef:67:35:77:61:75:\n         2f:a4:21:df:4f:81:a5:95:a2:6d:77:a5:ff:06:09:11:1b:ee:\n         bc:e0:12:4b:1e:4d:4c:51:1d:eb:fe:10:de:bb:98:85:f3:05:\n         eb:d3\n\n", 
+            "issuer": {
+                "CN": "Lukasz Lojek", 
+                "C": "PL", 
+                "L": "Stalowa Wola", 
+                "O": "SYNTEO", 
+                "ST": "podkarpackie"
+            }, 
+            "fingerprint": "601FB8C74491029BBAE262861F6A8A586AE30667"
+        }, 
+        "files_flaged": {
+            "dex": [], 
+            "exe": [], 
+            "ko": [], 
+            "jar": [], 
+            "arm_exe": [], 
+            "apk": [], 
+            "so": []
+        }, 
+        "manifest": {
+            "activities": [
+                "synteo.spysat.Application", 
+                "com.admob.android.ads.AdMobActivity"
+            ], 
+            "providers": [], 
+            "main_activity": "synteo.spysat.Application", 
+            "receivers": [], 
+            "package": "synteo.spysat", 
+            "libraries": [], 
+            "receivers_actions": [], 
+            "services": [
+                "synteo.spysat.SpyService"
+            ], 
+            "permissions": [
+                {
+                    "action": "full Internet access", 
+                    "description": "Allows an application to create network sockets.", 
+                    "name": "android.permission.INTERNET", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "fine (GPS) location", 
+                    "description": "Access fine location sources, such as the Global Positioning System on the phone, where available. Malicious applications can use this to determine where you are and may consume additional battery power.", 
+                    "name": "android.permission.ACCESS_FINE_LOCATION", 
+                    "severity": "dangerous"
+                }
+            ]
+        }, 
+        "icon": "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAKzElEQVRo3u2Y229bV3bGf/tyeEhK\nlmRJlmXLVuTEtiLHshN3RrbGGNcYJwYCtOgFBZp5av+I/i996luKAoMCbtELgk4mbpR44jjxTYkt\nJZasGylLlChSInUOyXP23n3QxZQsKZoG0zqDbGADh5uHh+tb61trfeuIK1eu8ENekh/4+hHA//fS\nO3zuAsRLaKsDFoBgLwBdQ0NDky+zx69cuSL2ArBx08toezQ0NOQJIf6wc+ClX9sjoH+IRv+eADga\nk46mNDSnIe2Dp0AIMNYR1mAlgOVAUA4htmLHYreXsdvvEUJ8HwAOJaClEU52Ovp7DL1djrYDDiXt\nummu7l/BGEmpIhibheFJyTdZSb4kiMw6mG3G7wRGCPF9ADikWPPu8XbHW68azp+wtDVa8suGRxMR\nY1lLNu8oVaAWCZwDraEhKehoFpzukvR1a/7655JyKBielHwxpsgsScIaOCf2bENSyi1g9O9EkRSc\nOmL5yUnL6SMx5TDmt19F3BuzTMxDzSZQyiedVDQ3Cg6kBHEMKyHkC4KpJfhi3JBQhq52w4XX4M1X\nJf0nHN9kBJ8/UUzmJGFV4HgOROwQmY2zfQHwlKPnsOPSKcPJIzHL5Yh//zxm+CnkVhSWNFIr0p6k\nq1Xw01OWM92O1kYIazD2DD7/FibmFNVYY4CpRUu2EPP5t4YLr1nOn4C/uOgYnpLcH1fMFxWxBeqM\nrTd+3wCa045LvZZLvQYbV/n4YcTdcVhY8XAigfY0av2BXa2Ovxw0XHnD0XYApFxz4k9PQV+X5Vef\nGr6e8ajFEqkUFsWzZccH92O+mjJc6nWc77EcbYXPRmF8ThNGLybuvgEcOeh457zhrRMx98dCfn3f\nMJP3sCKJ8vSWhwnhuNxn+fkbjtYmKAWWhaLhQFrS2iS5cFJQLMdkFyFXSgDPf2udx8ySpnDPkMkb\nBvsc19+y3BqJeTSjCWryhbzY+K3euUzByU7Lnw4Y2htr/ONvAu49lYSmAa0T6G1eAGjw4ScnLQcb\noLBiuHErZOgrx9F2j7+5nuDUUTjTLelqjcmvaoyT26qNIIgU9yYMi2XD1bOOX5y3KBXzcFJQidZM\njeMYz/P2lhJNKcfVc4bjbVV+9d9lfvuNR8UewPN8pJRIKV9IrLTvaGkEpaBQtozMCKaXUozMpniW\nl8RGkEoIGpMWgcE5t2PUY6uZzHkMPVJEVtLZEpFQEazfH0XRd2uh1dDxeMqAlPys36e9xSOR0Hs2\nmVrsqEUOax3NDZLXjnq0N2teOyo52ibwFBjnqNQs1u6dd+mk5NQxSWsTLJdCyqsVjDVrnNdrkXDO\n4ZzbmUKRFXzySJFfjvjlNc3f/ZXjxqcho9kEYazY0p3W10ogefAUug/BoWbJ374t+ZOLjsZkTEuD\nQAgYn42ZmHNERqD0i87QEg4ftPzxWcvrXTU+ulPioweO0KRJpeULAIQQO0dACIGQmpFskr//V8uz\nvOWX1xx/NljjREeEr816l31OA+vg40eS+08dqxVHOgmvdAjamgQOGJ+N+LfbVRZKGoR64T8bktDf\nY/jzSxHHW1f5z9vL/Nc9QzlqIOEnt0R/g37W2t2rkBAChEe2KPmHD0J+dsZw+azkeEfEoynL42nF\nfEERRs8bzvic4p8+tuSKhtNHoTEJNQMz8zEffBlxd1xhpI9e76YCR9qHrnbHuR7L68ciFpZC/vmz\nCl9PaaxsJJlMIaXckjMb1/vqxEopKjbNR19FjMxUuNTnON9j6O/xePrM8vWkJJOXrFYl1gpGs5ps\n3tHRFNPgWypVSzYPhcBHah+tNUpCY9LR3eF4o9vReyymVq3wyf2Q2yOWxbJPwm8k5ftbpEO98RsU\n2lcnXvNAgtmi4j/u1Lj3pMaZ4xV6j0vOXk1QCiWT84LJOcF8UbC8qskWFLFZSzSlBO0tisaU4PBB\nxysdjlc7LQcbYpZWKgzdq/Bw3DBb8LCyCT+1BnSDNrt5f9ck3o1SUipqNsnEgkdmscadb2q8cmiV\n08eg91iCPzrpYaUkigW1mqBSA2sFyQSkfYvSFi0sQRjxNFvhN3cinmQdCyUPJw6Q8JP4nrfF69vL\n7f8qAtvlrVIaiyYfJFmcjPhyrIonq7Q2rtLZCkdbob1Z4vtrzS4fw3IpJrMQM7NgmS/AalXjVBKt\nUyRSiS0e31FK1hlef/Y7zwNbhJVSgAKdxFjL3Kohuxxz+0lEHMUYa+pC7qF1Cq09tNakmrZLka1V\nZoMi/2cz8UaH1lrjk9xsNLsNJN81ee1mfP3595zIvnvc+7283VqPzsb1H9Zrlf14b7c5da/79+Ly\nblVmv/TSO/FR7DAF7cTf7ee7OWK3ClIvyuqv97p/e4nVOxmxIZe3743z3b7fDdBOBtdva+2+zp43\n1boI1Gv7DXRaa3zf5+LFi5w5c4ZEIoEQgsePH7O8vMzAwAC+7+Oc4/Hjx4yOjtLb20tTUxMPHz4k\nDEPS6TTnz59ncXGRbGaSM4fneaW1TEIbKjV4lG3gyVyarpaAN44WEcR8NtZCbtnjVMcyfZ1FGhI1\nFsuaT79tZWbJfwGAc+45ACHEplT1PI+BgQHee+89pJRUKhUAlpaWaG1tZXBwkNXVVbTWDAwM8P77\n79Pc3Mz169fp7u7mwYMHnDt3jrNnzzI0NERPc5a3T8dU4ySVGoRVyFcP0N5iuXKyhO9ZGrwa/d15\n/uXeIZqTmnM9Ee0NIaPPUjzISLyS3nRufVS0UmqTFvURaGhoIAgCbt26xezsLGEYEgQBFy5cYGFh\ngTt37pBMJhkcHKS9vZ3x8XHu3r3Lm2++SV9fH1prhoeHmZ+fp6/DJ1Id3J5oYX5ZUw4hrFoGenKE\ntHLrSRpsxOCr83QeVHwxcRjfkxxpKvHJt83MFJIg3KZtG/Sy1q5FoJ7bG2Ganp4ml8tx7do1lFJY\na7lx4wae59HZ2ck777yDtZZiscjS0hJSSkZHR0mlUvT39/PkyRMmJyex1jJXaqFQMVw8GSAw5EuS\n+1MNJJMe7U3w9tkVjKmRVpD0FVophFRrc4NQSKWQxm6qYyEEdn2s0/UJWs+tXC7Hhx9+yLFjx2hr\na+Pdd9+lt7eXUqlEPp9neHiYfD5PsVgkCILNcpnJZOjs7CSXyxEEAcYYCquSOxMHaEkmOJgO6T5Y\noqMRPBHxbDnB2LNGgqrh0ok5rLVYt+Zh1nd9Eiuldu8DG6iMMfT09HD58mWamppIJpMEQcDMzAyp\nVIqVlRVGR0fJ5XIIIVBKbe4gCIjjmDAMKZfLRFHE6Y4Srx9axtcxvoqoBIaFosBrCqgEMY8zSVYC\nyZmOmDiuEEc+xtQwNsKYGGMMxuw8SOv6hDDGbE7+i4uLm5QQQnDz5k1GRkZoaWkhl8uRyWSoVCpb\n8kdKiTGGarXK0tISxWIRay3TJiQOK3jSEFtHvqzILBkmUhKcYq5QpVJz/Ho4zVJZUliJeDiZYCzR\nSLYgqVZjjH0+RtZvbYzZBBDH8ea7l6mpKTKZzJbkBigUCkxPT28RcfV9YGVlhdnZ2S21v1hwjE47\ncBLrHMZarA3IrlMlNhWcs3xZ0lhjMaZGaVXinI+xYG28+aw4jrcmcX3D2IiAMQZrLVEU7dmodpPD\n39XIdmtoe3XkegBbyqi1djMBlVJTADdv3nwZdZu34dx6AOLq1as7apvdtM9u0mO/4m67vtmv5/c6\n+3H9uL7H+h+HriBo2PfX7gAAAABJRU5ErkJggg==\n", 
+        "static_method_calls": {
+            "is_dynamic_code": false, 
+            "native_method_calls": [], 
+            "permissions_method_calls": {
+                "ACCESS_FINE_LOCATION": [
+                    "1 Lcom/admob/android/ads/AdManager;->getCoordinates(Landroid/content/Context;)Landroid/location/Location; (0x224) ---> Landroid/location/LocationManager;->requestLocationUpdates(Ljava/lang/String; J F Landroid/location/LocationListener; Landroid/os/Looper;)V", 
+                    "1 Lsynteo/spysat/SpyService;->onCreate()V (0x3a) ---> Landroid/location/LocationManager;->requestLocationUpdates(Ljava/lang/String; J F Landroid/location/LocationListener;)V"
+                ], 
+                "VIBRATE": [
+                    "1 Lcom/admob/android/ads/v;->d()I (0x4) ---> Landroid/media/AudioManager;->getRingerMode()I"
+                ], 
+                "INTERNET": [
+                    "1 Lcom/admob/android/ads/i;->d()Z (0x136) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lsynteo/spysat/SpyService$MyCount;->onFinish()V (0xf6) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lsynteo/spysat/SpyService$MyCount;->onFinish()V (0x29c) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lsynteo/spysat/SpyService$MyCount;->onFinish()V (0x11e) ---> Ljava/net/URLConnection;->getInputStream()Ljava/io/InputStream;", 
+                    "1 Lsynteo/spysat/SpyService$MyCount;->onFinish()V (0x2c4) ---> Ljava/net/URLConnection;->getInputStream()Ljava/io/InputStream;", 
+                    "1 Lcom/admob/android/ads/view/AdMobWebView;-><init>(Landroid/content/Context; Z Ljava/lang/ref/WeakReference;)V (0x4) ---> Landroid/webkit/WebView;-><init>(Landroid/content/Context;)V", 
+                    "1 Lcom/admob/android/ads/i;->d()Z (0x432) ---> Ljava/net/HttpURLConnection;->connect()V"
+                ]
+            }, 
+            "reflection_method_calls": [
+                "1 Lcom/admob/android/ads/j;->a(Ljava/lang/String; Landroid/view/animation/Animation;)V (0x4e) ---> Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object; [Ljava/lang/Object;)Ljava/lang/Object;"
+            ], 
+            "dynamic_method_calls": [], 
+            "crypto_method_calls": [], 
+            "is_native_code": false, 
+            "all_methods": [
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/location/Location"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager$1", 
+                    "name": "onLocationChanged"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "<clinit>"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/os/Bundle", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "clientError"
+                }, 
+                {
+                    "return": "Landroid/location/Location", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getCoordinates"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getInterstitialPublisherId"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getOrientation"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getPublisherId"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getScreenWidth"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getUserId"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "md5"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "setInterstitialPublisherId"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "setPublisherId"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdMobActivity", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdMobActivity", 
+                    "name": "finish"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/res/Configuration"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdMobActivity", 
+                    "name": "onConfigurationChanged"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Bundle"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdMobActivity", 
+                    "name": "onCreate"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdMobActivity", 
+                    "name": "onDestroy"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/j"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView$a", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView$b", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView$c", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView$d", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView$e", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView$g", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/util/AttributeSet", 
+                        "I", 
+                        "Lcom/admob/android/ads/AdView$f"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/AdView", 
+                        "Lcom/admob/android/ads/j"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/k"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/AdView", 
+                        "Lcom/admob/android/ads/k"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "c"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "d"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "e"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/AdView"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/j", 
+                        "Lcom/admob/android/ads/k"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "I", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "getTextColor"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "isGoneWithoutAd"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "onAttachedToWindow"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "onDetachedFromWindow"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "onMeasure"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "requestFreshAd"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "setEnabled"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "setGoneWithoutAd"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "setRequestInterval"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "setTextColor"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "setVisibility"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/InterstitialAd$a", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/InterstitialAd$c", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/InterstitialAd$Event", 
+                        "Lcom/admob/android/ads/InterstitialAdListener"
+                    ], 
+                    "class": "Lcom/admob/android/ads/InterstitialAd", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/InterstitialAd"
+                    ], 
+                    "class": "Lcom/admob/android/ads/InterstitialAd", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/InterstitialAd", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/app/Activity"
+                    ], 
+                    "class": "Lcom/admob/android/ads/InterstitialAd", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/InterstitialAd", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/InterstitialAd", 
+                    "name": "c"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/InterstitialAd", 
+                    "name": "d"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/InterstitialAd", 
+                    "name": "requestAd"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/app/Activity"
+                    ], 
+                    "class": "Lcom/admob/android/ads/InterstitialAd", 
+                    "name": "show"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String", 
+                        "Lcom/admob/android/ads/p", 
+                        "F", 
+                        "Lcom/admob/android/ads/ac", 
+                        "Lcom/admob/android/ads/r", 
+                        "Ljava/lang/ref/WeakReference"
+                    ], 
+                    "class": "Lcom/admob/android/ads/aa", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/aa", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ab", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/media/MediaPlayer", 
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ac$a", 
+                    "name": "onError"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ac$e", 
+                    "name": "onClick"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/ac$f", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/ac", 
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "g"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "h"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/res/Configuration"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "d"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "e"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/ac", 
+                    "name": "onAttachedToWindow"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/view/AdMobWebView", 
+                        "Ljava/lang/ref/WeakReference"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ad", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/webkit/WebView", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ad", 
+                    "name": "onPageFinished"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/webkit/WebView", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ad", 
+                    "name": "shouldOverrideUrlLoading"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "F"
+                    ], 
+                    "class": "Lcom/admob/android/ads/af", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/af", 
+                    "name": "onMeasure"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/ah", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Lcom/admob/android/ads/ah", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ah", 
+                    "name": "c"
+                }, 
+                {
+                    "return": "F", 
+                    "params": [
+                        "F"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ai", 
+                    "name": "getInterpolation"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I", 
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/admob/android/ads/aj", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "Landroid/view/animation/Transformation"
+                    ], 
+                    "class": "Lcom/admob/android/ads/aj", 
+                    "name": "applyTransformation"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "F"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ak", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "Landroid/view/animation/Transformation"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ak", 
+                    "name": "applyTransformation"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "F", 
+                        "F", 
+                        "F", 
+                        "F", 
+                        "F"
+                    ], 
+                    "class": "Lcom/admob/android/ads/al", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "Landroid/view/animation/Transformation"
+                    ], 
+                    "class": "Lcom/admob/android/ads/al", 
+                    "name": "applyTransformation"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "F", 
+                        "I", 
+                        "F", 
+                        "I", 
+                        "F", 
+                        "I", 
+                        "F"
+                    ], 
+                    "class": "Lcom/admob/android/ads/am", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "Landroid/view/animation/Transformation"
+                    ], 
+                    "class": "Lcom/admob/android/ads/am", 
+                    "name": "applyTransformation"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "[F", 
+                        "[F", 
+                        "F", 
+                        "F", 
+                        "F", 
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/an", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "Landroid/view/animation/Transformation"
+                    ], 
+                    "class": "Lcom/admob/android/ads/an", 
+                    "name": "applyTransformation"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I", 
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/an", 
+                    "name": "initialize"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e"
+                    ], 
+                    "class": "Lcom/admob/android/ads/analytics/InstallReceiver$1", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e", 
+                        "Ljava/lang/Exception"
+                    ], 
+                    "class": "Lcom/admob/android/ads/analytics/InstallReceiver$1", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/analytics/InstallReceiver", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/analytics/InstallReceiver", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/content/Intent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/analytics/InstallReceiver", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/content/Intent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/analytics/InstallReceiver", 
+                    "name": "onReceive"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "[F", 
+                        "[F", 
+                        "Landroid/graphics/PointF"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ao", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "Landroid/view/animation/Transformation"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ao", 
+                    "name": "applyTransformation"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "F", 
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ap", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "Landroid/view/animation/Transformation"
+                    ], 
+                    "class": "Lcom/admob/android/ads/ap", 
+                    "name": "applyTransformation"
+                }, 
+                {
+                    "return": "Lcom/admob/android/ads/j", 
+                    "params": [
+                        "Lcom/admob/android/ads/m", 
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String", 
+                        "I", 
+                        "I", 
+                        "I", 
+                        "Lcom/admob/android/ads/k", 
+                        "I", 
+                        "Lcom/admob/android/ads/j$b", 
+                        "Lcom/admob/android/ads/InterstitialAd$Event", 
+                        "Lcom/admob/android/ads/AdView$f"
+                    ], 
+                    "class": "Lcom/admob/android/ads/b", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String", 
+                        "I", 
+                        "Lcom/admob/android/ads/j$b", 
+                        "Lcom/admob/android/ads/InterstitialAd$Event", 
+                        "Lcom/admob/android/ads/AdView$f"
+                    ], 
+                    "class": "Lcom/admob/android/ads/b", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/b", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/StringBuilder", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/b", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/c", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e"
+                    ], 
+                    "class": "Lcom/admob/android/ads/d", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e", 
+                        "Ljava/lang/Exception"
+                    ], 
+                    "class": "Lcom/admob/android/ads/d", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Ljava/util/Map"
+                    ], 
+                    "class": "Lcom/admob/android/ads/d", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "class": "Lcom/admob/android/ads/f", 
+                    "name": "h"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/admob/android/ads/i", 
+                    "name": "d"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/i", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/j$d", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "<clinit>"
+                }, 
+                {
+                    "return": "F", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "Lorg/json/JSONObject", 
+                        "Ljava/lang/String", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/graphics/Matrix", 
+                    "params": [
+                        "Lorg/json/JSONArray"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/graphics/Matrix", 
+                    "params": [
+                        "Lorg/json/JSONObject", 
+                        "Ljava/lang/String", 
+                        "Landroid/graphics/Matrix"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/graphics/PointF", 
+                    "params": [
+                        "Landroid/graphics/RectF", 
+                        "Landroid/graphics/PointF"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/graphics/Rect", 
+                    "params": [
+                        "Lorg/json/JSONObject", 
+                        "Ljava/lang/String", 
+                        "Landroid/graphics/Rect"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/view/View", 
+                    "params": [
+                        "Lorg/json/JSONObject", 
+                        "Landroid/graphics/Rect"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/view/animation/Animation", 
+                    "params": [
+                        "I", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String", 
+                        "[F", 
+                        "Lorg/json/JSONArray", 
+                        "[Ljava/lang/String", 
+                        "J", 
+                        "Landroid/view/View", 
+                        "Landroid/graphics/Rect", 
+                        "Lorg/json/JSONObject", 
+                        "Lorg/json/JSONArray"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/view/animation/Animation", 
+                    "params": [
+                        "Landroid/view/View", 
+                        "Landroid/graphics/Rect", 
+                        "Lorg/json/JSONObject", 
+                        "Lorg/json/JSONArray", 
+                        "Lorg/json/JSONArray"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/view/animation/AnimationSet", 
+                    "params": [
+                        "Lorg/json/JSONArray", 
+                        "Lorg/json/JSONObject", 
+                        "Landroid/view/View", 
+                        "Landroid/graphics/Rect"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/view/animation/AnimationSet", 
+                    "params": [
+                        "Lorg/json/JSONObject", 
+                        "Landroid/view/View", 
+                        "Landroid/graphics/Rect", 
+                        "J"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/view/animation/Interpolator", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "J", 
+                        "J", 
+                        "J"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Lcom/admob/android/ads/al", 
+                    "params": [
+                        "Landroid/graphics/RectF", 
+                        "Landroid/graphics/RectF", 
+                        "Landroid/view/View", 
+                        "Landroid/graphics/Rect"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Lcom/admob/android/ads/am", 
+                    "params": [
+                        "Landroid/graphics/PointF", 
+                        "Landroid/graphics/PointF", 
+                        "Landroid/view/View", 
+                        "Landroid/graphics/Rect"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Lcom/admob/android/ads/j", 
+                    "params": [
+                        "Lcom/admob/android/ads/m", 
+                        "Landroid/content/Context", 
+                        "Lorg/json/JSONObject", 
+                        "I", 
+                        "I", 
+                        "I", 
+                        "Lcom/admob/android/ads/k", 
+                        "Lcom/admob/android/ads/j$b"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/graphics/Canvas", 
+                        "Landroid/graphics/Rect", 
+                        "I", 
+                        "I", 
+                        "I", 
+                        "F"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/animation/Animation", 
+                        "I", 
+                        "I", 
+                        "F", 
+                        "Ljava/lang/String", 
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/widget/ImageView", 
+                        "Landroid/graphics/Bitmap", 
+                        "Lorg/json/JSONObject"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/j", 
+                        "Lorg/json/JSONArray"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Landroid/view/animation/Animation"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Lorg/json/JSONObject"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/view/View", 
+                    "params": [
+                        "Lorg/json/JSONObject"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "Lorg/json/JSONArray", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "Lorg/json/JSONArray"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "c"
+                }, 
+                {
+                    "return": "Landroid/graphics/RectF", 
+                    "params": [
+                        "Lorg/json/JSONArray"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "d"
+                }, 
+                {
+                    "return": "Landroid/graphics/PointF", 
+                    "params": [
+                        "Lorg/json/JSONArray"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "e"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "p"
+                }, 
+                {
+                    "return": "Landroid/graphics/Rect", 
+                    "params": [
+                        "Landroid/graphics/Rect"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lorg/json/JSONObject"
+                    ], 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/graphics/Rect", 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "h"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "i"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "k"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/j", 
+                    "name": "l"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/k$a", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/k$b", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/j", 
+                        "Landroid/content/Context", 
+                        "Lcom/admob/android/ads/AdView"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Ljava/util/Vector", 
+                    "params": [
+                        "I", 
+                        "I", 
+                        "I", 
+                        "J", 
+                        "Ljava/util/Vector"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Ljava/util/Vector", 
+                    "params": [
+                        "Landroid/view/KeyEvent", 
+                        "Ljava/util/Vector"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Ljava/util/Vector", 
+                    "params": [
+                        "Landroid/view/MotionEvent", 
+                        "Z", 
+                        "Ljava/util/Vector"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View", 
+                        "Lorg/json/JSONObject"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "l"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "m"
+                }, 
+                {
+                    "return": "Lorg/json/JSONObject", 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "n"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View", 
+                        "Landroid/widget/RelativeLayout$LayoutParams"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "dispatchTouchEvent"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "dispatchTrackballEvent"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "g"
+                }, 
+                {
+                    "return": "J", 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "h"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/graphics/Canvas"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "onDraw"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "onKeyDown"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "onKeyUp"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/k", 
+                    "name": "setPressed"
+                }, 
+                {
+                    "return": "Landroid/os/Bundle", 
+                    "class": "Lcom/admob/android/ads/o", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/os/Bundle"
+                    ], 
+                    "class": "Lcom/admob/android/ads/o", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/os/Bundle", 
+                    "class": "Lcom/admob/android/ads/p", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/os/Bundle"
+                    ], 
+                    "class": "Lcom/admob/android/ads/p", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q$1", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e", 
+                        "Ljava/lang/Exception"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q$1", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/os/Bundle", 
+                    "params": [
+                        "Lorg/json/JSONObject"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Bundle", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/Object"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/app/Activity", 
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Lorg/json/JSONArray"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Lorg/json/JSONObject"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/util/Hashtable"
+                    ], 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/q", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/r", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Landroid/graphics/Point", 
+                    "params": [
+                        "[I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/r", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Landroid/os/Bundle", 
+                    "class": "Lcom/admob/android/ads/r", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lorg/json/JSONObject", 
+                        "Lcom/admob/android/ads/u", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/r", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/os/Bundle"
+                    ], 
+                    "class": "Lcom/admob/android/ads/r", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Ljava/util/Hashtable", 
+                    "class": "Lcom/admob/android/ads/r", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "J"
+                    ], 
+                    "class": "Lcom/admob/android/ads/s", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/s", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/io/File"
+                    ], 
+                    "class": "Lcom/admob/android/ads/s", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/io/File"
+                    ], 
+                    "class": "Lcom/admob/android/ads/s", 
+                    "name": "c"
+                }, 
+                {
+                    "return": "Landroid/graphics/Bitmap", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/s", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Landroid/graphics/Bitmap"
+                    ], 
+                    "class": "Lcom/admob/android/ads/s", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Ljava/io/File", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/t", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/t", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e"
+                    ], 
+                    "class": "Lcom/admob/android/ads/t", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e", 
+                        "Ljava/lang/Exception"
+                    ], 
+                    "class": "Lcom/admob/android/ads/t", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e"
+                    ], 
+                    "class": "Lcom/admob/android/ads/u", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/e", 
+                        "Ljava/lang/Exception"
+                    ], 
+                    "class": "Lcom/admob/android/ads/u", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/v", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "I", 
+                    "class": "Lcom/admob/android/ads/v", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/admob/android/ads/v", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/admob/android/ads/v", 
+                    "name": "c"
+                }, 
+                {
+                    "return": "I", 
+                    "class": "Lcom/admob/android/ads/v", 
+                    "name": "d"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Z", 
+                        "Ljava/lang/ref/WeakReference"
+                    ], 
+                    "class": "Lcom/admob/android/ads/view/AdMobWebView", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Landroid/view/View", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String", 
+                        "Z", 
+                        "Z", 
+                        "Landroid/graphics/Point", 
+                        "F", 
+                        "Ljava/lang/ref/WeakReference"
+                    ], 
+                    "class": "Lcom/admob/android/ads/view/AdMobWebView", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Ljava/lang/Object"
+                    ], 
+                    "class": "Lcom/admob/android/ads/view/AdMobWebView", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/view/AdMobWebView", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "[Ljava/lang/Object"
+                    ], 
+                    "class": "Lcom/admob/android/ads/view/AdMobWebView", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/view/AdMobWebView", 
+                    "name": "loadUrl"
+                }, 
+                {
+                    "return": "Landroid/os/Bundle", 
+                    "class": "Lcom/admob/android/ads/w", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/view/View", 
+                        "I", 
+                        "I", 
+                        "Landroid/graphics/Bitmap"
+                    ], 
+                    "class": "Lcom/admob/android/ads/x", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/x", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/x", 
+                    "name": "dispatchTouchEvent"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/webkit/WebView", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/z$a", 
+                    "name": "onPageFinished"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/webkit/WebView", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/z$a", 
+                    "name": "shouldOverrideUrlLoading"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lsynteo/spysat/Application$1", 
+                    "name": "onClick"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lsynteo/spysat/Application"
+                    ], 
+                    "class": "Lsynteo/spysat/Application$UICount", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "showSettings"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "messageBox"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Bundle"
+                    ], 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "onCreate"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/Menu"
+                    ], 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "onCreateOptionsMenu"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "onDestroy"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "onKeyDown"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MenuItem"
+                    ], 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "onOptionsItemSelected"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "onStop"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "openDevicesPage"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "openHelpPage"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "openHomePage"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "openVideoPage"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/Application", 
+                    "name": "saveSettings"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lsynteo/spysat/Application"
+                    ], 
+                    "class": "Lsynteo/spysat/SpyMainView", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/SpyMainView", 
+                    "name": "update"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lsynteo/spysat/SpyService"
+                    ], 
+                    "class": "Lsynteo/spysat/SpyService$LocalBinder", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lsynteo/spysat/SpyService"
+                    ], 
+                    "class": "Lsynteo/spysat/SpyService$MyCount", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/location/Location"
+                    ], 
+                    "class": "Lsynteo/spysat/SpyService$MyLocationListener", 
+                    "name": "onLocationChanged"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/SpyService", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/SpyService", 
+                    "name": "onCreate"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/SpyService", 
+                    "name": "onDestroy"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lsynteo/spysat/SpyService", 
+                    "name": "stop"
+                }
+            ], 
+            "is_reflection_code": true
+        }
+    }, 
+    "behavior": {
+        "processtree": [], 
+        "processes": [], 
+        "anomaly": [], 
+        "enhanced": [], 
+        "summary": {
+            "files": [], 
+            "keys": [], 
+            "mutexes": []
+        }
+    }, 
+    "target": {
+        "category": "file", 
+        "file": {
+            "yara": [], 
+            "sha1": "7fa10a458a8f0857ecac94c699cff63c96cc9024", 
+            "name": "33.apk", 
+            "type": "Java archive data (JAR)", 
+            "sha256": "aed3d43ec1557c051d3a80a216b356fa6758905a5c5b2db038717ad668d8a5f6", 
+            "crc32": "B13EB269", 
+            "path": "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/binaries/aed3d43ec1557c051d3a80a216b356fa6758905a5c5b2db038717ad668d8a5f6", 
+            "ssdeep": null, 
+            "size": 100776, 
+            "sha512": "84c52674a883cca451a03272b4af0c42ded9d5b9c0154e6a3b43f78a3e8f6d08775a440f42af9573ee9a2169f2eaef44902b37cb7bdc6daa4eedb394ea202039", 
+            "md5": "d0400193264a2470962e98a3d1b61e3e"
+        }
+    }, 
+    "debug": {
+        "errors": [], 
+        "log": ""
+    }, 
+    "strings": [
+        "res/drawable/icon.png", 
+        "7k^;*9", 
+        "hmmepp", 
+        "244DOs", 
+        "I__\u001fZk", 
+        "RJFGGI", 
+        "MFFFhii!", 
+        "res/drawable/spysat.png", 
+        "iIDATx", 
+        "VuA=r6r", 
+        "bkkkii);", 
+        ")jM,#=", 
+        "fE]22{", 
+        "eee---f", 
+        "a-^''I", 
+        "DwK76w,", 
+        "pX,bG>", 
+        "PKKKYYY", 
+        "jMMMWW", 
+        "'-^om`", 
+        ">#V\\\\\\l", 
+        "E,(ES\\Q", 
+        "[9 .c6K|", 
+        "?ljj2O", 
+        "B6+r$Z}2", 
+        "PK|.nS", 
+        "C'v~4DM", 
+        "OtSoS\"", 
+        "res/layout/main.xml]", 
+        "AndroidManifest.xml", 
+        "resources.arsc", 
+        "res/layout-qwerty/setup.xml]", 
+        "classes.dex", 
+        "[CGx#G", 
+        "]SUTw<", 
+        "$^*R\\*", 
+        "fmbVzX", 
+        "hu\"/k5", 
+        "-w$-1c", 
+        "|6~_h{", 
+        ".^~^TJ", 
+        "U_U}Mu", 
+        "{U-g53C", 
+        "\\CnhJ`", 
+        "h$^^Y?pz", 
+        "kl,zL8E{", 
+        "tmu%Fow", 
+        "OqdF//3", 
+        "03&1PL", 
+        "2$D&,2YP", 
+        "g_-u>O", 
+        "OwVr_mu", 
+        "ZM1_ec1|", 
+        "h1=c3xU", 
+        "/1+I3/", 
+        "O FMob", 
+        "&G;Mxg", 
+        "!$zpQ`", 
+        "EiYgce8", 
+        "[S~PeY", 
+        "0|/,Q}f", 
+        "4\u001fi.UZ", 
+        "/iFuIA\u001f", 
+        "4_'d*h", 
+        "=cl3rx", 
+        "CHO=&=", 
+        "bGtF*D", 
+        "*m}zQ2", 
+        "V|g?g\"^", 
+        "'} RW%", 
+        "u`'QN-%", 
+        "((&^$)p", 
+        "\"z\"7cE", 
+        "B]5I:n", 
+        "U6Af>R", 
+        "<:aw=-", 
+        "[Axl_>", 
+        "Q}5A]r", 
+        "Zw5ja9", 
+        "\\\\+H_-", 
+        "a[FuO;", 
+        "OdzvtO)", 
+        "5{vw{W", 
+        "d[?L'?}\u001fk", 
+        "hwv`Ya", 
+        "+~z36Y", 
+        "wbp@F3", 
+        "BgX^]K.", 
+        "jA6v!R", 
+        "rn+[%o", 
+        "4y+FZ#", 
+        "-2x'YU", 
+        "&&*r~_", 
+        "R6k5WLm", 
+        " jIT??t", 
+        "~KkS$gle=", 
+        ">Ki_QW", 
+        "b~+mvD", 
+        "}/c,/cNg", 
+        ")C?|D_", 
+        "H\"cDbKz<", 
+        "7lEWg!y", 
+        "H1aVOM", 
+        "bgaV\"v", 
+        "M)boJa", 
+        "jcqjuTt", 
+        "[+;skegn", 
+        "5FQvuTn", 
+        " 3J&0X", 
+        "#;HC1h", 
+        "z]\u001fc[e", 
+        "b>UDFg&0(\u001f", 
+        "ga3K:l", 
+        ",SF\"D=2", 
+        "e#py,3+", 
+        "JQ>\"ta", 
+        "+uYms,qlA", 
+        "RS7@Ylb", 
+        "w<|S'&", 
+        ";t,)wu-l", 
+        "700c_v[", 
+        "!N{RD~", 
+        "f\\o*I=", 
+        "YYC4}(5", 
+        "d].U0*BO", 
+        ",zsg)2", 
+        "=CC{b1", 
+        "V!6Ujg", 
+        "ndhhhV", 
+        "h.OqPS", 
+        "M*$nk>", 
+        "VWdAVdAf", 
+        "1m!?gMr`", 
+        "MIlLv%q", 
+        "_T|y1dc", 
+        "7j!-8I", 
+        "<<TcR&", 
+        "yYt^V+", 
+        ")>\\1kFZ", 
+        "?%|**uK", 
+        "8~T\\-+5", 
+        "zTI\"+_", 
+        "G?Bnt#", 
+        "sBZ\\0M", 
+        "?@{;!x'", 
+        "META-INF/MANIFEST.MFu", 
+        "META-INF/CERT.SFu", 
+        "META-INF/CERT.RSA3hb", 
+        "res/drawable/icon.png", 
+        "res/drawable/spysat.pngPK", 
+        "res/layout/main.xmlPK", 
+        "AndroidManifest.xmlPK", 
+        "resources.arscPK", 
+        "res/layout-qwerty/setup.xmlPK", 
+        "classes.dexPK", 
+        "META-INF/MANIFEST.MFPK", 
+        "META-INF/CERT.SFPK", 
+        "META-INF/CERT.RSAPK", 
+        "res/drawable/icon.png", 
+        "res/drawable/spysat.png", 
+        "res/layout/main.xml", 
+        "res/layout-qwerty/setup.xml", 
+        "~Welcome in Synteo SPYSAT v 1.71 ", 
+        "For more information please visit www.spysat.eu", 
+        "Tracking process will start in 15 seconds...", 
+        "Willkommen in Synteo SPYSAT v 1,45 ", 
+        "Fur weitere Informationen besuchen Sie bitte www.spysat.eu ", 
+        "Tracking Prozess wird in 15 Sekunden gestartet ...", 
+        "Witamy w Synteo SPYSAT v 1.71 ", 
+        "Aby uzyska", 
+        "cej informacji o us", 
+        "udze zapraszamy na www.spysat.pl ", 
+        "Proces ", 
+        "ledzenia rozpocznie si", 
+        " za 15 sekund", 
+        "~Welcome in Synteo SPYSAT v 1.65 ", 
+        "For more information please visit www.spysat.eu", 
+        "Tracking process will start in 15 seconds...", 
+        "Benvenuti nella sentenza Synteo SPYSAT 1,45 nPer maggiori informazioni si prega di visitare www.spysat.eu ", 
+        " Tracking processo avra' inizio in 15 secondi ...", 
+        "Synteo SPYSAT.eu", 
+        "Synteo SPYSAT.pl", 
+        "Beenden", 
+        "Smettere", 
+        "TPlease provide your login and device PIN. ", 
+        "You can get it for free from spysat.eu ", 
+        "gBitte geben Sie Ihren Benutzernamen und Ger", 
+        "te-PIN. ", 
+        "nnen ihn kostenlos von spysat.eu erhalten ", 
+        " login oraz PIN urz", 
+        "dzanie. ", 
+        "eli nie posiadasz PINu ani konta - wejd", 
+        " na spysat.pl aby otrzyma", 
+        " darmowy PIN i konto", 
+        "oSi prega di fornire i dati di accesso e PIN del dispositivo. ", 
+        " Potete scaricarlo gratuitamente dal spysat.eu n", 
+        "Settings", 
+        "Einstellungen", 
+        "Ustawienia", 
+        "Impostazioni", 
+        "SPYSAT User login", 
+        "SPYSAT Benutzeranmeldung", 
+        "Login u", 
+        "ytkownika", 
+        "SPYSAT Login utente", 
+        "Device PIN", 
+        "te-PIN", 
+        "PIN urz", 
+        "dzenia", 
+        "PIN del dispositivo", 
+        "Sparen", 
+        "Zapisz", 
+        "Salvare", 
+        "Cancel", 
+        "Stornieren", 
+        "Anuluj", 
+        "Annulla", 
+        "NYour login or PIN is not set. ", 
+        "Please click Menu/Settings and set missing data", 
+        "mIhr Login oder PIN ist nicht gesetzt. ", 
+        " Bitte klicken Sie auf Men", 
+        " / Einstellungen und stellen fehlende Daten", 
+        "j login lub PIN nie jest ustawiony.", 
+        " przycisk menu/Ustawienia i uzupe", 
+        " brakuj", 
+        "ce dane", 
+        "pIl tuo login o PIN non e' impostata. ", 
+        " Si prega di fare clic su Menu / Impostazioni ed impostare i dati mancanti", 
+        "GPS buffer is empty - are you not moving ?. ", 
+        "If you are moving and still see this message please ensure that GPS is ON and you are not inside the building", 
+        "GPS Puffer leer ist - sind Sie nicht in Bewegung?. ", 
+        " Wenn Sie bewegt und sind immer noch diese Meldung bitte sicher, dass GPS eingeschaltet ist und Sie nicht im Inneren des Geb", 
+        "Brak danych GPS lub nie jeste", 
+        " w ruchu. ", 
+        "eli si", 
+        " poruszasz i widzisz nadal ten komunikat upewnij si", 
+        " prosz", 
+        "e GPS jest w", 
+        "czony i ", 
+        "e jeste", 
+        " w zasi", 
+        "gu satelit (poza budynkiem)", 
+        "GPS buffer e' vuoto - non sei in movimento?. ", 
+        " Se sei in movimento e vedere ancora questo messaggio di assicurarsi che il GPS e' acceso e non si e' dentro l'edificio", 
+        "New account", 
+        "Neues Konto", 
+        "Nowe konto", 
+        "Nuovo account", 
+        "/http://spysat.eu/google-android_f_14_sc_android", 
+        "/http://spysat.pl/google-android_f_14_sc_android", 
+        "vTips (Hit Menu for more options):", 
+        "To run tracking in background - click Home button", 
+        "To stop tracking click Menu/Quit", 
+        "Tipps (Hit-Men", 
+        "r weitere Optionen): ", 
+        " Wenn laufen Tracking im Hintergrund - auf Home-Taste ", 
+        "Wenn stoppen Tracking klicken Sie auf Men", 
+        " / Beenden", 
+        "Porady (Menu aby wy", 
+        "wietli", 
+        " opcje):", 
+        "Aby pozostawi", 
+        "ledzenie aktywne w tle - kliknij przycisk Home ", 
+        "Aby zatrzymac ", 
+        "ledzenie kliknij Menu/Wyj", 
+        "Consigli (Hit Menu per piu' opzioni): ", 
+        " tracking eseguire Per in background - fare clic sul pulsante Home ", 
+        " Per interrompere il tracciamento fare clic su Menu / Esci", 
+        "Video tutorial", 
+        "http://spysat.eu/_f_3_m_y", 
+        "http://spysat.pl/_f_3_m_y", 
+        "0Send position interval (in seconds - min. is 15)", 
+        "(Interwa", 
+        "ania pozycji (w sekundach)", 
+        "Delta coefficient (in meters)", 
+        "czynnik Delta (w metrach)", 
+        "dConfiguration has been saved. ", 
+        "Application will be closed now. ", 
+        "Please restart it to apply changes.", 
+        "{Zmiany zosta", 
+        "y zapisane.", 
+        "Aplikacja zostanie teraz zamkni", 
+        " uruchomi", 
+        " ponownie aby zmiany zosta", 
+        "y zatwierdzone", 
+        "synteo.spysat", 
+        "drawable", 
+        "layout", 
+        "string", 
+        "spysat", 
+        "welcome", 
+        "app_name", 
+        "settings_welcome", 
+        "settings", 
+        "user_login", 
+        "device_pin", 
+        "cancel", 
+        "empty_login", 
+        "empty_cords", 
+        "new_account", 
+        "url_help", 
+        "footer", 
+        "video_tut", 
+        "settings_interval", 
+        "settings_delta", 
+        "app_restart"
+    ], 
+    "dropped": []
+}

@@ -1,0 +1,3951 @@
+{
+    "info": {
+        "category": "file", 
+        "package": "", 
+        "started": "2016-06-25 13:19:48", 
+        "custom": "", 
+        "machine": {
+            "shutdown_on": "2016-06-25 13:22:17", 
+            "label": "cuckoo", 
+            "manager": "VirtualBox", 
+            "started_on": "2016-06-25 13:19:48", 
+            "id": 11, 
+            "name": "cuckoo"
+        }, 
+        "ended": "2016-06-25 13:22:17", 
+        "version": "1.2", 
+        "duration": 149, 
+        "id": 11
+    }, 
+    "procmemory": [], 
+    "network": {
+        "udp": [
+            {
+                "src": "192.168.56.10", 
+                "dst": "77.86.199.1", 
+                "offset": 1723942, 
+                "time": 4.137386083602905, 
+                "dport": 123, 
+                "sport": 43225
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1724154, 
+                "time": 1.681715965270996, 
+                "dport": 53, 
+                "sport": 4542
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1724383, 
+                "time": 4.245193958282471, 
+                "dport": 53, 
+                "sport": 5289
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1724614, 
+                "time": 8.947767972946167, 
+                "dport": 53, 
+                "sport": 20740
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1724854, 
+                "time": 5.3682849407196045, 
+                "dport": 53, 
+                "sport": 28256
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1725083, 
+                "time": 4.244990110397339, 
+                "dport": 53, 
+                "sport": 38399
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1725316, 
+                "time": 6.459999084472656, 
+                "dport": 53, 
+                "sport": 39938
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1725754, 
+                "time": 4.909569978713989, 
+                "dport": 53, 
+                "sport": 44436
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1726188, 
+                "time": 4.32244610786438, 
+                "dport": 53, 
+                "sport": 49607
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1726453, 
+                "time": 4.314892053604126, 
+                "dport": 53, 
+                "sport": 52099
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1726720, 
+                "time": 8.932421922683716, 
+                "dport": 53, 
+                "sport": 56007
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1727044, 
+                "time": 4.0285561084747314, 
+                "dport": 53, 
+                "sport": 60711
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1727304, 
+                "time": 5.732574939727783, 
+                "dport": 53, 
+                "sport": 61327
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "8.8.4.4", 
+                "offset": 1727542, 
+                "time": 6.029002904891968, 
+                "dport": 53, 
+                "sport": 64039
+            }
+        ], 
+        "irc": [], 
+        "http": [
+            {
+                "count": 1, 
+                "body": "", 
+                "uri": "http://www.gstatic.com/android/config_update/02022016-sms-blacklist-metadata.txt", 
+                "user-agent": "AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)", 
+                "method": "GET", 
+                "host": "www.gstatic.com", 
+                "version": "1.1", 
+                "path": "/android/config_update/02022016-sms-blacklist-metadata.txt", 
+                "data": "GET /android/config_update/02022016-sms-blacklist-metadata.txt HTTP/1.1\r\nUser-Agent: AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)\r\nAccept-Encoding: identity\r\nHost: www.gstatic.com\r\nConnection: Keep-Alive\r\n\r\n", 
+                "port": 80
+            }, 
+            {
+                "count": 1, 
+                "body": "", 
+                "uri": "http://www.gstatic.com/android/config_update/02022016-sms-blacklist.txt", 
+                "user-agent": "AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)", 
+                "method": "GET", 
+                "host": "www.gstatic.com", 
+                "version": "1.1", 
+                "path": "/android/config_update/02022016-sms-blacklist.txt", 
+                "data": "GET /android/config_update/02022016-sms-blacklist.txt HTTP/1.1\r\nUser-Agent: AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)\r\nAccept-Encoding: identity\r\nHost: www.gstatic.com\r\nConnection: Keep-Alive\r\n\r\n", 
+                "port": 80
+            }
+        ], 
+        "smtp": [], 
+        "tcp": [
+            {
+                "src": "192.168.56.1", 
+                "dst": "192.168.56.10", 
+                "offset": 350, 
+                "time": 1.730510950088501, 
+                "dport": 5555, 
+                "sport": 56902
+            }, 
+            {
+                "src": "192.168.56.1", 
+                "dst": "192.168.56.10", 
+                "offset": 1308, 
+                "time": 1.7414779663085938, 
+                "dport": 5555, 
+                "sport": 57052
+            }, 
+            {
+                "src": "192.168.56.1", 
+                "dst": "192.168.56.10", 
+                "offset": 70032, 
+                "time": 127.83954906463623, 
+                "dport": 5555, 
+                "sport": 57462
+            }, 
+            {
+                "src": "192.168.56.1", 
+                "dst": "192.168.56.10", 
+                "offset": 71628, 
+                "time": 127.90457105636597, 
+                "dport": 5555, 
+                "sport": 57472
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "173.194.222.188", 
+                "offset": 1596885, 
+                "time": 27.67123508453369, 
+                "dport": 5228, 
+                "sport": 41221
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "173.194.222.188", 
+                "offset": 1599348, 
+                "time": 5.529790878295898, 
+                "dport": 5228, 
+                "sport": 42974
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "173.194.222.188", 
+                "offset": 1605270, 
+                "time": 8.817533016204834, 
+                "dport": 5228, 
+                "sport": 47990
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "209.85.233.138", 
+                "offset": 1608004, 
+                "time": 9.133233070373535, 
+                "dport": 443, 
+                "sport": 51367
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.161.95", 
+                "offset": 1647175, 
+                "time": 9.141643047332764, 
+                "dport": 443, 
+                "sport": 37026
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.162.188", 
+                "offset": 1661353, 
+                "time": 1.857208013534546, 
+                "dport": 5228, 
+                "sport": 48624
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "64.233.164.95", 
+                "offset": 1667509, 
+                "time": 5.942363977432251, 
+                "dport": 443, 
+                "sport": 56213
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "87.245.198.34", 
+                "offset": 1728091, 
+                "time": 5.05237603187561, 
+                "dport": 443, 
+                "sport": 40438
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "87.245.198.34", 
+                "offset": 1743275, 
+                "time": 5.051551103591919, 
+                "dport": 443, 
+                "sport": 56400
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "87.245.198.54", 
+                "offset": 1758084, 
+                "time": 6.588589906692505, 
+                "dport": 443, 
+                "sport": 39183
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "87.245.198.54", 
+                "offset": 1879964, 
+                "time": 10.54452395439148, 
+                "dport": 443, 
+                "sport": 49133
+            }, 
+            {
+                "src": "192.168.56.10", 
+                "dst": "87.245.198.54", 
+                "offset": 1934161, 
+                "time": 10.550950050354004, 
+                "dport": 80, 
+                "sport": 60832
+            }
+        ], 
+        "hosts": [
+            "173.194.222.188", 
+            "209.85.233.138", 
+            "64.233.161.95", 
+            "64.233.162.188", 
+            "64.233.164.95", 
+            "77.86.199.1", 
+            "8.8.4.4", 
+            "87.245.198.34", 
+            "87.245.198.54"
+        ], 
+        "pcap_sha256": "46763722c016a69374a1d1c5d6194b1f8b483d9457f37b53919c8b7e89f3b139", 
+        "dns": [
+            {
+                "type": "A", 
+                "request": "2.android.pool.ntp.org.8.8.8.8", 
+                "answers": []
+            }, 
+            {
+                "type": "A", 
+                "request": "www.googleapis.com", 
+                "answers": [
+                    {
+                        "data": "64.233.164.95", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "googleapis.l.google.com", 
+                        "type": "CNAME"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "www.google.de", 
+                "answers": [
+                    {
+                        "data": "87.245.198.29", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.24", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.25", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.50", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.30", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.40", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.59", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.39", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.55", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.54", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.20", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.49", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.44", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.45", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.35", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.34", 
+                        "type": "A"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "play.googleapis.com", 
+                "answers": [
+                    {
+                        "data": "64.233.161.95", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "googleapis.l.google.com", 
+                        "type": "CNAME"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "2.android.pool.ntp.org", 
+                "answers": [
+                    {
+                        "data": "37.35.80.123", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "194.100.2.194", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "77.86.199.1", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "85.29.114.236", 
+                        "type": "A"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "mtalk.google.com", 
+                "answers": [
+                    {
+                        "data": "64.233.162.188", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "mobile-gtalk.l.google.com", 
+                        "type": "CNAME"
+                    }, 
+                    {
+                        "data": "173.194.222.188", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "mobile-gtalk.l.google.com", 
+                        "type": "CNAME"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "mm.admob.com.8.8.8.8", 
+                "answers": []
+            }, 
+            {
+                "type": "A", 
+                "request": "android.clients.google.com", 
+                "answers": [
+                    {
+                        "data": "209.85.233.139", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "209.85.233.138", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "209.85.233.113", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "209.85.233.102", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "209.85.233.100", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "android.l.google.com", 
+                        "type": "CNAME"
+                    }, 
+                    {
+                        "data": "209.85.233.101", 
+                        "type": "A"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "r.admob.com", 
+                "answers": []
+            }, 
+            {
+                "type": "A", 
+                "request": "mm.admob.com", 
+                "answers": []
+            }, 
+            {
+                "type": "A", 
+                "request": "www.gstatic.com", 
+                "answers": [
+                    {
+                        "data": "87.245.198.29", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.24", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.25", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.50", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.30", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.40", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.59", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.39", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.55", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.54", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.20", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.49", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.44", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.45", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.35", 
+                        "type": "A"
+                    }, 
+                    {
+                        "data": "87.245.198.34", 
+                        "type": "A"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "r.admob.com.8.8.8.8", 
+                "answers": []
+            }
+        ], 
+        "domains": [
+            {
+                "ip": "64.233.165.188", 
+                "domain": "mtalk.google.com"
+            }, 
+            {
+                "ip": "", 
+                "domain": "r.admob.com"
+            }, 
+            {
+                "ip": "173.194.220.95", 
+                "domain": "play.googleapis.com"
+            }, 
+            {
+                "ip": "", 
+                "domain": "mm.admob.com"
+            }, 
+            {
+                "ip": "87.245.198.20", 
+                "domain": "www.gstatic.com"
+            }, 
+            {
+                "ip": "87.245.198.55", 
+                "domain": "www.google.de"
+            }, 
+            {
+                "ip": "", 
+                "domain": "r.admob.com.8.8.8.8"
+            }, 
+            {
+                "ip": "", 
+                "domain": "mm.admob.com.8.8.8.8"
+            }, 
+            {
+                "ip": "74.125.205.113", 
+                "domain": "android.clients.google.com"
+            }, 
+            {
+                "ip": "77.86.199.1", 
+                "domain": "2.android.pool.ntp.org"
+            }, 
+            {
+                "ip": "173.194.71.95", 
+                "domain": "www.googleapis.com"
+            }, 
+            {
+                "ip": "", 
+                "domain": "2.android.pool.ntp.org.8.8.8.8"
+            }
+        ], 
+        "sorted_pcap_sha256": "e7d194595fac05de3cabe082a7b07e22e5f9ab2a1627c1a5790e6018f3c5c263", 
+        "icmp": []
+    }, 
+    "virustotal": {
+        "scan_id": "b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce-1463396941", 
+        "sha1": "bc63590e6bff6ad988d151c4717078d7cde3891a", 
+        "resource": "187fff83aeda545eb9d7a28e27ddeca8", 
+        "response_code": 1, 
+        "scan_date": "2016-05-16 11:09:01", 
+        "permalink": "https://www.virustotal.com/file/b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce/analysis/1463396941/", 
+        "verbose_msg": "Scan finished, information embedded", 
+        "sha256": "b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce", 
+        "positives": 41, 
+        "total": 57, 
+        "md5": "187fff83aeda545eb9d7a28e27ddeca8", 
+        "scans": {
+            "Bkav": {
+                "detected": false, 
+                "version": "1.3.0.8017", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "TotalDefense": {
+                "detected": true, 
+                "version": "37.1.62.1", 
+                "result": "AndroidOS/Geimini.dAAVfd", 
+                "update": "20160516"
+            }, 
+            "MicroWorld-eScan": {
+                "detected": true, 
+                "version": "12.0.250.0", 
+                "result": "Android.Trojan.Geinimi.A", 
+                "update": "20160516"
+            }, 
+            "nProtect": {
+                "detected": false, 
+                "version": "2016-05-13.01", 
+                "result": null, 
+                "update": "20160513"
+            }, 
+            "CMC": {
+                "detected": false, 
+                "version": "1.1.0.977", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "CAT-QuickHeal": {
+                "detected": true, 
+                "version": "14.00", 
+                "result": "Android.Geimini.C", 
+                "update": "20160516"
+            }, 
+            "ALYac": {
+                "detected": false, 
+                "version": "1.0.1.9", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "Malwarebytes": {
+                "detected": false, 
+                "version": "2.1.1.1115", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "Zillya": {
+                "detected": false, 
+                "version": "2.0.0.2866", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "AegisLab": {
+                "detected": true, 
+                "version": "4.2", 
+                "result": "Geinimi", 
+                "update": "20160516"
+            }, 
+            "TheHacker": {
+                "detected": false, 
+                "version": "6.8.0.5.927", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "Alibaba": {
+                "detected": true, 
+                "version": "1.0", 
+                "result": "A.H.Pay.Geimini.A", 
+                "update": "20160516"
+            }, 
+            "K7GW": {
+                "detected": true, 
+                "version": "9.225.19600", 
+                "result": "Trojan ( 000027101 )", 
+                "update": "20160516"
+            }, 
+            "K7AntiVirus": {
+                "detected": false, 
+                "version": "9.225.19603", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "Baidu": {
+                "detected": false, 
+                "version": "1.0.0.2", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "F-Prot": {
+                "detected": true, 
+                "version": "4.7.1.166", 
+                "result": "AndroidOS/Geimini.K", 
+                "update": "20160516"
+            }, 
+            "Symantec": {
+                "detected": true, 
+                "version": "20151.1.0.32", 
+                "result": "Android.Geinimi", 
+                "update": "20160516"
+            }, 
+            "ESET-NOD32": {
+                "detected": true, 
+                "version": "13495", 
+                "result": "Android/Spy.Geinimi.D", 
+                "update": "20160516"
+            }, 
+            "TrendMicro-HouseCall": {
+                "detected": true, 
+                "version": "9.800.0.1009", 
+                "result": "AndroidOS_GEINIMI.SMA", 
+                "update": "20160516"
+            }, 
+            "Avast": {
+                "detected": true, 
+                "version": "8.0.1489.320", 
+                "result": "Android:Geimini-B [Trj]", 
+                "update": "20160516"
+            }, 
+            "ClamAV": {
+                "detected": true, 
+                "version": "0.98.5.0", 
+                "result": "Andr.Trojan.Geinimi-1", 
+                "update": "20160516"
+            }, 
+            "GData": {
+                "detected": true, 
+                "version": "25", 
+                "result": "Android.Trojan.Geinimi.A", 
+                "update": "20160516"
+            }, 
+            "Kaspersky": {
+                "detected": true, 
+                "version": "15.0.1.13", 
+                "result": "HEUR:Trojan-Spy.AndroidOS.Geinimi.a", 
+                "update": "20160516"
+            }, 
+            "BitDefender": {
+                "detected": true, 
+                "version": "7.2", 
+                "result": "Android.Trojan.Geinimi.A", 
+                "update": "20160516"
+            }, 
+            "NANO-Antivirus": {
+                "detected": true, 
+                "version": "1.0.30.8213", 
+                "result": "Trojan.Android.Geinimi.cwzgmg", 
+                "update": "20160516"
+            }, 
+            "SUPERAntiSpyware": {
+                "detected": false, 
+                "version": "5.6.0.1032", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "Rising": {
+                "detected": true, 
+                "version": "25.0.0.18", 
+                "result": "System.Geimini!1.9DA5", 
+                "update": "20160516"
+            }, 
+            "Ad-Aware": {
+                "detected": true, 
+                "version": "3.0.2.1015", 
+                "result": "Android.Trojan.Geinimi.A", 
+                "update": "20160516"
+            }, 
+            "Emsisoft": {
+                "detected": true, 
+                "version": "3.5.0.656", 
+                "result": "Android.Trojan.Geinimi.A (B)", 
+                "update": "20160516"
+            }, 
+            "Comodo": {
+                "detected": true, 
+                "version": "25028", 
+                "result": "UnclassifiedMalware", 
+                "update": "20160516"
+            }, 
+            "F-Secure": {
+                "detected": true, 
+                "version": "11.0.19100.45", 
+                "result": "Trojan:Android/Geinimi.D", 
+                "update": "20160516"
+            }, 
+            "DrWeb": {
+                "detected": true, 
+                "version": "7.0.18.3140", 
+                "result": "Android.Geinimi.5.origin", 
+                "update": "20160516"
+            }, 
+            "VIPRE": {
+                "detected": true, 
+                "version": "49418", 
+                "result": "Trojan.AndroidOS.Geimini.A", 
+                "update": "20160516"
+            }, 
+            "TrendMicro": {
+                "detected": true, 
+                "version": "9.740.0.1012", 
+                "result": "AndroidOS_GEINIMI.SMA", 
+                "update": "20160516"
+            }, 
+            "McAfee-GW-Edition": {
+                "detected": false, 
+                "version": "v2015", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "Sophos": {
+                "detected": true, 
+                "version": "4.98.0", 
+                "result": "Andr/BBridge-A", 
+                "update": "20160516"
+            }, 
+            "Cyren": {
+                "detected": true, 
+                "version": "5.4.16.7", 
+                "result": "AndroidOS/Geimini.K", 
+                "update": "20160516"
+            }, 
+            "Jiangmin": {
+                "detected": true, 
+                "version": "16.0.100", 
+                "result": "TrojanSpy.AndroidOS.fc", 
+                "update": "20160516"
+            }, 
+            "Avira": {
+                "detected": true, 
+                "version": "8.3.3.4", 
+                "result": "ANDROID/Spy.Geinimi.N.Gen", 
+                "update": "20160516"
+            }, 
+            "Antiy-AVL": {
+                "detected": true, 
+                "version": "1.0.0.1", 
+                "result": "Trojan[Spy]/AndroidOS.Geinimi.a", 
+                "update": "20160516"
+            }, 
+            "Kingsoft": {
+                "detected": false, 
+                "version": "2013.8.14.323", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "Arcabit": {
+                "detected": true, 
+                "version": "1.0.0.680", 
+                "result": "Android.Trojan.Geinimi.A", 
+                "update": "20160516"
+            }, 
+            "ViRobot": {
+                "detected": false, 
+                "version": "2014.3.20.0", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "Microsoft": {
+                "detected": true, 
+                "version": "1.1.12706.0", 
+                "result": "TrojanSpy:AndroidOS/Geimini.A", 
+                "update": "20160516"
+            }, 
+            "AhnLab-V3": {
+                "detected": true, 
+                "version": "2016.05.17.00", 
+                "result": "Android-Trojan/Geimini.9283", 
+                "update": "20160516"
+            }, 
+            "McAfee": {
+                "detected": true, 
+                "version": "6.0.6.653", 
+                "result": "Artemis!187FFF83AEDA", 
+                "update": "20160516"
+            }, 
+            "AVware": {
+                "detected": true, 
+                "version": "1.5.0.42", 
+                "result": "Trojan.AndroidOS.Geimini.A", 
+                "update": "20160511"
+            }, 
+            "VBA32": {
+                "detected": true, 
+                "version": "3.12.26.4", 
+                "result": "Trojan-Spy.AndroidOS.Geinimi.ef", 
+                "update": "20160516"
+            }, 
+            "Baidu-International": {
+                "detected": true, 
+                "version": "3.5.1.41473", 
+                "result": "Trojan.AndroidOS.Geinimi.a", 
+                "update": "20160516"
+            }, 
+            "Zoner": {
+                "detected": false, 
+                "version": "1.0", 
+                "result": null, 
+                "update": "20160516"
+            }, 
+            "Tencent": {
+                "detected": true, 
+                "version": "1.0.0.1", 
+                "result": "SH.!Android.MExtra.Gen.1f8", 
+                "update": "20160516"
+            }, 
+            "Yandex": {
+                "detected": false, 
+                "version": "5.5.1.3", 
+                "result": null, 
+                "update": "20160515"
+            }, 
+            "Ikarus": {
+                "detected": true, 
+                "version": "T3.2.0.9.0", 
+                "result": "Trojan.AndroidOS.Geinimi", 
+                "update": "20160516"
+            }, 
+            "Fortinet": {
+                "detected": true, 
+                "version": "5.4.233.0", 
+                "result": "Android/Geinimi.A!tr", 
+                "update": "20160516"
+            }, 
+            "AVG": {
+                "detected": true, 
+                "version": "16.0.0.4568", 
+                "result": "Android/Geinim", 
+                "update": "20160516"
+            }, 
+            "Panda": {
+                "detected": false, 
+                "version": "4.6.4.2", 
+                "result": null, 
+                "update": "20160515"
+            }, 
+            "Qihoo-360": {
+                "detected": true, 
+                "version": "1.0.0.1120", 
+                "result": "Trojan.Android.Gen", 
+                "update": "20160516"
+            }
+        }
+    }, 
+    "droidmon": {}, 
+    "signatures": [
+        {
+            "families": [], 
+            "description": "File has been identified by at least one AntiVirus on VirusTotal as malicious (Osint)", 
+            "severity": 2, 
+            "references": [], 
+            "alert": false, 
+            "data": [], 
+            "name": "android_antivirus_virustotal"
+        }, 
+        {
+            "families": [], 
+            "description": "Application Uses Reflection Methods (Static)", 
+            "severity": 2, 
+            "references": [], 
+            "alert": false, 
+            "data": [
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Static API Call", 
+                            "value": "1 Lcom/geinimi/b/c;-><init>(Ljava/lang/String; Ljava/lang/Object;)V (0x68) ---> Ljava/lang/reflect/Method;->setAccessible(Z)V"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Static API Call", 
+                            "value": "1 Lcom/geinimi/b/c;->a()V (0x1e) ---> Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object; [Ljava/lang/Object;)Ljava/lang/Object;"
+                        }
+                    ]
+                }
+            ], 
+            "name": "android_reflection_code"
+        }, 
+        {
+            "families": [], 
+            "description": "Performs some HTTP requests", 
+            "severity": 2, 
+            "references": [], 
+            "alert": false, 
+            "data": [
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "http", 
+                            "value": {
+                                "count": 1, 
+                                "body": "", 
+                                "uri": "http://www.gstatic.com/android/config_update/02022016-sms-blacklist-metadata.txt", 
+                                "user-agent": "AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)", 
+                                "method": "GET", 
+                                "host": "www.gstatic.com", 
+                                "version": "1.1", 
+                                "path": "/android/config_update/02022016-sms-blacklist-metadata.txt", 
+                                "data": "GET /android/config_update/02022016-sms-blacklist-metadata.txt HTTP/1.1\r\nUser-Agent: AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)\r\nAccept-Encoding: identity\r\nHost: www.gstatic.com\r\nConnection: Keep-Alive\r\n\r\n", 
+                                "port": 80
+                            }
+                        }, 
+                        {
+                            "type": "http", 
+                            "value": {
+                                "count": 1, 
+                                "body": "", 
+                                "uri": "http://www.gstatic.com/android/config_update/02022016-sms-blacklist.txt", 
+                                "user-agent": "AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)", 
+                                "method": "GET", 
+                                "host": "www.gstatic.com", 
+                                "version": "1.1", 
+                                "path": "/android/config_update/02022016-sms-blacklist.txt", 
+                                "data": "GET /android/config_update/02022016-sms-blacklist.txt HTTP/1.1\r\nUser-Agent: AndroidDownloadManager/4.4.2 (Linux; U; Android 4.4.2; VirtualBox Build/KVT49L)\r\nAccept-Encoding: identity\r\nHost: www.gstatic.com\r\nConnection: Keep-Alive\r\n\r\n", 
+                                "port": 80
+                            }
+                        }
+                    ]
+                }
+            ], 
+            "name": "network_http"
+        }, 
+        {
+            "families": [], 
+            "description": "Application Asks For Dangerous Permissions (Static)", 
+            "severity": 3, 
+            "references": [], 
+            "alert": false, 
+            "data": [
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.INTERNET", 
+                            "value": "Allows an application to create network sockets."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.ACCESS_FINE_LOCATION", 
+                            "value": "Access fine location sources, such as the Global Positioning System on the phone, where available. Malicious applications can use this to determine where you are and may consume additional battery power."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.CALL_PHONE", 
+                            "value": "Allows the application to call phone numbers without your intervention. Malicious applications may cause unexpected calls on your phone bill. Note that this does not allow the application to call emergency numbers."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.INTERNET", 
+                            "value": "Allows an application to create network sockets."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.MOUNT_UNMOUNT_FILESYSTEMS", 
+                            "value": "Allows the application to mount and unmount file systems for removable storage."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.READ_CONTACTS", 
+                            "value": "Allows an application to read all of the contact (address) data stored on your phone. Malicious applications can use this to send your data to other people."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.READ_PHONE_STATE", 
+                            "value": "Allows the application to access the phone features of the device. An application with this permission can determine the phone number and serial number of this phone, whether a call is active, the number that call is connected to and so on."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.READ_SMS", 
+                            "value": "Allows application to read SMS messages stored on your phone or SIM card. Malicious applications may read your confidential messages."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.SEND_SMS", 
+                            "value": "Allows application to send SMS messages. Malicious applications may cost you money by sending messages without your confirmation."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.WRITE_CONTACTS", 
+                            "value": "Allows an application to modify the contact (address) data stored on your phone. Malicious applications can use this to erase or modify your contact data."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.WRITE_EXTERNAL_STORAGE", 
+                            "value": "Allows an application to write to the SD card."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "com.android.browser.permission.READ_HISTORY_BOOKMARKS", 
+                            "value": "Allows the application to read all the URLs that the browser has visited and all of the browser's bookmarks."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "com.android.browser.permission.WRITE_HISTORY_BOOKMARKS", 
+                            "value": "Allows an application to modify the browser's history or bookmarks stored on your phone. Malicious applications can use this to erase or modify your browser's data."
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "android.permission.ACCESS_COARSE_LOCATION", 
+                            "value": "Access coarse location sources, such as the mobile network database, to determine an approximate phone location, where available. Malicious applications can use this to determine approximately where you are."
+                        }
+                    ]
+                }
+            ], 
+            "name": "android_dangerous_permissions"
+        }, 
+        {
+            "families": [], 
+            "description": "File has been identified by more the 10 AntiVirus on VirusTotal as malicious (Osint)", 
+            "severity": 4, 
+            "references": [], 
+            "alert": false, 
+            "data": [
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "MicroWorld-eScan", 
+                            "value": "Android.Trojan.Geinimi.A"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "CAT-QuickHeal", 
+                            "value": "Android.Geimini.C"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "F-Prot", 
+                            "value": "AndroidOS/Geimini.K"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "ESET-NOD32", 
+                            "value": "Android/Spy.Geinimi.D"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "TrendMicro-HouseCall", 
+                            "value": "AndroidOS_GEINIMI.SMA"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Avast", 
+                            "value": "Android:Geimini-B [Trj]"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "GData", 
+                            "value": "Android.Trojan.Geinimi.A"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Kaspersky", 
+                            "value": "HEUR:Trojan-Spy.AndroidOS.Geinimi.a"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "BitDefender", 
+                            "value": "Android.Trojan.Geinimi.A"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "NANO-Antivirus", 
+                            "value": "Trojan.Android.Geinimi.cwzgmg"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Emsisoft", 
+                            "value": "Android.Trojan.Geinimi.A (B)"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Comodo", 
+                            "value": "UnclassifiedMalware"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "F-Secure", 
+                            "value": "Trojan:Android/Geinimi.D"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "DrWeb", 
+                            "value": "Android.Geinimi.5.origin"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "VIPRE", 
+                            "value": "Trojan.AndroidOS.Geimini.A"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Sophos", 
+                            "value": "Andr/BBridge-A"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "McAfee", 
+                            "value": "Artemis!187FFF83AEDA"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Ikarus", 
+                            "value": "Trojan.AndroidOS.Geinimi"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "Fortinet", 
+                            "value": "Android/Geinimi.A!tr"
+                        }
+                    ]
+                }, 
+                {
+                    "process": null, 
+                    "signs": [
+                        {
+                            "type": "AVG", 
+                            "value": "Android/Geinim"
+                        }
+                    ]
+                }
+            ], 
+            "name": "android_antivirus_virustotal_threshold"
+        }
+    ], 
+    "static": {}, 
+    "apkinfo": {
+        "files": [
+            {
+                "size": 6261, 
+                "type": "Unknown", 
+                "name": "AndroidManifest.xml", 
+                "md5": "4356968c87562ea23ed903cdc4622ce5"
+            }, 
+            {
+                "size": 171733, 
+                "type": "Unknown", 
+                "name": "classes.dex", 
+                "md5": "603fc7925f002e0f4c63f4709a35c096"
+            }, 
+            {
+                "size": 37, 
+                "type": "Unknown", 
+                "name": "META-INF/", 
+                "md5": "d41d8cd98f00b204e9800998ecf8427e"
+            }, 
+            {
+                "size": 1751, 
+                "type": "Unknown", 
+                "name": "META-INF/CERT.RSA", 
+                "md5": "a067855b13023e78e60e792f4bf8a5f3"
+            }, 
+            {
+                "size": 3316, 
+                "type": "Unknown", 
+                "name": "META-INF/CERT.SF", 
+                "md5": "d6d009ef76114167aee197d2bca6128f"
+            }, 
+            {
+                "size": 3263, 
+                "type": "Unknown", 
+                "name": "META-INF/MANIFEST.MF", 
+                "md5": "b3324afe38cf9a071511763d26e2988a"
+            }, 
+            {
+                "size": 37, 
+                "type": "Unknown", 
+                "name": "res/", 
+                "md5": "d41d8cd98f00b204e9800998ecf8427e"
+            }, 
+            {
+                "size": 37, 
+                "type": "Unknown", 
+                "name": "res/drawable/", 
+                "md5": "d41d8cd98f00b204e9800998ecf8427e"
+            }, 
+            {
+                "size": 176, 
+                "type": "Unknown", 
+                "name": "res/drawable/blank.png", 
+                "md5": "e63ccb3383cce0f288b3b022ea3b2417"
+            }, 
+            {
+                "size": 8364, 
+                "type": "Unknown", 
+                "name": "res/drawable/candle_lite.jpg", 
+                "md5": "e9faf46ba09cb34116f3d2fec28f746c"
+            }, 
+            {
+                "size": 342, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_blink.png", 
+                "md5": "2aa1bd6d1351fc64203bd0053dec8b42"
+            }, 
+            {
+                "size": 1413, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_candle.png", 
+                "md5": "cd118d80571d4f0186a01b8f50dbed51"
+            }, 
+            {
+                "size": 2533, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_disco.png", 
+                "md5": "e2ffa6de50b24c266a018ab82908388a"
+            }, 
+            {
+                "size": 145, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_emergency.png", 
+                "md5": "25ad232943b95a666327da0bd2962ae3"
+            }, 
+            {
+                "size": 134, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_normal.png", 
+                "md5": "e90f833dae35c76a3a3faa606ed97437"
+            }, 
+            {
+                "size": 145, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_police.png", 
+                "md5": "df1fd434c120ba677b5d122e17fdabbd"
+            }, 
+            {
+                "size": 172, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_rainbow.png", 
+                "md5": "13fe7c18c3c1aed4bab0cc64bcc5cf97"
+            }, 
+            {
+                "size": 720, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_scroll.png", 
+                "md5": "5cfee9e7d65c089f3075e7474fe7859e"
+            }, 
+            {
+                "size": 284, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_slide.png", 
+                "md5": "0fb70820011411d3028075a8d6910bd9"
+            }, 
+            {
+                "size": 2660, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_sprial.png", 
+                "md5": "c67470e4845be06fbcfd7f0ebf6575c4"
+            }, 
+            {
+                "size": 277, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_strobe.png", 
+                "md5": "11458d856a2cd8e3146ac6ee7be83e9a"
+            }, 
+            {
+                "size": 299, 
+                "type": "Unknown", 
+                "name": "res/drawable/effect_text.png", 
+                "md5": "f48594f4332d76c16e24f99aa0b776c6"
+            }, 
+            {
+                "size": 3481, 
+                "type": "Unknown", 
+                "name": "res/drawable/icon.png", 
+                "md5": "7c3362a2bf91c11f49377d7574e42fa9"
+            }, 
+            {
+                "size": 2109, 
+                "type": "Unknown", 
+                "name": "res/drawable/menu_brightness.png", 
+                "md5": "a04bcec7c0016d1cebb2764c41e51bd3"
+            }, 
+            {
+                "size": 1794, 
+                "type": "Unknown", 
+                "name": "res/drawable/menu_check.png", 
+                "md5": "cf13432b90a262e68b3bde85d7af625e"
+            }, 
+            {
+                "size": 1101, 
+                "type": "Unknown", 
+                "name": "res/drawable/menu_color.png", 
+                "md5": "f8b967fcf069f49c27ba78fad4c83d9c"
+            }, 
+            {
+                "size": 192, 
+                "type": "Unknown", 
+                "name": "res/drawable/menu_effect.png", 
+                "md5": "a4b425aef67b35cbb307ec2416a3eba8"
+            }, 
+            {
+                "size": 2624, 
+                "type": "Unknown", 
+                "name": "res/drawable/menu_help.png", 
+                "md5": "98294130934ba4e177dc7ba3a6b8b475"
+            }, 
+            {
+                "size": 1229, 
+                "type": "Unknown", 
+                "name": "res/drawable/popup_full_bright.png", 
+                "md5": "f18add5a665eb0895442c6006b502274"
+            }, 
+            {
+                "size": 342, 
+                "type": "Unknown", 
+                "name": "res/drawable/snmlib_arrow_up_float.png", 
+                "md5": "1f31b539d41b099d5c917d887da199e2"
+            }, 
+            {
+                "size": 1057, 
+                "type": "Unknown", 
+                "name": "res/drawable/snmlib_button_background.xml", 
+                "md5": "d1cc32ea643de9d5039d7d48a9a098c1"
+            }, 
+            {
+                "size": 492, 
+                "type": "Unknown", 
+                "name": "res/drawable/snmlib_button_background_selected.png", 
+                "md5": "63cf03ac3663c841294e27d2d76f2158"
+            }, 
+            {
+                "size": 1053, 
+                "type": "Unknown", 
+                "name": "res/drawable/sound.png", 
+                "md5": "e25461a5bb5aadfc469d8b112c140bf8"
+            }, 
+            {
+                "size": 37, 
+                "type": "Unknown", 
+                "name": "res/layout/", 
+                "md5": "d41d8cd98f00b204e9800998ecf8427e"
+            }, 
+            {
+                "size": 4361, 
+                "type": "Unknown", 
+                "name": "res/layout/dialog_effect.xml", 
+                "md5": "1245cc3818a7dc04be118c133bfb6d07"
+            }, 
+            {
+                "size": 1449, 
+                "type": "Unknown", 
+                "name": "res/layout/dialog_text.xml", 
+                "md5": "3549f0d67031a3c9f6c63dab41e457d5"
+            }, 
+            {
+                "size": 1933, 
+                "type": "Unknown", 
+                "name": "res/layout/dialog_text_multi.xml", 
+                "md5": "a666fc2a4e02850f8497683095dd9fde"
+            }, 
+            {
+                "size": 3229, 
+                "type": "Unknown", 
+                "name": "res/layout/main.xml", 
+                "md5": "17d2f2366c30132443f71ef7df535733"
+            }, 
+            {
+                "size": 2513, 
+                "type": "Unknown", 
+                "name": "res/layout/snmlib_dialog_about.xml", 
+                "md5": "72d7ba6362b1618bfab68453c9bc1667"
+            }, 
+            {
+                "size": 1053, 
+                "type": "Unknown", 
+                "name": "res/layout/snmlib_dialog_colorpicker.xml", 
+                "md5": "b780149b82b9d54ffe228ab00c7f3b42"
+            }, 
+            {
+                "size": 513, 
+                "type": "Unknown", 
+                "name": "res/layout/snmlib_test.xml", 
+                "md5": "08d26fe4ba36cfe0ea51959da86a7eef"
+            }, 
+            {
+                "size": 5373, 
+                "type": "Unknown", 
+                "name": "res/layout/snmlib_view_buttonbar.xml", 
+                "md5": "c08e705d3c284d0c022d7715d7687184"
+            }, 
+            {
+                "size": 37, 
+                "type": "Unknown", 
+                "name": "res/layout-land/", 
+                "md5": "d41d8cd98f00b204e9800998ecf8427e"
+            }, 
+            {
+                "size": 2905, 
+                "type": "Unknown", 
+                "name": "res/layout-land/main.xml", 
+                "md5": "61ba5030074df7bf75c450fcce81eecc"
+            }, 
+            {
+                "size": 37, 
+                "type": "Unknown", 
+                "name": "res/menu/", 
+                "md5": "d41d8cd98f00b204e9800998ecf8427e"
+            }, 
+            {
+                "size": 881, 
+                "type": "Unknown", 
+                "name": "res/menu/menu.xml", 
+                "md5": "0482536012ea234b041f5cfa4b66cbc2"
+            }, 
+            {
+                "size": 37, 
+                "type": "Unknown", 
+                "name": "res/raw/", 
+                "md5": "d41d8cd98f00b204e9800998ecf8427e"
+            }, 
+            {
+                "size": 16297, 
+                "type": "Unknown", 
+                "name": "res/raw/siren1.ogg", 
+                "md5": "62481f76b9c7a03b87829a589ca5be89"
+            }, 
+            {
+                "size": 12833, 
+                "type": "Unknown", 
+                "name": "resources.arsc", 
+                "md5": "32ae33b8d5846af79286106d023dcb7f"
+            }
+        ], 
+        "hidden_payload": [], 
+        "certificate": {
+            "text": "Certificate:\n    Data:\n        Version: 3 (0x2)\n        Serial Number:\n            93:6e:ac:be:07:f2:01:df\n    Signature Algorithm: sha1WithRSAEncryption\n        Issuer: C=US, ST=California, L=Mountain View, O=Android, OU=Android, CN=Android/emailAddress=android@android.com\n        Validity\n            Not Before: Feb 29 01:33:46 2008 GMT\n            Not After : Jul 17 01:33:46 2035 GMT\n        Subject: C=US, ST=California, L=Mountain View, O=Android, OU=Android, CN=Android/emailAddress=android@android.com\n        Subject Public Key Info:\n            Public Key Algorithm: rsaEncryption\n                Public-Key: (2048 bit)\n                Modulus:\n                    00:d6:93:19:04:de:c6:0b:24:b1:ed:c7:62:e0:d9:\n                    d8:25:3e:3e:cd:6c:eb:1d:e2:ff:06:8c:a8:e8:bc:\n                    a8:cd:6b:d3:78:6e:a7:0a:a7:6c:e6:0e:bb:0f:99:\n                    35:59:ff:d9:3e:77:a9:43:e7:e8:3d:4b:64:b8:e4:\n                    fe:a2:d3:e6:56:f1:e2:67:a8:1b:bf:b2:30:b5:78:\n                    c2:04:43:be:4c:72:18:b8:46:f5:21:15:86:f0:38:\n                    a1:4e:89:c2:be:38:7f:8e:be:cf:8f:ca:c3:da:1e:\n                    e3:30:c9:ea:93:d0:a7:c3:dc:4a:f3:50:22:0d:50:\n                    08:07:32:e0:80:97:17:ee:6a:05:33:59:e6:a6:94:\n                    ec:2c:b3:f2:84:a0:a4:66:c8:7a:94:d8:3b:31:09:\n                    3a:67:37:2e:2f:64:12:c0:6e:6d:42:f1:58:18:df:\n                    fe:03:81:cc:0c:d4:44:da:6c:dd:c3:b8:24:58:19:\n                    48:01:b3:25:64:13:4f:bf:de:98:c9:28:77:48:db:\n                    f5:67:6a:54:0d:81:54:c8:bb:ca:07:b9:e2:47:55:\n                    33:11:c4:6b:9a:f7:6f:de:ec:cc:8e:69:e7:c8:a2:\n                    d0:8e:78:26:20:94:3f:99:72:7d:3c:04:fe:72:99:\n                    1d:99:df:9b:ae:38:a0:b2:17:7f:a3:1d:5b:6a:fe:\n                    e9:1f\n                Exponent: 3 (0x3)\n        X509v3 extensions:\n            X509v3 Subject Key Identifier: \n                48:59:00:56:3D:27:2C:46:AE:11:86:05:A4:74:19:AC:09:CA:8C:11\n            X509v3 Authority Key Identifier: \n                keyid:48:59:00:56:3D:27:2C:46:AE:11:86:05:A4:74:19:AC:09:CA:8C:11\n                DirName:/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com\n                serial:93:6E:AC:BE:07:F2:01:DF\n\n            X509v3 Basic Constraints: \n                CA:TRUE\n    Signature Algorithm: sha1WithRSAEncryption\n         7a:af:96:8c:eb:50:c4:41:05:51:18:d0:da:ab:af:01:5b:8a:\n         76:5a:27:a7:15:a2:c2:b4:4f:22:14:15:ff:da:ce:03:09:5a:\n         bf:a4:2d:f7:07:08:72:6c:20:69:e5:c3:6e:dd:ae:04:00:be:\n         29:45:2c:08:4b:c2:7e:b6:a1:7e:ac:9d:be:18:2c:20:4e:b1:\n         53:11:f4:55:d8:24:b6:56:db:e4:dc:22:40:91:2d:75:86:fe:\n         88:95:1d:01:a8:fe:b5:ae:5a:42:60:53:5d:f8:34:31:05:24:\n         22:46:8c:36:e2:2c:2a:5e:f9:94:d6:1d:d7:30:6a:e4:c9:f6:\n         95:1b:a3:c1:2f:1d:19:14:dd:c6:1f:1a:62:da:2d:f8:27:f6:\n         03:fe:a5:60:3b:2c:54:0d:bd:7c:01:9c:36:ba:b2:9a:42:71:\n         c1:17:df:52:3c:db:c5:f3:81:7a:49:e0:ef:a6:0c:bd:7f:74:\n         17:7e:7a:4f:19:3d:43:f4:22:07:72:66:6e:4c:4d:83:e1:bd:\n         5a:86:08:7c:f3:4f:2d:ec:21:e2:45:ca:6c:2b:b0:16:e6:83:\n         63:80:50:d2:c4:30:ee:a7:c2:6a:1c:49:d3:76:0a:58:ab:7f:\n         1a:82:cc:93:8b:48:31:38:43:24:bd:04:01:fa:12:16:3a:50:\n         57:0e:68:4d\n\n", 
+            "issuer": {
+                "C": "US", 
+                "CN": "Android", 
+                "L": "Mountain View", 
+                "O": "Android", 
+                "ST": "California", 
+                "emailAddress": "android@android.com", 
+                "OU": "Android"
+            }, 
+            "fingerprint": "61ED377E85D386A8DFEE6B864BD85B0BFAA5AF81"
+        }, 
+        "files_flaged": {
+            "dex": [], 
+            "exe": [], 
+            "ko": [], 
+            "jar": [], 
+            "arm_exe": [], 
+            "apk": [], 
+            "so": []
+        }, 
+        "manifest": {
+            "activities": [
+                "com.socialnmobile.flashlight.Flashlight", 
+                "com.geinimi.custom.Ad3060_30600001"
+            ], 
+            "providers": [], 
+            "main_activity": "com.geinimi.custom.Ad3060_30600001", 
+            "receivers": [
+                "com.geinimi.AdServiceReceiver"
+            ], 
+            "package": "com.socialnmobile.flashlight", 
+            "libraries": [], 
+            "receivers_actions": [
+                "android.intent.action.BOOT_COMPLETED"
+            ], 
+            "services": [
+                "com.geinimi.custom.GoogleKeyboard"
+            ], 
+            "permissions": [
+                {
+                    "action": "full Internet access", 
+                    "description": "Allows an application to create network sockets.", 
+                    "name": "android.permission.INTERNET", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "Unknown permission from android reference", 
+                    "description": "Unknown permission from android reference", 
+                    "name": "com.android.launcher.permission.INSTALL_SHORTCUT", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "fine (GPS) location", 
+                    "description": "Access fine location sources, such as the Global Positioning System on the phone, where available. Malicious applications can use this to determine where you are and may consume additional battery power.", 
+                    "name": "android.permission.ACCESS_FINE_LOCATION", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "directly call phone numbers", 
+                    "description": "Allows the application to call phone numbers without your intervention. Malicious applications may cause unexpected calls on your phone bill. Note that this does not allow the application to call emergency numbers.", 
+                    "name": "android.permission.CALL_PHONE", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "full Internet access", 
+                    "description": "Allows an application to create network sockets.", 
+                    "name": "android.permission.INTERNET", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "mount and unmount file systems", 
+                    "description": "Allows the application to mount and unmount file systems for removable storage.", 
+                    "name": "android.permission.MOUNT_UNMOUNT_FILESYSTEMS", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "read contact data", 
+                    "description": "Allows an application to read all of the contact (address) data stored on your phone. Malicious applications can use this to send your data to other people.", 
+                    "name": "android.permission.READ_CONTACTS", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "read phone state and identity", 
+                    "description": "Allows the application to access the phone features of the device. An application with this permission can determine the phone number and serial number of this phone, whether a call is active, the number that call is connected to and so on.", 
+                    "name": "android.permission.READ_PHONE_STATE", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "read SMS or MMS", 
+                    "description": "Allows application to read SMS messages stored on your phone or SIM card. Malicious applications may read your confidential messages.", 
+                    "name": "android.permission.READ_SMS", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "send SMS messages", 
+                    "description": "Allows application to send SMS messages. Malicious applications may cost you money by sending messages without your confirmation.", 
+                    "name": "android.permission.SEND_SMS", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "set wallpaper", 
+                    "description": "Allows the application to set the system wallpaper.", 
+                    "name": "android.permission.SET_WALLPAPER", 
+                    "severity": "normal"
+                }, 
+                {
+                    "action": "write contact data", 
+                    "description": "Allows an application to modify the contact (address) data stored on your phone. Malicious applications can use this to erase or modify your contact data.", 
+                    "name": "android.permission.WRITE_CONTACTS", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "modify/delete SD card contents", 
+                    "description": "Allows an application to write to the SD card.", 
+                    "name": "android.permission.WRITE_EXTERNAL_STORAGE", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "read Browser's history and bookmarks", 
+                    "description": "Allows the application to read all the URLs that the browser has visited and all of the browser's bookmarks.", 
+                    "name": "com.android.browser.permission.READ_HISTORY_BOOKMARKS", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "write Browser's history and bookmarks", 
+                    "description": "Allows an application to modify the browser's history or bookmarks stored on your phone. Malicious applications can use this to erase or modify your browser's data.", 
+                    "name": "com.android.browser.permission.WRITE_HISTORY_BOOKMARKS", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "coarse (network-based) location", 
+                    "description": "Access coarse location sources, such as the mobile network database, to determine an approximate phone location, where available. Malicious applications can use this to determine approximately where you are.", 
+                    "name": "android.permission.ACCESS_COARSE_LOCATION", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "Unknown permission from android reference", 
+                    "description": "Unknown permission from android reference", 
+                    "name": "android.permission.ACCESS_GPS", 
+                    "severity": "dangerous"
+                }, 
+                {
+                    "action": "Unknown permission from android reference", 
+                    "description": "Unknown permission from android reference", 
+                    "name": "android.permission.ACCESS_LOCATION", 
+                    "severity": "dangerous"
+                }
+            ]
+        }, 
+        "icon": "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAANO0lEQVRo3tWaa4xd11XHf2vv87iP\nmfH7FTtxUrdxmtTQOmmhIlIpRVURUVsqIYQQ/YAQCNQvIFUggZBAIi2qoFKF+FAVJCqQKiSiomKF\ntgmkUfpAbUMISRMSx6njjBN7Zjwznpn7OOfstfiw971z73jGcR5fuNL28T3n3L3Xfz3+e621R8yM\n/8+f7EYBrLzkRKZvSRrX+//Wj00MtlyNiX98hjk3/dLMEb0WwGsJ3l90Ygpla0o4AdzE1W3zfSfh\ndeKqW74boGZgIOiU/Ntb4HoPh0tOsiyKJdsL7dPIzPCmeAOPjd+TsfCCCiiO4IQA1wxJIDAwC5gq\nhAAWYCdHuS4A58E5RFwSRqaFxshMyc0oEDLJ8M5hCIYhFn9jAoLhk44D0IjQiKNCqIEGCOlZANQE\nE0VNkRCgqra3xI4Ahlec+AzEISII4MUlwSG3QKFQ4iicBwIZFbtZ5zbWOUngCLWUlNbHMc8c/0ub\neUqu4jACBgwxKucZAhXQmCJAwBHEcOJQHGh4HRZYv+ikaEW3mRA+S+8XGmgBLclwNJSyyHtYkU8w\nt+duyw4fYv9NGeVhkAJ0GYYvQ7VQsbL4imxs/Kfts68yx/PiyUwpVckkrlGJQ0zHdKDJgmaGbBcP\nojod2YsvOGl3IC8Rn+GcHwufo5QGLYMOGcoSd7gV/7vMHv8w++/DWr+McRCsBl0Au5BWaYCrSPME\nDJ9Bls4HG1w+Ywf1SzLLPA1m0BPoiWNoMDSl1kAINaEaoP11bG0FTvyU2o3GgEwEagYUI+HFI7zE\nx0V3/xHH752l+2ngLtALiL6I2SqwCro+ikvEAf40tA7BTd/3Mjz2Ubn47D3WW/8LO8L3pGEGjdoX\nRyKiaeo13SZOJ7+c/6GTifuTTJObUgJt8cCL/Lpkxz7DrffO0vkDsIOgP0D0ObCXQechLEdLWACr\nMR2CriLMAT8BWRtuffdNMjjwOXmZD5DhgS7QNqUA8rT2JkU7ePyMkx0B2Jgxp7VvSg60zAOX+JC0\njn6awycE9/NgHsJToBfBXgFdQOiD6MhJEVGEBqEBNkA64I5CULj5zkKq3X/MAu82jwfaQAubAiCA\nE0BtBwv8z8NTyMYALGqiwONklbdJb+5POPJOjzqgAD0bfT3Mgy4nITPE5Yj3SIp9GXmrGdgAZG8E\nogrHTs/Jauv3GbIXR2lQxsmnQLDdDj8GoAFSrjC921r0fwKeK+43OXrPAYLGsAhPQHgO9BLQS9MV\nCDlCEYfLEZcnedx4EVBwHaAEZ3DwXSdlkY+ZIAKlbQo/aQUB+MbfbSp7DMA2M5StLuRxQJ/j0j3y\nEYoyKaYNtgZ2GRhuxrrz4AqgwGhhtKLwzoPLEogEgBJogXro7kfC3K/IBocBh5Jh1wo/Uva//HUE\n4QC++4CTLQYagzDwCIFVfo65E20McN0ojCSBLCnKlRgdgnZotEPQWYLOEHQmAUngLelHSnDJW8xg\n/+17GHAXDpvQvmwdE8q+hkan4sCiwYWKtjTFRyh3x0X9PdHn2QBpATPgdgFzQBdzRRLWJXIYopR4\nWhG4umTyOmYOTkEHUOxDlt0HDP06Dm9hKv+azgz1BrNRQGmYY2bvEVwO1omK8beDrib3mY0gpAt0\ncLQnAERXEfK0chNTH2k2AVgAF+K8eesW6l6JY4jtmJaP2ejGAECLcnd77CpsRBu6A9GH6QEdYBZh\nFqEEyvFONGKmTf+vEvBOuo5Aeci7HayXbVMzTLOPbA/Adiw+XNvF4BXQlEC6FIiyK72VLOGirwt+\nlFyCjuJFwQ2jy5BHEFKBFXHuvMy21Au2bQ7kJljo/Z9IBrFtiw/FUcXYH7nFEFyTHicGkpmk0TJt\nqN1knXR1rfS8HYcb0XwaEtkaCRVCBYRU0myt4Exkk42zSZPYFuFlBEC4iq6sI+0uVkffVZ2wQtrU\nKCNDkaeNdJIdQhK0iIBCJ9HqLIS1UZYOYWOVkg0gSPStyYptXKd89FNR6WMA4rd1nYCieJYYLL4I\n5aH4SqJnN5mD5IlGczTEXBxziChmHudBfICQg5Xg9iXfX0pWqJMGe88ibBDQiWptyhIf/o3NhGK8\nkZ36kG71fwVUHMGEPlnvAbQXaXRcGkzmfDn99R5NFQhNQAOoKiGAhoAFGPSGKWbaKZj7cRnJ431d\nhbL5t1TQ1Cn69XoB7bZuAjbt/0HiJN5ye5Dqu0uR7/Nk/uTH4sA5+hvrhKYmyz3eE4cDn3mapmaw\nvh5XtCbRaZWGgOyG4SPnzPNfKamsJ7Svo2TByXUAHL9bbZsgDgKK52XsqS8RanCJjcg26QClu3sX\nqjXOTWtFHGioaM+0k8brFPxVYrQuNGcxf/nzeBYEmqlaeSSLwulfnM5H3XX6NzoG4JIVsvAPVF95\nBQ5N/HwURjV57miaGiREXA5wAZGKqhqSFR50xPspJp1GKzb/+igZD6L4ZJawNYAn4nRnAPtPqNl2\nVojdhpeMs/cTfpR23sRALs7snMc5lwrwHMEheEITmcv7GnPDKJvkafk9WP33i+Z7f57MUosba3/K\nfU68T+01AWyzC4/YoBZHgeefaL74YFQSE8qKzFS0WoQQEHFJZQFVaLXLielIaUQL9CGMs3+G8Awg\n4qhti+8nmt9+R97u5syRqViYBNFEVhr8Ic1nz8WdVxOIHrCOLwJqnqaB0EAIATXFZzXGILl2lX53\nHmse+EcRzogjEzfOK66hzizfoXe1k+qLvTuCEHG8hF78LPbPKX0YWbzGoYSmhzY9tBmgTU2oKpBh\nLDW1v5kAhi9fgOYL4nCjvtB2wiNYVrxOADv0NEOStsRxhvDVx2EleUVkFpEe2iyiYYG87KG6Smgu\n432dpmjStBeAc2fEcWmMfisAS9rPdrbAjWSjbAHg0kIDbPC32GOnkfsiu7hIPVmmXHzxLK1WwbCu\nOHh0T2SasfZzsIcVs69NoGp2SODM+TfY3PVzarbhZAcrOOAR+OYq3LcLBvGpayjKLvtuOo3zLbpN\nTatzHuxqkjHVx/r4InA+3awmLDAF4HrC36gLjaqfzfxoc6EldHEJ1lJa0APdwGVKq7MP7zztmQN4\nD+haWvFg+unGPLC4retocp60CY7GG3Ih6UYrmGLipqwAsA5hA9tIFVY2rpX7awvUw3Va3ZqiNcqb\nZmPOY6tAczm27yhGLmQ6TZ3yGmcDNxwD0lXTdScWM8TJbGQoMviOsHwq5v0NhAoLjrJ7O2Vnb5Si\nvgw6QIrjwKvAPGb9b1tgEHVr05vWDRxsvN4gJjSylZUCGE71y77z0G+H+j56V58hNHF3zlpt+r1j\ndLpPsrL0A8qZd5HpZUSfJi8eHIYqnDF1Atpcr/Kaisk3AyDfHax3qZCUZ4ws4UG+08oe/eLKpYO/\ndXVZYhvRGU34Bhde6HDyJ0PMAzJj+dLXcO559h/+4Z9W/ezxlNYGkXgoEw+WjCzDNn3eNvPk7bxj\na3v9ep+1i7uoKyU0qX4TAcycJz/3I/+YyF3vc7IfI+Cym5l/qcXJU9BfexUYMOhdIMvPP3L8ZPVB\nDerGrR5rEt+r5a1AXsYjHZFJXQn57uqNWwAg6B6axhj0sWpoEpM2A6P+9r/3N257xwVuPrGEhS69\nXp/h0HFlUVlfvkwT+lR1QVnOXpndG9BghsS+ifdKq63mfMCsxixsYe6dQ+J1AjhIo9CoUQe13nqg\nGpoIZre8o3P/c8+7D84d2MPb7pxh+XKPucGAC+cbkBznZzHbhTTz33z1YoynLHeUbbNOBzJtaLQm\nswa1OnWzw4QF9M0DaDT2dYMqjdYEU0zMFheGPH9WWiZt+sND1M0Rgq3R61+hN6wAx3AodGf2DLKi\nenR5ZUC7463lPZk5GjUaDQQNNKHG6RAnddqAwnXj+3VaYIZggloghECjNQsLfRYXDpC1jp7dWFus\nhvXewucn6O7qk5XnMblKXYPLSvLycNPd/UEVeQgLa6gJaj7NCUEDag1Ba0zi5ixTJfGbBAAleSE0\ntdKZg6oRrq6dpGyX7JKVau3qoDY7WHh/B+KvIq5OrXUlqJDlc528sFnvf4nhcJ5GH0vnSR61mL2p\nBcwa1HJERievb1EMiHM8+9/LPPt0j6DHyLJZsnyIyJBBfziTF2V7/6Hb2b3/vbD0MnmxRJZXOK/0\nNtYJoXlo0O99P4Q1nJ8Bu5Ph4BnKMmY1ZvE40iyL1Z7FY9K3zIWcCzz89VVWVx3OvTAxqSAiT4rI\nr/3N5//yr371k68cOXbrSfq9Na4sXuaJx59kfn7px5/6vd+53zmX6LEHcjP9wUFm576F8z62wkUR\nicdRIpNtobfAhZ59cp1bbjlGXfuJlsNm+6Eoiq88/fS5X/jcZ77wybvf83ZmZru8cPYCz5+7zHtP\n3/Yfh47c/C0z3XLcuIeq6lANrtBuOfI8kOcNwjAB0bfOAg8+sEpeLOPGBaqkDrikrNX4mfffwTtP\nneLU3T/Lc099j1tuPsTHPr6Ho8ffvu/Kwo/jH0BMdqEwhJ9mbeUyK4sv0OlewrnAeAXZ/COYU/de\nK9P/ASqatSGprRQ0AAAAAElFTkSuQmCC\n", 
+        "static_method_calls": {
+            "is_dynamic_code": false, 
+            "native_method_calls": [], 
+            "permissions_method_calls": {
+                "WAKE_LOCK": [
+                    "1 Lcom/socialnmobile/flashlight/Flashlight;->startAudio()V (0x2a) ---> Landroid/media/MediaPlayer;->start()V", 
+                    "1 Lcom/socialnmobile/flashlight/Flashlight;->stopAudio()V (0xc) ---> Landroid/media/MediaPlayer;->stop()V"
+                ], 
+                "SEND_SMS": [
+                    "1 Lcom/geinimi/c/i;->a(Ljava/lang/String; Ljava/lang/String;)V (0x36) ---> Landroid/telephony/SmsManager;->getDefault()Landroid/telephony/SmsManager;", 
+                    "1 Lcom/geinimi/c/i;->a(Ljava/lang/String; Ljava/lang/String;)V (0x44) ---> Landroid/telephony/SmsManager;->sendTextMessage(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Landroid/app/PendingIntent; Landroid/app/PendingIntent;)V"
+                ], 
+                "VIBRATE": [
+                    "W ['Landroid/app/Notification;', 'defaults', 'I'] (0x532) ---> Lcom/geinimi/AdServiceThread;->run()V"
+                ], 
+                "SET_WALLPAPER": [
+                    "1 Lcom/geinimi/ads/s;->b()Z (0x3c) ---> Landroid/content/Context;->setWallpaper(Landroid/graphics/Bitmap;)V"
+                ], 
+                "INTERNET": [
+                    "1 Lcom/admob/android/ads/Ad$1;->run()V (0x4a) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lcom/admob/android/ads/Ad;->fetchImage(Ljava/lang/String; Z)Landroid/graphics/Bitmap; (0x12) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lcom/admob/android/ads/AdMobLocalizer$InitLocalizerThread;->run()V (0x58) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lcom/admob/android/ads/AdRequester;->requestAd(Landroid/content/Context; Ljava/lang/String; Ljava/lang/String;)Lcom/admob/android/ads/Ad; (0x52) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lcom/admob/android/ads/AdView;->retrieveDeveloperMessage(Landroid/content/Context;)V (0x44) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lcom/geinimi/c/l;->a(Ljava/lang/String; Ljava/lang/String;)V (0x54) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lcom/geinimi/c/l;->a(Ljava/lang/String; Ljava/util/Map; Lorg/apache/http/util/ByteArrayBuffer;)V (0xce) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lcom/geinimi/c/l;->b(Ljava/lang/String; Ljava/lang/String;)Ljava/io/File; (0x14) ---> Ljava/net/URL;->openConnection()Ljava/net/URLConnection;", 
+                    "1 Lcom/admob/android/ads/Ad$1;->run()V (0xa2) ---> Ljava/net/HttpURLConnection;->connect()V", 
+                    "1 Lcom/geinimi/c/l;->a(Ljava/lang/String; Ljava/util/Map; Lorg/apache/http/util/ByteArrayBuffer;)V (0xf6) ---> Ljava/net/HttpURLConnection;->connect()V", 
+                    "1 Lcom/admob/android/ads/Ad;->fetchImage(Ljava/lang/String; Z)Landroid/graphics/Bitmap; (0x30) ---> Ljava/net/URLConnection;->connect()V", 
+                    "1 Lcom/admob/android/ads/Ad;->fetchImage(Ljava/lang/String; Z)Landroid/graphics/Bitmap; (0x36) ---> Ljava/net/URLConnection;->getInputStream()Ljava/io/InputStream;", 
+                    "1 Lcom/admob/android/ads/AdMobLocalizer$InitLocalizerThread;->run()V (0x60) ---> Ljava/net/URLConnection;->connect()V", 
+                    "1 Lcom/admob/android/ads/AdMobLocalizer$InitLocalizerThread;->run()V (0x6a) ---> Ljava/net/URLConnection;->getInputStream()Ljava/io/InputStream;", 
+                    "1 Lcom/admob/android/ads/AdView;->retrieveDeveloperMessage(Landroid/content/Context;)V (0x4c) ---> Ljava/net/URLConnection;->connect()V", 
+                    "1 Lcom/admob/android/ads/AdView;->retrieveDeveloperMessage(Landroid/content/Context;)V (0x64) ---> Ljava/net/URLConnection;->getInputStream()Ljava/io/InputStream;", 
+                    "1 Lcom/geinimi/AdActivity;->a(Lcom/geinimi/r;)V (0x4a) ---> Landroid/webkit/WebView;-><init>(Landroid/content/Context;)V"
+                ], 
+                "ACCESS_FINE_LOCATION": [
+                    "1 Lcom/admob/android/ads/AdManager;->getCoordinates(Landroid/content/Context;)Landroid/location/Location; (0x1b6) ---> Landroid/location/LocationManager;->requestLocationUpdates(Ljava/lang/String; J F Landroid/location/LocationListener; Landroid/os/Looper;)V", 
+                    "1 Lcom/geinimi/c/d;->a(I)V (0x2a) ---> Landroid/location/LocationManager;->requestLocationUpdates(Ljava/lang/String; J F Landroid/location/LocationListener;)V", 
+                    "1 Lcom/geinimi/c/d;->a([D)Z (0x20) ---> Landroid/location/LocationManager;->getLastKnownLocation(Ljava/lang/String;)Landroid/location/Location;", 
+                    "1 Lcom/geinimi/c/h;->run()V (0x28) ---> Landroid/location/LocationManager;->requestLocationUpdates(Ljava/lang/String; J F Landroid/location/LocationListener;)V"
+                ], 
+                "READ_PHONE_STATE": [
+                    "1 Lcom/geinimi/c/k;-><init>(Lcom/geinimi/AdService;)V (0x1e) ---> Landroid/telephony/TelephonyManager;->getDeviceId()Ljava/lang/String;", 
+                    "1 Lcom/geinimi/c/k;-><init>(Lcom/geinimi/AdService;)V (0x36) ---> Landroid/telephony/TelephonyManager;->getDeviceSoftwareVersion()Ljava/lang/String;", 
+                    "1 Lcom/geinimi/c/k;-><init>(Lcom/geinimi/AdService;)V (0x42) ---> Landroid/telephony/TelephonyManager;->getLine1Number()Ljava/lang/String;", 
+                    "1 Lcom/geinimi/c/k;-><init>(Lcom/geinimi/AdService;)V (0xbe) ---> Landroid/telephony/TelephonyManager;->getSimSerialNumber()Ljava/lang/String;", 
+                    "1 Lcom/geinimi/c/k;-><init>(Lcom/geinimi/AdService;)V (0xde) ---> Landroid/telephony/TelephonyManager;->getSubscriberId()Ljava/lang/String;", 
+                    "1 Lcom/geinimi/c/k;-><init>(Lcom/geinimi/AdService;)V (0xf6) ---> Landroid/telephony/TelephonyManager;->getVoiceMailNumber()Ljava/lang/String;"
+                ], 
+                "WRITE_HISTORY_BOOKMARKS": [
+                    "R ['Landroid/provider/Browser;', 'BOOKMARKS_URI', 'Landroid/net/Uri;'] (0xb4) ---> Lcom/geinimi/ads/c;->b()Z"
+                ]
+            }, 
+            "reflection_method_calls": [
+                "1 Lcom/geinimi/b/c;-><init>(Ljava/lang/String; Ljava/lang/Object;)V (0x68) ---> Ljava/lang/reflect/Method;->setAccessible(Z)V", 
+                "1 Lcom/geinimi/b/c;->a()V (0x1e) ---> Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object; [Ljava/lang/Object;)Ljava/lang/Object;"
+            ], 
+            "dynamic_method_calls": [], 
+            "crypto_method_calls": [
+                "1 Lcom/geinimi/c/m;->a([B)[B (0x20) ---> Ljavax/crypto/SecretKeyFactory;->getInstance(Ljava/lang/String;)Ljavax/crypto/SecretKeyFactory;", 
+                "1 Lcom/geinimi/c/m;->a([B)[B (0x28) ---> Ljavax/crypto/SecretKeyFactory;->generateSecret(Ljava/security/spec/KeySpec;)Ljavax/crypto/SecretKey;", 
+                "1 Lcom/geinimi/c/m;->b([B)[B (0x16) ---> Ljavax/crypto/SecretKeyFactory;->getInstance(Ljava/lang/String;)Ljavax/crypto/SecretKeyFactory;", 
+                "1 Lcom/geinimi/c/m;->b([B)[B (0x1e) ---> Ljavax/crypto/SecretKeyFactory;->generateSecret(Ljava/security/spec/KeySpec;)Ljavax/crypto/SecretKey;", 
+                "1 Lcom/geinimi/c/m;->a([B)[B (0x34) ---> Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;", 
+                "1 Lcom/geinimi/c/m;->a([B)[B (0x42) ---> Ljavax/crypto/Cipher;->init(I Ljava/security/Key;)V", 
+                "1 Lcom/geinimi/c/m;->a([B)[B (0x58) ---> Ljavax/crypto/Cipher;->doFinal([B)[B", 
+                "1 Lcom/geinimi/c/m;->b([B)[B (0x2a) ---> Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;", 
+                "1 Lcom/geinimi/c/m;->b([B)[B (0x34) ---> Ljavax/crypto/Cipher;->init(I Ljava/security/Key;)V", 
+                "1 Lcom/geinimi/c/m;->b([B)[B (0x3a) ---> Ljavax/crypto/Cipher;->doFinal([B)[B", 
+                "1 Lcom/geinimi/c/m;->a([B)[B (0x16) ---> Ljavax/crypto/spec/DESKeySpec;-><init>([B)V", 
+                "1 Lcom/geinimi/c/m;->b([B)[B (0xc) ---> Ljavax/crypto/spec/DESKeySpec;-><init>([B)V"
+            ], 
+            "is_native_code": false, 
+            "all_methods": [
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/Ad$1", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "Lcom/admob/android/ads/Ad", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/Ad", 
+                    "name": "createAd"
+                }, 
+                {
+                    "return": "Landroid/graphics/Bitmap", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/Ad", 
+                    "name": "fetchImage"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/Ad", 
+                    "name": "clicked"
+                }, 
+                {
+                    "return": "Landroid/graphics/Bitmap", 
+                    "class": "Lcom/admob/android/ads/Ad", 
+                    "name": "getIcon"
+                }, 
+                {
+                    "return": "I", 
+                    "class": "Lcom/admob/android/ads/Ad", 
+                    "name": "getImageHeight"
+                }, 
+                {
+                    "return": "I", 
+                    "class": "Lcom/admob/android/ads/Ad", 
+                    "name": "getImageWidth"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdContainer$1", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdContainer$2", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "<clinit>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/Ad", 
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/Ad", 
+                        "Landroid/content/Context", 
+                        "Landroid/util/AttributeSet", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "click"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/graphics/Canvas", 
+                        "Landroid/graphics/Rect", 
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "drawBackground"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/graphics/Canvas", 
+                        "Landroid/graphics/Rect"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "drawFocusRing"
+                }, 
+                {
+                    "return": "Landroid/graphics/drawable/BitmapDrawable", 
+                    "params": [
+                        "Landroid/graphics/Rect", 
+                        "I", 
+                        "I", 
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "generateBackgroundDrawable"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/Ad", 
+                        "Landroid/content/Context", 
+                        "Landroid/util/AttributeSet", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "init"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/graphics/drawable/BitmapDrawable"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "recycleBitmapDrawable"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "dispatchTouchEvent"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "dispatchTrackballEvent"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z", 
+                        "I", 
+                        "Landroid/graphics/Rect"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "onFocusChanged"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "onKeyDown"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "onKeyUp"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I", 
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "onSizeChanged"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "setPressed"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdContainer", 
+                    "name": "setTextColor"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/location/Location"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager$1", 
+                    "name": "onLocationChanged"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "<clinit>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "clientError"
+                }, 
+                {
+                    "return": "Landroid/location/Location", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getCoordinates"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getCoordinatesAsString"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getPublisherId"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getUserAgent"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "getUserId"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "md5"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdManager", 
+                    "name": "setPublisherId"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdMobLocalizer$InitLocalizerThread", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/admob/android/ads/AdMobLocalizer", 
+                    "name": "loadStrings"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/StringBuilder", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdRequester", 
+                    "name": "appendParams"
+                }, 
+                {
+                    "return": "Lcom/admob/android/ads/Ad", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdRequester", 
+                    "name": "requestAd"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView$1$1", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView$1", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView$2", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView$SwapViews", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/util/AttributeSet", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "Lcom/admob/android/ads/AdView"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "access$5"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/AdContainer"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "applyFadeIn"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/admob/android/ads/AdContainer"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "applyRotation"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "retrieveDeveloperMessage"
+                }, 
+                {
+                    "return": "I", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "getVisibility"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "onAttachedToWindow"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "onDetachedFromWindow"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "onMeasure"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "requestFreshAd"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "setRequestInterval"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/AdView", 
+                    "name": "setVisibility"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "F", 
+                        "F", 
+                        "F", 
+                        "F", 
+                        "Z"
+                    ], 
+                    "class": "Lcom/admob/android/ads/Rotate3dAnimation", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "F", 
+                        "Landroid/view/animation/Transformation"
+                    ], 
+                    "class": "Lcom/admob/android/ads/Rotate3dAnimation", 
+                    "name": "applyTransformation"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I", 
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/admob/android/ads/Rotate3dAnimation", 
+                    "name": "initialize"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/a/b", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/AdActivity", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/geinimi/r"
+                    ], 
+                    "class": "Lcom/geinimi/AdActivity", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/geinimi/AdActivity"
+                    ], 
+                    "class": "Lcom/geinimi/AdActivity", 
+                    "name": "d"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/geinimi/AdActivity", 
+                    "name": "isRunningServices"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/geinimi/AdActivity", 
+                    "name": "startAdService"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Bundle"
+                    ], 
+                    "class": "Lcom/geinimi/AdActivity", 
+                    "name": "onCreate"
+                }, 
+                {
+                    "return": "Landroid/app/Dialog", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/geinimi/AdActivity", 
+                    "name": "onCreateDialog"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Parcel", 
+                        "I"
+                    ], 
+                    "class": "Lcom/geinimi/AdPushable", 
+                    "name": "writeToParcel"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Parcel", 
+                        "I"
+                    ], 
+                    "class": "Lcom/geinimi/ads/Advertisable", 
+                    "name": "writeToParcel"
+                }, 
+                {
+                    "return": "Ljava/lang/Object", 
+                    "params": [
+                        "Landroid/os/Parcel"
+                    ], 
+                    "class": "Lcom/geinimi/ads/b", 
+                    "name": "createFromParcel"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/geinimi/ads/c", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "class": "Lcom/geinimi/ads/d", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "class": "Lcom/geinimi/ads/e", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "class": "Lcom/geinimi/ads/g", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "class": "Lcom/geinimi/ads/h", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "class": "Lcom/geinimi/ads/i", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "class": "Lcom/geinimi/ads/j", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/geinimi/ads/k", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "class": "Lcom/geinimi/ads/m", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "Landroid/content/Intent", 
+                    "class": "Lcom/geinimi/ads/n", 
+                    "name": "f"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/ads/r", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "Z", 
+                    "class": "Lcom/geinimi/ads/s", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "c"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "d"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "e"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/Runnable"
+                    ], 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "onCreate"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "onDestroy"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "onLowMemory"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Intent", 
+                        "I"
+                    ], 
+                    "class": "Lcom/geinimi/AdService", 
+                    "name": "onStart"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/AdServiceReceiver", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/content/Intent"
+                    ], 
+                    "class": "Lcom/geinimi/AdServiceReceiver", 
+                    "name": "onReceive"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/AdServiceThread", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "Ljava/util/Vector", 
+                    "class": "Lcom/geinimi/c/b", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/b", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/b", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/b", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "D", 
+                        "D"
+                    ], 
+                    "class": "Lcom/geinimi/c/d", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/geinimi/c/d", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/d", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "[D"
+                    ], 
+                    "class": "Lcom/geinimi/c/d", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/location/Location"
+                    ], 
+                    "class": "Lcom/geinimi/c/f", 
+                    "name": "onLocationChanged"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/c/h", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/i", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/i", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Landroid/content/Intent", 
+                        "Landroid/graphics/Bitmap"
+                    ], 
+                    "class": "Lcom/geinimi/c/j", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/geinimi/c/k", 
+                    "name": "<clinit>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/geinimi/AdService"
+                    ], 
+                    "class": "Lcom/geinimi/c/k", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/k", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/k", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Ljava/io/File", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/l", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/c/l", 
+                    "name": "c"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/geinimi/AdActivity"
+                    ], 
+                    "class": "Lcom/geinimi/e", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/webkit/WebView", 
+                        "I"
+                    ], 
+                    "class": "Lcom/geinimi/e", 
+                    "name": "onProgressChanged"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/webkit/WebView", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/e", 
+                    "name": "onReceivedTitle"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/geinimi/AdActivity", 
+                        "Lcom/geinimi/r"
+                    ], 
+                    "class": "Lcom/geinimi/f", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/webkit/WebView", 
+                        "I", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/f", 
+                    "name": "onReceivedError"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/webkit/WebView", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/f", 
+                    "name": "shouldOverrideUrlLoading"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/geinimi/i", 
+                    "name": "onClick"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/geinimi/AdActivity", 
+                        "Landroid/content/Context", 
+                        "I", 
+                        "[Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/geinimi/k", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Landroid/view/View", 
+                    "params": [
+                        "I", 
+                        "Landroid/view/View", 
+                        "Landroid/view/ViewGroup"
+                    ], 
+                    "class": "Lcom/geinimi/k", 
+                    "name": "getView"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/widget/AdapterView", 
+                        "Landroid/view/View", 
+                        "I", 
+                        "J"
+                    ], 
+                    "class": "Lcom/geinimi/l", 
+                    "name": "onItemClick"
+                }, 
+                {
+                    "return": "Ljava/lang/Object", 
+                    "params": [
+                        "Landroid/os/Parcel"
+                    ], 
+                    "class": "Lcom/geinimi/n", 
+                    "name": "createFromParcel"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Parcel"
+                    ], 
+                    "class": "Lcom/geinimi/r", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/geinimi/r", 
+                    "name": "a"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Parcel"
+                    ], 
+                    "class": "Lcom/geinimi/r", 
+                    "name": "b"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogEffect$2", 
+                    "name": "onClick"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Lcom/socialnmobile/flashlight/Flashlight"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogEffect", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "Landroid/view/View$OnClickListener", 
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogEffect", 
+                    "name": "setupButton"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogEffect", 
+                    "name": "onKeyDown"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogEffect", 
+                    "name": "onTouchEvent"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogEffect", 
+                    "name": "setAdView"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/DialogEffect", 
+                    "name": "show"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogText$1", 
+                    "name": "onClick"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/View", 
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogText$2", 
+                    "name": "onKey"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Lcom/socialnmobile/flashlight/Flashlight"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogText", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/DialogText", 
+                    "name": "clear"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogText", 
+                    "name": "onTouchEvent"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/View", 
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogTextMulti$1", 
+                    "name": "onKey"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/View", 
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogTextMulti$2", 
+                    "name": "onKey"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/View", 
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogTextMulti$3", 
+                    "name": "onKey"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/View", 
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogTextMulti$4", 
+                    "name": "onKey"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Lcom/socialnmobile/flashlight/Flashlight", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogTextMulti", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogTextMulti", 
+                    "name": "onTouchEvent"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/DialogTextMulti", 
+                    "name": "setText"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight$1", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight$2", 
+                    "name": "run"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight$3", 
+                    "name": "onClick"
+                }, 
+                {
+                    "return": "Landroid/view/View", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight$6", 
+                    "name": "makeView"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight$8", 
+                    "name": "onColorChanged"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "changeColor"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "createImageBitmap"
+                }, 
+                {
+                    "return": "Landroid/graphics/Bitmap", 
+                    "params": [
+                        "F"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "getCandleBitmap"
+                }, 
+                {
+                    "return": "Landroid/graphics/Bitmap", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "getDiscoBitmap"
+                }, 
+                {
+                    "return": "Landroid/graphics/Bitmap", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "getSpiralBitmap"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "init"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "isSupportPackageInstalled"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "setBrightnessHardware"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "setHorizontalScrolling"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "setTextColor"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "setTextScreen"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "setTextSize"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "showBrightnessSetting"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "startAudio"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "stopAudio"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "stopEffect"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Z"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "toggleSound"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/res/Configuration"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "onConfigurationChanged"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Bundle"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "onCreate"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/Menu"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "onCreateOptionsMenu"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "I", 
+                        "Landroid/view/KeyEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "onKeyDown"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MenuItem"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "onOptionsItemSelected"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "onPause"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "onResume"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "onTouchEvent"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "showSpeedControl"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "Z"
+                    ], 
+                    "class": "Lcom/socialnmobile/flashlight/Flashlight", 
+                    "name": "startEffect"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/content/Intent"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/common/SNMUtils", 
+                    "name": "isIntentAvailable"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/lib/TestLib", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Bundle"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/TestLib", 
+                    "name": "onCreate"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/AboutDialog$1", 
+                    "name": "onClick"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "I", 
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/AboutDialog", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/lib/ui/AboutDialog", 
+                    "name": "flash"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/View"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar$1", 
+                    "name": "onClick"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/util/AttributeSet"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar", 
+                    "name": "click"
+                }, 
+                {
+                    "return": "Landroid/view/View", 
+                    "params": [
+                        "Landroid/view/View$OnClickListener", 
+                        "I", 
+                        "I", 
+                        "Z"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar", 
+                    "name": "addButton"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar", 
+                    "name": "clearButtons"
+                }, 
+                {
+                    "return": "V", 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar", 
+                    "name": "init"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/graphics/drawable/Drawable"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar", 
+                    "name": "setBackgroundDrawable"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar", 
+                    "name": "setButtonImage"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ButtonBar", 
+                    "name": "setSeparatorColor"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/util/AttributeSet"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Landroid/util/AttributeSet", 
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "createColorBar"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "findColorPosition"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "getPositionColor"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "trackTouchEvent"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "init"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/graphics/Canvas"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "onDraw"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "I", 
+                        "I", 
+                        "I", 
+                        "I"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "onSizeChanged"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPicker", 
+                    "name": "onTouchEvent"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "I", 
+                        "Z"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPickerDialog", 
+                    "name": "<init>"
+                }, 
+                {
+                    "return": "V", 
+                    "params": [
+                        "Landroid/os/Bundle"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPickerDialog", 
+                    "name": "onCreate"
+                }, 
+                {
+                    "return": "Z", 
+                    "params": [
+                        "Landroid/view/MotionEvent"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/ColorPickerDialog", 
+                    "name": "onTouchEvent"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/UIUtils", 
+                    "name": "getResourceDrawable"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/UIUtils", 
+                    "name": "getResourceId"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/UIUtils", 
+                    "name": "getResourceLayout"
+                }, 
+                {
+                    "return": "Ljava/lang/String", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/UIUtils", 
+                    "name": "getResourceString"
+                }, 
+                {
+                    "return": "I", 
+                    "params": [
+                        "Landroid/content/Context", 
+                        "Ljava/lang/String"
+                    ], 
+                    "class": "Lcom/socialnmobile/lib/ui/UIUtils", 
+                    "name": "getResourceStyle"
+                }
+            ], 
+            "is_reflection_code": true
+        }
+    }, 
+    "behavior": {
+        "processtree": [], 
+        "processes": [], 
+        "anomaly": [], 
+        "enhanced": [], 
+        "summary": {
+            "files": [], 
+            "keys": [], 
+            "mutexes": []
+        }
+    }, 
+    "target": {
+        "category": "file", 
+        "file": {
+            "yara": [], 
+            "sha1": "bc63590e6bff6ad988d151c4717078d7cde3891a", 
+            "name": "37.apk", 
+            "type": "Zip archive data, at least v2.0 to extract", 
+            "sha256": "b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce", 
+            "crc32": "8F85F400", 
+            "path": "/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis/cuckoo/storage/binaries/b6e313f1d59a54435a085abd524d4301f6c1881608498c648d897077152657ce", 
+            "ssdeep": null, 
+            "size": 145473, 
+            "sha512": "e2fc79eb33724a255d7b71f7c7b271f69aa72626da38cbae55b4c5fda12dbe795d96f933aa60096ac90a696021a5209539192a7d6ccc00d864b8e7f6e160c118", 
+            "md5": "187fff83aeda545eb9d7a28e27ddeca8"
+        }
+    }, 
+    "debug": {
+        "errors": [], 
+        "log": ""
+    }, 
+    "strings": [
+        "AndroidManifest.xml", 
+        "W!YC-2", 
+        "Rc@9$y", 
+        "classes.dex", 
+        "b#C4hk", 
+        "H'CDvA", 
+        "'\u001f}g+h", 
+        "/h8h,h", 
+        "=s@=P/CAo", 
+        "TC9:CF7", 
+        "KkQ/-0", 
+        "PEP%Pe", 
+        "{@=@=AY", 
+        "iH`Y `F", 
+        "R?},nZ", 
+        "$|PF9u", 
+        "^e$}/p", 
+        "Q85Vpi", 
+        "[a;1]a{", 
+        "k,EySc\"", 
+        "9cEScG", 
+        "\u001fWxXLg", 
+        "~NQE~.:(<+", 
+        "3f06alj", 
+        "GK9S|D", 
+        "\\SIq/P", 
+        "zd0/p)F", 
+        "\u001fs}K0R", 
+        "@{6V3y)", 
+        "jNDlg UnJ_", 
+        "sM1iE7", 
+        "O`\u001fD{Q", 
+        "y?,~:F", 
+        "{t4m*,", 
+        "mWAoOb", 
+        "1*EW7t", 
+        "2[awJ6", 
+        "#ST=Fb7", 
+        "dE{brRj", 
+        "5HL(t'", 
+        "zLvMX h", 
+        "cuC-WC<\\", 
+        "56YT~6Y", 
+        "u^JRvq", 
+        "+\\r}WNJ", 
+        "AB[HHt", 
+        "?[=MOFH", 
+        "%,JF5pv", 
+        "kDnJ%Q", 
+        "$)QKz^K", 
+        "Kl%eCOy", 
+        "R.$qA0", 
+        "mD-3B#j", 
+        "'bLy:&&2=", 
+        "P[P;P{", 
+        "o&f(w}zG", 
+        "\u001f@_UUw", 
+        "p\\\\pl,", 
+        "Cb9UHN", 
+        "!-8d@0", 
+        "w|Cwe?RwH", 
+        "WL3a#(", 
+        "|4hG\",", 
+        "eDTfUuuuwVV", 
+        "%b`;N\\", 
+        "<XrGTO", 
+        "Dwk\\>_", 
+        "XeSSS!", 
+        "!;t*C$\\", 
+        "C(qSe ", 
+        "sB}TdR8", 
+        "JY[t2|", 
+        "K?NWT]t", 
+        "-m>h}K", 
+        "4\u001fODSl", 
+        "tF!:_>]", 
+        "SzcQQ1", 
+        "GISRII", 
+        "]#K6'zc", 
+        "lJH#J3", 
+        "y#rfx7", 
+        "Yw1)Nv", 
+        "Iiq]3`", 
+        "?Qd+Ai", 
+        "x1v=H\"g", 
+        "zP*s&{B", 
+        "e:H20a", 
+        ")!dmdpQL`", 
+        "7EVIB62", 
+        "mZfoZfwZ", 
+        "|4T1 !", 
+        "B|pp@P", 
+        "8{PjQ,", 
+        "e|]pjs4e", 
+        "3=Gz*^", 
+        "BdD7\"L~", 
+        "Tl)sH9", 
+        "_YK]p1", 
+        "=%t'n<", 
+        "u*AwsF", 
+        "_,\"nD)", 
+        "W#D D\"", 
+        "_b#g T", 
+        "l^,hK6", 
+        "5XaE!b", 
+        "+hi1Whu1g", 
+        "(B])@3B'@x", 
+        "*lPAqH", 
+        "*[Tx$WW", 
+        "8lo`1WO", 
+        "(jlrBR", 
+        "+.&^!I1*", 
+        "9OsaMZ", 
+        "d,v%Qvl", 
+        "6\\Cpwh", 
+        "`B|^6s<", 
+        "f/.Kfa", 
+        "~@b#Z?v", 
+        "\"=Oi=^", 
+        "O`;DH/", 
+        "META-INF/PK", 
+        "META-INF/CERT.RSA3hb[", 
+        "k`a`ddi`hllb", 
+        "klj`nh", 
+        "Vg71* ", 
+        "fa5`fd", 
+        ".jngibd(T", 
+        "3^lO<>C", 
+        "yZ`{`n", 
+        "META-INF/CERT.SF", 
+        "t{[/c}}(", 
+        "r;\\9qS+", 
+        "#Qx)3X", 
+        "META-INF/MANIFEST.MF", 
+        "R`~H0~", 
+        "\\oX^-A", 
+        "Z=5gRRj", 
+        "Dv-c6u", 
+        "res/PK", 
+        "res/drawable/PK", 
+        "res/drawable/blank.png", 
+        "$30112", 
+        "res/drawable/candle_lite.jpg", 
+        "P(EUCS", 
+        "N*l?Rp|", 
+        "jJHa{H2", 
+        "6+kF;l", 
+        "V$Z5c6", 
+        "px:Zkaa ", 
+        "P6\\GM<", 
+        "M8y:@n ", 
+        "~y'B#Z:", 
+        "_sBLI(", 
+        "4a ]m0", 
+        "fa{^k,m", 
+        "L{/wwTiv", 
+        "\u001fcu$Od", 
+        "DL]^\\Y`", 
+        "}[.x03g", 
+        "res/drawable/effect_blink.png", 
+        "res/drawable/effect_candle.png", 
+        "@c$\"1CbJ", 
+        "ebR[qW", 
+        "u~_uBcN[", 
+        "res/drawable/effect_disco.png", 
+        "0-::H$", 
+        "\u001fQuy<Nk", 
+        "#*UZZ(", 
+        "res/drawable/effect_emergency.png", 
+        "res/drawable/effect_normal.png", 
+        "res/drawable/effect_police.png", 
+        "res/drawable/effect_rainbow.png", 
+        "res/drawable/effect_scroll.png", 
+        "wwv??>!! ", 
+        "]]\\EED", 
+        "ffe\"\"\"fff", 
+        "aa`332PPO", 
+        "ppo^^]VVUKKJLLK998wwwYYY", 
+        "ssrccbDDD", 
+        "jji{{z", 
+        "SSR&&%", 
+        "kkjRRQ<<;rrq", 
+        "~TTSnnm776", 
+        ";;:333", 
+        ";;;,,,", 
+        "uutmmlyyx", 
+        "1IDAT8", 
+        "res/drawable/effect_slide.png", 
+        "res/drawable/effect_sprial.png", 
+        "aUUUZZ", 
+        "NGuuunnn", 
+        "$''wvv", 
+        "---\\1d2Y", 
+        "=9:keV", 
+        "<p0333(0", 
+        "Hx1ahh", 
+        "EsssvvvxX", 
+        "+$$$%%", 
+        "1366655uc", 
+        "res/drawable/effect_strobe.png", 
+        "res/drawable/effect_text.png", 
+        "res/drawable/icon.png", 
+        ";IDATh", 
+        "/8iw /", 
+        "(F.d:M", 
+        "res/drawable/menu_brightness.png", 
+        "%} 'ur", 
+        "res/drawable/menu_check.png", 
+        "HLUC<uA", 
+        "Im44k8p", 
+        "res/drawable/menu_color.png", 
+        "9/hA5j", 
+        "WR ;&[D", 
+        "|=(;xs", 
+        "TmgJn0", 
+        "res/drawable/menu_effect.png", 
+        "W6^yT'", 
+        "res/drawable/menu_help.png", 
+        "BtM'$D", 
+        "WK)-)%", 
+        "Qrq2+s", 
+        "zUJyif4s", 
+        "|}pyx,", 
+        "res/drawable/popup_full_bright.png", 
+        "g)Sr_;'", 
+        "res/drawable/snmlib_arrow_up_float.png", 
+        "}aECEA0", 
+        "res/drawable/snmlib_button_background.xml", 
+        "bbbh$&", 
+        "R9d,9s", 
+        "res/drawable/snmlib_button_background_selected.png", 
+        "res/drawable/sound.png", 
+        "q7QZ[K", 
+        "res/layout/PK", 
+        "res/layout/dialog_effect.xml", 
+        "#!kNZ4;", 
+        "res/layout/dialog_text.xml", 
+        "6 fu<3", 
+        "res/layout/dialog_text_multi.xml", 
+        "res/layout/main.xml", 
+        "-_]sRi", 
+        "N=v!LA", 
+        "res/layout/snmlib_dialog_about.xml", 
+        "4$tt4HP", 
+        "res/layout/snmlib_dialog_colorpicker.xml", 
+        "X4k;lg!ba!", 
+        "res/layout/snmlib_test.xml]", 
+        "res/layout/snmlib_view_buttonbar.xml", 
+        "E=lmZ>y", 
+        "res/layout-land/PK", 
+        "res/layout-land/main.xml", 
+        "res/menu/PK", 
+        "res/menu/menu.xml", 
+        "9aEmFe", 
+        "res/raw/PK", 
+        "res/raw/siren1.ogg", 
+        "!3Zw7-+G", 
+        "et<e~{", 
+        "0~$OP+\\", 
+        "uaEhNm/", 
+        "BCMj5G", 
+        "7<ZZyk", 
+        "=OeEME", 
+        "HyN2}z[", 
+        "$x:~&{", 
+        "M\\xwa\"", 
+        "fDW|M9", 
+        "]R\")Nka9", 
+        ".1yO\u001fn", 
+        "\"N\\R;4?", 
+        ">%wD9D", 
+        "At[lWD", 
+        "u}4_h#0", 
+        "b=TNQG", 
+        "Dkm[es5", 
+        "v,^<+rG", 
+        "=7/D9[", 
+        "K\\9yk.3*", 
+        "tk/OO?z", 
+        "~w'cGj", 
+        "`[;,`s", 
+        "7wl82q", 
+        "N+emQPm", 
+        "(c|$itv", 
+        "}+33e3s", 
+        "Z%-FC:", 
+        "6A9ER9", 
+        "&}!X@~g", 
+        "qEz$95", 
+        "x<+|1i", 
+        "SDnj*x", 
+        ")c.l4Z", 
+        "#'0PdQ@_", 
+        "L-K6&,=", 
+        "resources.arsc", 
+        "BjP-VA\\", 
+        "+Mvl'g", 
+        "AndroidManifest.xmlPK", 
+        "classes.dexPK", 
+        "META-INF/PK", 
+        "META-INF/CERT.RSAPK", 
+        "META-INF/CERT.SFPK", 
+        "META-INF/MANIFEST.MFPK", 
+        "res/PK", 
+        "res/drawable/PK", 
+        "res/drawable/blank.pngPK", 
+        "res/drawable/candle_lite.jpgPK", 
+        "res/drawable/effect_blink.pngPK", 
+        "res/drawable/effect_candle.pngPK", 
+        "res/drawable/effect_disco.pngPK", 
+        "res/drawable/effect_emergency.pngPK", 
+        "res/drawable/effect_normal.pngPK", 
+        "res/drawable/effect_police.pngPK", 
+        "res/drawable/effect_rainbow.pngPK", 
+        "res/drawable/effect_scroll.pngPK", 
+        "res/drawable/effect_slide.pngPK", 
+        "res/drawable/effect_sprial.pngPK", 
+        "res/drawable/effect_strobe.pngPK", 
+        "res/drawable/effect_text.pngPK", 
+        "res/drawable/icon.pngPK", 
+        "res/drawable/menu_brightness.pngPK", 
+        "res/drawable/menu_check.pngPK", 
+        "res/drawable/menu_color.pngPK", 
+        "res/drawable/menu_effect.pngPK", 
+        "res/drawable/menu_help.pngPK", 
+        "res/drawable/popup_full_bright.pngPK", 
+        "res/drawable/snmlib_arrow_up_float.pngPK", 
+        "res/drawable/snmlib_button_background.xmlPK", 
+        "res/drawable/snmlib_button_background_selected.pngPK", 
+        "res/drawable/sound.pngPK", 
+        "res/layout/PK", 
+        "res/layout/dialog_effect.xmlPK", 
+        "res/layout/dialog_text.xmlPK", 
+        "res/layout/dialog_text_multi.xmlPK", 
+        "res/layout/main.xmlPK", 
+        "N=v!LA", 
+        "res/layout/snmlib_dialog_about.xmlPK", 
+        "res/layout/snmlib_dialog_colorpicker.xmlPK", 
+        "res/layout/snmlib_test.xmlPK", 
+        "res/layout/snmlib_view_buttonbar.xmlPK", 
+        "res/layout-land/PK", 
+        "res/layout-land/main.xmlPK", 
+        "res/menu/PK", 
+        "res/menu/menu.xmlPK", 
+        "res/raw/PK", 
+        "res/raw/siren1.oggPK", 
+        "resources.arscPK", 
+        "Android ", 
+        "http://www.mmoovv.com"
+    ], 
+    "dropped": []
+}

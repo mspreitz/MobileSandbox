@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="num_dex" value="2" />
+    <long name="crc0" value="385017856" />
+    <long name="crc1" value="2143226665" />
+</map>

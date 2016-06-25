@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="cling_gel.first_run.dismissed" value="true" />
+    <boolean name="cling_gel.all_apps.dismissed" value="true" />
+    <boolean name="cling_gel.workspace.dismissed" value="true" />
+</map>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="hiding_run_count" value="4" />
+    <set name="managed_apps">
+        <string>com.google.android.apps.magazines</string>
+        <string>com.google.android.apps.maps</string>
+        <string>com.google.android.youtube</string>
+        <string>com.android.vending</string>
+        <string>com.google.android.apps.books</string>
+        <string>com.google.android.videos</string>
+    </set>
+    <set name="installed_apps">
+        <string>com.cuckoo.agent</string>
+        <string>com.emulator.antidetect</string>
+        <string>com.opera.install</string>
+        <string>de.robv.android.xposed.installer</string>
+        <string>com.cuckoodroid.droidmon</string>
+        <string>com.amossys.hooker.generatecontacts</string>
+    </set>
+    <string name="home_country">unknown</string>
+</map>

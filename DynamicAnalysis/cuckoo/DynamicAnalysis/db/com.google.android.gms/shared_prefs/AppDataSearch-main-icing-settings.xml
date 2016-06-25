@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="experiment-config-key">CjIKMGljaW5nX19kaXNhYmxlX2ljaW5nX3Jlc3VsdHNfZm9yX3F1ZXJ5X3VuaXZlcnNhbAolCiNp
+Y2luZ19fc2VjdGlvbl9jb25maWdfb3ZlcnJpZGVfanNvbgo1Ch9pY2luZ19fcGFja2FnZV9wdXNo
+X2luZGV4X2ZsYWdzGhJjb20uZ29vZ2xlLnphZ2F0OjQ=
+    </string>
+    <string name="extension-info">CAMQAxjguYYC
+    </string>
+    <string name="pkg-info-com.google.android.gms">KhlsYXN0LXVwZGF0ZS0xNDYzOTIwNjc1MDAwMAE=
+    </string>
+    <string name="pending-experiment-config-key"></string>
+    <int name="index-version" value="40" />
+    <string name="pkg-info-com.google.android.googlequicksearchbox">ChppbnN0YWxsLXRpbWUtMTQ2MzkyMDY3OTAwMBpXCidjb20uZ29vZ2xlLmFuZHJvaWQuZ29vZ2xl
+cXVpY2tzZWFyY2hib3gQ4oqo+AcY44qo+Acgg4CM+AcqGmFuZHJvaWQuaW50ZW50LmFjdGlvbi5N
+QUlOIAEqGWxhc3QtdXBkYXRlLTE0NjM5MjA2NzkwMDAwATjxj4G71yo=
+    </string>
+    <long name="last-maintenance" value="1466586644417" />
+    <int name="settings-version" value="4" />
+    <string name="pkg-info-com.google.android.gm">KhlsYXN0LXVwZGF0ZS0xNDYzOTIwNjQ1MDAwMAE=
+    </string>
+    <string name="pkg-info-com.google.android.music">ChppbnN0YWxsLXRpbWUtMTQ2MzkyMDY0OTAwMBplChhjb20uZ29vZ2xlLmFuZHJvaWQubXVzaWMQ
+1YGg+AcY54Gg+AcggICM+AcqI2FuZHJvaWQuaW50ZW50LmFjdGlvbi5TRUFSQ0hfUkVTVUxUOhIu
+dWkuU2VhcmNoQWN0aXZpdHkgASoZbGFzdC11cGRhdGUtMTQ2MzkyMDY0OTAwMDABOKzc8rvXKg==
+    </string>
+</map>

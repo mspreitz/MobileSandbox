@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="visitor_id">CgsyLVFXU2JHMEdHTQ%3D%3D</string>
+    <boolean name="download_only_while_charging" value="true" />
+    <int name="transfer_max_connections" value="3" />
+    <string name="downloads_encryption_key">2a5KOL17hQasddKxtGMT7Q==
+    </string>
+    <string name="device_id">AOuj_RqI3WSUPu3q-y9pIP0DnqKlaupfk3YUGeicrKuNzptgX32ApqpQObeXXtkXlE77t1dVcM1TKADIHnNjkD5CZvSDaheFOvWLOH-778jtqTLJH2WwqIk</string>
+    <boolean name="pending_notification_registration" value="false" />
+    <string name="csi_params_from_innertube">CgwKAWMSB0FORFJPSUQKtQEKAWUSrwE5NDEzMTQ0LDk0MTUyOTMsOTQxNjE2NCw5NDE2ODkxLDk0
+MjI1OTYsOTQyODM5OCw5NDI4NTk1LDk0Mjg3NzEsOTQyOTAwMyw5NDMxMDEyLDk0MzIzNjQsOTQz
+MjU2NSw5NDMzMDk2LDk0MzM5NDYsOTQzNDU5Niw5NDM1NTM2LDk0MzU2NjcsOTQzNTcwNiw5NDM1
+ODc2LDk0MzYxMTMsOTQzNjgzNCw5NDM3MzkxCgoKBXl0X2xpEgEw
+    </string>
+    <string name="version">5.6.36</string>
+    <string name="device_key">CCXoFFnPTEbvLhePYMWnYfEaKjw=
+    </string>
+    <string name="apiary_device_key_YouTubeApplication">kSMdhOEPmMKAMz7nzlq8rBXU7tLx6QmJaHcCK+cR
+    </string>
+    <string name="gcm_registration_id">APA91bG-WPbq1X5dskbo-7m8DAHqfAsFrLcV3Oscs87qcZuZGQ6WxeBz0i3H83dDBy5gr2LCTuCQUQXa9tzgOGIby4qfSW2GuYcu6XfUyFlqD7HAyOm85CW11QYh3ffNT4eJML9SW4Ut</string>
+    <string name="remote_id">3cn44rbr4gt7q7fpp43jl8sv9f</string>
+    <string name="AnalyticsYouTubeApplicationVersion">5.6.36</string>
+    <string name="apiary_device_id_YouTubeApplication">AP+lc78ECcYWkgDiPaZSqywBDPfs2Fmwcpj3dn2w/RWCQYeIG8D/tXsl7BAAhEsGpiXKqavVnrFvfs6Y/RjONaUV2k2jTLjcn+IBvLknWmz8S2xk1oM8hIQRZ24h2uJ6kNL0+F6ta0zhwg</string>
+    <int name="identity_version" value="1" />
+</map>

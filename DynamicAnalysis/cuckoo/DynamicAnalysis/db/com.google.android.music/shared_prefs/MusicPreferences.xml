@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="upgradeSyncDone" value="false" />
+    <boolean name="isInvalidAccount" value="false" />
+    <int name="databaseVersion" value="90" />
+    <boolean name="LogFilesEnabled" value="false" />
+    <string name="StringNonNegativeLoggingId">262e28ca0fe00548</string>
+</map>
