@@ -1,0 +1,14 @@
+{% block content %}
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+
+<div id="content">
+    <div id="l_container col-lg-8">
+        <h2>{{message}}</h2>
+        <a href="#" onclick="goBack()">Go Back!</a>
+    </div>
+</div>
+{% endblock %}

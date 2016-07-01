@@ -1,0 +1,19 @@
+{% block content %}
+<div id="content">
+    <div id="l_container col-lg-8">
+        <a href="/analyzer/logout">Logout</a>
+
+        <h4>Hi {{full_name}}, welcome to MobileSandbox</h4>
+        <form action="/analyzer/home/" method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+                        <p>{{ form.non_field_errors }}</p>
+                        <p>{{ form.file.label_tag }} </p>
+                        <p>
+                                {{ form.file.errors }}
+                                {{ form.file }}
+                        </p>
+            <p><input type="submit" value="Upload" /></p>
+        </form>
+    </div>
+</div>
+{% endblock %}
