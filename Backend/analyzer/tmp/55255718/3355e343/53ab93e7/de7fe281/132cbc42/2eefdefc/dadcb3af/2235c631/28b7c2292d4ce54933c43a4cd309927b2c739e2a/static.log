@@ -1,0 +1,152 @@
+
+
+
+              ___.   .__.__                                                .______.                                                  
+  _____   ____\_ |__ |__|  |   ____               ___________    ____    __| _/\_ |__   _______  ___       ____  ____   _____        
+ /     \ /  _ \| __ \|  |  | _/ __ \    ______   /  ___/\__  \  /    \  / __ |  | __ \ /  _ \  \/  /     _/ ___\/  _ \ /     \       
+|  Y Y  (  <_> ) \_\ \  |  |_\  ___/   /_____/   \___ \  / __ \|   |  \/ /_/ |  | \_\ (  <_> >    <      \  \__(  <_> )  Y Y  \      
+|__|_|  /\____/|___  /__|____/\___  >           /____  >(____  /___|  /\____ |  |___  /\____/__/\_ \  /\  \___  >____/|__|_|  /      
+      \/           \/             \/                 \/      \/     \/      \/      \/            \/  \/      \/            \/       
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+	static analysis
+	2016-07-13	-	16:54:18
+
+
+-----------------------------------------------------------------------
+	application infos
+-----------------------------------------------------------------------
+		sha256:	552557183355e34353ab93e7de7fe281132cbc422eefdefcdadcb3af2235c631
+		md5:	5589986add9c75afbf97af5cf8453d06
+		SDK-Version	
+		App-Name	Virus Killer
+		APK-Name	28b7c2292d4ce54933c43a4cd309927b2c739e2a.apk
+
+-----------------------------------------------------------------------
+	used providers
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+	granted permissions
+-----------------------------------------------------------------------
+		Permission:	android.permission.INTERNET
+		Permission:	android.permission.WAKE_LOCK
+		Permission:	android.permission.ACCESS_NETWORK_STATE
+		Permission:	android.permission.CHANGE_NETWORK_STATE
+		Permission:	android.permission.READ_LOGS
+		Permission:	android.permission.WRITE_EXTERNAL_STORAGE
+		Permission:	android.permission.GET_PACKAGE_SIZE
+		Permission:	android.permission.ACCESS_WIFI_STATE
+		Permission:	android.permission.READ_PHONE_STATE
+		Permission:	android.permission.READ_SMS
+		Permission:	android.permission.WRITE_SMS
+		Permission:	android.permission.ACCESS_COARSE_LOCATION
+
+-----------------------------------------------------------------------
+	used features
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+	used intents
+-----------------------------------------------------------------------
+		AndroidManifest	android.intent.action.MAIN
+		AndroidManifest	android.intent.action.BATTERY_CHANGED_ACTION
+		AndroidManifest	android.intent.action.SIG_STR
+		AndroidManifest	android.intent.action.BOOT_COMPLETED
+		AndroidManifest	android.intent.action.BOOT_COMPLETED
+		AndroidManifest	android.intent.action.PACKAGE_ADDED
+		AndroidManifest	android.intent.action.PACKAGE_REMOVED
+		AndroidManifest	android.intent.action.PACKAGE_REPLACED
+
+-----------------------------------------------------------------------
+	used services and receivers
+-----------------------------------------------------------------------
+		AndroidManifest	com.safesys.viruskiller.UpdateService
+		AndroidManifest	com.safesys.viruskiller.ScanningManagerService
+		AndroidManifest	com.safesys.viruskiller.DownloadManageService
+		AndroidManifest	com.safesys.viruskiller.Receiver
+		AndroidManifest	com.safesys.viruskiller.ScanningReciever
+		AndroidManifest	com.safesys.viruskiller.ScanPackageBroadcast
+
+-----------------------------------------------------------------------
+	potentially suspicious api-calls
+-----------------------------------------------------------------------
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:2	Ljava/lang/Object;->Lcom/google/ase/Exec; invoke-static v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:2	Ljava/lang/Object;->Lcom/google/ase/Exec; invoke-static v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:629	Ljava/lang/Thread;->Lcom/ju6/a; invoke-virtual v0, v1, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:633	Ljava/lang/Thread;->Lcom/ju6/a; invoke-virtual v0, Landroid/telephony/TelephonyManager;->getDeviceId()Ljava/lang/String;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:639	Ljava/lang/Thread;->Lcom/ju6/a; invoke-virtual v0, Landroid/telephony/TelephonyManager;->getSubscriberId()Ljava/lang/String;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:671	Ljava/lang/Thread;->Lcom/ju6/a; invoke-virtual v0, Landroid/telephony/TelephonyManager;->getCellLocation()Landroid/telephony/CellLocation;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:683	Ljava/lang/Thread;->Lcom/ju6/a; invoke-virtual v0, v1, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:708	Ljava/lang/Thread;->Lcom/ju6/a; invoke-virtual v0, v1, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:974	Ljava/lang/Object;->Lcom/opensystem/terminator/ScanController; invoke-static v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:979	Ljava/lang/Object;->Lcom/opensystem/terminator/ScanVirus; invoke-static v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:984	Ljava/lang/Object;->Lcom/opensystem/terminator/VirusBackRunner; invoke-static v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:4984	Landroid/content/BroadcastReceiver;->Lcom/safesys/viruskiller/Receiver; invoke-virtual v8, v5, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:6304	Ljava/lang/Object;->Lcom/safesys/viruskiller/UpdateService$MyExecutor; invoke-virtual v0, Ljava/io/IOException;->printStackTrace()V
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:6350	Ljava/lang/Object;->Lcom/safesys/viruskiller/UpdateService$MyExecutor; invoke-virtual v1, Ljava/io/IOException;->printStackTrace()V
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:6363	Ljava/lang/Object;->Lcom/safesys/viruskiller/UpdateService$MyExecutor; invoke-virtual v3, v0, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:6400	Ljava/lang/Object;->Lcom/safesys/viruskiller/UpdateService$MyExecutor; invoke-virtual v2, Ljava/io/IOException;->printStackTrace()V
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:6872	Landroid/app/Service;->Lcom/safesys/viruskiller/UpdateService; new-instance v2, Ljavax/crypto/spec/SecretKeySpec;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:6875	Landroid/app/Service;->Lcom/safesys/viruskiller/UpdateService; invoke-direct v2, v3, v4, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:7045	Landroid/app/Service;->Lcom/safesys/viruskiller/UpdateService; invoke-virtual v10, v8, Lcom/safesys/viruskiller/UpdateService;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:7048	Landroid/app/Service;->Lcom/safesys/viruskiller/UpdateService; invoke-virtual v7, Landroid/telephony/TelephonyManager;->getDeviceId()Ljava/lang/String;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8154	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; const-string v7, '/system/bin/su'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8156	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; const-string v6, '/system/bin/su'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8171	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; const-string v7, '/system/bin/su'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8172	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v6, v7, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8190	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v6, v7, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8195	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v0, Ljava/io/IOException;->printStackTrace()V
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8205	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; const-string v4, '/system/bin/su'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8241	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v10, v4, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8273	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v10, v4, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8331	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; const-string v10, '/system/bin/su'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8334	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; const-string v9, '/system/bin/su'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8380	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v9, v10, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8385	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; const-string v10, '/system/bin/su'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8386	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v9, v10, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8404	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v9, v10, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8409	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v0, Ljava/io/IOException;->printStackTrace()V
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8563	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v10, v2, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8613	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v3, Ljava/io/IOException;->printStackTrace()V
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8618	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v3, Ljava/io/IOException;->printStackTrace()V
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8625	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v3, Ljava/io/IOException;->printStackTrace()V
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:8628	Ljava/lang/Object;->Lcom/safesys/viruskiller/util/Utility; invoke-virtual v3, Ljava/io/IOException;->printStackTrace()V
+
+-----------------------------------------------------------------------
+	URL's and IP's inside the code
+-----------------------------------------------------------------------
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:0	http://gad.ju6666.com/adserver/android/1.0/GetAd'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:0	http://gad.ju6666.com/adserver/android/1.0/GetAd&'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:0	http://gad.ju6666.com/adserver/android/1.0/GetAd?'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:0	http://www.cqimti.com/market/eoe/mk_recommend.html'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/Dump.txt:0	https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=xiaokemengling%40163%2ecom&lc=C2&item_name=Virus%20Terminator&button_subtype=services&currency_code=USD&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted'
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/AndroidManifest.xml:0	http://schemas.android.com/apk/res/android
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/unpack/classes.dex:0	http://gad.ju6666.com/adserver/android/1.0/GetAd
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/unpack/classes.dex:0	http://gad.ju6666.com/adserver/android/1.0/GetAd?
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/unpack/classes.dex:0	http://www.cqimti.com/market/eoe/mk_recommend.html
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/unpack/classes.dex:0	https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=xiaokemengling%40163%2ecom&lc=C2&item_name=Virus%20Terminator&button_subtype=services&currency_code=USD&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/unpack/lib/armeabi/libVirusBackRunner.so:0	http://%s:%d/%s
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/src/com/safesys/viruskiller/MainActivity.java:0	https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=xiaokemengling%40163%2ecom&lc=C2&item_name=Virus%20Terminator&button_subtype=services&currency_code=USD&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/src/com/safesys/viruskiller/MainActivity$2.java:0	http://www.cqimti.com/market/eoe/mk_recommend.html
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/src/com/ju6/a.java:0	http://gad.ju6666.com/adserver/android/1.0/GetAd
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/src/com/ju6/a.java:0	http://gad.ju6666.com/adserver/android/1.0/GetAd?
+		src/28b7c2292d4ce54933c43a4cd309927b2c739e2a/src/com/ju6/a.java:0	http://gad.ju6666.com/adserver/android/1.0/GetAd&
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+	 (c) by mspreitz 2015 		 www.mobile-sandbox.com

@@ -3,7 +3,7 @@ import os
 import shutil
 import textwrap
 
-DATA_DIR = 'tmp/'
+DATA_DIR = 'analyzer/tmp/'
 DIR_DEPTH = 8
 sha256 = hashlib.sha256()
 sha1 = hashlib.sha1()
@@ -23,8 +23,20 @@ def createSHA256(apkFile):
         raise IOError('File not found')
 
 
+def createMD5(apkFile):
+    try:
+        return hashlib.md5(open(apkFile, 'rb').read()).hexdigest()
+    except:
+        raise IOError('File not found')
+
 def getPath(apkFile):
     chunks = textwrap.wrap(createSHA256(apkFile), DIR_DEPTH)
+    path = os.path.join(*chunks)+'/'
+    return path
+
+
+def getPathFromSHA256(sha256):
+    chunks = textwrap.wrap(sha256,DIR_DEPTH)
     path = os.path.join(*chunks)+'/'
     return path
 
@@ -35,14 +47,14 @@ def getFilePath(apkFile):
 
 
 def createPath(apkFile):
+    filename = 'None'
     path = getPath(apkFile)
     if os.path.isfile(apkFile):
         if not os.path.exists(DATA_DIR+path):
             os.makedirs(DATA_DIR+path)
         filename = DATA_DIR+getFilePath(apkFile)
-        print apkFile
         shutil.move(apkFile, filename)
     return filename
 
 
-print createPath(DATA_DIR+"33.apk")
+#print createPath(DATA_DIR+".apk")

@@ -1,0 +1,117 @@
+
+
+
+              ___.   .__.__                                                .______.                                                  
+  _____   ____\_ |__ |__|  |   ____               ___________    ____    __| _/\_ |__   _______  ___       ____  ____   _____        
+ /     \ /  _ \| __ \|  |  | _/ __ \    ______   /  ___/\__  \  /    \  / __ |  | __ \ /  _ \  \/  /     _/ ___\/  _ \ /     \       
+|  Y Y  (  <_> ) \_\ \  |  |_\  ___/   /_____/   \___ \  / __ \|   |  \/ /_/ |  | \_\ (  <_> >    <      \  \__(  <_> )  Y Y  \      
+|__|_|  /\____/|___  /__|____/\___  >           /____  >(____  /___|  /\____ |  |___  /\____/__/\_ \  /\  \___  >____/|__|_|  /      
+      \/           \/             \/                 \/      \/     \/      \/      \/            \/  \/      \/            \/       
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+	static analysis
+	2016-07-13	-	17:00:17
+
+
+-----------------------------------------------------------------------
+	application infos
+-----------------------------------------------------------------------
+		sha256:	7237777a67eb37959a06b127c1059834349110bd332f91157a1816751286c07d
+		md5:	14038f41b2e107839345c84428bfbe6f
+		SDK-Version	
+		App-Name	Angry Birds
+		APK-Name	bb6703c97ef2d2a833072a16fd2ed993bf848473.apk
+
+-----------------------------------------------------------------------
+	used providers
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+	granted permissions
+-----------------------------------------------------------------------
+		Permission:	android.permission.INTERNET
+		Permission:	android.permission.WRITE_SMS
+		Permission:	android.permission.READ_SMS
+		Permission:	android.permission.SEND_SMS
+		Permission:	android.permission.RECEIVE_SMS
+		Permission:	android.permission.WRITE_EXTERNAL_STORAGE
+		Permission:	android.permission.READ_EXTERNAL_STORAGE
+
+-----------------------------------------------------------------------
+	used features
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+	used intents
+-----------------------------------------------------------------------
+		AndroidManifest	android.intent.action.MAIN
+		AndroidManifest	android.provider.Telephony.SMS_RECEIVED
+
+-----------------------------------------------------------------------
+	used services and receivers
+-----------------------------------------------------------------------
+		AndroidManifest	com.pavel.newmodule.SmsReceiver
+
+-----------------------------------------------------------------------
+	potentially suspicious api-calls
+-----------------------------------------------------------------------
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:41	Ljava/lang/Object;->Lcom/pavel/newmodule/AESCrypto; new-instance v2, Ljavax/crypto/spec/SecretKeySpec;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:43	Ljava/lang/Object;->Lcom/pavel/newmodule/AESCrypto; invoke-direct v2, v4, v3, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:63	Ljava/lang/Object;->Lcom/pavel/newmodule/AESCrypto; new-instance v2, Ljavax/crypto/spec/SecretKeySpec;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:65	Ljava/lang/Object;->Lcom/pavel/newmodule/AESCrypto; invoke-direct v2, v4, v3, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:80	Ljava/lang/Object;->Lcom/pavel/newmodule/AESCrypto; invoke-static v4, Ljavax/crypto/KeyGenerator;->getInstance(Ljava/lang/String;)Ljavax/crypto/KeyGenerator;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:87	Ljava/lang/Object;->Lcom/pavel/newmodule/AESCrypto; invoke-virtual v0, v4, v3, Ljavax/crypto/KeyGenerator;->init(I Ljava/security/SecureRandom;)V
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:88	Ljava/lang/Object;->Lcom/pavel/newmodule/AESCrypto; invoke-virtual v0, Ljavax/crypto/KeyGenerator;->generateKey()Ljavax/crypto/SecretKey;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:90	Ljava/lang/Object;->Lcom/pavel/newmodule/AESCrypto; invoke-interface v2, Ljavax/crypto/SecretKey;->getEncoded()[B
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:227	Landroid/os/AsyncTask;->Lcom/pavel/newmodule/LicenseActivity$downloadData; invoke-static Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:336	Landroid/app/Activity;->Lcom/pavel/newmodule/LicenseActivity; invoke-virtual v4, v2, Lcom/pavel/newmodule/LicenseActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:339	Landroid/app/Activity;->Lcom/pavel/newmodule/LicenseActivity; invoke-virtual v1, Landroid/telephony/TelephonyManager;->getSimCountryIso()Ljava/lang/String;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:517	Landroid/app/Activity;->Lcom/pavel/newmodule/LicenseActivity; invoke-virtual/range v0 ... v5, Landroid/telephony/gsm/SmsManager;->sendTextMessage(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Landroid/app/PendingIntent; Landroid/app/PendingIntent;)V
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:550	Landroid/app/Activity;->Lcom/pavel/newmodule/LicenseActivity; invoke-static Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:570	Landroid/app/Activity;->Lcom/pavel/newmodule/LicenseActivity; invoke-static Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:637	Landroid/app/Activity;->Lcom/pavel/newmodule/LicenseActivity; invoke-virtual v8, v3, Lcom/pavel/newmodule/LicenseActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:640	Landroid/app/Activity;->Lcom/pavel/newmodule/LicenseActivity; invoke-virtual v2, Landroid/telephony/TelephonyManager;->getSimCountryIso()Ljava/lang/String;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:886	Landroid/os/AsyncTask;->Lcom/pavel/newmodule/RuleActivity$downloadData; invoke-static Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:946	Landroid/app/Activity;->Lcom/pavel/newmodule/RuleActivity; invoke-virtual v4, v2, Lcom/pavel/newmodule/RuleActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:949	Landroid/app/Activity;->Lcom/pavel/newmodule/RuleActivity; invoke-virtual v1, Landroid/telephony/TelephonyManager;->getSimCountryIso()Ljava/lang/String;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:1121	Landroid/app/Activity;->Lcom/pavel/newmodule/RuleActivity; invoke-virtual/range v0 ... v5, Landroid/telephony/gsm/SmsManager;->sendTextMessage(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Landroid/app/PendingIntent; Landroid/app/PendingIntent;)V
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:1151	Landroid/app/Activity;->Lcom/pavel/newmodule/RuleActivity; invoke-static Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:1195	Landroid/app/Activity;->Lcom/pavel/newmodule/RuleActivity; invoke-static Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:1248	Landroid/app/Activity;->Lcom/pavel/newmodule/RuleActivity; invoke-virtual v8, v6, Lcom/pavel/newmodule/RuleActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:1251	Landroid/app/Activity;->Lcom/pavel/newmodule/RuleActivity; invoke-virtual v4, Landroid/telephony/TelephonyManager;->getSimCountryIso()Ljava/lang/String;
+
+-----------------------------------------------------------------------
+	URL's and IP's inside the code
+-----------------------------------------------------------------------
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:0	http://91.213.175.148/app/'
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/Dump.txt:0	91.213.175.148
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/AndroidManifest.xml:1	http://schemas.android.com/apk/res/android
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/classes.dex:1	http://91.213.175.148/app/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/classes.dex:1	91.213.175.148
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_eng.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_eng.txt:1	http://7hlp.com/stop/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_az.txt:1	http://7hlp.com
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_gb.txt:1	http://7hlp.com
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_ee.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_de.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_kg.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_lt.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_fr.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_kz.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_ge.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_ua.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_am.txt:1	http://7hlp.com
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_by.txt:1	http://7hlp.com
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_lv.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_il.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_cz.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_tj.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license.txt:1	http://7hlp.com
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/unpack/res/raw/license_pl.txt:1	http://7hlp.com/
+		src/bb6703c97ef2d2a833072a16fd2ed993bf848473/src/com/pavel/newmodule/LicenseActivity.java:1	http://91.213.175.148/app/
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+	 (c) by mspreitz 2015 		 www.mobile-sandbox.com

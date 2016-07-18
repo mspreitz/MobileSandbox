@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobile-Sandbox</title>
+</head>
+<body>
+{% block header %}
+<div class="topbar">
+    <div class="topbar-inner">
+        <div class="container">
+            <h3><a href="/">Mobile Sandbox</a></h3>
+            {% block nav %}
+
+            {% endblock %}
+            <ul class="nav secondary-nav">
+                <li><form action="/search" method="get"><input id="sample_id" type="text" placeholder="Search" name="q"></form> </li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<div class="container">
+    <section>
+        {% block content %}
+
+        {% endblock %}
+    </section>
+</div>
+
+<div class="footer">
+    <div class="inner">
+        <div class="container">
+            <a href="http://mobilesandbox.org" target="_blank">MobileSandbox</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

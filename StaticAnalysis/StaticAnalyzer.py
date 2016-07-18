@@ -3,7 +3,7 @@ import hashlib
 import json
 import re
 import shutil
-import ssdeep
+#import ssdeep
 from sys import exit
 import os
 import datetime
@@ -611,6 +611,7 @@ def checkAPIPermissions(workingDir):
 def getFilesInsideApk(workingDir):
     fileList = []
     directory = workingDir+settings.SOURCELOCATION
+    print directory
     if not os.path.exists(directory):
         errorMessage("source file directory does not exist!\nTerminating...")
         exit(1)
@@ -640,14 +641,14 @@ def check():
 
 
 # create ssdeep hashes
-def ssdeepHash(fileSystemPosition):
-    try:
-        ssdeepValue = ssdeep.hash_from_file(fileSystemPosition)
-        return ssdeepValue
-    except Exception as e:
-        print str(e.message)
-        ssdeepValue = "(None)"
-        return ssdeepValue
+#def ssdeepHash(fileSystemPosition):
+#    try:
+#        ssdeepValue = ssdeep.hash_from_file(fileSystemPosition)
+#        return ssdeepValue
+#    except Exception as e:
+#        print str(e.message)
+#        ssdeepValue = "(None)"
+#        return ssdeepValue
 
 
 def clearOldFiles(workingDir):
@@ -670,11 +671,11 @@ def clearOldFiles(workingDir):
 
 
 def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
-                 dangerousCalls, appUrls, appInfos, apiPermissions, apiCalls, appFiles, appActivities, ssdeepValue):
+                 dangerousCalls, appUrls, appInfos, apiPermissions, apiCalls, appFiles, appActivities):
     output = dict()
     output['md5'] = appInfos[1]
     output['sha256'] = appInfos[0]
-    output['ssdeep'] = ssdeepValue
+    #output['ssdeep'] = ssdeepValue
     output['package_name'] = appInfos[3]
     output['apk_name'] = appInfos[4]
     output['sdk_version'] = appInfos[2]
@@ -756,13 +757,13 @@ def run(sampleFile, workingDir):
     appUrls = parseURLs(workingDir,logFile)
     print "check api permissions..."
     apiPermissions = checkAPIPermissions(workingDir)
-    print "create ssdeep hash..."
-    ssdeepValue = ssdeepHash(sampleFile)
+    #print "create ssdeep hash..."
+    #ssdeepValue = ssdeepHash(sampleFile)
     print "check for ad-networks"
     detectedAds = check()
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,detectedAds,
-                 dangerousCalls,appUrls,appInfos,apiPermissions[0],apiPermissions[1],appFiles,appActivities,ssdeepValue)
+                 dangerousCalls,appUrls,appInfos,apiPermissions[0],apiPermissions[1],appFiles,appActivities)#,ssdeepValue)
     print "copy icon image..."
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."
@@ -782,3 +783,4 @@ for root, dir, file in os.walk("Samples"):
         if count > 20:
             break
 
+#Todo: ssdeep installieren und wieder einkommentieren!!

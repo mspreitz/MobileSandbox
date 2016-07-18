@@ -1,0 +1,22 @@
+{% block content %}
+{% load array_filter %}
+
+<div id="content">
+    <div id="l_container col-lg-8">
+        <h3>Report</h3>
+        <table border="1" cellpadding="1">
+            <tr><th bgcolor="#8a2be2">Static analysis</th></tr>
+            {% for name, cont in data.items %}
+            <tr><th bgcolor="grey">{{ name }}</th></tr>
+            {% if cont|is_string %}
+                <tr><td>{{ cont }}</td></tr>
+            {% else %}
+                {% for list in cont %}
+                    <tr><td>{{ list }}</td></tr>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -8,5 +8,7 @@ urlpatterns = [
     url(r'^registration/$', views.registration),
     url(r'^userLogin/$', views.loginUser),
     url(r'^home/$', views.userHome),
+    url(r'^logout/$', views.userLogout),
+    url(r'^show/$', views.showReport)
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

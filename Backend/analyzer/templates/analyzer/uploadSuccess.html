@@ -1,0 +1,10 @@
+{% block content %}
+<div id="content">
+    <div id="l_container col-lg-8">
+        <a href="/analyzer/logout">Logout</a>
+        <h3>The upload was successful!</h3>
+        <p>In order to view your report wait a couple of minutes and use the following link.</p><br>
+        <a href="{{ url }}{{ hash }}">{{ url }}{{ hash }}</a>
+    </div>
+</div>
+{% endblock %}

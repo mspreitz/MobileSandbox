@@ -38,3 +38,6 @@ WORKINGDIR = "test/"
 UNPACKLOCATION = "unpack/"
 SOURCELOCATION = "src/"
 DUMPFILE = "Dump.txt"
+
+# Backend
+BACKEND_PATH = '../Backend/analyzer/tmp/'

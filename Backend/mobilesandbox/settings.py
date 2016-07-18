@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'mobilesandbox'
+
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

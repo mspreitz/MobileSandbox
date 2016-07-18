@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+<manifest android:versionCode="61" android:versionName="2.8" package="org.baole.app.blacklistpro" xmlns:android="http://schemas.android.com/apk/res/android">
+	
+
+	<uses-permission android:name="android.permission.SEND_SMS">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.RECEIVE_SMS">
+</uses-permission>
+	
+
+	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="8">
+</uses-sdk>
+	
+
+	<uses-permission android:name="android.permission.READ_CONTACTS">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.READ_PHONE_STATE">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.MODIFY_PHONE_STATE">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.CALL_PHONE">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.READ_SMS">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.WRITE_SMS">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.WRITE_CONTACTS">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.RECEIVE_MMS">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.PROCESS_CALL">
+</uses-permission>
+	
+
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED">
+</uses-permission>
+	
+
+	<application android:debuggable="true" android:icon="@7F020000" android:label="@7F040001">
+		
+
+		<activity android:label="@7F040001" android:name="BlackListProActivity">
+			
+
+			<intent-filter android:priority="100">
+				
+
+				<action android:name="android.intent.action.MAIN">
+</action>
+				
+
+				<category android:name="android.intent.category.LAUNCHER">
+</category>
+				
+
+			</intent-filter>
+			
+
+		</activity>
+		
+	- 
+
+		<receiver android:enabled="true" android:name=".machination.Machine">
+			
+
+- 
+
+			<intent-filter android:priority="100">
+				
+
+				<action android:name="android.provider.Telephony.SMS_RECEIVED">
+</action>
+				
+
+			</intent-filter>
+			
+
+		</receiver>
+		
+
+	</application>
+	
+
+</manifest>
