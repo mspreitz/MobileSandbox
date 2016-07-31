@@ -1,3 +1,11 @@
+{% extends "sandbox.html" %}
+
+{% block nav %}
+<ul class="nav">
+            <li><a href="/analyzer/home/">Home</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
 {% load array_filter %}
 
@@ -6,8 +14,10 @@
         <h3>Report</h3>
         <table border="1" cellpadding="1">
             <tr><th bgcolor="#8a2be2">Static analysis</th></tr>
+            <tr><th bgcolor="#808080">Is this Sample malicious? (Classification)</th></tr>
+            <tr><td>{{malicious}}</td></tr>
             {% for name, cont in data.items %}
-            <tr><th bgcolor="grey">{{ name }}</th></tr>
+            <tr><th bgcolor="#808080">{{ name }}</th></tr>
             {% if cont|is_string %}
                 <tr><td>{{ cont }}</td></tr>
             {% else %}

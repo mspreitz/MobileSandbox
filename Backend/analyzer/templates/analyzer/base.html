@@ -1,11 +1,9 @@
-
-
-{% block title %} MobileSandbox {%endblock title%}
+{% extends "sandbox.html" %}
 
 {% block content %}
     <div id="content" class="login_container p-none">
         <div class="l_container col-lg-8">
-            <a href="userLogin/">Login</a>&nbsp | &nbsp<a href="registration">Registration</a>
+            <a href="/analyzer/userLogin/">Login</a>&nbsp | &nbsp<a href="/analyzer/registration/">Registration</a>&nbsp | &nbsp<a href="/analyzer/anonUpload/">Anonymous Submission</a>
         </div>
     </div>
 {% endblock content %}

@@ -96,15 +96,21 @@ class ClassifierOperation():
 
 def classify(staticReportFile, sampleId):
     # init classifier
-    model_file = 'classifier_data/model/2013-01-19.model'
-    dimensions_file = 'classifier_data/model/dimensions.log'
+    model_file = 'analyzer/classifier_data/model/2013-01-19.model'
+    dimensions_file = 'analyzer/classifier_data/model/dimensions.log'
     model = SVMModel(model_file, dimensions_file)
     classifierOp = ClassifierOperation(model)
     classifierOp.set_threshold(-0.1348)
     # classify apps
     result = classifierOp.classify(staticReportFile)
     (classifiedAppEntry, created) = ClassifiedApp.objects.get_or_create(sample_id=sampleId, score=result['score'],
-                                                                        malicious=int(result['is_malicious']))
-    for ranking in result['feature_ranking']:
-        (classifierEntry, created) = Classifier.objects.get_or_create(sample_id=sampleId, feature=ranking[0],
-                                                                      ranking=ranking[1])
+                                                                        malicious=result['is_malicious'])
+    #for ranking in result['feature_ranking']:
+    #    (classifierEntry, created) = Classifier.objects.get_or_create(sample_id=sampleId, feature=ranking[0],
+    #                                                                 ranking=ranking[1])
+    #for ranking in result['feature_ranking']:
+    #    print ranking
+    #if result['is_malicious']:
+    #    print 'Malicious'
+    #else:
+    #    print 'Not malicious'

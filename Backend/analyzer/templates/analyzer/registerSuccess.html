@@ -1,4 +1,11 @@
-{% block title %} MobileSandbox {%endblock title%}
+{% extends "sandbox.html" %}
+
+{% block nav %}
+<ul class="nav">
+            <li><a href="/analyzer/">Home</a></li>
+            <li><a href="/analyzer/userLogin/">Login</a></li>
+</ul>
+{% endblock %}
 
 {% block content %}
     <div id="content" class="login_container p-none">

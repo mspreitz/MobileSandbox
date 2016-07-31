@@ -1,0 +1,42 @@
+{% extends "sandbox.html" %}
+
+{% block nav %}
+<ul class="nav">
+            <li><a href="/analyzer/home/">Home</a></li>
+            <li><a href="/analyzer/logout/">Logout</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+{% load array_filter %}
+
+<div id="content">
+    <div id="l_container col-lg-8">
+        <h3>Submission History</h3>
+        <table border="1" cellpadding="1">
+            <tr><th bgcolor="#8a2be2" colspan="7">History</th></tr>
+            <tr>
+            {% for label, value in data.items %}
+                <th bgcolor="#808080">{{ label }}</th>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for label, value in data.items %}
+                {% if forloop.counter0|divisibleby:3 %}
+                    </tr><tr>
+                {% endif %}
+                <td>
+                {% for entry in value %}
+                    {% if label == 'Report' %}
+                        <a href="/analyzer/show/?report={{ entry }}">Report</a> <br>
+                    {% else %}
+                        {{ entry }} <br>
+                    {% endif %}
+                {% endfor %}
+                </td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

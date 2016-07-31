@@ -2,9 +2,7 @@
 
 {% block nav %}
 <ul class="nav">
-            <li><a href="/analyzer/home/">Home</a></li>
-            <li><a href="">Report history</a></li>
-            <li><a href="/analyzer/logout/">Log Out</a></li>
+            <li><a href="/analyzer/">Home</a></li>
 </ul>
 {% endblock %}
 
@@ -12,8 +10,8 @@
 <div id="content">
     <div id="l_container col-lg-8">
 
-        <h4>Hi {{full_name}}, welcome to MobileSandbox</h4>
-        <form action="/analyzer/home/" method="POST" enctype="multipart/form-data">
+        <h4>Mobile Sandbox - Anonymous FileUpload</h4>
+        <form action="/analyzer/anonUpload/" method="POST" enctype="multipart/form-data">
              {% csrf_token %}
                         <p>{{ form.non_field_errors }}</p>
                         <p>{{ form.file.label_tag }} </p>

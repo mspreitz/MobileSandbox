@@ -8,7 +8,7 @@ class FileUpload(models.Model):
 
 class Queue(models.Model):
     id = models.AutoField(primary_key=True)
-    sha256 = models.CharField(primary_key=True, max_length=64)
+    sha256 = models.CharField(max_length=64)
     path = models.CharField(max_length=100)
     fileName = models.CharField(max_length=60)
     status = models.CharField(max_length=7)
@@ -17,10 +17,13 @@ class Queue(models.Model):
 
 class Metadata(models.Model):
     id = models.AutoField(primary_key=True)
+    filename = models.CharField(max_length=300)
     md5 = models.CharField(max_length=32)
     sha1 = models.CharField(max_length=40)
     sha256 = models.CharField(max_length=64)
     issuer = models.CharField(max_length=120)
+    username = models.CharField(max_length=300)
+    status = models.CharField(max_length=10)
 
 
 class Classifier(models.Model):
@@ -34,8 +37,8 @@ class Classifier(models.Model):
 
 class ClassifiedApp(models.Model):
     id = models.AutoField(primary_key=True)
-    sample_id = models.ForeignKey('Sample', related_name='sample_id_2_classified_app', db_index=True)
-    score = models.CharField(max_length=300, db_index=True)
+    sample_id = models.CharField(max_length=300)
+    score = models.CharField(max_length=300)
     malicious = models.IntegerField()
     #class Meta:
     #    db_table = u'app_classified_app'

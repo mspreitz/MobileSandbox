@@ -36,6 +36,7 @@ client = MongoClient('localhost:27017')
 db = client.ms_db
 
 collection = db.analyzer_queue
+meta = db.analyzer_metadata
 
 running = True
 
@@ -55,9 +56,16 @@ while(running):
                 resDirName = os.path.splitext(fname)[0]
                 tmpPath = settings.SOURCELOCATION+resDirName+'/'
                 sampleID = data['_id']
+                sha256 = data['sha256']
 
                 # Set analysis status to running
                 collection.update_one({"_id": sampleID}, {
+                    "$set": {
+                        "status": "running"
+                    }
+                })
+
+                meta.update_one({"sha256": sha256}, {
                     "$set": {
                         "status": "running"
                     }
@@ -103,6 +111,11 @@ while(running):
 
                     # Set new sample status
                     collection.update_one({"_id": sampleID}, {
+                        "$set": {
+                            "status": "finished"}
+                    })
+
+                    meta.update_one({"sha256": sha256}, {
                         "$set": {
                             "status": "finished"}
                     })
