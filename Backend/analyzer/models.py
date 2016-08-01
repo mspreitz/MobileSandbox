@@ -31,8 +31,6 @@ class Classifier(models.Model):
     sample_id = models.ForeignKey('Sample', related_name='sample_id_2_classifier', db_index=True)
     feature = models.CharField(max_length=300, db_index=True)
     ranking = models.CharField(max_length=300)
-    #class Meta:
-    #    db_table = u'app_classifier'
 
 
 class ClassifiedApp(models.Model):
@@ -40,5 +38,3 @@ class ClassifiedApp(models.Model):
     sample_id = models.CharField(max_length=300)
     score = models.CharField(max_length=300)
     malicious = models.IntegerField()
-    #class Meta:
-    #    db_table = u'app_classified_app'

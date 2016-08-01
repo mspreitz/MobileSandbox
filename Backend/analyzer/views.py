@@ -145,15 +145,15 @@ def showHistory(request):
             sha1.append(dat.sha1)
             sha256.append(dat.sha256)
             filename.append(dat.filename)
-            #status.append(dat.status)
+            status.append(dat.status)
         else:
             sha1 = [dat.sha1]
             sha256 = [dat.sha256]
             filename = [dat.filename]
-            #status = [dat.status]
+            status = [dat.status]
     data['Filename'] = filename
     data['SHA1'] = sha1
-    #data['Status'] = status
+    data['Status'] = status
     data['Report'] = sha256
 
     return render_to_response('history.html', {"data": data})
@@ -220,7 +220,7 @@ def uploadFile(request, magic, anonymous, username):
 def showReport(request):
     token = request.GET.get('report')
     # Check for valid sha256 hash
-    if validateHash(token):
+    if validateHash(token, 'sha256'):
         result = loadResults(token)
         # Todo: error handling for not finished reports
 
@@ -236,8 +236,8 @@ def showReport(request):
             logfile = TMP_PATH + path + getResultFolder(TMP_PATH + path) + '/' + 'static.json'
             classify(logfile, sampleId.id)
         if cSampleId is None:
-            cSampleId = ClassifiedApp.objects.get(id=sampleId.id)
-        print cSampleId.malicious
+            cSampleId = ClassifiedApp.objects.get(sample_id=sampleId.id)
+
         if cSampleId.malicious:
             malicious='Yes!'
         else:
@@ -248,11 +248,62 @@ def showReport(request):
         return render_to_response('error.html', {'message': 'This is not SHA256!'})
 
 
+def search(request):
+    MD5Length = 32
+    SHA1Length = 40
+    SHA256Length = 64
+
+    if request.method == 'GET':
+        req = request.GET['q']
+
+        # Search for MD5
+        if len(req) == MD5Length:
+            if validateHash(req, 'md5'):
+                try:
+                    result = Metadata.objects.get(md5=req)
+                except:
+                    result = None
+
+                if result is not None:
+                    sha256 = result.sha256
+                    status = result.status
+                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256})
+
+        # Search for SHA1
+        elif len(req) == SHA1Length:
+            if validateHash(req,'sha1'):
+                try:
+                    result = Metadata.objects.get(sha1=req)
+                except:
+                    result = None
+
+                if result is not None:
+                    sha256 = result.sha256
+                    status = result.status
+                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256})
+
+        # Search for SHA256
+        elif len(req) == SHA256Length:
+            if validateHash(req,'sha256'):
+                try:
+                    result = Metadata.objects.get(sha256=req)
+                except:
+                    result = None
+
+                if result is not None:
+                    sha256 = result.sha256
+                    status = result.status
+                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256})
+        else:
+            return HttpResponse('This is not a valid input!')
+
+
+
 def loadResults(sha256):
     path = TMP_PATH+getPathFromSHA256(sha256)
     # Get result folder
     res = getResultFolder(path)
-    if not os.path.isdir(res):
+    if not os.path.isdir(path+res):
         return None
 
     if res is not None:
@@ -265,16 +316,29 @@ def loadResults(sha256):
 
 def getResultFolder(path):
     try:
-        result = os.listdir(path)[0]
-    except OSError:
+        result = os.walk(path).next()[1][0]
+    except:
         return None
+
     return result
 
 
-def validateHash(hash):
+def validateHash(hash, type):
     result = None
-    try:
-        result = re.match(r'^\w{64}$', hash)
-    except RuntimeError:
-        print 'This is not sha256'
+    if type == 'sha256':
+        try:
+            result = re.match(r'^\w{64}$', hash)
+        except RuntimeError:
+            print 'This is not sha256'
+    elif type == 'sha1':
+        try:
+            result = re.match(r'^\w{40}$', hash)
+        except RuntimeError:
+            print 'This is not sha1'
+    elif type == 'md5':
+        try:
+            result = re.match(r'^\w{32}$', hash)
+        except RuntimeError:
+            print 'This is not md5'
+
     return result is not None

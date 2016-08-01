@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^logout/$', views.userLogout),
     url(r'^show/$', views.showReport),
     url(r'^anonUpload/$', views.anonUpload),
-    url(r'^history/$', views.showHistory)
+    url(r'^history/$', views.showHistory),
+    url(r'^search/$', views.search)
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,28 @@
+{% extends "sandbox.html" %}
+
+{% block nav %}
+<ul class="nav">
+            <li><a href="/analyzer/home/">Home</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+<div id="content">
+    <div id="l_container col-lg-8">
+        <h3>Result</h3>
+        {% if sha256 != None %}
+            {% if status == 'finished' %}
+                <p>We found the sample in our database. You can view the report by following this link:
+                <a href="/analyzer/show/?report={{sha256}}">Report</a></p>
+            {% else %}
+                <p>We found the sample in out database. However it seems like the analysis is currently running.
+                    Please try again later</p>
+            {% endif %}
+        {% else %}
+            <p>This sample was never submitted! Please upload it to the system.</p>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
