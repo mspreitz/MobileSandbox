@@ -1,2 +1,5 @@
 *.swp
 *.pyc
+
+# TEMP Folder storing sample output
+Backend/analyzer/tmp
