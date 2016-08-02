@@ -47,7 +47,7 @@ while(running):
         time.sleep(5)
         continue
 
-    print "found collection"
+    #print "found collection"
     for data in col:
 
         if not data['status'] == 'finished' and not data['status'] == 'running':

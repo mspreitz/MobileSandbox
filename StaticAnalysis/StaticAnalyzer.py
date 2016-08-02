@@ -1,20 +1,19 @@
-import csv
-import hashlib
-import json
-import re
-import shutil
-#import ssdeep
-from sys import exit
-import os
-import datetime
-import settings
+from androguard.core.analysis import analysis
 from androguard.core.bytecodes import apk
 from androguard.core.bytecodes import dvm
 from androguard.decompiler.dad import decompile
-from androguard.core.analysis import analysis
-
-# TODO Change that to a Relative Parent Import Neo4J
-from Neo4J.msneo import create_node
+from Neo4J.msneo import create_node # TODO Change that to a Relative Parent Import Neo4J
+from sys import exit
+import chilkat
+import csv
+import datetime
+import hashlib
+import json
+import os
+import re
+import settings
+import shutil
+#import ssdeep
 
 def errorMessage(msg):
     #print '\033[1;38m'+msg+'\033[1;m'
@@ -85,6 +84,51 @@ def getManifest(PREFIX,dv):
     os.write(out,manifest.encode("utf-8"))
     os.close(out)
     return manifest
+
+def getCertificate(androguardAPK):
+    r_cert = re.compile(r'META-INF/.*\.[DR]{1}SA')
+    cert = []
+    for f in androguardAPK.get_files():
+        if r_cert.match(f): cert.append(f)
+    # TODO: Cannot handle more than 1 certificate (solution: Read MANIFEST.MF and extract the name from here)
+    if len(cert) != 1: return None
+    (success, cert) = androguardAPK.get_certificate(cert[0])
+    if not success: return None
+
+    # TODO Maybe add bools such as self-signed, signature-verified etc
+    # TODO Maybe add UTF-8 strings
+    certdict = {}
+
+    # Get all issuers
+    certdict['IssuerC'] = cert.issuerC() # country
+    certdict['IssuerCN'] = cert.issuerCN() # common name
+    certdict['IssuerDN'] = cert.issuerDN() # full distinguished name
+    certdict['IssuerE'] = cert.issuerE() # email address
+    certdict['IssuerL'] = cert.issuerL() # locality (city, count, township, other geographic region)
+    certdict['IssuerO'] = cert.issuerO() # organization (company name)
+    certdict['IssuerOU'] = cert.issuerOU() # organizational unit (unit within organization)
+    certdict['IssuerS'] = cert.issuerS() # state or province
+
+    # Get all subjects
+    certdict['SubjectC'] = cert.subjectC() # country
+    certdict['SubjectCN'] = cert.subjectCN() # common name
+    certdict['SubjectDN'] = cert.subjectDN() # full distinguished name
+    certdict['SubjectE'] = cert.subjectE() # email address
+    certdict['SubjectKeyId'] = cert.subjectKeyId() # email address
+    certdict['SubjectL'] = cert.subjectL() # locality (city, count, township, other geographic region)
+    certdict['SubjectO'] = cert.subjectO() # organization (company name)
+    certdict['SubjectOU'] = cert.subjectOU() # organizational unit (unit within organization)
+    certdict['SubjectS'] = cert.subjectS() # state or province
+
+    # See https://www.chilkatsoft.com/refdoc/pythonCkCertRef.html
+    # Other
+    certdict['Rfc822Name'] = cert.rfc822Name()
+    certdict['SerialNumber'] = cert.serialNumber()
+    certdict['Sha1Thumbprint'] = cert.sha1Thumbprint()
+    certdict['validFromStr'] = cert.validFromStr()
+    certdict['validToStr'] = cert.validToStr()
+    certdict['Version'] = cert.version()
+    return certdict
 
 def unpack(sampleFile,PREFIX):
     location = PREFIX + "unpack"
@@ -694,6 +738,10 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['providers'] = appProviders
     output['included_files'] = appFiles
     output['detected_ad_networks'] = detectedAds
+
+    # Save Certificate Information into output dict
+    # TODO
+
     # save the JSON dict to a file for later use
     if not os.path.exists(workingDir):
         os.mkdir(workingDir)
@@ -766,6 +814,8 @@ def run(sampleFile, workingDir):
     #ssdeepValue = ssdeepHash(sampleFile)
     print "check for ad-networks"
     detectedAds = check()
+    print "extract certificate information"
+    #cert = getCertificate(a)
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,detectedAds,
                  dangerousCalls,appUrls,appInfos,apiPermissions[0],apiPermissions[1],appFiles,appActivities)#,ssdeepValue)
