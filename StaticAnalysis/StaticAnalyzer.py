@@ -79,7 +79,7 @@ def getServiceReceiver(logFile,a):
 
 def getManifest(PREFIX,dv):
     manifest = dv.xml["AndroidManifest.xml"].toprettyxml()
-    out = os.open(PREFIX+"AndroidManifest.xml",os.O_RDWR|os.O_CREAT)
+    out = os.open(PREFIX+"AndroidManifest.xml",os.O_RDWR|os.O_CREAT, 0666)
     #print "[*] Writing Manifest to ",PREFIX+"AndroidManifest.xml"
     #print manifest
     os.write(out,manifest.encode("utf-8"))
