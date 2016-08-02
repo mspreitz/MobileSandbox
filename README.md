@@ -3,7 +3,8 @@
 Tested with version [neo4j-community-2.3.3](https://neo4j.com/download/?ref=home)
 
 Requirements:
-	* [`py2neo` Kommunikation mit Neo4J DB](http://py2neo.org/v3/)
+
+* [`py2neo` Communication with Neo4J DB](http://py2neo.org/v3/)
 
 # Running
 ## Neo4J
