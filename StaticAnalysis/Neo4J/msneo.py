@@ -1,7 +1,7 @@
 from py2neo import Graph, Node
 import re
 
-pw = 'neo4j'
+pw = 'msneo' # After changing password from default password neo4j to msneo
 
 def add_attribute(node, datadict, attribute, regex=None, upper=False):
     if attribute not in datadict: return

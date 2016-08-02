@@ -13,6 +13,8 @@ from androguard.core.bytecodes import dvm
 from androguard.decompiler.dad import decompile
 from androguard.core.analysis import analysis
 
+# TODO Change that to a Relative Parent Import Neo4J
+from Neo4J.msneo import create_node
 
 def errorMessage(msg):
     #print '\033[1;38m'+msg+'\033[1;m'
@@ -699,6 +701,9 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     jsonFile = open(jsonFileName, "a+")
     jsonFile.write(json.dumps(output))
     jsonFile.close()
+
+    # Transfer static analysis data to Neo4J by creating a node
+    create_node(output)
 
 
 def run(sampleFile, workingDir):
