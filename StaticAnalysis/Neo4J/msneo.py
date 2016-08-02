@@ -1,7 +1,7 @@
 from py2neo import Graph, Node
 import re
 
-pw = 'matrixmatrixmatrix'
+pw = 'neo4j'
 
 def add_attribute(node, datadict, attribute, regex=None, upper=False):
     if attribute not in datadict: return
