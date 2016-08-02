@@ -9,7 +9,7 @@ Requirements:
 # Running
 ## Neo4J
 * `ulimit -n 40000` - Ensure better performance by allowing more open file descriptors
-* `/bin/neo4j start` - Start the Neo4J Framework
+* `neo4j-community-X.X.X/bin/neo4j start` - Start the Neo4J Framework
 
 # Usage
 ## Neo4J
