@@ -1,4 +1,8 @@
 # Installing
+## StaticAnalyzer
+
+* [`chilkat`](https://www.chilkatsoft.com/python.asp) (Python 2.7 64bit)
+
 ## Neo4J
 Tested with version [neo4j-community-2.3.3](https://neo4j.com/download/?ref=home)
 
