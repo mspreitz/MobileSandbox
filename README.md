@@ -20,3 +20,11 @@ Requirements:
 * Start Neo4J using the commandline (see `Running > Neo4J`)
 * Open the [Neo4J browser](http://localhost:7474/browser)
 * Execute [Cypher requests](https://neo4j.com/docs/cypher-refcard/current/)
+
+
+## Django1.8 + PostgreSQL
+* pip2 install Django==1.8
+* install postgresql
+* initialize database
+* migrate project (python2 manage.py migrate)
+

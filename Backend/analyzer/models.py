@@ -3,7 +3,7 @@ from django.db import models
 
 class FileUpload(models.Model):
     file = models.FileField(upload_to='')
-    title = models.CharField()
+    title = models.CharField(max_length=200)
 
 
 class Queue(models.Model):
@@ -28,7 +28,7 @@ class Metadata(models.Model):
 
 class Classifier(models.Model):
     id = models.AutoField(primary_key=True)
-    sample_id = models.ForeignKey('Sample', related_name='sample_id_2_classifier', db_index=True)
+    sample_id = models.CharField(max_length=300)
     feature = models.CharField(max_length=300, db_index=True)
     ranking = models.CharField(max_length=300)
 

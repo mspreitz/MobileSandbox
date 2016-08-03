@@ -14,15 +14,17 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_mongodb_engine', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'ms_db'                     # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'ms_db',                    # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        #'USER': 'mobilesandbox',
-        #'PASSWORD': 'i3.gg',
+        'USER': 'ms_user',
+        #'PASSWORD': '2HmUKLvf',
         #'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         #'PORT': '5327',                      # Set to empty string for default.
     }
 }
+
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -127,7 +129,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    'mobilesandbox'
+    'mobilesandbox',
+    'analyzer'
 
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

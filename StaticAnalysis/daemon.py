@@ -3,7 +3,7 @@ import os
 import shutil
 import time
 import zipfile
-from pymongo import MongoClient
+import psycopg2
 from StaticAnalyzer import run
 import settings
 
@@ -31,49 +31,58 @@ def copytree(src, dst, symlinks=False, ignore=None):
             shutil.copy2(s, d)
 
 
-# Connect to database
-client = MongoClient('localhost:27017')
-db = client.ms_db
+class Form(object):
+    def __init__(self, cursor, row):
+        for (attr, val) in zip((d[0] for d in cursor.description), row):
+            setattr(self, attr, val)
 
-collection = db.analyzer_queue
-meta = db.analyzer_metadata
+
+# Connect to database
+try:
+    conn = psycopg2.connect("dbname='ms_db' user='ms_user' host='localhost' password='2HmUKLvf'")
+except:
+    print "Unable to connect to the database"
+
+db = conn.cursor()
 
 running = True
 
 
 while(running):
-    col = collection.find()
-    if col.count() <= 0:
+    rows = ''
+    try:
+        col = db.execute("SELECT * FROM analyzer_queue")
+        rows = db.fetchall()
+    except:
+        time.sleep(5)
+    if len(rows) <= 0:
         time.sleep(5)
         continue
 
-    #print "found collection"
-    for data in col:
+    print "found collection"
 
-        if not data['status'] == 'finished' and not data['status'] == 'running':
+    for data in rows:
+        r = Form(db, data)
+        print r.status
 
-            path = settings.BACKEND_PATH+data['path']
-            type = data['type']
-            fname = data['fileName']
+        if not r.status == 'finished' and not r.status == 'running':
+
+            path = settings.BACKEND_PATH+r.path
+            type = r.type
+            fname = r.fileName
             sample = path+fname
             resDirName = os.path.splitext(fname)[0]
             tmpPath = settings.SOURCELOCATION+resDirName+'/'
-            sampleID = data['_id']
-            sha256 = data['sha256']
+            sampleID = r.id
+            sha256 = r.sha256
 
             # Set analysis status to running
-            collection.update_one({"_id": sampleID}, {
-                "$set": {
-                    "status": "running"
-                }
-            })
+            db.execute("UPDATE analyzer_queue SET status='running' WHERE id=%s" % (sampleID))
+            db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % (sha256))
 
-            meta.update_one({"sha256": sha256}, {
-                "$set": {
-                    "status": "running"
-                }
-            })
             print 'running'
+            time.sleep(2)
+
             if not os.path.exists(tmpPath):
                 os.makedirs(tmpPath)
                 # Run static analysis
@@ -117,12 +126,5 @@ while(running):
                 shutil.rmtree(tmpPath)
 
                 # Set new sample status
-                collection.update_one({"_id": sampleID}, {
-                    "$set": {
-                        "status": "finished"}
-                })
-
-                meta.update_one({"sha256": sha256}, {
-                    "$set": {
-                        "status": "finished"}
-                })
+                db.execute("UPDATE analyzer_queue SET status='finished' WHERE id=%s" % sampleID)
+                db.execute("UPDATE analyzer_metadata SET status='finished' WHERE sha256='%s'" % sha256)
