@@ -27,9 +27,12 @@
 #########################################################################################
 import urlparse, urllib
 import json
+import sys
 import string
 
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
 #########################################################################################
 #                                    Functions                                          #
 #########################################################################################
@@ -129,6 +132,7 @@ class ReportLoader():
         '''
             Adds the given item to the features list.
         '''
+
         if entry_type in self.__process_features:
             item = self.__process_features[entry_type](item)
         if not self.__is_only_whitespace(item):
