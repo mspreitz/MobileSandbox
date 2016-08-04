@@ -3,6 +3,9 @@ ssdeep
 chilkat
 py2neo
 requests
+raven
+sentry
+
 #cuckoo
 maec==4.0.1.0
 cybox==2.0.1.4
