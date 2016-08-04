@@ -23,7 +23,7 @@ BASE_URL = 'http://localhost:8000/analyzer/show/?report='
 # Views
 
 def index(request):
-    return render_to_response("base.html")
+    return render_to_response("base.html", context_instance=RequestContext(request))
 
 
 def registration(request):
@@ -143,12 +143,19 @@ def showHistory(request):
     for dat in result:
         if len(filename) > 0:
             sha1.append(dat.sha1)
-            sha256.append(dat.sha256)
+            if not dat.status == 'finished':
+                sha256.append("analyzing")
+            else:
+                sha256.append(dat.sha256)
             filename.append(dat.filename)
             status.append(dat.status)
         else:
             sha1 = [dat.sha1]
-            sha256 = [dat.sha256]
+            if not dat.status == 'finished':
+                sha256 = ['analyzing']
+            else:
+                sha256 = [dat.sha256]
+
             filename = [dat.filename]
             status = [dat.status]
     data['Filename'] = filename
@@ -165,7 +172,6 @@ def uploadFile(request, magic, anonymous, username):
     sentFile = request.FILES['file']
     filename = sentFile.name
     form = UploadForm(request.POST, request.FILES)
-    submitted = False
 
     if form.is_valid():
         file = FileUpload(file=sentFile)

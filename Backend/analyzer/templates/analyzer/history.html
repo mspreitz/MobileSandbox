@@ -28,7 +28,11 @@
                 <td>
                 {% for entry in value %}
                     {% if label == 'Report' %}
-                        <a href="/analyzer/show/?report={{ entry }}">Report</a> <br>
+                        {% if entry == 'analyzing' %}
+                            analyzing... <br>
+                        {% else %}
+                            <a href="/analyzer/show/?report={{ entry }}">Report</a> <br>
+                        {% endif %}
                     {% else %}
                         {{ entry }} <br>
                     {% endif %}

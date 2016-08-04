@@ -3,7 +3,13 @@
 {% block content %}
     <div id="content" class="login_container p-none">
         <div class="l_container col-lg-8">
-            <a href="/analyzer/userLogin/">Login</a>&nbsp | &nbsp<a href="/analyzer/registration/">Registration</a>&nbsp | &nbsp<a href="/analyzer/anonUpload/">Anonymous Submission</a>
+            {% if user.is_authenticated %}
+                <li><a href="/analyzer/home/">Home</a></li>
+                <li><a href="/analyzer/history/">Report history</a></li>
+                <li><a href="/analyzer/logout/">Log Out</a></li>
+            {% else %}
+                <a href="/analyzer/userLogin/">Login</a>&nbsp | &nbsp<a href="/analyzer/registration/">Registration</a>&nbsp | &nbsp<a href="/analyzer/anonUpload/">Anonymous Submission</a>
+            {% endif %}
         </div>
     </div>
 {% endblock content %}
