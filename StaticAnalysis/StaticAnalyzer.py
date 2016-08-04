@@ -16,7 +16,6 @@ import shutil
 #import ssdeep
 
 def errorMessage(msg):
-    #print '\033[1;38m'+msg+'\033[1;m'
     print "Error: >> "+msg
 
 def createLogFile(logDir):
@@ -79,11 +78,10 @@ def getServiceReceiver(logFile,a):
 def getManifest(PREFIX,dv):
     manifest = dv.xml["AndroidManifest.xml"].toprettyxml()
     out = os.open(PREFIX+"AndroidManifest.xml",os.O_RDWR|os.O_CREAT, 0666)
-    #print "[*] Writing Manifest to ",PREFIX+"AndroidManifest.xml"
-    #print manifest
     os.write(out,manifest.encode("utf-8"))
     os.close(out)
     return manifest
+
 
 def getCertificate(androguardAPK):
     r_cert = re.compile(r'META-INF/.*\.[DR]{1}SA')
@@ -130,6 +128,7 @@ def getCertificate(androguardAPK):
     certdict['Version'] = cert.version()
     return certdict
 
+
 def unpack(sampleFile,PREFIX):
     location = PREFIX + "unpack"
     os.mkdir(location)
@@ -137,7 +136,6 @@ def unpack(sampleFile,PREFIX):
     return location
 
 
-#Todo: In der Manifest-Datei ist das Icon moeglicherweise kodiert?!?!
 def copyIcon(PREFIX,unpackLocation):
     manifest = open(PREFIX+"AndroidManifest.xml")
     for line in manifest:
@@ -160,11 +158,6 @@ def copyIcon(PREFIX,unpackLocation):
             shutil.copy(inputFile1, outputFile)
         else:
             print "no icon found!"
-            #Todo: Bug mit empty image
-            #inputFile1 = settings.EMPTYICON
-            #outputFile = PREFIX + "icon.png"
-            #shutil.copy(inputFile1, outputFile)
-    #print icon
 
 
 def getIntents(logFile,a):
@@ -483,7 +476,6 @@ def parseDumpFile(workingDir, logFile, d):
 
 
 def getSampleInfo(sampleFile,logFile,a):
-    # Todo: Exception handling besser machen!
     # Todo: get application label
     # Todo: check if SDK-Version ect. is specified...
 
@@ -566,7 +558,6 @@ def convert_descriptor(name):
 def check_dirs(directory,PREFIX):
     if not os.path.exists(PREFIX+directory):
         try:
-            #Todo: war os.makedirs...
             os.makedirs(PREFIX+directory)
         except:
             errorMessage("Failed to create directory")
@@ -605,7 +596,6 @@ def extractSourceFiles(PREFIX,d,vmx):
     for _class in d.get_classes():
         class_path = convert_descriptor(_class.get_name())
         path = check_path(class_path,PREFIX)
-        #print "[*] writing...'", path, "'"
         if not os.path.exists(path):
             source = open(path, "w")
             for field in _class.get_fields():
@@ -667,7 +657,7 @@ def getFilesInsideApk(workingDir):
     return fileList
 
 
-#Todo: Methode muss noch mit einer APK, welche Ad-Networks enthaelt, getestet werden
+#Todo: Funktion testen
 #Check Ad-Networks
 def check():
     dumpFile = settings.DUMPFILE
@@ -825,17 +815,16 @@ def run(sampleFile, workingDir):
     closeLogFile(logFile)
 
 
-#run("Samples/833.apk","test/")
-#exit(0)
-count = 0
-for root, dir, file in os.walk("Samples"):
-    for s in file:
-        print s
-        sample = "Samples/"+s
-        folder = s+"/"
-        run(sample,folder)
-        count = count + 1
-        if count > 20:
-            break
+#
+#count = 0
+#for root, dir, file in os.walk("Samples"):
+#    for s in file:
+#        print s
+#        sample = "Samples/"+s
+#        folder = s+"/"
+#        run(sample,folder)
+#        count = count + 1
+#        if count > 20:
+#            break
 
 #Todo: ssdeep installieren und wieder einkommentieren!!
