@@ -1,0 +1,9 @@
+Django=1.8
+ssdeep
+chilkat
+py2neo
+requests
+#cuckoo
+maec==4.0.1.0
+cybox==2.0.1.4
+bson==0.4.3
