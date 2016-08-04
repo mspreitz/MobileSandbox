@@ -59,13 +59,12 @@ while(running):
         time.sleep(5)
         continue
 
-    print "found collection"
+    time.sleep(3)
 
     for data in rows:
         r = Form(db, data)
-        print r.status
 
-        if not r.status == 'finished' and not r.status == 'running':
+        if r.status == 'idle':
 
             path = settings.BACKEND_PATH+r.path
             type = r.type
@@ -79,16 +78,12 @@ while(running):
             # Set analysis status to running
             db.execute("UPDATE analyzer_queue SET status='running' WHERE id=%s" % (sampleID))
             db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % (sha256))
-
-            print 'running'
-            time.sleep(2)
+            db.connection.commit()
 
             if not os.path.exists(tmpPath):
                 os.makedirs(tmpPath)
                 # Run static analysis
                 run(sample, tmpPath)
-                #time.sleep(2)
-
 
                 # Get Cert file
                 if glob.glob(tmpPath+"unpack/META-INF/*.RSA"):
@@ -128,3 +123,4 @@ while(running):
                 # Set new sample status
                 db.execute("UPDATE analyzer_queue SET status='finished' WHERE id=%s" % sampleID)
                 db.execute("UPDATE analyzer_metadata SET status='finished' WHERE sha256='%s'" % sha256)
+                db.connection.commit()

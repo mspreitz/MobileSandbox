@@ -11,7 +11,7 @@ class Queue(models.Model):
     sha256 = models.CharField(max_length=64)
     path = models.CharField(max_length=100)
     fileName = models.CharField(max_length=60)
-    status = models.CharField(max_length=7)
+    status = models.CharField(max_length=10)
     type = models.CharField(max_length=10)
 
 
