@@ -137,7 +137,6 @@ def showHistory(request):
     sha1 = []
     sha256 = []
     filename = []
-    #Todo: put analyzer status into metadata
     status = []
 
     for dat in result:
