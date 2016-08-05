@@ -689,13 +689,12 @@ def checkAPIPermissions(workingDir):
 def getFilesInsideApk(workingDir):
     fileList = []
     directory = workingDir+settings.SOURCELOCATION
-    print directory
     if not os.path.exists(directory):
         errorMessage("source file directory does not exist!\nTerminating...")
         exit(1)
     for dirname, dirnames, filenames in os.walk(directory):
         for filename in filenames:
-            fileList.append(os.path.join(dirname, filename))
+            fileList.append(filename)
     return fileList
 
 
