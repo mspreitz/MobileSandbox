@@ -308,6 +308,9 @@ def loadResults(sha256):
     path = TMP_PATH+getPathFromSHA256(sha256)
     # Get result folder
     res = getResultFolder(path)
+    if res is None:
+        return None
+
     if not os.path.isdir(path+res):
         return None
 
