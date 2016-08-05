@@ -183,7 +183,7 @@ def create_node(datadict):
 def clean_all():
     graph = Graph(password=pw)
     tx = graph.begin()
-    tx.run('MATCH (n:Android) DELETE n')
+    tx.run('MATCH (n) DETACH DELETE n')
     tx.commit()
 
 def show_graph():
