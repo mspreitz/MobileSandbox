@@ -1,0 +1,43 @@
+{% extends "sandbox.html" %}
+
+{% block nav %}
+{% if user.is_authenticated %}
+    <ul class="nav">
+        <li><a href="/analyzer/home/">Home</a></li>
+        <li><a href="/analyzer/history/">History</a></li>
+        <li><a href="/analyzer/logout/">Logout</a></li>
+    </ul>
+{% else %}
+    <ul class="nav">
+            <li><a href="/analyzer/">Home</a></li>
+    </ul>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% load array_filter %}
+
+<div id="content">
+    <div id="l_container col-lg-8">
+        <h3>Queue</h3>
+        <table border="1" cellpadding="2">
+            <tr><th bgcolor="#8a2be2" colspan="4">Last 10 samples currently in the queue</th></tr>
+            {% if data %}
+                <tr><th>No.</th><th>SHA256</th><th>Type</th><th>Status</th></tr>
+                <tr>
+                {% for cont in data %}
+                    {% for dat in cont %}
+                        {% if forloop.counter0|divisibleby:4 %}
+                            </tr><tr><td>{{forloop.parentloop.counter}}</td>
+                        {% endif %}
+                        <td>{{ dat }}</td>
+                    {% endfor %}
+                {% endfor %}
+                </tr>
+            {% else %}
+                <tr><th>The queue is empty</th></tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+{% endblock %}
