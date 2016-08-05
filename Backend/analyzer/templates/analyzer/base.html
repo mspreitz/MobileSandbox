@@ -6,9 +6,13 @@
             {% if user.is_authenticated %}
                 <li><a href="/analyzer/home/">Home</a></li>
                 <li><a href="/analyzer/history/">Report history</a></li>
+                <li><a href="/analyzer/queue/">Queue</a></li>
                 <li><a href="/analyzer/logout/">Log Out</a></li>
             {% else %}
-                <a href="/analyzer/userLogin/">Login</a>&nbsp | &nbsp<a href="/analyzer/registration/">Registration</a>&nbsp | &nbsp<a href="/analyzer/anonUpload/">Anonymous Submission</a>
+                <a href="/analyzer/userLogin/">Login</a>&nbsp |
+                &nbsp<a href="/analyzer/registration/">Registration</a>&nbsp |
+                &nbsp<a href="/analyzer/anonUpload/">Anonymous Submission</a>&nbsp |
+                &nbsp<a href="/analyzer/queue/">Queue</a>
             {% endif %}
         </div>
     </div>

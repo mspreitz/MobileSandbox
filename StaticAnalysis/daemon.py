@@ -111,6 +111,6 @@ while(running):
                 shutil.rmtree(tmpPath)
 
                 # Set new sample status
-                db.execute("UPDATE analyzer_queue SET status='finished' WHERE id=%s" % sampleID)
+                db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
                 db.execute("UPDATE analyzer_metadata SET status='finished' WHERE sha256='%s'" % sha256)
                 db.connection.commit()

@@ -14,6 +14,7 @@ from classifier import classify
 from .forms import UploadForm
 from .models import FileUpload, Queue, Metadata, ClassifiedApp
 from datastructure import *
+from django.db.models import Q
 
 
 # Constants
@@ -222,12 +223,32 @@ def uploadFile(request, magic, anonymous, username):
         return HttpResponse('not valid')
 
 
+def showQueue(request):
+    try:
+        queue = Queue.objects.filter(Q(status='idle') | Q(status='running'))
+    except:
+        queue = None
+
+    data = []
+    print len(queue)
+    if queue is not None:
+        count = len(queue)
+        for i in range(count-1, count-11, -1):
+            if i < 0:
+                continue
+            tmp = [queue[i].sha256, queue[i].type, queue[i].status]
+            data.append(tmp)
+    else:
+        return HttpResponse("Queue is empty!")
+
+    return render_to_response("queue.html", {"data": data}, context_instance=RequestContext(request))
+
+
 def showReport(request):
     token = request.GET.get('report')
     # Check for valid sha256 hash
     if validateHash(token, 'sha256'):
         result = loadResults(token)
-        # Todo: error handling for not finished reports
 
         if result is None:
             return render_to_response('error.html', {'message': 'The report for this sample does not exist (yet?)'})

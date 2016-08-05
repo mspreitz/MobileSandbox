@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^show/$', views.showReport),
     url(r'^anonUpload/$', views.anonUpload),
     url(r'^history/$', views.showHistory),
-    url(r'^search/$', views.search)
+    url(r'^search/$', views.search),
+    url(r'^queue/$', views.showQueue)
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
