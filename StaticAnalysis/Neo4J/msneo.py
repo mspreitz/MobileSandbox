@@ -12,6 +12,25 @@ def add_attribute(node, datadict, attribute, regex=None, upper=False):
         if upper: node[attribute] = node[attribute].upper()
     return node
 
+def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshipname):
+    # Generate Intent nodes for every new Intent we encounter
+    # TODO Ignore case?
+    for node in nodelist:
+        (count, n) = find_unique_node(graph, nodename, 'name', node)
+        # Give error if we matched more than 1 nodes
+        if count > 1:
+            print 'ERROR: Found more than 1 {0} nodes with {0} Name {1}'.format(nodename, node)
+            continue
+
+        if count == 0:
+            n = Node(nodename)
+            n['name'] = node
+            tx.create(n)
+            print 'Neo4J: Created {0} Node with name: {1}'.format(nodename, node)
+
+        r = Relationship(nrelative, relationshipname, n)
+        tx.merge(r)
+
 def find_unique_node(graph, nodename, key, value, upper=False, maxn=3):
     if upper: value = value.upper()
     gen = graph.find(nodename, property_key=key, property_value=value)
@@ -71,7 +90,6 @@ def create_node(datadict):
     add_attribute(na, datadict, 'apk_name')
     add_attribute(na, datadict, 'sdk_version')
     add_attribute(na, datadict, 'app_permissions')
-    add_attribute(na, datadict, 'api_permissions')
     #add_attribute(na, datadict, 'api_calls') # TODO List of lists don't work yet
     add_attribute(na, datadict, 'features')
     #add_attribute(na, datadict, 'intents')
@@ -85,24 +103,8 @@ def create_node(datadict):
     tx.create(na)
     print 'Neo4J: Created Android Node with sha256: {}'.format(datadict['sha256'])
 
-    # Generate Intent nodes for every new Intent we encounter
-    # TODO Ignore case?
-    for intent in datadict['intents']:
-        (count, ni) = find_unique_node(graph, 'Intent', 'name', intent)
-        # Give error if we matched more than 1 nodes
-        if count > 1:
-            print 'ERROR: Found more than 1 Intent nodes with Intent Name {}'.format(intent)
-            continue
-
-        if count == 0:
-            ni = Node('Intent')
-            ni['name'] = intent
-            tx.create(ni)
-            print 'Neo4J: Created Intent Node with name: {}'.format(intent)
-
-        r = Relationship(na, 'ACTION_WITH_INTENT', ni)
-        tx.merge(r)
-
+    create_list_nodes_rels(graph, tx, na, 'Intent', datadict['intents'], 'ACTION_WITH_INTENT')
+    create_list_nodes_rels(graph, tx, na, 'Permission', datadict['api_permissions'], 'USES_PERMISSION')
 
     # Abort if Certificate Dict is empty
     if not datadict['cert']:
