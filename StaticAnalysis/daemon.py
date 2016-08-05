@@ -3,7 +3,6 @@ import os
 import shutil
 import time
 import zipfile
-from string import split
 
 import psycopg2
 from StaticAnalyzer import run
