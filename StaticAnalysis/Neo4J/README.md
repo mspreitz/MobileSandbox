@@ -14,6 +14,7 @@ Nodes in Neo4J for the MobileSandbox are:
 Relationships that can bind nodes together are:
 
 * `SIGNED_WITH` - Android Applications that are signed with a particular Certificate
+* `AUTHENTICATED_BY` - Certificates which signatures are authenticated by a particular PublicKey
 * `HAS_FILE` - Android Applications that contain a particular file
 * `HTTP_TRAFFIC` - URLs requested and data sent by Android Applications
 * `RESOLVES_TO` - Hostnames that resolve to IPs
