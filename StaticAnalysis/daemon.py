@@ -55,9 +55,7 @@ while(running):
 
     time.sleep(3)
     for data in rows:
-
         if data[4] == 'idle':
-
             path = settings.BACKEND_PATH+data[2]
             type = data[5]
             fname = data[3]

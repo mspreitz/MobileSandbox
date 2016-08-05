@@ -2,6 +2,8 @@ from androguard.core.analysis import analysis
 from androguard.core.bytecodes import apk
 from androguard.core.bytecodes import dvm
 from androguard.decompiler.dad import decompile
+#from base64 import b64decode
+#from hexdump import hexdump
 from Neo4J.msneo import create_node # TODO Change that to a Relative Parent Import Neo4J
 from sys import exit
 import chilkat
@@ -13,6 +15,7 @@ import os
 import re
 import settings
 import shutil
+import xml.etree.ElementTree as ET
 #import ssdeep
 
 def errorMessage(msg):
@@ -83,13 +86,15 @@ def getManifest(PREFIX,dv):
     return manifest
 
 
+# See https://www.chilkatsoft.com/refdoc/pythonCkCertRef.html
 def getCertificate(androguardAPK):
+    # TODO ECC missing
     r_cert = re.compile(r'META-INF/.*\.[DR]{1}SA')
-    cert = []
-    for f in androguardAPK.get_files():
-        if r_cert.match(f): cert.append(f)
+    cert = [ f for f in androguardAPK.get_files() if r_cert.match(f) ]
+
     # TODO: Cannot handle more than 1 certificate (solution: Read MANIFEST.MF and extract the name from here)
     if len(cert) != 1: return None
+
     (success, cert) = androguardAPK.get_certificate(cert[0])
     if not success: return None
 
@@ -118,7 +123,6 @@ def getCertificate(androguardAPK):
     certdict['SubjectOU'] = cert.subjectOU() # organizational unit (unit within organization)
     certdict['SubjectS'] = cert.subjectS() # state or province
 
-    # See https://www.chilkatsoft.com/refdoc/pythonCkCertRef.html
     # Other
     certdict['Rfc822Name'] = cert.rfc822Name()
     certdict['SerialNumber'] = cert.serialNumber()
@@ -126,6 +130,42 @@ def getCertificate(androguardAPK):
     certdict['validFromStr'] = cert.validFromStr()
     certdict['validToStr'] = cert.validToStr()
     certdict['Version'] = cert.version()
+
+    # Public Key Information: Modulus / Exponent / Key Length == Modulus Length
+    # NOTE Unfortunately these are a lot of calls 
+    # TODO Differentiate between DSA / RSA
+    # TODO Read the getXml Method to ensure parsing this output can't be exploited
+    pubKey = cert.ExportPublicKey()
+    pubKeyXML = pubKey.getXml()
+    root = ET.fromstring(pubKeyXML)
+    certdict['pubkey'] = { 'keytype': None }
+    if root.tag == 'RSAPublicKey':
+        certdict['pubkey']['keytype'] = 'RSA'
+        modulus  = root.find('Modulus')
+        exponent = root.find('Exponent')
+        # TODO Check for None
+        #hexdump(b64decode(modulus.text))
+        #hexdump(b64decode(exponent.text))
+        # NOTE: Returns base64 encoded hex data. Convert to int using sage or python3
+        certdict['pubkey']['modulus'] = modulus.text
+        certdict['pubkey']['exponent'] = exponent.text
+    elif root.tag == 'DSAPublicKey':
+        certdict['pubkey']['keytype'] = 'DSA'
+        dsa_P = root.find('P')
+        dsa_Q = root.find('Q')
+        dsa_G = root.find('G')
+        dsa_Y = root.find('Y')
+        certdict['pubkey']['P'] = P.text
+        certdict['pubkey']['Q'] = Q.text
+        certdict['pubkey']['G'] = G.text
+        certdict['pubkey']['Y'] = Y.text
+    elif root.tag == 'ECCPublicKey':
+        certdict['pubkey']['keytype'] = 'ECC'
+        # TODO
+        pass
+    else:
+        # TODO
+        pass
     return certdict
 
 
@@ -805,7 +845,8 @@ def run(sampleFile, workingDir):
     print "check for ad-networks"
     detectedAds = check()
     print "extract certificate information"
-    #cert = getCertificate(a)
+    cert = getCertificate(a)
+    print cert
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,detectedAds,
                  dangerousCalls,appUrls,appInfos,apiPermissions[0],apiPermissions[1],appFiles,appActivities)#,ssdeepValue)
