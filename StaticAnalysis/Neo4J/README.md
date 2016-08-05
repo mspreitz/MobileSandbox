@@ -4,6 +4,7 @@ Nodes in Neo4J for the MobileSandbox are:
 
 * `Android` - An Android Application, create with `create_node`
 * `Certificate` - A Certificate used for an Android Application
+* `PublicKey` - A Public Key that is used in an Certificate to verify signatures
 * `File` - A file inside an unzipped Android Application
 * `Host` - A hostname / IP (un-)successfully contacted during a network operation
 * `Phone` - A phone number contacted during a network operation
