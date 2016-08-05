@@ -85,26 +85,26 @@ def create_node(datadict):
     add_attribute(na, datadict, 'md5', regex=r_md5, upper=True)
     add_attribute(na, datadict, 'sha1', regex=r_sha1, upper=True)
     add_attribute(na, datadict, 'sha256', regex=r_sha256, upper=True)
-    add_attribute(na, datadict, 'activities')
     add_attribute(na, datadict, 'package_name')
     add_attribute(na, datadict, 'apk_name')
     add_attribute(na, datadict, 'sdk_version')
-    add_attribute(na, datadict, 'app_permissions')
-    #add_attribute(na, datadict, 'api_calls') # TODO List of lists don't work yet
-    add_attribute(na, datadict, 'features')
-    #add_attribute(na, datadict, 'intents')
-    add_attribute(na, datadict, 's_and_r')
-    add_attribute(na, datadict, 'interesting_calls')
-    add_attribute(na, datadict, 'urls')
     add_attribute(na, datadict, 'networks')
-    add_attribute(na, datadict, 'providers')
-    add_attribute(na, datadict, 'included_files')
     add_attribute(na, datadict, 'detected_ad_networks')
     tx.create(na)
     print 'Neo4J: Created Android Node with sha256: {}'.format(datadict['sha256'])
 
     create_list_nodes_rels(graph, tx, na, 'Intent', datadict['intents'], 'ACTION_WITH_INTENT')
+    # TODO Difference api/app permissions
     create_list_nodes_rels(graph, tx, na, 'Permission', datadict['api_permissions'], 'USES_PERMISSION')
+    create_list_nodes_rels(graph, tx, na, 'Permission', datadict['app_permissions'], 'USES_PERMISSION')
+    create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL')
+    create_list_nodes_rels(graph, tx, na, 'APICall', datadict['interesting_calls'], 'CALLS')
+    create_list_nodes_rels(graph, tx, na, 'File', datadict['included_files'], 'INCLUDES_FILE')
+    create_list_nodes_rels(graph, tx, na, 'Activity', datadict['activities'], 'ACTIVITY')
+    create_list_nodes_rels(graph, tx, na, 'Feature', datadict['features'], 'FEATURE')
+    create_list_nodes_rels(graph, tx, na, 'Provider', datadict['providers'], 'PROVIDER')
+    create_list_nodes_rels(graph, tx, na, 'Service_receiver', datadict['s_and_r'], 'SERVICE_RECEIVER') # TODO split s_and_r
+    #add_attribute(na, datadict, 'api_calls') # TODO List of lists don't work yet
 
     # Abort if Certificate Dict is empty
     if not datadict['cert']:
