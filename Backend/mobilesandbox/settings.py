@@ -19,7 +19,7 @@ DATABASES = {
         # The following settings are not used with sqlite3:
         'USER': 'ms_user',
         'HOST':'localhost',
-        'PASSWORD': '2HmUKLvf',
+        #'PASSWORD': None,
         #'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         #'PORT': '5327',                      # Set to empty string for default.
     }
