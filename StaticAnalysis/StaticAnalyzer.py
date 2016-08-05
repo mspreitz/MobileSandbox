@@ -88,15 +88,17 @@ def getManifest(PREFIX,dv):
 
 # See https://www.chilkatsoft.com/refdoc/pythonCkCertRef.html
 def getCertificate(androguardAPK):
+    # TODO Returns empty cert on any error case for now
+
     # TODO ECC missing
     r_cert = re.compile(r'META-INF/.*\.[DR]{1}SA')
     cert = [ f for f in androguardAPK.get_files() if r_cert.match(f) ]
 
     # TODO: Cannot handle more than 1 certificate (solution: Read MANIFEST.MF and extract the name from here)
-    if len(cert) != 1: return None
+    if len(cert) != 1: return {}
 
     (success, cert) = androguardAPK.get_certificate(cert[0])
-    if not success: return None
+    if not success: return {}
 
     # TODO Maybe add bools such as self-signed, signature-verified etc
     # TODO Maybe add UTF-8 strings
@@ -747,7 +749,7 @@ def clearOldFiles(workingDir):
 
 
 def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
-                 dangerousCalls, appUrls, appInfos, apiPermissions, apiCalls, appFiles, appActivities):
+                 dangerousCalls, appUrls, appInfos, apiPermissions, apiCalls, appFiles, appActivities, cert):
     output = dict()
     output['md5'] = appInfos[1]
     output['sha256'] = appInfos[0]
@@ -768,9 +770,9 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['providers'] = appProviders
     output['included_files'] = appFiles
     output['detected_ad_networks'] = detectedAds
-
     # Save Certificate Information into output dict
-    # TODO
+    output['cert'] = cert
+
 
     # save the JSON dict to a file for later use
     if not os.path.exists(workingDir):
@@ -846,10 +848,9 @@ def run(sampleFile, workingDir):
     detectedAds = check()
     print "extract certificate information"
     cert = getCertificate(a)
-    print cert
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,detectedAds,
-                 dangerousCalls,appUrls,appInfos,apiPermissions[0],apiPermissions[1],appFiles,appActivities)#,ssdeepValue)
+                 dangerousCalls,appUrls,appInfos,apiPermissions[0],apiPermissions[1],appFiles,appActivities, cert)#,ssdeepValue)
     print "copy icon image..."
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."
