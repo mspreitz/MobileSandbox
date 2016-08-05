@@ -3,6 +3,8 @@ import os
 import shutil
 import time
 import zipfile
+from string import split
+
 import psycopg2
 from StaticAnalyzer import run
 import settings
@@ -30,13 +32,6 @@ def copytree(src, dst, symlinks=False, ignore=None):
         else:
             shutil.copy2(s, d)
 
-
-class Form(object):
-    def __init__(self, cursor, row):
-        for (attr, val) in zip((d[0] for d in cursor.description), row):
-            setattr(self, attr, val)
-
-
 # Connect to database
 try:
     conn = psycopg2.connect("dbname='ms_db' user='ms_user' host='localhost' password='2HmUKLvf'")
@@ -60,27 +55,25 @@ while(running):
         continue
 
     time.sleep(3)
-
     for data in rows:
-        r = Form(db, data)
 
-        if r.status == 'idle':
+        if data[4] == 'idle':
 
-            path = settings.BACKEND_PATH+r.path
-            type = r.type
-            fname = r.fileName
+            path = settings.BACKEND_PATH+data[2]
+            type = data[5]
+            fname = data[3]
             sample = path+fname
             resDirName = os.path.splitext(fname)[0]
             tmpPath = settings.SOURCELOCATION+resDirName+'/'
-            sampleID = r.id
-            sha256 = r.sha256
-
-            # Set analysis status to running
-            db.execute("UPDATE analyzer_queue SET status='running' WHERE id=%s" % (sampleID))
-            db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % (sha256))
-            db.connection.commit()
+            sampleID = data[0]
+            sha256 = data[1]
 
             if not os.path.exists(tmpPath):
+                # Set analysis status to running
+                db.execute("UPDATE analyzer_queue SET status='running' WHERE id=%s" % (sampleID))
+                db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % (sha256))
+                db.connection.commit()
+
                 os.makedirs(tmpPath)
                 # Run static analysis
                 run(sample, tmpPath)
