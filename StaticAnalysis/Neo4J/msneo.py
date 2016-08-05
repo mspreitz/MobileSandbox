@@ -12,8 +12,7 @@ def add_attribute(node, datadict, attribute, regex=None, upper=False):
         if upper: node[attribute] = node[attribute].upper()
     return node
 
-def find_unique_node(graph, nodename, datadict, key, upper=False, maxn=3):
-    value = datadict[key]
+def find_unique_node(graph, nodename, key, value, upper=False, maxn=3):
     if upper: value = value.upper()
     gen = graph.find(nodename, property_key=key, property_value=value)
     (first, count, node) = (True, 0, None)
@@ -47,7 +46,8 @@ def create_node(datadict):
     graph = Graph(password=pw)
     tx = graph.begin()
 
-    (count, na) = find_unique_node(graph, 'Android', datadict, 'sha256', upper=True)
+
+    (count, na) = find_unique_node(graph, 'Android', 'sha256', datadict['sha256'], upper=True)
 
     # Give error if we matched more than 1 nodes
     if count > 1:
@@ -74,7 +74,7 @@ def create_node(datadict):
     add_attribute(na, datadict, 'api_permissions')
     #add_attribute(na, datadict, 'api_calls') # TODO List of lists don't work yet
     add_attribute(na, datadict, 'features')
-    add_attribute(na, datadict, 'intents')
+    #add_attribute(na, datadict, 'intents')
     add_attribute(na, datadict, 's_and_r')
     add_attribute(na, datadict, 'interesting_calls')
     add_attribute(na, datadict, 'urls')
@@ -85,6 +85,25 @@ def create_node(datadict):
     tx.create(na)
     print 'Neo4J: Created Android Node with sha256: {}'.format(datadict['sha256'])
 
+    # Generate Intent nodes for every new Intent we encounter
+    # TODO Ignore case?
+    for intent in datadict['intents']:
+        (count, ni) = find_unique_node(graph, 'Intent', 'name', intent)
+        # Give error if we matched more than 1 nodes
+        if count > 1:
+            print 'ERROR: Found more than 1 Intent nodes with Intent Name {}'.format(intent)
+            continue
+
+        if count == 0:
+            ni = Node('Intent')
+            ni['name'] = intent
+            tx.create(ni)
+            print 'Neo4J: Created Intent Node with name: {}'.format(intent)
+
+        r = Relationship(na, 'ACTION_WITH_INTENT', ni)
+        tx.merge(r)
+
+
     # Abort if Certificate Dict is empty
     if not datadict['cert']:
         tx.commit()
@@ -92,7 +111,7 @@ def create_node(datadict):
 
     certdict = datadict['cert']
 
-    (count, nc) = find_unique_node(graph, 'Certificate', certdict, 'Sha1Thumbprint', upper=True)
+    (count, nc) = find_unique_node(graph, 'Certificate', 'Sha1Thumbprint', certdict['Sha1Thumbprint'], upper=True)
 
     # Give error if we matched more than 1 nodes
     if count > 1:
