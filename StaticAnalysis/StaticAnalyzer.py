@@ -526,9 +526,11 @@ def getSampleInfo(sampleFile,logFile,a):
     fp = open(sampleFile,'rb')
     content = fp.read()
     md5OfFile = hashlib.md5(content).hexdigest()
-    shaOfFile = hashlib.sha256(content).hexdigest()
+    sha1OfFile = hashlib.sha1(content).hexdigest()
+    sha256OfFile = hashlib.sha256(content).hexdigest()
     fp.close()
-    appInfos.append(shaOfFile)
+    appInfos.append(sha256OfFile)
+    appInfos.append(sha1OfFile)
     appInfos.append(md5OfFile)
     sdkVersion = a.get_target_sdk_version()
     try:
@@ -542,7 +544,8 @@ def getSampleInfo(sampleFile,logFile,a):
         sdkVersion = ""
 
     log(logFile, 0, "application infos", 0)
-    log(logFile, "sha256:", shaOfFile, 1)
+    log(logFile, "sha256:", sha256OfFile, 1)
+    log(logFile, "sha1:", sha1OfFile, 1)
     log(logFile, "md5:", md5OfFile, 1)
 
     appInfos.append(sdkVersion)
@@ -694,7 +697,8 @@ def getFilesInsideApk(workingDir):
         exit(1)
     for dirname, dirnames, filenames in os.walk(directory):
         for filename in filenames:
-            fileList.append(filename)
+            filename = dirname + filename
+            fileList.append(filename[len(directory):])
     return fileList
 
 
@@ -750,12 +754,13 @@ def clearOldFiles(workingDir):
 def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
                  dangerousCalls, appUrls, appInfos, apiPermissions, apiCalls, appFiles, appActivities, cert):
     output = dict()
-    output['md5'] = appInfos[1]
+    output['md5'] = appInfos[2]
+    output['sha1'] = appInfos[1]
     output['sha256'] = appInfos[0]
     #output['ssdeep'] = ssdeepValue
-    output['package_name'] = appInfos[3]
-    output['apk_name'] = appInfos[4]
-    output['sdk_version'] = appInfos[2]
+    output['package_name'] = appInfos[4]
+    output['apk_name'] = appInfos[5]
+    output['sdk_version'] = appInfos[3]
     output['app_permissions'] = appPermissions
     output['api_permissions'] = apiPermissions
     output['api_calls'] = apiCalls
