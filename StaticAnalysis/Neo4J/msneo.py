@@ -1,4 +1,4 @@
-from py2neo import Graph, Node
+from py2neo import Graph, Node, Relationship
 import re
 
 pw = 'msneo' # After changing password from default password neo4j to msneo
@@ -25,77 +25,96 @@ def create_node(datadict):
     graph = Graph(password=pw)
     tx = graph.begin()
 
-    n = Node('Android')
-    add_attribute(n, datadict, 'md5', regex=r_md5, upper=True)
-    add_attribute(n, datadict, 'sha1', regex=r_sha1, upper=True)
-    add_attribute(n, datadict, 'sha256', regex=r_sha256, upper=True)
-    add_attribute(n, datadict, 'activities')
-    add_attribute(n, datadict, 'package_name')
-    add_attribute(n, datadict, 'apk_name')
-    add_attribute(n, datadict, 'sdk_version')
-    add_attribute(n, datadict, 'app_permissions')
-    add_attribute(n, datadict, 'api_permissions')
-    #add_attribute(n, datadict, 'api_calls') # TODO List of lists don't work yet
-    add_attribute(n, datadict, 'features')
-    add_attribute(n, datadict, 'intents')
-    add_attribute(n, datadict, 's_and_r')
-    add_attribute(n, datadict, 'interesting_calls')
-    add_attribute(n, datadict, 'urls')
-    add_attribute(n, datadict, 'networks')
-    add_attribute(n, datadict, 'providers')
-    add_attribute(n, datadict, 'included_files')
-    add_attribute(n, datadict, 'detected_ad_networks')
+    # Create Android Node
+    na = Node('Android')
+    add_attribute(na, datadict, 'md5', regex=r_md5, upper=True)
+    add_attribute(na, datadict, 'sha1', regex=r_sha1, upper=True)
+    add_attribute(na, datadict, 'sha256', regex=r_sha256, upper=True)
+    add_attribute(na, datadict, 'activities')
+    add_attribute(na, datadict, 'package_name')
+    add_attribute(na, datadict, 'apk_name')
+    add_attribute(na, datadict, 'sdk_version')
+    add_attribute(na, datadict, 'app_permissions')
+    add_attribute(na, datadict, 'api_permissions')
+    #add_attribute(na, datadict, 'api_calls') # TODO List of lists don't work yet
+    add_attribute(na, datadict, 'features')
+    add_attribute(na, datadict, 'intents')
+    add_attribute(na, datadict, 's_and_r')
+    add_attribute(na, datadict, 'interesting_calls')
+    add_attribute(na, datadict, 'urls')
+    add_attribute(na, datadict, 'networks')
+    add_attribute(na, datadict, 'providers')
+    add_attribute(na, datadict, 'included_files')
+    add_attribute(na, datadict, 'detected_ad_networks')
+    tx.create(na)
     print 'Neo4J: Created Android Node with sha256: {}'.format(datadict['sha256'])
-    tx.create(n)
 
-    if datadict['cert']:
-        n = Node('Certificate')
-        certdict = datadict['cert']
-        add_attribute(n, certdict, 'IssuerC')
-        add_attribute(n, certdict, 'IssuerCN')
-        add_attribute(n, certdict, 'IssuerDN')
-        add_attribute(n, certdict, 'IssuerE')
-        add_attribute(n, certdict, 'IssuerL')
-        add_attribute(n, certdict, 'IssuerO')
-        add_attribute(n, certdict, 'IssuerOU')
-        add_attribute(n, certdict, 'IssuerS')
-        add_attribute(n, certdict, 'SubjectC')
-        add_attribute(n, certdict, 'SubjectCN')
-        add_attribute(n, certdict, 'SubjectDN')
-        add_attribute(n, certdict, 'SubjectE')
-        add_attribute(n, certdict, 'SubjectKeyId')
-        add_attribute(n, certdict, 'SubjectL')
-        add_attribute(n, certdict, 'SubjectO')
-        add_attribute(n, certdict, 'SubjectOU')
-        add_attribute(n, certdict, 'SubjectS')
-        add_attribute(n, certdict, 'Rfc822Name')
-        add_attribute(n, certdict, 'SerialNumber')
-        add_attribute(n, certdict, 'Sha1Thumbprint')
-        add_attribute(n, certdict, 'validFromStr')
-        add_attribute(n, certdict, 'validToStr')
-        add_attribute(n, certdict, 'Version')
-        print 'Neo4J: Created Certificate Node with Sha1Thumbprint: {}'.format(certdict['Sha1Thumbprint'])
-        tx.create(n)
+    # Abort if Certificate Dict is empty
+    if not datadict['cert']:
+        tx.commit()
+        return
 
-        pubdict = certdict['pubkey']
-        n = Node('PublicKey')
-        if pubdict['keytype'] == 'RSA':
-            add_attribute(n, pubdict, 'keytype')
-            add_attribute(n, pubdict, 'modulus')
-            add_attribute(n, pubdict, 'exponent')
-        elif pubdict['keytype'] == 'DSA':
-            add_attribute(n, pubdict, 'keytype')
-            add_attribute(n, pubdict, 'P')
-            add_attribute(n, pubdict, 'Q')
-            add_attribute(n, pubdict, 'G')
-            add_attribute(n, pubdict, 'Y')
-        elif pubdict['keytype'] == 'ECC':
-            add_attribute(n, pubdict, 'keytype')
-            pass
+    # Create Certificate Node
+    nc = Node('Certificate')
+    certdict = datadict['cert']
+    add_attribute(nc, certdict, 'IssuerC')
+    add_attribute(nc, certdict, 'IssuerCN')
+    add_attribute(nc, certdict, 'IssuerDN')
+    add_attribute(nc, certdict, 'IssuerE')
+    add_attribute(nc, certdict, 'IssuerL')
+    add_attribute(nc, certdict, 'IssuerO')
+    add_attribute(nc, certdict, 'IssuerOU')
+    add_attribute(nc, certdict, 'IssuerS')
+    add_attribute(nc, certdict, 'SubjectC')
+    add_attribute(nc, certdict, 'SubjectCN')
+    add_attribute(nc, certdict, 'SubjectDN')
+    add_attribute(nc, certdict, 'SubjectE')
+    add_attribute(nc, certdict, 'SubjectKeyId')
+    add_attribute(nc, certdict, 'SubjectL')
+    add_attribute(nc, certdict, 'SubjectO')
+    add_attribute(nc, certdict, 'SubjectOU')
+    add_attribute(nc, certdict, 'SubjectS')
+    add_attribute(nc, certdict, 'Rfc822Name')
+    add_attribute(nc, certdict, 'SerialNumber')
+    add_attribute(nc, certdict, 'Sha1Thumbprint')
+    add_attribute(nc, certdict, 'validFromStr')
+    add_attribute(nc, certdict, 'validToStr')
+    add_attribute(nc, certdict, 'Version')
+    tx.create(nc)
+    print 'Neo4J: Created Certificate Node with Sha1Thumbprint: {}'.format(certdict['Sha1Thumbprint'])
 
-        if pubdict['keytype'] is not None:
-            tx.create(n)
-            print 'Neo4J: Created PublicKey Node with keytype: {}'.format(pubdict['keytype'])
+    # Create SIGNED_WITH Relationship between Android Application and Certificate
+    r = Relationship(na, 'SIGNED_WITH', nc)
+    tx.create(r)
+
+    # Abort if Public Key Dict is empty
+    if certdict['pubkey']['keytype'] is None:
+        tx.commit()
+        return
+
+    # Create Public Key Node
+    pubdict = certdict['pubkey']
+    np = Node('PublicKey')
+    if pubdict['keytype'] == 'RSA':
+        add_attribute(np, pubdict, 'keytype')
+        add_attribute(np, pubdict, 'modulus')
+        add_attribute(np, pubdict, 'exponent')
+    elif pubdict['keytype'] == 'DSA':
+        add_attribute(np, pubdict, 'keytype')
+        add_attribute(np, pubdict, 'P')
+        add_attribute(np, pubdict, 'Q')
+        add_attribute(np, pubdict, 'G')
+        add_attribute(np, pubdict, 'Y')
+    elif pubdict['keytype'] == 'ECC':
+        add_attribute(np, pubdict, 'keytype')
+        pass
+    tx.create(np)
+    print 'Neo4J: Created PublicKey Node with keytype: {}'.format(pubdict['keytype'])
+
+    # Create AUTHENTICATED_BY Relationship between Certificate and Public Key
+    r = Relationship(nc, 'AUTHENTICATED_BY', np)
+    tx.create(r)
+
 
     tx.commit()
 
