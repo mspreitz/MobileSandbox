@@ -4,7 +4,7 @@ from androguard.core.bytecodes import dvm
 from androguard.decompiler.dad import decompile
 #from base64 import b64decode
 #from hexdump import hexdump
-from .lib.mhash import *
+from .utils.mhash import *
 from Neo4J.msneo import create_node # TODO Change that to a Relative Parent Import Neo4J
 from sys import exit
 import chilkat
