@@ -213,12 +213,10 @@ def uploadFile(request, magic, anonymous, username): # TODO Use default values a
         apkFile = '{}/{}'.format(TMP_PATH,sentFile.name) # TODO Yeah this is a bad idea - can be set arbitrary. Not good :).
         filePath = getFilePath(apkFile)
         fileName = "{}.apk".format(appInfos['sha1'].lower()) # TODO Why sha1? :)
-        #print apkFile, filePath, fileName
 
         # If the 
         apkFile_destination = '{}/{}'.format(TMP_PATH, filePath)
 
-        print os.path.isfile(apkFile_destination)
         # If the directory structure with saved APKs and Analyzer result does already exist
         # then tell the user that the sample is already in process / uploaded
         if os.path.isfile(apkFile_destination):
@@ -241,9 +239,7 @@ def uploadFile(request, magic, anonymous, username): # TODO Use default values a
         #print apkFile # Temporary uploaded file
         #print filePath # full path - without TMP_PATH k.
         apkPath = '{}'.format(getPathFromSHA256(appInfos['sha256'].lower()))
-        print apkPath, len(apkPath), fn, fn == apkFile_destination
         # Put file in Queue for analysis
-        print apkPath
         Queue.objects.create(
                 fileName=fileName, # TODO This should be the sha1 + .apk right?
                 status='idle',
@@ -279,7 +275,6 @@ def showQueue(request):
         queue = None
 
     data = []
-    print len(queue)
     if queue is not None:
         count = len(queue)
         for i in range(count-1, count-11, -1):
