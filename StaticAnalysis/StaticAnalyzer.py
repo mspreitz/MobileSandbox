@@ -4,13 +4,12 @@ from androguard.core.bytecodes import dvm
 from androguard.decompiler.dad import decompile
 #from base64 import b64decode
 #from hexdump import hexdump
-from .utils.mhash import *
+from utils.mhash import *
 from Neo4J.msneo import create_node # TODO Change that to a Relative Parent Import Neo4J
 from sys import exit
 import chilkat
 import csv
 import datetime
-import hashlib
 import json
 import os
 import re
@@ -50,10 +49,10 @@ def log(logFile, file, message, type):
     if type == 0:
         logFile.write("\n")
         logFile.write("-----------------------------------------------------------------------\n")
-        logFile.write("\t" + message + "\n")
+        logFile.write('\t {} \n'.format(message))
         logFile.write("-----------------------------------------------------------------------\n")
     if type == 1:
-        logFile.write("\t\t" + file + "\t" + message + "\n")
+        logFile.write('\t\t {} {} \n'.format(file,message))
 
 # log file footer
 def closeLogFile(logFile):
@@ -108,6 +107,7 @@ def getCertificate(androguardAPK):
 
     # TODO Maybe add bools such as self-signed, signature-verified etc
     # TODO Maybe add UTF-8 strings
+    # http://stackoverflow.com/questions/5790860/and-vs-list-and-dict-which-is-better
     certdict = {}
 
     # Get all issuers
@@ -525,42 +525,29 @@ def getSampleInfo(sampleFile,logFile,a):
     # Todo: get application label
     # Todo: check if SDK-Version ect. is specified...
 
-    appInfos = []
+    appInfos = {}
+    with open(sampleFile, 'rb') as f:
+        data = f.read()
+        appInfos = hash_all(data)
 
-    fp = open(sampleFile,'rb')
-    content = fp.read()
-    md5OfFile = hashlib.md5(content).hexdigest()
-    sha1OfFile = hashlib.sha1(content).hexdigest()
-    sha256OfFile = hashlib.sha256(content).hexdigest()
-    fp.close()
-    appInfos.append(sha256OfFile)
-    appInfos.append(sha1OfFile)
-    appInfos.append(md5OfFile)
-    sdkVersion = a.get_target_sdk_version()
-    try:
-        appName = a.get_app_name()
-    except:
-        appName = ""
+    if not appInfos:
+        print 'ERROR: cannot read sample {}'.format(sampleFile)
+        exit(1)
 
-    apkName = str(sampleFile).split("/")[-1]
-
-    if (sdkVersion == None):
-        sdkVersion = ""
+    # TODO: Why replace None results with ''?
+    appInfos['sdk_version_target'] = a.get_target_sdk_version()
+    appInfos['sdk_version_min'] = a.get_min_sdk_version()
+    appInfos['sdk_version_max'] = a.get_max_sdk_version()
+    appInfos['app_name'] = a.get_app_name() # TODO: Which and where is the exception thrown in get_app_name?
+    appInfos['apk_name'] = str(sampleFile).split("/")[-1]
+    appInfos['package_name'] = a.get_package_name()
 
     log(logFile, 0, "application infos", 0)
-    log(logFile, "sha256:", sha256OfFile, 1)
-    log(logFile, "sha1:", sha1OfFile, 1)
-    log(logFile, "md5:", md5OfFile, 1)
-
-    appInfos.append(sdkVersion)
-    appInfos.append(appName)
-    appInfos.append(apkName)
-    log(logFile,"SDK-Version",sdkVersion, 1)
-
-    try:
-        log(logFile,"App-Name",appName ,1)
-    except:
-        pass
+    log(logFile, "sha256:", appInfos['sha256'], 1)
+    log(logFile, "sha1:", appInfos['sha1'], 1)
+    log(logFile, "md5:", appInfos['md5'], 1)
+    log(logFile,"SDK-Version",appInfos['sdk_version_target'], 1)
+    log(logFile,"App-Name",appName ,1)
     log(logFile,"APK-Name",apkName ,1)
 
     return appInfos
@@ -757,14 +744,7 @@ def clearOldFiles(workingDir):
 
 def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
                  dangerousCalls, appUrls, appInfos, apiPermissions, apiCalls, appFiles, appActivities, cert):
-    output = dict()
-    output['md5'] = appInfos[2]
-    output['sha1'] = appInfos[1]
-    output['sha256'] = appInfos[0]
-    #output['ssdeep'] = ssdeepValue
-    output['package_name'] = appInfos[4]
-    output['apk_name'] = appInfos[5]
-    output['sdk_version'] = appInfos[3]
+    output = appInfos # Since it already contains a dict of most fingerprints
     output['app_permissions'] = list(appPermissions)
     output['api_permissions'] = list(apiPermissions)
     output['api_calls'] = list(apiCalls)
