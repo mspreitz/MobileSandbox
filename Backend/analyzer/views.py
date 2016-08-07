@@ -36,7 +36,7 @@ def registration(request):
         match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email)
 
         # Check for empty input fields
-        if match == None:
+        if match is None:
             message = 'Please enter a valid email address!'
             return render_to_response('error.html', {'message': message})
         if username == "":

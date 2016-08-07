@@ -651,7 +651,7 @@ def extractSourceFiles(PREFIX,d,vmx): # TODO High O
             for method in _class.get_methods():
                 try:
                     g = vmx.get_method(method)
-                    if method.get_code() == None:
+                    if method.get_code() is None:
                         continue
                     ms = decompile.DvMethod(g)
                     ms.process()
