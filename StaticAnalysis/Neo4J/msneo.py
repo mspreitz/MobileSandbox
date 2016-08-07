@@ -101,7 +101,7 @@ def create_node(datadict):
     create_list_nodes_rels(graph, tx, na, 'Permission', permissions, 'USES_PERMISSION')
     create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL')
     create_list_nodes_rels(graph, tx, na, 'API_Call', datadict['interesting_calls'], 'CALLS')
-    create_list_nodes_rels(graph, tx, na, 'File', datadict['included_files'], 'INCLUDES_FILE')
+    create_list_nodes_rels(graph, tx, na, 'File', datadict['included_files'], 'INCLUDES_FILE') # TODO  Somehow higher O than Dex and pretty slow
     create_list_nodes_rels(graph, tx, na, 'DEX_File', datadict['included_files_src'], 'INCLUDES_FILE_SRC')
     create_list_nodes_rels(graph, tx, na, 'Activity', datadict['activities'], 'ACTIVITY')
     create_list_nodes_rels(graph, tx, na, 'Feature', datadict['features'], 'FEATURE')

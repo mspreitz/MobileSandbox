@@ -262,7 +262,7 @@ def dumpMethods(d, workingDir):
     os.write(fd,result)
 
 
-def parseDumpFile(workingDir, logFile, d):
+def parseDumpFile(workingDir, logFile, d): # TODO Mid-High O
     log(logFile, 0, "potentially suspicious api-calls", 0)
     #create dump file
     if(os.path.isfile(workingDir+settings.DUMPFILE)):
@@ -632,7 +632,7 @@ def getActivities(a):
     return set(a.get_activities())
 
 
-def extractSourceFiles(PREFIX,d,vmx):
+def extractSourceFiles(PREFIX,d,vmx): # TODO High O
     check_dirs(settings.SOURCELOCATION,PREFIX)
 
     for _class in d.get_classes():
@@ -664,7 +664,7 @@ def extractSourceFiles(PREFIX,d,vmx):
             source.close()
 
 
-def checkAPIPermissions(workingDir):
+def checkAPIPermissions(workingDir): # TODO Mid-High O (But higher than dangerousAD)
     dumpFile = workingDir+settings.DUMPFILE
     file = open(dumpFile).read()
     apiCallList = open(settings.APICALLS).readlines()
