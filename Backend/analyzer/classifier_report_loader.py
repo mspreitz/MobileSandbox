@@ -84,7 +84,7 @@ class ReportLoader():
                 self.__process_static_feature(feature, report_json[feature])
             # TODO: insert dynamic features and use detected_ad_network feature
             else:
-                if (feature not in ['#text', 'info']) and (len(report_json[feature]) != 0):
+                if report_json[feature] and feature not in ['#text', 'info'] and len(report_json[feature]) != 0:
                     continue
 
         return self.__app_features
