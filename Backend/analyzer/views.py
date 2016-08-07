@@ -9,12 +9,15 @@ from django.core.context_processors import csrf
 from django.shortcuts import render_to_response, render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.template import RequestContext
+from django.views.generic.edit import FormView
 
 from classifier import classify
-from .forms import UploadForm
+from .forms import UploadForm, UploadFormMulti
 from .models import FileUpload, Queue, Metadata, ClassifiedApp
 from datastructure import *
 from django.db.models import Q
+
+from mhash import * # TODO: Move that and the utils/mhash from the StaticAnalyzer to a single file.
 
 
 # Constants
@@ -121,13 +124,13 @@ def userHome(request):
 
     if request.method == 'POST':
         return uploadFile(request, magic, anonymous, request.user.first_name)
-    else:
-        check = {}
-        check.update(csrf(request))
-        form = UploadForm()
-        docs = FileUpload.objects.all()
-        return render_to_response('home.html', {'documents': docs, 'form': form, 'full_name': request.user.first_name},
-                                  context_instance=RequestContext(request))
+
+    check = {}
+    check.update(csrf(request))
+    form = UploadFormMulti()
+    docs = FileUpload.objects.all()
+    return render_to_response('home.html', {'documents': docs, 'form': form, 'full_name': request.user.first_name},
+                              context_instance=RequestContext(request))
 
 
 @login_required(login_url='/analyzer/userLogin')
@@ -165,62 +168,108 @@ def showHistory(request):
 
     return render_to_response('history.html', {"data": data})
 
+def dataIsAPK(data):
+    magic = '\x50\x4b\x03\x04' # ZIP Magic
+    if data[:4] != magic: return False
+    # TODO classes.dex, AndroidManifest.xml, resources.arsc
+    return True
 
 
 # Upload file and do sanity check
-def uploadFile(request, magic, anonymous, username):
-    sentFile = request.FILES['file']
-    filename = sentFile.name
-    form = UploadForm(request.POST, request.FILES)
+def uploadFile(request, magic, anonymous, username): # TODO Use default values and set those parameters at the last positions e.g. username, anonymous=True
+    form = UploadFormMulti(request.POST, request.FILES)
+    if not form.is_valid():
+        return HttpResponse('The form was not valid!')
 
-    if form.is_valid():
-        file = FileUpload(file=sentFile)
-        file.save()
+    uploadedFiles = {}
+    for sentFile in request.FILES.getlist('attachments'): uploadedFiles[sentFile.name] = {}
 
-        # Check if file is a valid apk
-        with open(TMP_PATH + filename) as f:
-            fileStart = f.read(len(magic))
-            if fileStart.startswith(magic):
-                apkFile = TMP_PATH + filename
-                path = getPath(apkFile)
-                filePath = getFilePath(apkFile)
-                fileName = createSHA1(apkFile) + ".apk"
-                md5 = createMD5(apkFile)
-                sha1 = createSHA1(apkFile)
-                sha256 = createSHA256(apkFile)
-                # Todo: check for dex file
-                # Todo: remove temporary file
 
-                if not os.path.isfile(TMP_PATH+filePath):
-                    # createPath() already renames the file and moves
-                    # it to the target directory
-                    createPath(apkFile)
+    # NOTE: sentFiles are InMemoryUploadedFiles - Binary blob already available - no need for open!
+    for sentFile in request.FILES.getlist('attachments'):
+        data = sentFile.read()
+        if not data:
+            uploadedFiles[sentFile.name]['error'] = 'Could not read APK file!'
+            continue
 
-                    # Put file in Queue for analysis
-                    Queue.objects.create(sha256=sha256, path=path, fileName=fileName, status='idle', type='static')
-                    # Queue.objects.create(sha256=sha256, path=path, filename=fileName, status='idle', type='dynamic')
+        if not dataIsAPK(data):
+            uploadedFiles[sentFile.name]['error'] = 'This file is not an APK file!'
+            continue
 
-                    # Put Metadata into Database
-                    Metadata.objects.create(filename=filename,md5=md5, sha1=sha1, sha256=sha256, username=request.user.username, status='idle')
-                else:
-                    queue = Queue.objects.get(sha256=sha256)
+        # NOTE: We only hash once -  we don't want to hash later again for the static analyzer - performance ! :) TODO
+        appInfos = hash_all(data)
 
-                    if queue.status == 'idle' or queue.status == 'running':
-                        return HttpResponse('This sample has already been submitted. The analysis is currently running.')
-                    else:
-                        return redirect('/analyzer/show/?report='+sha256)
-                f.close()
+        # TODO Don't we want to abort if the file has already been uploaded?
+        # TODO I got several <apk>_tmpstring.apk uploaded files. We can check if they already exist or are in the process by looking up the hash and abort if necessary
+        apkFile = FileUpload(file=sentFile)
+        apkFile.save()
 
-                if anonymous:
-                    return render_to_response("anonUploadSuccess.html", {'url': BASE_URL, 'hash': sha256})
-                else:
-                    return render_to_response("uploadSuccess.html", {'url': BASE_URL, 'hash': sha256})
+        # Temporary APK file in location
+        # TODO Somehow test for accidentally rmtree('/') etc
+        if not TMP_PATH or TMP_PATH == '':
+            print 'Fatal Failure. Abort!'
+            sys.exit(1)
 
-            else:
-                os.remove(TMP_PATH + filename)
-                return HttpResponse('This file is not an apk file!')
-    else:
-        return HttpResponse('not valid')
+        apkFile = '{}/{}'.format(TMP_PATH,sentFile.name) # TODO Yeah this is a bad idea - can be set arbitrary. Not good :).
+        filePath = getFilePath(apkFile)
+        fileName = "{}.apk".format(appInfos['sha1'].lower()) # TODO Why sha1? :)
+        #print apkFile, filePath, fileName
+
+        # If the 
+        apkFile_destination = '{}/{}'.format(TMP_PATH, filePath)
+
+        print os.path.isfile(apkFile_destination)
+        # If the directory structure with saved APKs and Analyzer result does already exist
+        # then tell the user that the sample is already in process / uploaded
+        if os.path.isfile(apkFile_destination):
+            queue = Queue.objects.get(sha256=appInfos['sha256'])
+
+            if queue.status == 'idle' or queue.status == 'running':
+                uploadedFiles[sentFile.name]['error'] = 'This sample has already been submitted. The analysis is currently running.'
+                continue
+            uploadedFiles[sentFile.name]['report'] = '/analyzer/show/?report={}'.format(appInfos['sha256']) # Report to redirect
+            continue
+
+        # TODO We could use the sha1APK inside this directory or reply with the results. And delete the uploaded APK (we dont need a tmp anyway)
+        # TODO: remove temporary file (or don't use a temp file anyway)
+
+        # Create the datastructure, move the file to the destination directory
+        fn = createPath(apkFile) # fn == apkFile_destination
+        # TODO Too many cooks :)
+        #print apkFile_destination == fn, fn
+        #print fileName == appInfos['sha1']+'.apk', fileName
+        #print apkFile # Temporary uploaded file
+        #print filePath # full path - without TMP_PATH k.
+        apkPath = '{}'.format(getPathFromSHA256(appInfos['sha256'].lower()))
+        print apkPath, len(apkPath), fn, fn == apkFile_destination
+        # Put file in Queue for analysis
+        print apkPath
+        Queue.objects.create(
+                fileName=fileName, # TODO This should be the sha1 + .apk right?
+                status='idle',
+                sha256=appInfos['sha256'].lower(),
+                path=apkPath, # TODO Path without sha1 name AND tmp_path... so confusing ! :)
+                type='static'
+        )
+
+        # Put Metadata into Database
+        Metadata.objects.create(
+                filename=sentFile.name, # TODO Which names are which?
+                status='idle',
+                sha256=appInfos['sha256'].lower(),
+                sha1=appInfos['sha1'].lower(),
+                md5=appInfos['md5'].lower(),
+                username=request.user.username
+        )
+
+        uploadedFiles[sentFile.name]['uploaded'] = appInfos['sha256'].lower()
+
+    # Return redirect link for every successful report - or redirect to the report page
+    # For every error in the uploadedFiles, print a table with apkname and error
+    templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles }
+    template = 'anonUploadSuccess.html'
+    if not anonymous: template = 'uploadSuccess.html'
+    return render_to_response(template, templatedict)
 
 
 def showQueue(request):

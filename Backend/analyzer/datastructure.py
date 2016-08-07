@@ -47,12 +47,13 @@ def getFilePath(apkFile):
 
 
 def createPath(apkFile):
-    filename = 'None'
+    filename = None
     path = getPath(apkFile)
     if os.path.isfile(apkFile):
         if not os.path.exists(DATA_DIR+path):
             os.makedirs(DATA_DIR+path)
         filename = DATA_DIR+getFilePath(apkFile)
+        if not filename: return None
         shutil.move(apkFile, filename)
     return filename
 

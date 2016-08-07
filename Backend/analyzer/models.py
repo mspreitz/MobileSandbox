@@ -5,6 +5,10 @@ class FileUpload(models.Model):
     file = models.FileField(upload_to='./')
     title = models.CharField(max_length=200)
 
+class Attachment(models.Model):
+    data = models.ForeignKey(FileUpload, verbose_name='Uploaded Data Blob')
+    file = models.FileField('Attachment', upload_to='attachments')
+
 
 class Queue(models.Model):
     id = models.AutoField(primary_key=True)

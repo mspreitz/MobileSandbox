@@ -12,9 +12,26 @@
 <div id="content">
     <div id="l_container col-lg-8">
         <a href="/analyzer/logout">Logout</a>
-        <h3>The upload was successful!</h3>
-        <p>In order to view your report wait a couple of minutes and use the following link.</p><br>
-        <a href="{{ url }}{{ hash }}">{{ url }}{{ hash }}</a>
+		<table style="width:100%">
+			<tr>
+				<td>APK</td>
+				<td>Status</td>
+			</tr>
+			{% for file, dict in uploaded_files.items %}
+				<tr>
+					<td>{{file}}</td>
+				{% if dict.uploaded %}
+					<td>Upload successful - Please wait!</td>
+				{% elif dict.error %}
+					<td>Error: {{dict.error}}</td>
+				{% elif dict.report %}
+					<td>Report already finished! See {{dict.report}}</td>
+				{% else %}
+					<td>{{dict.error}}</td>
+				{% endif %}
+				</tr>
+			{% endfor %}
+		</table>
     </div>
 </div>
 {% endblock %}

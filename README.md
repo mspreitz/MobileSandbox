@@ -1,4 +1,7 @@
 # Installing
+## Backend
+* [`django-multiupload`](https://github.com/Chive/django-multiupload) Run `pip install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupload`
+
 ## StaticAnalyzer
 
 * [`chilkat`](https://www.chilkatsoft.com/python.asp) (Python 2.7 64bit)
