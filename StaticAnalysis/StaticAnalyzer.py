@@ -242,7 +242,7 @@ def usedFeatures(logFile,a):
     for i in a.xml:
         for features in a.xml[i].getElementsByTagName("uses-feature"):
             feature = features.getAttribute("android:name")
-            appFeatures.addd(feature)
+            appFeatures.add(feature)
             log(logFile, "AndroidManifest", feature, 1)
     return appFeatures
 
@@ -685,8 +685,11 @@ def checkAPIPermissions(workingDir):
             continue
     return (apiPermissions, apiCalls)
 
+def getFilesInsideApk(androidAPK):
+    return androidAPK.get_files()
+    #return androidAPK.get_files_types()
 
-def getFilesInsideApk(workingDir):
+def getFilesInsideApkSrc(workingDir):
     fileList = set()
     directory = workingDir+settings.SOURCELOCATION
     if not os.path.exists(directory):
@@ -749,7 +752,7 @@ def clearOldFiles(workingDir):
 
 
 def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
-                 dangerousCalls, appUrls, appInfos, apiPermissions, apiCalls, appFiles, appActivities, cert):
+                 dangerousCalls, appUrls, appInfos, apiPermissions, apiCalls, appFilesSrc, appActivities, cert, appFiles):
     output = appInfos # Since it already contains a dict of most fingerprints
     output['app_permissions'] = list(appPermissions)
     output['api_permissions'] = list(apiPermissions)
@@ -762,6 +765,7 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['urls'] = list(appUrls)
     output['networks'] = list(appNet)
     output['providers'] = list(appProviders)
+    output['included_files_src'] = list(appFilesSrc)
     output['included_files'] = list(appFiles)
     output['detected_ad_networks'] = list(detectedAds)
     # Save Certificate Information into output dict
@@ -827,8 +831,10 @@ def run(sampleFile, workingDir):
     appFeatures = usedFeatures(logFile,a)
     print "get intents..."
     appIntents = getIntents(logFile,a)
-    print "list files"
-    appFiles = getFilesInsideApk(workingDir)
+    print "get files in src..."
+    appFilesSrc = getFilesInsideApkSrc(workingDir)
+    print "get files in APK..."
+    appFiles = getFilesInsideApk(a)
     print "get service and receivers"
     serviceANDreceiver = getServiceReceiver(logFile,a)
     print "search for dangerous calls..."
@@ -845,7 +851,7 @@ def run(sampleFile, workingDir):
     cert = getCertificate(a)
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,detectedAds,
-                 dangerousCalls,appUrls,appInfos,apiPermissions[0],apiPermissions[1],appFiles,appActivities, cert)#,ssdeepValue)
+                 dangerousCalls,appUrls,appInfos,apiPermissions[0],apiPermissions[1],appFilesSrc,appActivities, cert, appFiles)#,ssdeepValue)
     print "copy icon image..."
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."
