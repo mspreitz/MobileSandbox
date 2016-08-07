@@ -8,3 +8,4 @@ rm -rf Backend/analyzer/tmp StaticAnalysis/src/
 # delete from analyzer_metadata
 # delete from analyzer_fileupload
 # delete from analyzer_queue
+# TODO Stop neo4j Server, delete data/graph.db/* to remove old property nodes
