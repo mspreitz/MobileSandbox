@@ -21,7 +21,9 @@ import xml.etree.ElementTree as ET
 ### TODO LIST
 # ssdeep installieren und wieder einkommentieren!!
 ###
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def errorMessage(msg):
     print "Error: >> "+msg
@@ -538,17 +540,21 @@ def getSampleInfo(sampleFile,logFile,a):
     appInfos['sdk_version_target'] = a.get_target_sdk_version()
     appInfos['sdk_version_min'] = a.get_min_sdk_version()
     appInfos['sdk_version_max'] = a.get_max_sdk_version()
-    appInfos['app_name'] = a.get_app_name() # TODO: Which and where is the exception thrown in get_app_name?
+    try:
+        appInfos['app_name'] = a.get_app_name()
+    except AttributeError: # TODO: This is a bug by androguard. Issue a pull request for this funciton
+        appInfos['app_name'] = None
     appInfos['apk_name'] = str(sampleFile).split("/")[-1]
-    appInfos['package_name'] = a.get_package_name()
+    appInfos['package_name'] = a.get_package()
 
     log(logFile, 0, "application infos", 0)
     log(logFile, "sha256:", appInfos['sha256'], 1)
     log(logFile, "sha1:", appInfos['sha1'], 1)
     log(logFile, "md5:", appInfos['md5'], 1)
     log(logFile,"SDK-Version",appInfos['sdk_version_target'], 1)
-    log(logFile,"App-Name",appName ,1)
-    log(logFile,"APK-Name",apkName ,1)
+    log(logFile,"App-Name",appInfos['app_name'],1)
+    log(logFile,"APK-Name",appInfos['apk_name'],1)
+    log(logFile,"Package-Name",appInfos['package_name'],1)
 
     return appInfos
 
@@ -800,6 +806,9 @@ def run(sampleFile, workingDir):
     d = dvm.DalvikVMFormat(a.get_dex())
     vmx = analysis.newVMAnalysis(d)
 
+    print "get sample info..."
+    appInfos = getSampleInfo(sampleFile,logFile,a)
+    print 'Got Sample Information for Sample with SHA256: {}'.format(appInfos['sha256'])
     print "extract manifest..."
     getManifest(PREFIX,dv)
     print "unpacking sample..."
@@ -808,8 +817,6 @@ def run(sampleFile, workingDir):
     extractSourceFiles(PREFIX,d,vmx)
     print "get network data..."
     appNet = getNet(a)                                        #Todo: Ausgabe testen! android.net?!?!?!?
-    print "get sample info..."
-    appInfos = getSampleInfo(sampleFile,logFile,a)
     print "get providers..."
     appProviders = getProviders(logFile,a)
     print "get permissions..."

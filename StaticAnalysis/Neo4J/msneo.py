@@ -16,6 +16,7 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
     # Generate Intent nodes for every new Intent we encounter
     # TODO Ignore case?
     for node in nodelist:
+        if node is None: continue
         (count, n) = find_unique_node(graph, nodename, 'name', node)
         # Give error if we matched more than 1 nodes
         if count > 1:
@@ -86,8 +87,6 @@ def create_node(datadict):
     add_attribute(na, datadict, 'sha1', regex=r_sha1, upper=True)
     add_attribute(na, datadict, 'sha256', regex=r_sha256, upper=True)
     add_attribute(na, datadict, 'apk_name')
-    add_attribute(na, datadict, 'sdk_version')
-    add_attribute(na, datadict, 'package_name')
 
     tx.create(na)
     print 'Neo4J: Created Android Node with sha256: {}'.format(datadict['sha256'])
@@ -97,14 +96,19 @@ def create_node(datadict):
     create_list_nodes_rels(graph, tx, na, 'Permission', datadict['api_permissions'], 'USES_PERMISSION')
     create_list_nodes_rels(graph, tx, na, 'Permission', datadict['app_permissions'], 'USES_PERMISSION')
     create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL')
-    create_list_nodes_rels(graph, tx, na, 'APICall', datadict['interesting_calls'], 'CALLS')
+    create_list_nodes_rels(graph, tx, na, 'API_Call', datadict['interesting_calls'], 'CALLS')
     create_list_nodes_rels(graph, tx, na, 'File', datadict['included_files'], 'INCLUDES_FILE')
     create_list_nodes_rels(graph, tx, na, 'Activity', datadict['activities'], 'ACTIVITY')
     create_list_nodes_rels(graph, tx, na, 'Feature', datadict['features'], 'FEATURE')
     create_list_nodes_rels(graph, tx, na, 'Provider', datadict['providers'], 'PROVIDER')
-    create_list_nodes_rels(graph, tx, na, 'Service_receiver', datadict['s_and_r'], 'SERVICE_RECEIVER') # TODO split s_and_r
-    create_list_nodes_rels(graph, tx, na, 'DetectedAdNetworks', datadict['detected_ad_networks'], 'DETECTED_AD_NETWORK') # TODO split s_and_r
-    create_list_nodes_rels(graph, tx, na, 'Networks', datadict['networks'], 'NETWORK') # TODO split s_and_r
+    create_list_nodes_rels(graph, tx, na, 'Service_Receiver', datadict['s_and_r'], 'SERVICE_RECEIVER') # TODO split s_and_r
+    create_list_nodes_rels(graph, tx, na, 'Detected_Ad_Networks', datadict['detected_ad_networks'], 'DETECTED_AD_NETWORK')
+    create_list_nodes_rels(graph, tx, na, 'Networks', datadict['networks'], 'NETWORK')
+    create_list_nodes_rels(graph, tx, na, 'Package_Name', [ datadict['package_name']], 'PACKAGE_NAME')
+    create_list_nodes_rels(graph, tx, na, 'SDK_Version_Target', [ datadict['sdk_version_target']], 'SDK_VERSION_TARGET')
+    create_list_nodes_rels(graph, tx, na, 'SDK_Version_Min', [ datadict['sdk_version_min']], 'SDK_VERSION_MIN')
+    create_list_nodes_rels(graph, tx, na, 'SDK_Version_Max', [ datadict['sdk_version_max']], 'SDK_VERSION_MAX')
+    create_list_nodes_rels(graph, tx, na, 'App_Name', [ datadict['app_name']], 'APP_NAME')
     #add_attribute(na, datadict, 'api_calls') # TODO List of lists don't work yet
 
     # Abort if Certificate Dict is empty
