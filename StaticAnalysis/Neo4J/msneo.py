@@ -85,11 +85,10 @@ def create_node(datadict):
     add_attribute(na, datadict, 'md5', regex=r_md5, upper=True)
     add_attribute(na, datadict, 'sha1', regex=r_sha1, upper=True)
     add_attribute(na, datadict, 'sha256', regex=r_sha256, upper=True)
-    add_attribute(na, datadict, 'package_name')
     add_attribute(na, datadict, 'apk_name')
     add_attribute(na, datadict, 'sdk_version')
-    add_attribute(na, datadict, 'networks')
-    add_attribute(na, datadict, 'detected_ad_networks')
+    add_attribute(na, datadict, 'package_name')
+
     tx.create(na)
     print 'Neo4J: Created Android Node with sha256: {}'.format(datadict['sha256'])
 
@@ -104,6 +103,8 @@ def create_node(datadict):
     create_list_nodes_rels(graph, tx, na, 'Feature', datadict['features'], 'FEATURE')
     create_list_nodes_rels(graph, tx, na, 'Provider', datadict['providers'], 'PROVIDER')
     create_list_nodes_rels(graph, tx, na, 'Service_receiver', datadict['s_and_r'], 'SERVICE_RECEIVER') # TODO split s_and_r
+    create_list_nodes_rels(graph, tx, na, 'DetectedAdNetworks', datadict['detected_ad_networks'], 'DETECTED_AD_NETWORK') # TODO split s_and_r
+    create_list_nodes_rels(graph, tx, na, 'Networks', datadict['networks'], 'NETWORK') # TODO split s_and_r
     #add_attribute(na, datadict, 'api_calls') # TODO List of lists don't work yet
 
     # Abort if Certificate Dict is empty

@@ -4,6 +4,7 @@ from androguard.core.bytecodes import dvm
 from androguard.decompiler.dad import decompile
 #from base64 import b64decode
 #from hexdump import hexdump
+from .lib.mhash import *
 from Neo4J.msneo import create_node # TODO Change that to a Relative Parent Import Neo4J
 from sys import exit
 import chilkat
@@ -222,15 +223,13 @@ def getIntents(logFile,a):
 def getNet(a):
      appNet = set()
      for line in a.xml:
-         if "android.net" in line:
-             try:
-                 net = line.split("=")[1].split("\"")[1]
-                 print errorMessage("Etwas gefunden!!!! (getNet Funktion)")
-                 if net != "":
-                     appNet.add(net)
-             except:
-                 continue
-         else:
+         if "android.net" not in line: continue
+         try:
+             net = line.split("=")[1].split("\"")[1]
+             print errorMessage("Etwas gefunden!!!! (getNet Funktion)")
+             if net != "":
+                 appNet.add(net)
+         except:
              continue
      return appNet
 
