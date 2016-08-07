@@ -1,4 +1,5 @@
 from py2neo import Graph, Node, Relationship
+from hexdump import hexdump
 import re
 
 pw = 'msneo' # After changing password from default password neo4j to msneo
@@ -93,8 +94,11 @@ def create_node(datadict):
 
     create_list_nodes_rels(graph, tx, na, 'Intent', datadict['intents'], 'ACTION_WITH_INTENT')
     # TODO Difference api/app permissions
-    create_list_nodes_rels(graph, tx, na, 'Permission', datadict['api_permissions'], 'USES_PERMISSION')
-    create_list_nodes_rels(graph, tx, na, 'Permission', datadict['app_permissions'], 'USES_PERMISSION')
+    # TODO Permissions could be duplicates and cause an error, since the changes have not been committed yet -> No differentiation between them yet -> mege them
+    #create_list_nodes_rels(graph, tx, na, 'Permission', datadict['api_permissions'], 'USES_PERMISSION')
+    permissions = set(datadict['app_permissions'])
+    permissions |= set(datadict['api_permissions'])
+    create_list_nodes_rels(graph, tx, na, 'Permission', permissions, 'USES_PERMISSION')
     create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL')
     create_list_nodes_rels(graph, tx, na, 'API_Call', datadict['interesting_calls'], 'CALLS')
     create_list_nodes_rels(graph, tx, na, 'File', datadict['included_files'], 'INCLUDES_FILE')
