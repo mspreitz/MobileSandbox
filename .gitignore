@@ -3,4 +3,8 @@
 
 # TEMP Folder storing sample output
 Backend/analyzer/tmp/
+Backend/analyzer/samples/
+StaticAnalysis/analysis/
 StaticAnalysis/src/
+
+src/

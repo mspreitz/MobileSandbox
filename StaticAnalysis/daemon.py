@@ -1,23 +1,27 @@
+from StaticAnalyzer import run
+
+# Local settings in StaticAnalyzer/
+import settings
+import sys
+
 import glob
 import os
+import psycopg2
 import shutil
 import time
 import zipfile
 
-import psycopg2
-from StaticAnalyzer import run
-import settings
-
 
 def mzip(path, src, dst):
     zf = zipfile.ZipFile("%s.zip" % (dst), "w", zipfile.ZIP_DEFLATED)
+    print 'ZIPFILE: ',zf,'{}.zip'.format(dst)
     for dirs in src:
-        source = path + dirs
+        source = '{}/{}'.format(path,dirs)
         abs_src = os.path.abspath(source)
         for dirname, subdirs, files in os.walk(source):
             for filename in files:
                 absname = os.path.abspath(os.path.join(dirname, filename))
-                arcname = dirs+absname[len(abs_src) + 1:]
+                arcname = '{}/{}'.format(dirs,absname[len(abs_src) + 1:])
                 zf.write(absname, arcname)
     zf.close()
 
@@ -31,86 +35,123 @@ def copytree(src, dst, symlinks=False, ignore=None):
         else:
             shutil.copy2(s, d)
 
+
+
 # Connect to database
 try:
     conn = psycopg2.connect("dbname='ms_db' user='ms_user' host='localhost' password='2HmUKLvf'")
 except:
     print "Unable to connect to the database"
+    sys.exit(1)
+
+if not settings.BACKEND_PATH or settings.BACKEND_PATH == '':
+    print 'ERROR: Please set the relative path for the Backend Data Folder'
+    sys.exit(1)
+
+if not os.path.isdir(settings.DEFAULT_NAME_DIR_ANALYSIS): os.makedirs(settings.DEFAULT_NAME_DIR_ANALYSIS)
 
 db = conn.cursor()
 
 running = True
-
-
 while(running):
-    rows = ''
-    try:
-        col = db.execute("SELECT * FROM analyzer_queue")
+    # Get static queue elements where status is idle
+    rows = None
+    try: # TODO If we start more than 1 daemons, we should either use fetch_one / LIMIT 1 or somehow synchronize and fetchall once every X seconds
+        col = db.execute("SELECT id, fileName, sha256, path FROM analyzer_queue WHERE type='static' AND status='idle'")
         rows = db.fetchall()
-    except:
+    except psycopg2.ProgrammingError as pe:
+        print 'ERROR', pe
         time.sleep(5)
-    if len(rows) <= 0:
+
+    # No results, sleep more
+    if not rows: # An empty list is returned if no results
         time.sleep(5)
         continue
 
+    # Sleep again? TODO
     time.sleep(3)
-    for data in rows:
-        if data[4] == 'idle':
-            path = settings.BACKEND_PATH+data[2]
-            type = data[5]
-            fname = data[3]
-            sample = path+fname
-            resDirName = os.path.splitext(fname)[0]
-            tmpPath = settings.SOURCELOCATION+resDirName+'/'
-            sampleID = data[0]
-            sha256 = data[1]
 
-            if not os.path.exists(tmpPath):
-                # Set analysis status to running
-                db.execute("UPDATE analyzer_queue SET status='running' WHERE id=%s" % (sampleID))
-                db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % (sha256))
-                db.connection.commit()
+    for (sampleID, filename, sha256, apkPath) in rows:
+        # TODO samplesPath / apkPath
+        apkPath = '{}/{}'.format(settings.BACKEND_PATH, apkPath) # Samples Directory plus APK directory structure in Backend
+        apkFile = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_APK) # APK in Samples Directory
+        unpackPath = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_DIR_UNPACK) # Unpacked Resources Directory in Samples Directory
 
-                os.makedirs(tmpPath)
-                # Run static analysis
-                run(sample, tmpPath)
+        # If the resources directory already exists, that means we already executed the static analysis on the sample.
+        # TODO Recurring analysis on updated modules don't work this way : ( - fnd some other mechanism to check on already executed analysis!
+        if os.path.exists(unpackPath):
+            print 'ERROR: Resources Directory already exists for sample in Queue [{}]. Analysis underway or already done. Abort!'.format(sha256)
+            continue
 
-                # Get Cert file
-                if glob.glob(tmpPath+"unpack/META-INF/*.RSA"):
-                    cFile = glob.glob(tmpPath + "unpack/META-INF/*.RSA")
-                    shutil.copyfile(cFile[0], tmpPath + 'cert.RSA')
-                    print 'wrote cert to ' + tmpPath + 'cert.RSA'
-                elif glob.glob(tmpPath+"unpack/META-INF/*.DSA"):
-                    cFile = glob.glob(tmpPath+"unpack/META-INF/*.DSA")
-                    shutil.copyfile(cFile, tmpPath + 'cert.DSA')
-                    print 'wrote cert to ' + tmpPath + 'cert.DSA'
-                else:
-                    cFile = None
+        print '[{}] Running Analysis'.format(sha256)
+        # Update the analysis status to running for this sample
+        db.execute("UPDATE analyzer_queue SET status='running' WHERE id=%s" % (sampleID))
+        db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % (sha256))
+        db.connection.commit()
 
-                # Zip decompiled source files for the user to download
-                mzip(tmpPath, ['src/', 'unpack/'], tmpPath+'source')
+        # Create BACKEND direcory that contains the unpacked resources
+        # TODO Maybe move this somewhere later.
+        try:
+            os.makedirs(unpackPath)
+        except os.error:
+            # NOTE We don't have permissions to create the directory
+            # NOTE Or the direcytory exists already
+            # See https://docs.python.org/2/library/os.html#os.makedirs
+            print 'ERROR: Cannot create unpack directory for sample [{}]'.format(sha256)
+            continue
 
-                # Remove source and unpack folder and temp files
-                shutil.rmtree(tmpPath+'src')
-                shutil.rmtree(tmpPath+'unpack')
-                os.remove(tmpPath+'Dump.txt')
+        # Run static analysis
+        print '[{}] Starting Static Analyzer'.format(sha256)
+        workingDir = '{}/{}'.format(settings.DEFAULT_NAME_DIR_ANALYSIS, sha256)
+        run(apkFile, workingDir)
 
-                # Move files to the backend
-                if not os.path.exists(path+resDirName):
-                    os.mkdir(path+resDirName)
-                copytree(tmpPath, path+resDirName)
+        #continue
 
 
-                # Copy cert file to the backend
-                if cFile is not None:
-                    if os.path.exists(tmpPath + 'cert.RSA'):
-                        shutil.move(tmpPath + 'cert.RSA', path + resDirName + 'cert.RSA')
-                    elif os.path.exists(tmpPath + 'cert.DSA'):
-                        shutil.move(tmpPath + 'cert.DSA', path + resDirName + 'cert.DSA')
-                # Clean temp directory
-                shutil.rmtree(tmpPath)
+        print '[{}] Packing everything to the Backend Sample Directory'.format(sha256)
 
-                # Set new sample status
-                db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
-                db.execute("UPDATE analyzer_metadata SET status='finished' WHERE sha256='%s'" % sha256)
-                db.connection.commit()
+        # Get Cert file
+        # TODO Find out how to make a single regex
+        globregex_both = '{}/{}/META-INF/*.[DR]SA'.format(workingDir, settings.DEFAULT_NAME_DIR_UNPACK)
+        result = glob.glob(globregex_both)
+
+        cFile = None
+        if len(result) > 1:
+            print 'Error: More than 1 certificates in the unpack Directory! Abort.'
+
+        # Get .XXX ending: RSA / DSA / ECC
+        if len(result) == 1:
+            certType = result[0].split('/')[-1].split('.')[-1]
+            cFile = '{}/cert.{}'.format(apkPath, certType)
+            shutil.copyfile(result[0], cFile)
+            print 'Wrote Certificate to {}'.format(cFile)
+
+        # Zip decompiled source files for the user to download
+        mzip(workingDir, ['src/', 'unpack/'], '{}/download'.format(apkPath))
+
+        # Move unpack files to BACKEND UNPACK DIR
+        copytree('{}/{}'.format(workingDir, 'unpack'), unpackPath) # copytree custom? TODO
+
+        # Move Manifest to BACKEND SAMPLES DIR
+        shutil.move('{}/{}'.format(workingDir, 'AndroidManifest.xml'), '{}/{}'.format(apkPath, 'AndroidManifest.xml'))
+
+        # Create reports directory and move reports to it
+        reportPath = '{}/{}'.format(apkPath, 'reports')
+        if not os.path.isdir(reportPath):
+            try:
+                os.mkdir(reportPath)
+            except os.error:
+                print 'ERROR: Could not create report dir for sample [{}]!'.format(sha256)
+                continue
+
+        shutil.move('{}/{}'.format(workingDir, 'static.json'), '{}/{}'.format(reportPath, 'static.json'))
+        shutil.move('{}/{}'.format(workingDir, 'static.log'), '{}/{}'.format(reportPath, 'static.log'))
+
+        # Remove remaining analysis files
+        shutil.rmtree(workingDir)
+
+        print '[{}] Finished Analysis'.format(sha256)
+        # Set new sample status
+        db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
+        db.execute("UPDATE analyzer_metadata SET status='finished' WHERE sha256='%s'" % sha256)
+        db.connection.commit()

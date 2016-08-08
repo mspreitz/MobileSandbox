@@ -11,7 +11,7 @@ class UploadFormMulti(forms.Form):
     maxsize = 10*1024*1024
     attachments = MultiFileField(
         min_num=1,
-        max_num=10,
+        max_num=100,
         max_file_size=maxsize
     )
     def save(self, commit=True):

@@ -1,5 +1,8 @@
 from django.db import models
 
+# NOTE: Please do only user lowercase column names. postgresql is a bit hard to use with uppercase column names
+# NOTE See http://stackoverflow.com/questions/37910287/sql-hint-to-reference-a-column
+
 
 class FileUpload(models.Model):
     file = models.FileField(upload_to='./')
@@ -12,16 +15,16 @@ class Attachment(models.Model):
 
 class Queue(models.Model):
     id = models.AutoField(primary_key=True)
+    filename = models.CharField(max_length=255) # The name given by the user
     sha256 = models.CharField(max_length=64)
-    path = models.CharField(max_length=100)
-    fileName = models.CharField(max_length=60)
+    path = models.CharField(max_length=255)
     status = models.CharField(max_length=10)
     type = models.CharField(max_length=10)
 
 
 class Metadata(models.Model):
     id = models.AutoField(primary_key=True)
-    filename = models.CharField(max_length=300)
+    filename = models.CharField(max_length=255) # The name given by the user
     md5 = models.CharField(max_length=32)
     sha1 = models.CharField(max_length=40)
     sha256 = models.CharField(max_length=64)

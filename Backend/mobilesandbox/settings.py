@@ -167,3 +167,7 @@ LOGGING = {
         },
     }
 }
+
+# Constants
+PATH_SAMPLES = 'analyzer/samples/'
+DEFAULT_NAME_APK = 'sample.apk'

@@ -31,7 +31,7 @@ def errorMessage(msg):
 def createLogFile(logDir):
     if not os.path.exists(logDir):
         os.mkdir(logDir)
-    logFile = open(logDir + "static.log", "a+")
+    logFile = open('{}/{}'.format(logDir,"static.log"), "a+")
     logFile.write("\n\n\n")
     logFile.write("              ___.   .__.__                                                .______.                                                  \n")
     logFile.write("  _____   ____\_ |__ |__|  |   ____               ___________    ____    __| _/\_ |__   _______  ___       ____  ____   _____        \n")
@@ -87,7 +87,8 @@ def getServiceReceiver(logFile,a):
 
 def getManifest(PREFIX,dv):
     manifest = dv.xml["AndroidManifest.xml"].toprettyxml()
-    out = os.open(PREFIX+"AndroidManifest.xml",os.O_RDWR|os.O_CREAT, 0666)
+    destManifest = '{}/{}'.format(PREFIX, 'AndroidManifest.xml')
+    out = os.open(destManifest,os.O_RDWR|os.O_CREAT, 0666)
     os.write(out,manifest.encode("utf-8"))
     os.close(out)
     return manifest
@@ -179,24 +180,28 @@ def getCertificate(androguardAPK):
     return certdict
 
 
-def unpack(sampleFile,PREFIX):
-    location = PREFIX + "unpack"
+def unpack(sampleFile, PREFIX):
+    location = '{}/{}/'.format(PREFIX, settings.DEFAULT_NAME_DIR_UNPACK)
     os.mkdir(location)
-    os.system("unzip -q -d" + location + " "+ sampleFile)
+    os.system('unzip -q -d {} {}'.format(location, sampleFile))
     return location
 
 
 def copyIcon(PREFIX,unpackLocation):
-    manifest = open(PREFIX+"AndroidManifest.xml")
-    for line in manifest:
 
-        if "application" in line:
+    icon = None
+    with open(PREFIX+"AndroidManifest.xml") as manifest:
+        for line in manifest:
+            if "application" not in line: continue
             try:
                 icon = line.split("icon=\"")[1].split("\"")[0][1:]
             except:
                 continue
-        else:
-            continue
+
+    if not icon:
+        print 'No Icon Found!'
+        return
+
     try:
         inputFile1 = unpackLocation + "res/" + icon
         outputFile = PREFIX + "icon.png"
@@ -250,7 +255,7 @@ def usedFeatures(logFile,a):
 
 def dumpMethods(d, workingDir):
     result = ""
-    dumpFile = workingDir+settings.DUMPFILE
+    dumpFile = '{}/{}'.format(workingDir,settings.DUMPFILE)
     fd = os.open(dumpFile, os.O_RDWR|os.O_CREAT)
     for current_class in d.get_classes():
         for method in current_class.get_methods():
@@ -265,14 +270,14 @@ def dumpMethods(d, workingDir):
 def parseDumpFile(workingDir, logFile, d): # TODO Mid-High O
     log(logFile, 0, "potentially suspicious api-calls", 0)
     #create dump file
-    if(os.path.isfile(workingDir+settings.DUMPFILE)):
-        os.remove(workingDir+settings.DUMPFILE)
+    file = '{}/{}'.format(workingDir, settings.DUMPFILE)
+    if(os.path.isfile(file)):
+        os.remove(file)
     dumpMethods(d, workingDir)
 
     dangerousCalls = set()
-    file = workingDir+settings.DUMPFILE
     try:
-        dumpFile = open(file).readlines()
+        dumpFile = open(edumpfile).readlines()
         i = 0
         for line in dumpFile:
             i += 1
@@ -665,7 +670,7 @@ def extractSourceFiles(PREFIX,d,vmx): # TODO High O
 
 
 def checkAPIPermissions(workingDir): # TODO Mid-High O (But higher than dangerousAD)
-    dumpFile = workingDir+settings.DUMPFILE
+    dumpFile = '{}/{}'.format(workingDir,settings.DUMPFILE)
     file = open(dumpFile).read()
     apiCallList = open(settings.APICALLS).readlines()
     apiPermissions = set()
@@ -691,7 +696,7 @@ def getFilesInsideApk(androidAPK):
 
 def getFilesInsideApkSrc(workingDir):
     fileList = set()
-    directory = workingDir+settings.SOURCELOCATION
+    directory = '{}/{}/'.format(workingDir, settings.SOURCELOCATION)
     if not os.path.exists(directory):
         errorMessage("source file directory does not exist!\nTerminating...")
         exit(1)
@@ -733,11 +738,11 @@ def check():
 
 
 def clearOldFiles(workingDir):
-    jsonFile = workingDir+"static.json"
-    logFile = workingDir+"static.log"
-    dumpFile = workingDir+"Dump.txt"
-    srcDir = workingDir+settings.SOURCELOCATION
-    unpackDir = workingDir+settings.UNPACKLOCATION
+    jsonFile  = '{}/{}'.format(workingDir,"static.json")
+    logFile   = '{}/{}'.format(workingDir,"static.log")
+    dumpFile  = '{}/{}'.format(workingDir,"Dump.txt")
+    srcDir    = '{}/{}'.format(workingDir,settings.SOURCELOCATION)
+    unpackDir = '{}/{}'.format(workingDir,settings.UNPACKLOCATION)
 
     if os.path.isfile(jsonFile):
         os.remove(jsonFile)
@@ -775,7 +780,7 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     # save the JSON dict to a file for later use
     if not os.path.exists(workingDir):
         os.mkdir(workingDir)
-    jsonFileName = workingDir + "static.json"
+    jsonFileName = '{}/{}'.format(workingDir,"static.json")
     jsonFile = open(jsonFileName, "a+")
     jsonFile.write(json.dumps(output))
     jsonFile.close()
@@ -790,7 +795,7 @@ def run(sampleFile, workingDir):
 
     logFile = createLogFile(workingDir)
     PREFIX = workingDir
-    unpackLocation = PREFIX+settings.UNPACKLOCATION
+    unpackLocation = '{}/{}'.format(PREFIX,settings.UNPACKLOCATION)
 
     if(PREFIX[-1:]!="/"):
         PREFIX += "/"

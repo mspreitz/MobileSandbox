@@ -1,5 +1,6 @@
 #!/bin/bash
-rm -rf Backend/analyzer/tmp StaticAnalysis/src/
+rm -rf Backend/analyzer/samples/ StaticAnalysis/analysis/
+mkdir StaticAnalysis/analysis/ Backend/analyzer/samples/
 (
 	cd StaticAnalysis/Neo4J
 	python -c 'from msneo import clean_all; clean_all()'

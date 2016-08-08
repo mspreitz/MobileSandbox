@@ -16,6 +16,7 @@ from .forms import UploadForm, UploadFormMulti
 from .models import FileUpload, Queue, Metadata, ClassifiedApp
 from datastructure import *
 from django.db.models import Q
+from django.conf import settings
 
 from mhash import * # TODO: Move that and the utils/mhash from the StaticAnalyzer to a single file.
 
@@ -103,34 +104,37 @@ def loginUser(request):
 
 
 def anonUpload(request):
-    magic = '\x50\x4b\x03\x04'
-    anonymous = True
-
     if request.method == 'POST':
-        return uploadFile(request, magic, anonymous, 'Anonymous')
-    else:
-        check = {}
-        check.update(csrf(request))
-        form = UploadForm()
-        docs = FileUpload.objects.all()
-        return render_to_response('anonUpload.html', {'documents': docs, 'form': form},
-                                  context_instance=RequestContext(request))
+        return uploadFile(request, 'Anonymous')
+
+    # TODO What is this check for? Where is it used?
+    check = {}
+    check.update(csrf(request))
+
+    template = 'anonUpload.html'
+    templatedict = {}
+    templatedict['documents'] = FileUpload.objects.all()
+    templatedict['form'] = UploadFormMulti()
+    context_instance = RequestContext(request)
+    return render_to_response(template, templatedict, context_instance=context_instance)
 
 
 @login_required(login_url='/analyzer/userLogin')
 def userHome(request):
-    magic = '\x50\x4b\x03\x04'
-    anonymous=False
-
     if request.method == 'POST':
-        return uploadFile(request, magic, anonymous, request.user.first_name)
+        return uploadFile(request, request.user.first_name, anonymous=False)
 
+    # TODO What is this check for? Where is it used?
     check = {}
     check.update(csrf(request))
-    form = UploadFormMulti()
-    docs = FileUpload.objects.all()
-    return render_to_response('home.html', {'documents': docs, 'form': form, 'full_name': request.user.first_name},
-                              context_instance=RequestContext(request))
+
+    template = 'home.html'
+    templatedict = {}
+    templatedict['documents'] = FileUpload.objects.all()
+    templatedict['form'] = UploadFormMulti()
+    templatedict['full_name'] = request.user.first_name
+    context_instance = RequestContext(request)
+    return render_to_response(template, templatedict, context_instance=context_instance)
 
 
 @login_required(login_url='/analyzer/userLogin')
@@ -176,14 +180,18 @@ def dataIsAPK(data):
 
 
 # Upload file and do sanity check
-def uploadFile(request, magic, anonymous, username): # TODO Use default values and set those parameters at the last positions e.g. username, anonymous=True
+def uploadFile(request, username, anonymous=True): # TODO Use default values and set those parameters at the last positions e.g. username, anonymous=True
+    # TODO Somehow test for accidentally rmtree('/') etc
+    if not settings.PATH_SAMPLES or settings.PATH_SAMPLES == '':
+        print 'Fatal Failure. Abort!'
+        sys.exit(1)
+
     form = UploadFormMulti(request.POST, request.FILES)
     if not form.is_valid():
         return HttpResponse('The form was not valid!')
 
     uploadedFiles = {}
     for sentFile in request.FILES.getlist('attachments'): uploadedFiles[sentFile.name] = {}
-
 
     # NOTE: sentFiles are InMemoryUploadedFiles - Binary blob already available - no need for open!
     for sentFile in request.FILES.getlist('attachments'):
@@ -196,30 +204,19 @@ def uploadFile(request, magic, anonymous, username): # TODO Use default values a
             uploadedFiles[sentFile.name]['error'] = 'This file is not an APK file!'
             continue
 
-        # NOTE: We only hash once -  we don't want to hash later again for the static analyzer - performance ! :) TODO
-        appInfos = hash_all(data)
+        # Hash sha256 first and test if it already exists
+        appInfos = {}
+        appInfos['sha256'] = hash_sha256(data)
 
-        # TODO Don't we want to abort if the file has already been uploaded?
-        # TODO I got several <apk>_tmpstring.apk uploaded files. We can check if they already exist or are in the process by looking up the hash and abort if necessary
-        apkFile = FileUpload(file=sentFile)
-        apkFile.save()
+        # Generate datastructure path for APK
+        splitDir = getPathFromSHA256(appInfos['sha256'])
+        apkDir = '{}/{}'.format(settings.PATH_SAMPLES, splitDir)
 
-        # Temporary APK file in location
-        # TODO Somehow test for accidentally rmtree('/') etc
-        if not TMP_PATH or TMP_PATH == '':
-            print 'Fatal Failure. Abort!'
-            sys.exit(1)
-
-        apkFile = '{}/{}'.format(TMP_PATH,sentFile.name) # TODO Yeah this is a bad idea - can be set arbitrary. Not good :).
-        filePath = getFilePath(apkFile)
-        fileName = "{}.apk".format(appInfos['sha1'].lower()) # TODO Why sha1? :)
-
-        # If the 
-        apkFile_destination = '{}/{}'.format(TMP_PATH, filePath)
-
-        # If the directory structure with saved APKs and Analyzer result does already exist
+        # If the APK has already been updated
+        # meaning the directory structure with saved APKs and Analyzer result does already exist
         # then tell the user that the sample is already in process / uploaded
-        if os.path.isfile(apkFile_destination):
+        print apkDir
+        if os.path.isdir(apkDir):
             queue = Queue.objects.get(sha256=appInfos['sha256'])
 
             if queue.status == 'idle' or queue.status == 'running':
@@ -228,37 +225,46 @@ def uploadFile(request, magic, anonymous, username): # TODO Use default values a
             uploadedFiles[sentFile.name]['report'] = '/analyzer/show/?report={}'.format(appInfos['sha256']) # Report to redirect
             continue
 
-        # TODO We could use the sha1APK inside this directory or reply with the results. And delete the uploaded APK (we dont need a tmp anyway)
-        # TODO: remove temporary file (or don't use a temp file anyway)
+        # Otherwise, generate the directory structure
+        try:
+            os.makedirs(apkDir)
+        except os.error:
+            # NOTE We don't have permissions to create the directory
+            # NOTE Or the direcytory exists already
+            # See https://docs.python.org/2/library/os.html#os.makedirs
+            uploadedFiles[sentFile.name]['error'] = 'An internal server error occurred.'
+            continue
 
-        # Create the datastructure, move the file to the destination directory
-        fn = createPath(apkFile) # fn == apkFile_destination
-        # TODO Too many cooks :)
-        #print apkFile_destination == fn, fn
-        #print fileName == appInfos['sha1']+'.apk', fileName
-        #print apkFile # Temporary uploaded file
-        #print filePath # full path - without TMP_PATH k.
-        apkPath = '{}'.format(getPathFromSHA256(appInfos['sha256'].lower()))
         # Put file in Queue for analysis
         Queue.objects.create(
-                fileName=fileName, # TODO This should be the sha1 + .apk right?
+                filename = sentFile.name,
                 status='idle',
-                sha256=appInfos['sha256'].lower(),
-                path=apkPath, # TODO Path without sha1 name AND tmp_path... so confusing ! :)
+                sha256=appInfos['sha256'],
+                path=apkDir,
                 type='static'
         )
 
+        # NOTE: We only hash once -  we don't want to hash later again for the static analyzer - performance ! :)
+        # TODO Read the hashes from Metadata or Queue and never hash again! Do once, reuse often principle
+        # Generate other hashes
+        appInfos['md5'] = hash_md5(data)
+        appInfos['sha1'] = hash_sha1(data)
+
         # Put Metadata into Database
         Metadata.objects.create(
-                filename=sentFile.name, # TODO Which names are which?
+                filename=sentFile.name,
                 status='idle',
-                sha256=appInfos['sha256'].lower(),
-                sha1=appInfos['sha1'].lower(),
-                md5=appInfos['md5'].lower(),
+                sha256=appInfos['sha256'],
+                sha1=appInfos['sha1'],
+                md5=appInfos['md5'],
                 username=request.user.username
         )
 
-        uploadedFiles[sentFile.name]['uploaded'] = appInfos['sha256'].lower()
+        # Save the APK to the generated directory
+        apkFile = '{}/sample.apk'.format(apkDir)
+        with open(apkFile, 'wb') as f: f.write(data)
+
+        uploadedFiles[sentFile.name]['uploaded'] = appInfos['sha256']
 
     # Return redirect link for every successful report - or redirect to the report page
     # For every error in the uploadedFiles, print a table with apkname and error

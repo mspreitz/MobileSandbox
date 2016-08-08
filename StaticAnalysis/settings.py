@@ -36,8 +36,14 @@ APICALLS = "./APIcalls.txt"
 ADSLIBS = "./ads.csv"
 WORKINGDIR = "test/"
 UNPACKLOCATION = "unpack/"
-SOURCELOCATION = "src/"
+SOURCELOCATION = "src"
 DUMPFILE = "Dump.txt"
 
-# Backend
-BACKEND_PATH = '../Backend/analyzer/tmp/'
+# Samples Folder for the Backend
+BACKEND_PATH = '../Backend/'
+
+# Constants # TODO Names are a bit long
+PATH_SAMPLES = 'analyzer/samples/'
+DEFAULT_NAME_APK = 'sample.apk'
+DEFAULT_NAME_DIR_UNPACK = 'unpack'
+DEFAULT_NAME_DIR_ANALYSIS = 'analysis'

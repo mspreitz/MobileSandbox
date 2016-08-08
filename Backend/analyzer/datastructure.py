@@ -3,6 +3,8 @@ import os
 import shutil
 import textwrap
 
+from django.conf import settings
+
 DATA_DIR = 'analyzer/tmp/'
 DIR_DEPTH = 8
 sha256 = hashlib.sha256()
@@ -40,13 +42,12 @@ def getPathFromSHA256(sha256):
     path = os.path.join(*chunks)+'/'
     return path
 
-
 def getFilePath(apkFile):
     path = getPath(apkFile)
     return path+createSHA1(apkFile)+".apk"
 
 
-def createPath(apkFile):
+def createPathOLD(apkFile):
     filename = None
     path = getPath(apkFile)
     if os.path.isfile(apkFile):
@@ -58,4 +59,6 @@ def createPath(apkFile):
     return filename
 
 
-#print createPath(DATA_DIR+".apk")
+# Creates the directory path - currently a sha256 hash split into DIR_DEPTH chunks
+def createPath(apkPath):
+    print apkPath
