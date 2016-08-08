@@ -277,7 +277,7 @@ def parseDumpFile(workingDir, logFile, d): # TODO Mid-High O
 
     dangerousCalls = set()
     try:
-        dumpFile = open(edumpfile).readlines()
+        dumpFile = open(file).readlines()
         i = 0
         for line in dumpFile:
             i += 1
