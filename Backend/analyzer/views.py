@@ -215,7 +215,6 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
         # If the APK has already been updated
         # meaning the directory structure with saved APKs and Analyzer result does already exist
         # then tell the user that the sample is already in process / uploaded
-        print apkDir
         if os.path.isdir(apkDir):
             queue = Queue.objects.get(sha256=appInfos['sha256'])
 

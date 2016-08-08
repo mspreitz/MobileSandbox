@@ -57,8 +57,3 @@ def createPathOLD(apkFile):
         if not filename: return None
         shutil.move(apkFile, filename)
     return filename
-
-
-# Creates the directory path - currently a sha256 hash split into DIR_DEPTH chunks
-def createPath(apkPath):
-    print apkPath
