@@ -14,7 +14,6 @@ import zipfile
 
 def mzip(path, src, dst):
     zf = zipfile.ZipFile("%s.zip" % (dst), "w", zipfile.ZIP_DEFLATED)
-    print 'ZIPFILE: ',zf,'{}.zip'.format(dst)
     for dirs in src:
         source = '{}/{}'.format(path,dirs)
         abs_src = os.path.abspath(source)
