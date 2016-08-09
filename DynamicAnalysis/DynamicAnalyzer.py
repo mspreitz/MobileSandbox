@@ -66,6 +66,7 @@ def isFinished():
             running=False
             time.sleep(3)
             proc.kill()
+            #subprocess.call(["python2", setting.CUCKOO_SERVER, "--clean"])
             print "Finish... "
     return True
 
@@ -243,15 +244,17 @@ def createOutput(workingDir, cuckooWorkingDir):
 def run(sampleFile, workingDir):
     global resDir
     # Start cuckoo sandbox
+    print "workingdir is %s" % workingDir
     initCuckoo(sampleFile)
     if isFinished():
         # Create JSON output file
         resDir = str(resDir)
         createOutput(workingDir,resDir)
         # Remove temp files
-        print "Cleaning up temporary files"
-        cleanUp()
-
+        #print "Cleaning up temporary files"
+        #cleanUp()
+    else:
+        print "Error: Not finished"
 
 #sampleFile = "cuckoo/Samples/37.apk"
 #run(sampleFile, setting.WORKINGDIR)

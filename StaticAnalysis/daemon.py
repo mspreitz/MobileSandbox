@@ -57,7 +57,7 @@ while(running):
     # Get static queue elements where status is idle
     rows = None
     try: # TODO If we start more than 1 daemons, we should either use fetch_one / LIMIT 1 or somehow synchronize and fetchall once every X seconds
-        col = db.execute("SELECT id, fileName, sha256, path FROM analyzer_queue WHERE type='static' AND status='idle'")
+        col = db.execute("SELECT id, filename, sha256, path FROM analyzer_queue WHERE type='static' AND status='idle'")
         rows = db.fetchall()
     except psycopg2.ProgrammingError as pe:
         print 'ERROR', pe
