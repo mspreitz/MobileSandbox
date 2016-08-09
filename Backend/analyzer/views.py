@@ -294,33 +294,37 @@ def showQueue(request):
 
 
 def showReport(request):
-    token = request.GET.get('report')
+    sha256 = request.GET.get('report')
+    if not sha256: return HttpResponse('Did not specify sha256 GET parameter!')
+
     # Check for valid sha256 hash
-    if validateHash(token, 'sha256'):
-        result = loadResults(token)
+    if not validateHash(sha256, 'sha256'):
+        return render_to_response('error.html', {'message': 'This is not SHA256!'}) # This is Sparta!
 
-        if result is None:
-            return render_to_response('error.html', {'message': 'The report for this sample does not exist (yet?)'})
+    reports = loadResults(sha256)
 
-        sampleId = Metadata.objects.get(sha256=token)
-        cSampleId = None
-        try:
-            cSampleId = ClassifiedApp.objects.get(sample_id=sampleId.id)
-        except:
-            path = getPathFromSHA256(token)
-            logfile = TMP_PATH + path + getResultFolder(TMP_PATH + path) + '/' + 'static.json'
-            classify(logfile, sampleId.id)
-        if cSampleId is None:
-            cSampleId = ClassifiedApp.objects.get(sample_id=sampleId.id)
+    if reports is None:
+        return render_to_response('error.html', {'message': 'The report for this sample does not exist (yet?)'})
 
-        if cSampleId.malicious:
-            malicious='Yes!'
-        else:
-            malicious='No'
+    (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic) = reports
 
-        return render_to_response("report.html", {'data': result, 'malicious': malicious})
-    else:
-        return render_to_response('error.html', {'message': 'This is not SHA256!'})
+    meta = Metadata.objects.get(sha256=sha256)
+
+    classifiedapp = None
+    try:
+        classfiedapp = ClassifiedApp.objects.get(sample_id=meta.id)
+    except:
+        classify(file_report_static, meta.id)
+
+    if classifiedapp is None:
+        classifiedapp = ClassifiedApp.objects.get(sample_id=meta.id)
+
+    template = 'report.html'
+    templatedict = {}
+    templatedict['malicious'] = classifiedapp.malicious
+    templatedict['jsondata_static'] = jsondata_static
+    templatedict['jsondata_dynamic'] = jsondata_dynamic
+    return render_to_response(template, templatedict)
 
 
 def search(request):
@@ -375,21 +379,32 @@ def search(request):
 
 
 def loadResults(sha256):
-    path = TMP_PATH+getPathFromSHA256(sha256)
-    # Get result folder
-    res = getResultFolder(path)
-    if res is None:
-        return None
+    path_apk            = '{}/{}'.format(settings.PATH_SAMPLES,getPathFromSHA256(sha256))
+    path_reports        = '{}/{}'.format(path_apk, settings.DEFAULT_NAME_DIR_REPORTS)
+    if not os.path.isdir(path_reports): return None
 
-    if not os.path.isdir(path+res):
-        return None
+    (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic) = (None, None, None, None)
 
-    if res is not None:
-        with open(path+res+'/static.json') as f:
-            data = json.load(f)
-    else:
-        return None
-    return data
+    file_report_static  = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_STATIC)
+    if not os.path.isfile(file_report_static):
+        reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic)
+        return reports
+
+    with open(file_report_static, 'r') as f:
+        jsondata_static = f.read()
+        jsondata_static = json.loads(jsondata_static)
+
+    file_report_dynamic = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_DYNAMIC)
+    if not os.path.isfile(file_report_dynamic):
+        reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic)
+        return reports
+
+    with open(file_report_dynamic, 'r') as f:
+        jsondata_dynamic = f.read()
+        jsondata_dynamic = json.loads(jsondata_dynamic)
+
+    reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic)
+    return reports
 
 
 def getResultFolder(path):

@@ -170,4 +170,7 @@ LOGGING = {
 
 # Constants
 PATH_SAMPLES = 'analyzer/samples/'
+DEFAULT_NAME_DIR_REPORTS = 'reports'
 DEFAULT_NAME_APK = 'sample.apk'
+DEFAULT_NAME_REPORT_STATIC = 'static.json'
+DEFAULT_NAME_REPORT_DYNAMIC = 'dynamic.json'

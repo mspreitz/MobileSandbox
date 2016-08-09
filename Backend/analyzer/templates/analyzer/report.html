@@ -2,7 +2,7 @@
 
 {% block nav %}
 <ul class="nav">
-            <li><a href="/analyzer/home/">Home</a></li>
+	<li><a href="/analyzer/home/">Home</a></li>
 </ul>
 {% endblock %}
 
@@ -10,23 +10,34 @@
 {% load array_filter %}
 
 <div id="content">
-    <div id="l_container col-lg-8">
-        <h3>Report</h3>
-        <table border="1" cellpadding="1">
-            <tr><th bgcolor="#8a2be2">Static analysis</th></tr>
-            <tr><th bgcolor="#808080">Is this Sample malicious? (Classification)</th></tr>
-            <tr><td>{{malicious}}</td></tr>
-            {% for name, cont in data.items %}
-            <tr><th bgcolor="#808080">{{ name }}</th></tr>
-            {% if cont|is_string %}
-                <tr><td>{{ cont }}</td></tr>
-            {% else %}
-                {% for list in cont %}
-                    <tr><td>{{ list }}</td></tr>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-        </table>
-    </div>
+	<div id="l_container col-lg-8">
+		<h3>Report</h3>
+		<table border="1" cellpadding="1">
+			<tr><th bgcolor="#8a2be2">Static analysis</th></tr>
+			<tr><th bgcolor="#808080">Is this Sample malicious? (Classification)</th></tr>
+			<tr><td>{% if malicious %}Yes{% else %}No{% endif %}</td></tr>
+			{% for key, value in jsondata_static.items %}
+				{% if value %}
+					<tr><th bgcolor="#808080">{{ key }}</th></tr>
+					{% if value|is_string %}
+						<tr><td>{{ value }}</td></tr>
+					{% elif value|is_dict %}
+						<table border="1" cellpadding="1">
+						{% for k, v in value.items %}
+							{% if v %}
+								<tr><th bgcolor="#808080">{{ k }}</th></tr>
+								<tr><td>{{ v }}</td></tr>
+							{% endif %}
+						{% endfor %}
+						</table>
+					{% else %}
+						{% for v in value %}
+							<tr><td>{{ v }}</td></tr>
+						{% endfor %}
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		</table>
+	</div>
 </div>
 {% endblock %}
