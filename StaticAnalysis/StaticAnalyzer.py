@@ -262,8 +262,13 @@ def dumpMethods(d, workingDir):
             byteCode = method.get_code()
             if byteCode != None:
                 byteCode = byteCode.get_bc()
-                for i in byteCode.get_instructions():
-                    result += "%s %s %s\n" % (current_class,i.get_name(),i.get_output())
+                try:
+                    for i in byteCode.get_instructions():
+                        result += "%s %s %s\n" % (current_class,i.get_name(),i.get_output())
+                except dvm.InvalidInstruction:
+                    print 'ERROR: Androguard could not decompile. Continue/Abort decompiling this instruction!'
+                    continue
+
     os.write(fd,result)
 
 
