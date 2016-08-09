@@ -778,8 +778,6 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['app_permissions'] = list(appPermissions)
     output['api_permissions'] = []
     output['api_calls'] = []
-    print 'API DICT ==--s-a9d-080-8-8120-48-238'
-    print api_dict
     for api_call, api_permission in api_dict.items():
         output['api_permissions'].append(api_permission)
         output['api_calls'].append(api_call)
