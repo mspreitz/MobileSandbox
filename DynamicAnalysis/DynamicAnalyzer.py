@@ -2,7 +2,7 @@ import os
 import shutil
 import subprocess
 import time
-import settingsDynamic as setting
+import settings as setting
 import json
 
 proc = None
@@ -253,8 +253,8 @@ def run(sampleFile, workingDir):
         cleanUp()
 
 
-sampleFile = "cuckoo/Samples/37.apk"
-run(sampleFile, setting.WORKINGDIR)
+#sampleFile = "cuckoo/Samples/37.apk"
+#run(sampleFile, setting.WORKINGDIR)
 #print getProcesses("cuckoo/" + setting.PLIST_FILE, "cuckoo/" + setting.PLIST_NEW)
 #print getListeningPorts("cuckoo/" + setting.NETSTAT_LIST, "cuckoo/" + setting.NETSTAT_NEW)
 #Todo: Copy Databases, work on code robustness
