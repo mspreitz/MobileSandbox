@@ -64,7 +64,7 @@ while(running):
             continue
 
         # Run static analysis
-        print '[{}] Starting Static Analyzer'.format(sha256)
+        print '[{}] Starting Dynamic Analyzer'.format(sha256)
         workingDir = '{}/{}'.format(settings.DEFAULT_NAME_DIR_ANALYSIS, sha256)
         run(apkFile, workingDir)
 
