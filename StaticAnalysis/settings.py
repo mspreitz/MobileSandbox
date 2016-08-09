@@ -26,18 +26,16 @@
 # MobileSandbox Authentication Parameters
 MSURL = ''	# URL of the Mobile-Sandbox backend
 MSAPIFORMAT = 'json'
-MSAPIUSER = ''	# API user name
-MSAPIKEY = ''	# API key for the aforementioned user
+
 # important files and folders
-TMPDIR = "/tmp/analysis/"
-AAPT = ""	# location of the aapt binary
 EMPTYICON = "./empty.png"
 APICALLS = "./APIcalls.txt"
 ADSLIBS = "./ads.csv"
+
 WORKINGDIR = "test/"
-UNPACKLOCATION = "unpack/"
 SOURCELOCATION = "src"
 DUMPFILE = "Dump.txt"
+TMPDIR = "/tmp/analysis/"
 
 # Samples Folder for the Backend
 BACKEND_PATH = '../Backend/'

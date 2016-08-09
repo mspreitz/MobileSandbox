@@ -95,7 +95,7 @@ while(running):
             os.makedirs(unpackPath)
         except os.error:
             # NOTE We don't have permissions to create the directory
-            # NOTE Or the direcytory exists already
+            # NOTE Or the direcytory exists already (Can not happen because we check if the unpackPath already exists and continue...)
             # See https://docs.python.org/2/library/os.html#os.makedirs
             print 'ERROR: Cannot create unpack directory for sample [{}]'.format(sha256)
             continue
@@ -104,9 +104,6 @@ while(running):
         print '[{}] Starting Static Analyzer'.format(sha256)
         workingDir = '{}/{}'.format(settings.DEFAULT_NAME_DIR_ANALYSIS, sha256)
         run(apkFile, workingDir)
-
-        #continue
-
 
         print '[{}] Packing everything to the Backend Sample Directory'.format(sha256)
 
