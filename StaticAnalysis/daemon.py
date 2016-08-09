@@ -148,7 +148,7 @@ while(running):
         shutil.move('{}/{}'.format(workingDir, 'static.log'), '{}/{}'.format(reportPath, 'static.log'))
 
         # Remove remaining analysis files
-        #shutil.rmtree(workingDir)
+        shutil.rmtree(workingDir)
 
         print '[{}] Finished Analysis'.format(sha256)
         # Set new sample status
