@@ -244,6 +244,14 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
                 type='static'
         )
 
+        Queue.objects.create(
+            filename=sentFile.name,
+            status='idle',
+            sha256=appInfos['sha256'],
+            path=apkDir,
+            type='dynamic'
+        )
+
         # NOTE: We only hash once -  we don't want to hash later again for the static analyzer - performance ! :)
         # TODO Read the hashes from Metadata or Queue and never hash again! Do once, reuse often principle
         # Generate other hashes
