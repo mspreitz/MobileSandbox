@@ -3,7 +3,7 @@ from androguard.core.bytecodes import apk
 from androguard.core.bytecodes import dvm
 from androguard.decompiler.dad import decompile
 #from base64 import b64decode
-#from hexdump import hexdump
+from hexdump import hexdump
 from utils.mhash import *
 from Neo4J.msneo import create_node # TODO Change that to a Relative Parent Import Neo4J
 from sys import exit
@@ -669,26 +669,37 @@ def extractSourceFiles(PREFIX,d,vmx): # TODO High O
             source.close()
 
 
-def checkAPIPermissions(workingDir): # TODO Mid-High O (But higher than dangerousAD)
-    dumpFile = '{}/{}'.format(workingDir,settings.DUMPFILE)
-    file = open(dumpFile).read()
-    apiCallList = open(settings.APICALLS).readlines()
-    apiPermissions = set()
-    apiCalls = []
+def getAPICalls(workingDir): # TODO Mid-High O (But higher than dangerousAD)
+    path_dump = '{}/{}'.format(workingDir,settings.DUMPFILE)
+    # TODO Check if dump exists
 
-    for apiCall in apiCallList:
-        apiCall = apiCall.split("|")
-        if file.find(apiCall[0]) != -1:
-            try:
-                permission = apiCall[1].split("\n")[0]
-            except:
-                permission = ""
-            if (permission not in apiPermissions) and (permission != ""):
-                apiPermissions.add(permission)
-                apiCalls.append(apiCall)
-        else:
-            continue
-    return (apiPermissions, apiCalls)
+    # Find any api_calls that match the api_call regex
+    # TODO NOTE Maybe the regex is still wrong, please revise
+    api_calls_dump = set()
+    regex_api_call = '[^\s]+;->[^\s\(\)\;]+'
+    with open(path_dump, 'r') as file_dump:
+        data_dump = file_dump.read()
+        for api_call in re.findall(regex_api_call, data_dump):
+            if api_call[0] == 'L': api_call = api_call[1:]
+            api_calls_dump.add(api_call)
+
+    # TODO This can be stored somewhere in memory after initial start and always be reused
+    # Dictionary from call to permission(s)
+    api_dict = {}
+    # Get all api_calls and api_permissions from the static APIcalls.txt dump
+    with open(settings.APICALLS, 'r') as file_apicalls:
+        for line in file_apicalls.readlines():
+            (api_call, api_permission) = line.split("|") # TODO This dies if the APICalls.txt format is not call|permission\n
+            api_permission = api_permission.replace('\n','')
+            api_dict[api_call] = api_permission # NOTE We require APICalls.txt to have a unique list
+
+    api_dict_dump = {}
+    # Store any api_call/permission found in the dump to a list
+    for api_call in api_calls_dump:
+        if api_call not in api_dict: continue
+        api_dict_dump[api_call] = api_dict[api_call]
+
+    return api_dict_dump
 
 def getFilesInsideApk(androidAPK):
     return androidAPK.get_files()
@@ -757,11 +768,16 @@ def clearOldFiles(workingDir):
 
 
 def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
-                 dangerousCalls, appUrls, appInfos, apiPermissions, apiCalls, appFilesSrc, appActivities, cert, appFiles):
+                 dangerousCalls, appUrls, appInfos, api_dict, appFilesSrc, appActivities, cert, appFiles):
     output = appInfos # Since it already contains a dict of most fingerprints
     output['app_permissions'] = list(appPermissions)
-    output['api_permissions'] = list(apiPermissions)
-    output['api_calls'] = list(apiCalls)
+    output['api_permissions'] = []
+    output['api_calls'] = []
+    print 'API DICT ==--s-a9d-080-8-8120-48-238'
+    print api_dict
+    for api_call, api_permission in api_dict.items():
+        output['api_permissions'].append(api_permission)
+        output['api_calls'].append(api_call)
     output['features'] = list(appFeatures)
     output['intents'] = list(appIntents)
     output['activities'] = list(appActivities)
@@ -847,7 +863,7 @@ def run(sampleFile, workingDir):
     print "get urls and ips..."
     appUrls = parseURLs(workingDir,logFile)
     print "check api permissions..."
-    apiPermissions = checkAPIPermissions(workingDir)
+    api_dict = getAPICalls(workingDir)
     #print "create ssdeep hash..."
     #ssdeepValue = ssdeepHash(sampleFile)
     print "check for ad-networks"
@@ -856,7 +872,7 @@ def run(sampleFile, workingDir):
     cert = getCertificate(a)
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,detectedAds,
-                 dangerousCalls,appUrls,appInfos,apiPermissions[0],apiPermissions[1],appFilesSrc,appActivities, cert, appFiles)#,ssdeepValue)
+                 dangerousCalls,appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles)#,ssdeepValue)
     print "copy icon image..."
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."

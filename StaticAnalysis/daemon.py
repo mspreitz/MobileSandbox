@@ -49,6 +49,7 @@ if not settings.BACKEND_PATH or settings.BACKEND_PATH == '':
 
 if not os.path.isdir(settings.DEFAULT_NAME_DIR_ANALYSIS): os.makedirs(settings.DEFAULT_NAME_DIR_ANALYSIS)
 
+# TODO: If we run cleandb or any db changing operation, we have to close this cursor or kill the daemon beforehand
 db = conn.cursor()
 
 running = True
@@ -147,7 +148,7 @@ while(running):
         shutil.move('{}/{}'.format(workingDir, 'static.log'), '{}/{}'.format(reportPath, 'static.log'))
 
         # Remove remaining analysis files
-        shutil.rmtree(workingDir)
+        #shutil.rmtree(workingDir)
 
         print '[{}] Finished Analysis'.format(sha256)
         # Set new sample status
