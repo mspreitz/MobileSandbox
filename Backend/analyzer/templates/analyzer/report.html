@@ -39,6 +39,21 @@
 				{% endif %}
 			{% endfor %}
 		</table>
+		<br><br><br>
+
+
+
+		<table border="1" cellpadding="1">
+			<tr><th>Dynamic analysis</th></tr>
+				<table border="1">
+					<tr><th colspan="2">VirusTotal</th></tr>
+					<tr><th>Positives</th><th>Permalink</th></tr>
+					<tr><td>{{jsondata_dynamic.cuckoo_out.virustotal.positives}}</td>
+						<td><a href="{{jsondata_dynamic.cuckoo_out.virustotal.permalink}}">Link</a></td></tr>
+				</table>
+		</table>
 	</div>
 </div>
+
+
 {% endblock %}

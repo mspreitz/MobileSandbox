@@ -395,6 +395,7 @@ def loadResults(sha256):
     (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic) = (None, None, None, None)
 
     file_report_static  = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_STATIC)
+
     if not os.path.isfile(file_report_static):
         reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic)
         return reports
