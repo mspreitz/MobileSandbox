@@ -20,6 +20,7 @@ VBOX_DEV = 'vboxnet0'
 WORKINGDIR = 'test/'
 SCREENSHOT_DIR = 'screenshots'
 APK_FILES = 'apkfiles'
+REPORT_DIR = 'reports'
 
 BACKEND_PATH = '../Backend/'
 PATH_SAMPLES = 'analyzer/samples/'

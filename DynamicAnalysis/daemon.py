@@ -65,13 +65,20 @@ while(running):
         run(apkFile, workingDir)
 
         # Move JSON-Report to backend
-        shutil.move('{}/{}'.format(workingDir, 'dynamic.json'), '{}/{}'.format(apkPath, 'dynamic.json'))
+        reportDir = '{}/{}'.format(apkPath, settings.REPORT_DIR)
+        if not os.path.isdir(reportDir): os.makedirs(reportDir)
+        shutil.move('{}/{}'.format(workingDir, 'dynamic.json'), '{}/{}'.format(reportDir, 'dynamic.json'))
 
         # Move screenshots to backend
-        copytree('{}/{}'.format(workingDir, settings.SCREENSHOT_DIR), apkPath)
+        screenshotDir = '{}/{}'.format(apkPath, settings.SCREENSHOT_DIR)
+        print 'Screenshot-dir: '+screenshotDir
+        if not os.path.isdir(screenshotDir): os.makedirs(screenshotDir)
+        copytree('{}/{}'.format(workingDir, settings.SCREENSHOT_DIR), screenshotDir)
 
         # Move apkfiles to backend
-        copytree('{}/{}'.format(workingDir, settings.APK_FILES), apkPath)
+        filesDir = '{}/{}'.format(apkPath, settings.APK_FILES)
+        if not os.path.isdir(filesDir): os.makedirs(filesDir)
+        copytree('{}/{}'.format(workingDir, settings.APK_FILES), filesDir)
 
         # Remove temporary files
         shutil.rmtree(workingDir)
