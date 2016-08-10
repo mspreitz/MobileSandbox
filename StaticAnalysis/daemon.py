@@ -68,9 +68,6 @@ while(running):
         time.sleep(5)
         continue
 
-    # Sleep again? TODO
-    time.sleep(3)
-
     for (sampleID, filename, sha256, apkPath) in rows:
         # TODO samplesPath / apkPath
         apkPath = '{}/{}'.format(settings.BACKEND_PATH, apkPath) # Samples Directory plus APK directory structure in Backend

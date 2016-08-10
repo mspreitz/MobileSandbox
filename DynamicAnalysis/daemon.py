@@ -1,3 +1,4 @@
+import shutil
 import time
 from DynamicAnalyzer import run
 import settings
@@ -5,6 +6,15 @@ import psycopg2
 import sys
 import os
 
+
+def copytree(src, dst, symlinks=False, ignore=None):
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d, symlinks, ignore)
+        else:
+            shutil.copy2(s, d)
 
 
 # Connect to database
@@ -42,12 +52,6 @@ while(running):
     for (sampleID, filename, sha256, apkPath) in rows:
         apkPath = '{}/{}'.format(settings.BACKEND_PATH, apkPath)
         apkFile = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_APK)
-        unpackPath = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_DIR_UNPACK)
-
-        if os.path.exists(unpackPath):
-            print 'ERROR: Resources Directory already exists for sample in Queue [{}]. Analysis underway or already done. Abort!'.format(
-                sha256)
-            continue
 
         print '[{}] Running Analysis'.format(sha256)
         # Update the analysis status to running for this sample
@@ -55,21 +59,22 @@ while(running):
         db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % (sha256))
         db.connection.commit()
 
-        try:
-            os.makedirs(unpackPath)
-        except os.error:
-            # NOTE We don't have permissions to create the directory
-            # See https://docs.python.org/2/library/os.html#os.makedirs
-            print 'ERROR: Cannot create unpack directory for sample [{}]'.format(sha256)
-            continue
-
         # Run static analysis
         print '[{}] Starting Dynamic Analyzer'.format(sha256)
         workingDir = '{}/{}'.format(settings.DEFAULT_NAME_DIR_ANALYSIS, sha256)
         run(apkFile, workingDir)
 
-        # Todo: move files
+        # Move JSON-Report to backend
+        shutil.move('{}/{}'.format(workingDir, 'dynamic.json'), '{}/{}'.format(apkPath, 'dynamic.json'))
 
+        # Move screenshots to backend
+        copytree('{}/{}'.format(workingDir, settings.SCREENSHOT_DIR), apkPath)
+
+        # Move apkfiles to backend
+        copytree('{}/{}'.format(workingDir, settings.APK_FILES), apkPath)
+
+        # Remove temporary files
+        shutil.rmtree(workingDir)
 
         print '[{}] Finished Analysis'.format(sha256)
         # Set new sample status

@@ -2,7 +2,7 @@ import os
 import shutil
 import subprocess
 import time
-import settings as setting
+import settings
 import json
 
 proc = None
@@ -15,15 +15,15 @@ def initCuckoo(sampleFile):
     net = subprocess.check_output(["/usr/bin/ifconfig"])
     if not "vboxnet0" in net:
         subprocess.call(["vboxmanage", "hostonlyif", "ipconfig",
-                         setting.VBOX_DEV, "--ip", setting.VBOX_IP,
-                         "--netmask", setting.VBOX_NETM])
+                         settings.VBOX_DEV, "--ip", settings.VBOX_IP,
+                         "--netmask", settings.VBOX_NETM])
 
-    proc = subprocess.Popen(['python2', setting.CUCKOO_SERVER],
+    proc = subprocess.Popen(['python2', settings.CUCKOO_SERVER],
                             stdout=subprocess.PIPE,
                             stdin=subprocess.PIPE,
                             stderr=subprocess.PIPE)
 
-    subprocess.Popen(["python2",setting.CUCKOO_SUBMIT, sampleFile],
+    subprocess.Popen(["python2",settings.CUCKOO_SUBMIT, sampleFile],
                             stdout=subprocess.PIPE,
                             stdin=subprocess.PIPE,
                             stderr=subprocess.PIPE)
@@ -40,10 +40,10 @@ def getResDir():
             running = False
 
     try:
-        dirs = next(os.walk(setting.CUCKOO_STORAGE))[1]
+        dirs = next(os.walk(settings.CUCKOO_STORAGE))[1]
     except:
         dirs = []
-    if (os.path.isdir(setting.CUCKOO_STORAGE + "latest")):
+    if (os.path.isdir(settings.CUCKOO_STORAGE + "latest")):
         cuckooWorkingDir = len(dirs)-1
     else:
         cuckooWorkingDir = len(dirs)
@@ -61,13 +61,12 @@ def isFinished():
     running=True
     while running:
         time.sleep(1)
-        if os.path.isfile(setting.CUCKOO_STORAGE+str(resDir)+"/reports/report.html"):
+        if os.path.isfile(settings.CUCKOO_STORAGE+str(resDir)+"/reports/report.html"):
             print "Analysis finished!"
             running=False
             time.sleep(3)
             proc.kill()
-            #subprocess.call(["python2", setting.CUCKOO_SERVER, "--clean"])
-            print "Finish... "
+            print "Finished... "
     return True
 
 
@@ -113,28 +112,26 @@ def compareLists(before, after):
 
 def cleanUp():
     try:
-        os.remove("cuckoo/"+setting.FILES_LIST)
-        os.remove("cuckoo/"+setting.PLIST_NEW)
-        os.remove("cuckoo/"+setting.PLIST_FILE)
-        os.remove("cuckoo/"+setting.NETSTAT_NEW)
-        os.remove("cuckoo/"+setting.NETSTAT_LIST)
-        os.remove("cuckoo/"+setting.SBOX_FOLDER_LIST)
-        os.removedirs("cuckoo/tmp")
+        subprocess.call(["python2", settings.CUCKOO_SERVER, "--clean"])
+        os.remove('{}/{}'.format("cuckoo", settings.PLIST_NEW))
+        os.remove('{}/{}'.format("cuckoo", settings.PLIST_FILE))
+        os.remove('{}/{}'.format("cuckoo", settings.NETSTAT_NEW))
+        os.remove('{}/{}'.format("cuckoo", settings.NETSTAT_LIST))
+        os.remove('{}/{}'.format("cuckoo", settings.SBOX_FOLDER_LIST))
     except:
-        pass
+        print "Error: could not cleanup all temporary files"
 
 def getScreenShots(cuckooWorkingDir, workingDir):
-    screenShotDir = setting.CUCKOO_STORAGE+cuckooWorkingDir+"/shots/"
-    localScreenShotDir = workingDir+"screenshots/"
+    screenShotDir = settings.CUCKOO_STORAGE + cuckooWorkingDir + "/shots/"
+    localScreenShotDir = '{}/{}'.format(workingDir,"screenshots/")
     os.makedirs(localScreenShotDir)
     for dirpath, dirnames, filenames in os.walk(screenShotDir):
         for filename in filenames:
-            #print screenShotDir+filename
             shutil.copyfile(screenShotDir+filename, localScreenShotDir+filename)
 
 def getApkFiles(cuckooTmp, workingDir):
-    os.makedirs(cuckooTmp+"/apkfiles")
-    shutil.move(cuckooTmp,workingDir+"/apkfiles")
+    os.makedirs(cuckooTmp + "/apkfiles")
+    shutil.move(cuckooTmp, workingDir+"/apkfiles")
 
 
 def extractCuckooInfo():
@@ -142,7 +139,7 @@ def extractCuckooInfo():
 
     # Extract interesting information from cuckoo output
     output = dict()
-    with open(setting.CUCKOO_STORAGE+str(resDir)+"/reports/report.json") as jsonData:
+    with open(settings.CUCKOO_STORAGE+str(resDir)+"/reports/report.json") as jsonData:
         data = json.load(jsonData)
 
     # Get various connection types
@@ -220,21 +217,20 @@ def createOutput(workingDir, cuckooWorkingDir):
     result['cuckoo_out'] = extractCuckooInfo()
     # Compare Processes
     print "Get process info..."
-    result['processes'] = getProcesses("cuckoo/" + setting.PLIST_FILE, "cuckoo/" + setting.PLIST_NEW)
+    result['processes'] = getProcesses("cuckoo/" + settings.PLIST_FILE, "cuckoo/" + settings.PLIST_NEW)
     # Compare Listening Ports
     print "Get listening ports..."
-    result['listening'] = getListeningPorts("cuckoo/" + setting.NETSTAT_LIST, "cuckoo/" + setting.NETSTAT_NEW)
+    result['listening'] = getListeningPorts("cuckoo/" + settings.NETSTAT_LIST, "cuckoo/" + settings.NETSTAT_NEW)
     # Move files to working dir
     print "Moving files to working dir"
-    getScreenShots(cuckooWorkingDir,workingDir)
+    getScreenShots(cuckooWorkingDir, workingDir)
     getApkFiles("cuckoo/tmp", workingDir)
-    
 
     # save the JSON dict to a file for later use
     print "Pack JSON file and save it...."
     if not os.path.exists(workingDir):
         os.mkdir(workingDir)
-    jsonFileName = workingDir + "dynamic.json"
+    jsonFileName = '{}/{}'.format(workingDir, "dynamic.json")
     jsonFile = open(jsonFileName, "a+")
     jsonFile.write(json.dumps(result))
     jsonFile.close()
@@ -251,13 +247,10 @@ def run(sampleFile, workingDir):
         resDir = str(resDir)
         createOutput(workingDir,resDir)
         # Remove temp files
-        #print "Cleaning up temporary files"
-        #cleanUp()
+        print "Cleaning up temporary files"
+        cleanUp()
     else:
         print "Error: Not finished"
 
-#sampleFile = "cuckoo/Samples/37.apk"
-#run(sampleFile, setting.WORKINGDIR)
-#print getProcesses("cuckoo/" + setting.PLIST_FILE, "cuckoo/" + setting.PLIST_NEW)
-#print getListeningPorts("cuckoo/" + setting.NETSTAT_LIST, "cuckoo/" + setting.NETSTAT_NEW)
-#Todo: Copy Databases, work on code robustness
+
+# Todo: Copy Databases, work on code robustness
