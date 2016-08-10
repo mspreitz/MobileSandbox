@@ -758,7 +758,7 @@ def clearOldFiles(workingDir):
     logFile   = '{}/{}'.format(workingDir,"static.log")
     dumpFile  = '{}/{}'.format(workingDir,"Dump.txt")
     srcDir    = '{}/{}'.format(workingDir,settings.SOURCELOCATION)
-    unpackDir = '{}/{}'.format(workingDir,settings.UNPACKLOCATION)
+    unpackDir = '{}/{}'.format(workingDir,settings.DEFAULT_NAME_DIR_UNPACK)
 
     if os.path.isfile(jsonFile):
         os.remove(jsonFile)
@@ -814,7 +814,7 @@ def run(sampleFile, workingDir):
 
     logFile = createLogFile(workingDir)
     PREFIX = workingDir
-    unpackLocation = '{}/{}'.format(PREFIX,settings.UNPACKLOCATION)
+    unpackLocation = '{}/{}'.format(PREFIX,settings.DEFAULT_NAME_DIR_UNPACK)
 
     if(PREFIX[-1:]!="/"):
         PREFIX += "/"
