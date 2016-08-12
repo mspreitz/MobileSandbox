@@ -72,28 +72,25 @@ def isFinished():
 
 def getListeningPorts(file, file_new):
     headers = ['Proto','Recv-Q','Send-Q','Local-Address','Foreign-Address','State']
-    output = []
     content = compareLists(file, file_new)
+    res_natstat_entries = []
     for i in content:
         tmp = i.split()
-        res_natstat_entries = {}
         for u in range(len(tmp)):
-            res_natstat_entries[headers[u]] = tmp[u]
-        output.append(res_natstat_entries)
-    return output
+            res_natstat_entries.append(tmp[u])
+    return res_natstat_entries
 
 
 def getProcesses(file, file_new):
     headers = ['User','PID','PPID','VSIZE','RSS','WCHAN','PC','P','NAME']
-    output = []
+    res_process_entries = []
     content = compareLists(file, file_new)
     for i in content:
-        res_process_entries = {}
         tmp = i.split()
         for u in range(len(tmp)):
-            res_process_entries[headers[u]] = tmp[u]
-        output.append(res_process_entries)
-    return output
+            res_process_entries.append(tmp[u])
+            #res_process_entries[headers[u]] = tmp[u]
+    return res_process_entries
 
 
 def compareLists(before, after):
@@ -253,4 +250,5 @@ def run(sampleFile, workingDir):
         print "Error: Not finished"
 
 
-# Todo: Copy Databases, work on code robustness
+
+#Todo: Copy Databases, work on code robustness

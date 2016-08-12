@@ -315,7 +315,7 @@ def showReport(request):
     if reports is None:
         return render_to_response('error.html', {'message': 'The report for this sample does not exist (yet?)'})
 
-    (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic) = reports
+    (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots) = reports
 
     meta = Metadata.objects.get(sha256=sha256)
 
@@ -333,6 +333,8 @@ def showReport(request):
     templatedict['malicious'] = classifiedapp.malicious
     templatedict['jsondata_static'] = jsondata_static
     templatedict['jsondata_dynamic'] = jsondata_dynamic
+    templatedict['screenshots'] = screenshots
+
     return render_to_response(template, templatedict)
 
 
@@ -390,14 +392,15 @@ def search(request):
 def loadResults(sha256):
     path_apk            = '{}/{}'.format(settings.PATH_SAMPLES,getPathFromSHA256(sha256))
     path_reports        = '{}/{}'.format(path_apk, settings.DEFAULT_NAME_DIR_REPORTS)
+    path_screenshots    = '{}/{}'.format(path_apk, settings.DEFAULT_NAME_SCREENSHOTS)
     if not os.path.isdir(path_reports): return None
 
-    (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic) = (None, None, None, None)
+    (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots) = (None, None, None, None, None)
 
     file_report_static  = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_STATIC)
 
     if not os.path.isfile(file_report_static):
-        reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic)
+        reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
         return reports
 
     with open(file_report_static, 'r') as f:
@@ -406,14 +409,20 @@ def loadResults(sha256):
 
     file_report_dynamic = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_DYNAMIC)
     if not os.path.isfile(file_report_dynamic):
-        reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic)
+        reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
         return reports
 
     with open(file_report_dynamic, 'r') as f:
         jsondata_dynamic = f.read()
         jsondata_dynamic = json.loads(jsondata_dynamic)
 
-    reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic)
+    screenshots = []
+    for root, dirs, files in os.walk(path_screenshots):
+        for f in files:
+            screenshots.append('{}/{}'.format(path_screenshots, f))
+
+    reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
+
     return reports
 
 
