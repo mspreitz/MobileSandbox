@@ -117,7 +117,7 @@ def compareLists(before, after):
 
 def cleanUp():
     try:
-        subprocess.call(["python2", settings.CUCKOO_SERVER, "--clean"])
+        #subprocess.call(["python2", settings.CUCKOO_SERVER, "--clean"])
         os.remove('{}/{}'.format("cuckoo", settings.PLIST_NEW))
         os.remove('{}/{}'.format("cuckoo", settings.PLIST_FILE))
         os.remove('{}/{}'.format("cuckoo", settings.NETSTAT_NEW))

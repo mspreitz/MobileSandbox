@@ -98,7 +98,6 @@ def create_node_static(datadict):
     add_attribute(na, datadict, 'md5', regex=r_md5, upper=True)
     add_attribute(na, datadict, 'sha1', regex=r_sha1, upper=True)
     add_attribute(na, datadict, 'sha256', regex=r_sha256, upper=True)
-    add_attribute(na, datadict, 'apk_name')
 
     tx.create(na)
     print 'Neo4J: Created Android Node with sha256: {}'.format(datadict['sha256'])
@@ -142,6 +141,7 @@ def create_node_static(datadict):
         tx.commit()
         return
 
+    # NOTE: It is currently presumed that static analysis occurs before dynamic analysis
     if count == 1:
         print 'Neo4J: Found Certificate Node with Sha1Thumbprint: {}'.format(certdict['Sha1Thumbprint'])
 
@@ -221,7 +221,42 @@ def create_node_static(datadict):
 def create_node_dynamic(datadict):
     print 'Transferring dynamic data to Neo4J database'
 
+    r_md5    = re.compile(r'[a-fA-F\d]{32}')
+    r_sha1   = re.compile(r'[a-fA-F\d]{40}')
+    r_sha256 = re.compile(r'[a-fA-F\d]{64}')
+
+    if 'target' not in datadict:
+        print 'ERROR: Key "target" is not in dictionary. See following output'
+        hexdump(datadict)
+        return
+
     graph = Graph(password=pw)
     tx = graph.begin()
-    print len(datadict), type(datadict)
+
+    (count, na) = find_unique_node(graph, 'Android', 'sha256', datadict['target']['file']['sha256'], upper=True)
+
+    # Give error if we matched more than 1 nodes
+    if count > 1:
+        print 'ERROR: Found more than 1 Android nodes with SHA256 {}'.format(datadict['target']['file']['sha256'].upper())
+        tx.commit()
+        return
+
+    if count == 0:
+        # Create Android Node
+        na = Node('Android')
+        add_attribute(na, datadict['file'], 'md5', regex=r_md5, upper=True)
+        add_attribute(na, datadict['file'], 'sha1', regex=r_sha1, upper=True)
+        add_attribute(na, datadict['file'], 'sha256', regex=r_sha256, upper=True)
+        tx.create(na)
+
+    print 'Neo4J: Android Node with sha256: {}'.format(na['sha256'])
+
+    # Create virustotal nodes
+    if 'virustotal' in datadict:
+        for antivirus, resultdict in datadict['virustotal']['scans'].items():
+            if not resultdict['result']: continue # Skip null results
+            create_list_nodes_rels(graph, tx, na, 'Antivirus', [resultdict['result']], 'ANTIVIRUS')
+
+        print datadict['virustotal']
+
     tx.commit()

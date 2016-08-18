@@ -5,7 +5,7 @@ mkdir StaticAnalysis/analysis/ Backend/analyzer/samples/
 echo '---[ Cleaning the Neo4J Database ]---'
 (
 	# TODO Stop neo4j Server, delete data/graph.db/* to remove old property nodes
-	cd StaticAnalysis/Neo4J
+	cd Neo4J
 	python -c 'from msneo import clean_all; clean_all()'
 )
 echo '---[ Cleaning the Postgesql Database ]---'
