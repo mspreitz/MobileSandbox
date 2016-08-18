@@ -8,3 +8,4 @@ StaticAnalysis/analysis/
 StaticAnalysis/src/
 
 src/
+DynamicAnalysis/cuckoo/db

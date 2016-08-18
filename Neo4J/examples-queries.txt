@@ -3,3 +3,6 @@ MATCH (c:Antivirus)-[r]-(a:Android) WITH c,count(c) AS samples WHERE samples > 1
 
 # Display them
 MATCH (c:Antivirus)-[r]-(a:Android) WITH c,count(c) AS samples WHERE samples > 10 RETURN c, samples, c.name ORDER BY samples DESC
+
+# Display top most nodes that are in relationships with Android nodes
+MATCH (c)-[r]-(a:Android) WITH c,count(c) AS samples WHERE samples > 10 RETURN samples, c.name, labels(c) ORDER BY samples DESC, labels(c)[0] ASC
