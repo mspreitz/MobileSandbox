@@ -57,12 +57,12 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'tmp')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'samples/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = 'files/'
+MEDIA_URL = '/samples/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -175,3 +175,4 @@ DEFAULT_NAME_DIR_REPORTS = 'reports'
 DEFAULT_NAME_APK = 'sample.apk'
 DEFAULT_NAME_REPORT_STATIC = 'static.json'
 DEFAULT_NAME_REPORT_DYNAMIC = 'dynamic.json'
+DEFAULT_NAME_SCREENSHOTS = 'screenshots'

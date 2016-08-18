@@ -8,9 +8,11 @@
 
 {% block content %}
 {% load array_filter %}
+{% load dict_filter %}
 
 <div id="content">
 	<div id="l_container col-lg-8">
+
 		<h3>Report</h3>
 		<table border="1" cellpadding="1">
 			<tr><th bgcolor="#8a2be2">Static analysis</th></tr>
@@ -38,6 +40,113 @@
 				{% endif %}
 			{% endfor %}
 		</table>
+		<br><br><br>
+
+
+
+		<table border="1" cellpadding="1">
+			{% for key, value in jsondata_dynamic.items %}
+				{% if key == 'processes' %}
+					<table border="1">
+						<tr><th bgcolor="#8a2be2" colspan="9">Dynamic analysis</th></tr>
+						<tr><th colspan="9" bgcolor="#808080"> {{ key }}</th></tr>
+						<tr><th>User</th><th>PID</th><th>PPID</th><th>VSIZE</th>
+							<th>RSS</th><th>WCHAN</th><th>PC</th><th>P</th><th>Name</th></tr>
+						<tr>
+						{% for v in value %}
+							{% if forloop.counter0|divisibleby:9 %}
+								</tr><tr>
+							{% endif %}
+							<td> {{ v }}</td>
+						{% endfor %}
+						</tr>
+					</table>
+				{%endif%}
+
+				<br>
+
+				{% if key == 'listening' %}
+					<table border="1">
+						<tr><th colspan="6" bgcolor="#808080"> {{ key }}</th></tr>
+						<tr><th>Proto</th><th>Recv-Q</th><th>Send-Q</th><th>Local-Address</th>
+							<th>Foreign-Adress</th><th>State</th></tr>
+						<tr>
+						{% for v in value %}
+							{% if forloop.counter0|divisibleby:6 %}
+								</tr><tr>
+							{% endif %}
+							<td> {{ v }}</td>
+						{% endfor %}
+						</tr>
+					</table>
+				{%endif%}
+
+			<br>
+
+			{% if key == 'cuckoo_out' %}
+				<table border="1">
+					<tr><th colspan="3" bgcolor="#808080">Network</th></tr>
+					{% if value.network.udp %}
+						<tr><th colspan="3" bgcolor="#808080">UDP</th></tr>
+						<tr><th>Destination</th><th>Source Port</th><th>Destination Port</th></tr>
+						{% for v in value.network.udp %}
+							<tr><td>{{v.dst}}</td><td>{{ v.sport }}</td><td>{{v.dport}}</td></tr>
+						{% endfor %}
+					{% endif %}
+
+					{% if value.network.tcp %}
+						<tr><th colspan="3" bgcolor="#808080">TCP</th></tr>
+						<tr><th>Destination</th><th>Source Port</th><th>Destination Port</th></tr>
+						{% for v in value.network.tcp %}
+							<tr><td>{{v.dst}}</td><td>{{ v.sport }}</td><td>{{v.dport}}</td></tr>
+						{% endfor %}
+					{% endif %}
+
+					{% if value.network.irc %}
+						<tr><th colspan="3" bgcolor="#808080">IRC</th></tr>
+						<tr><th>Destination</th><th>Source Port</th><th>Destination Port</th></tr>
+						{% for v in value.network.irc %}
+							<tr><td>{{v.dst}}</td><td>{{ v.sport }}</td><td>{{v.dport}}</td></tr>
+						{% endfor %}
+					{% endif %}
+
+					{% if value.network.smtp %}
+						<tr><th colspan="3" bgcolor="#808080">SMTP</th></tr>
+						<tr><th>Destination</th><th>Source Port</th><th>Destination Port</th></tr>
+						{% for v in value.network.smtp %}
+							<tr><td>{{v.dst}}</td><td>{{ v.sport }}</td><td>{{v.dport}}</td></tr>
+						{% endfor %}
+					{% endif %}
+				</table>
+			{% endif %}
+			{% endfor %}
+
+			<br><br>
+
+			<table border="1">
+				<tr><th colspan="2" bgcolor="#808080">VirusTotal</th></tr>
+				<tr><th>Positives</th><th>Permalink</th></tr>
+				<tr><td>{{jsondata_dynamic.cuckoo_out.virustotal.positives}}</td>
+					<td><a href="{{jsondata_dynamic.cuckoo_out.virustotal.permalink}}">Link</a></td></tr>
+			</table>
+
+			<br><br>
+
+			<table border="1">
+				<tr><th colspan="3" bgcolor="#808080">Screenshots</th></tr>
+				<tr>
+					{% for v in screenshots %}
+						{% if forloop.counter0|divisibleby:3 %}
+								</tr><tr>
+						{% endif %}
+						<td><img src="/{{ MEDIA_URL }}{{v}}" width="300" border="0"></td>
+					{% endfor %}
+				</tr>
+			</table>
+
+		</table>
 	</div>
 </div>
+
+
 {% endblock %}

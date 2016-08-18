@@ -76,32 +76,29 @@ def isFinished(cuckooID):
 
 def getListeningPorts(dir_extra_info):
     headers = ['Proto','Recv-Q','Send-Q','Local-Address','Foreign-Address','State']
-    output = []
     file_netstat_before = '{}/{}'.format(dir_extra_info, settings.NETSTAT_FILE)
     file_netstat_after  = '{}/{}'.format(dir_extra_info, settings.NETSTAT_NEW)
     content = compareLists(file_netstat_before, file_netstat_after)
+    res_natstat_entries = []
     for i in content:
         tmp = i.split()
-        res_natstat_entries = {}
         for u in range(len(tmp)):
-            res_natstat_entries[headers[u]] = tmp[u]
-        output.append(res_natstat_entries)
-    return output
+            res_natstat_entries.append(tmp[u])
+    return res_natstat_entries
 
 
 def getProcesses(dir_extra_info):
     file_processes_before = '{}/{}'.format(dir_extra_info, settings.PLIST_FILE)
     file_processes_after  = '{}/{}'.format(dir_extra_info, settings.PLIST_NEW)
     headers = ['User','PID','PPID','VSIZE','RSS','WCHAN','PC','P','NAME']
-    output = []
     content = compareLists(file_processes_before, file_processes_after)
+    res_process_entries = []
     for i in content:
-        res_process_entries = {}
         tmp = i.split()
         for u in range(len(tmp)):
-            res_process_entries[headers[u]] = tmp[u]
-        output.append(res_process_entries)
-    return output
+            res_process_entries.append(tmp[u])
+            #res_process_entries[headers[u]] = tmp[u]
+    return res_process_entries
 
 
 def compareLists(before, after):
@@ -120,15 +117,17 @@ def compareLists(before, after):
 
 def cleanUp():
     try:
+        subprocess.call(["python2", settings.CUCKOO_SERVER, "--clean"])
+        os.remove('{}/{}'.format("cuckoo", settings.PLIST_NEW))
+        os.remove('{}/{}'.format("cuckoo", settings.PLIST_FILE))
+        os.remove('{}/{}'.format("cuckoo", settings.NETSTAT_NEW))
+        os.remove('{}/{}'.format("cuckoo", settings.NETSTAT_LIST))
+        os.remove('{}/{}'.format("cuckoo", settings.SBOX_FOLDER_LIST))
+        # TODO DO WE NEED THE FOLLOWING REMOVES STILL?
         os.remove("cuckoo/"+settings.FILES_LIST)
-        os.remove("cuckoo/"+settings.PLIST_NEW)
-        os.remove("cuckoo/"+settings.PLIST_FILE)
-        os.remove("cuckoo/"+settings.NETSTAT_NEW)
-        os.remove("cuckoo/"+settings.NETSTAT_LIST)
-        os.remove("cuckoo/"+settings.SBOX_FOLDER_LIST)
         os.removedirs("cuckoo/tmp")
     except:
-        pass
+        print "Error: could not cleanup all temporary files"
 
 def getScreenShots(workingDir, cuckooID):
     screenShotDir = '{}/{}/shots/'.format(settings.CUCKOO_STORAGE, cuckooID)
@@ -136,12 +135,11 @@ def getScreenShots(workingDir, cuckooID):
     os.makedirs(localScreenShotDir)
     for dirpath, dirnames, filenames in os.walk(screenShotDir):
         for filename in filenames:
-            #print screenShotDir+filename
             shutil.copyfile(screenShotDir+filename, localScreenShotDir+filename)
 
 def getApkFiles(cuckooTmp, workingDir):
-    os.makedirs(cuckooTmp+"/apkfiles")
-    shutil.move(cuckooTmp,workingDir+"/apkfiles")
+    os.makedirs(cuckooTmp + "/apkfiles")
+    shutil.move(cuckooTmp, workingDir+"/apkfiles")
 
 
 def extractCuckooInfo(cuckooID):
@@ -241,13 +239,12 @@ def createOutput(workingDir, cuckooID):
         result['listening'] = []
     getScreenShots(workingDir, cuckooID)
     getApkFiles("cuckoo/tmp", workingDir)
-    
 
     # save the JSON dict to a file for later use
     print "Pack JSON file and save it...."
     if not os.path.exists(workingDir):
         os.mkdir(workingDir)
-    jsonFileName = workingDir + "/dynamic.json"
+    jsonFileName = '{}/{}'.format(workingDir, "dynamic.json")
     jsonFile = open(jsonFileName, "a+")
     jsonFile.write(json.dumps(result))
     jsonFile.close()
@@ -269,10 +266,9 @@ def run(sampleFile, workingDir):
         # Remove temp files
         print "Cleaning up temporary files"
         cleanUp()
+    else:
+        print "Error: Not finished"
 
 
-#sampleFile = "cuckoo/Samples/37.apk"
-#run(sampleFile, setting.WORKINGDIR)
-#print getProcesses("cuckoo/" + setting.PLIST_FILE, "cuckoo/" + setting.PLIST_NEW)
-#print getListeningPorts("cuckoo/" + setting.NETSTAT_LIST, "cuckoo/" + setting.NETSTAT_NEW)
+
 #Todo: Copy Databases, work on code robustness

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import shutil
 import time
 from DynamicAnalyzer import run
 import settings
@@ -6,6 +7,15 @@ import psycopg2
 import sys
 import os
 
+
+def copytree(src, dst, symlinks=False, ignore=None):
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d, symlinks, ignore)
+        else:
+            shutil.copy2(s, d)
 
 
 # Connect to database
@@ -43,12 +53,6 @@ while(running):
     for (sampleID, filename, sha256, apkPath) in rows:
         apkPath = '{}/{}'.format(settings.BACKEND_PATH, apkPath)
         apkFile = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_APK)
-        unpackPath = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_DIR_UNPACK)
-
-        if os.path.exists(unpackPath):
-            print 'ERROR: Resources Directory already exists for sample in Queue [{}]. Analysis underway or already done. Abort!'.format(
-                sha256)
-            continue
 
         print '[{}] Running Analysis'.format(sha256)
         # Update the analysis status to running for this sample
@@ -69,8 +73,24 @@ while(running):
         workingDir = '{}/{}'.format(settings.DEFAULT_NAME_DIR_ANALYSIS, sha256)
         run(apkFile, workingDir)
 
-        # Todo: move files
+        # Move JSON-Report to backend
+        reportDir = '{}/{}'.format(apkPath, settings.REPORT_DIR)
+        if not os.path.isdir(reportDir): os.makedirs(reportDir)
+        shutil.move('{}/{}'.format(workingDir, 'dynamic.json'), '{}/{}'.format(reportDir, 'dynamic.json'))
 
+        # Move screenshots to backend
+        screenshotDir = '{}/{}'.format(apkPath, settings.SCREENSHOT_DIR)
+        print 'Screenshot-dir: '+screenshotDir
+        if not os.path.isdir(screenshotDir): os.makedirs(screenshotDir)
+        copytree('{}/{}'.format(workingDir, settings.SCREENSHOT_DIR), screenshotDir)
+
+        # Move apkfiles to backend
+        filesDir = '{}/{}'.format(apkPath, settings.APK_FILES)
+        if not os.path.isdir(filesDir): os.makedirs(filesDir)
+        copytree('{}/{}'.format(workingDir, settings.APK_FILES), filesDir)
+
+        # Remove temporary files
+        shutil.rmtree(workingDir)
 
         print '[{}] Finished Analysis'.format(sha256)
         # Set new sample status
