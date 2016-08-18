@@ -2,6 +2,9 @@ from py2neo import Graph, Node, Relationship
 from hexdump import hexdump
 import re
 
+# TODO: There still could be a race condition between static and dynamic analysis when committing!
+# TODO Exchange creates with merges!
+
 pw = 'msneo' # After changing password from default password neo4j to msneo
 
 def clean_all():
