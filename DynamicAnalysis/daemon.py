@@ -60,14 +60,6 @@ while(running):
         db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % (sha256))
         db.connection.commit()
 
-        try:
-            os.makedirs(unpackPath)
-        except os.error:
-            # NOTE We don't have permissions to create the directory
-            # See https://docs.python.org/2/library/os.html#os.makedirs
-            print 'ERROR: Cannot create unpack directory for sample [{}]'.format(sha256)
-            continue
-
         # Run dynamic analysis
         print '[{}] Starting Dynamic Analyzer'.format(sha256)
         workingDir = '{}/{}'.format(settings.DEFAULT_NAME_DIR_ANALYSIS, sha256)
