@@ -5,7 +5,6 @@ from androguard.decompiler.dad import decompile
 #from base64 import b64decode
 from hexdump import hexdump
 from utils.mhash import *
-from Neo4J.msneo import create_node_static # TODO Change that to a Relative Parent Import Neo4J
 from sys import exit
 import chilkat
 import csv
@@ -22,6 +21,8 @@ import xml.etree.ElementTree as ET
 # ssdeep installieren und wieder einkommentieren!!
 ###
 import sys
+sys.path.append(settingsDynamic.PATH_MODULE_MSNEO)
+from msneo import create_node_static
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
