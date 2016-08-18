@@ -88,19 +88,22 @@ def create_node_static(datadict):
         return
 
     # If we found the Android Application already in the Neo4J database, then we already did the following. Abort here
-    if count == 1:
+    if count == 1 and na['dynamic']:
         print 'Neo4J: Found Android Node with sha256: {}'.format(datadict['sha256'])
         tx.commit()
         return
 
-    # Create Android Node
-    na = Node('Android')
-    add_attribute(na, datadict, 'md5', regex=r_md5, upper=True)
-    add_attribute(na, datadict, 'sha1', regex=r_sha1, upper=True)
-    add_attribute(na, datadict, 'sha256', regex=r_sha256, upper=True)
 
-    tx.create(na)
-    print 'Neo4J: Created Android Node with sha256: {}'.format(datadict['sha256'])
+    if count == 0:
+        # Create Android Node
+        na = Node('Android')
+        add_attribute(na, datadict, 'md5', regex=r_md5, upper=True)
+        add_attribute(na, datadict, 'sha1', regex=r_sha1, upper=True)
+        add_attribute(na, datadict, 'sha256', regex=r_sha256, upper=True)
+        na['static'] = True
+        tx.create(na)
+
+    print 'Neo4J: Static Got Android Node with sha256: {}'.format(datadict['sha256'])
 
     create_list_nodes_rels(graph, tx, na, 'Intent', datadict['intents'], 'ACTION_WITH_INTENT')
     # TODO Difference api/app permissions
@@ -247,8 +250,10 @@ def create_node_dynamic(datadict):
         add_attribute(na, datadict['target']['file'], 'md5', regex=r_md5, upper=True)
         add_attribute(na, datadict['target']['file'], 'sha1', regex=r_sha1, upper=True)
         add_attribute(na, datadict['target']['file'], 'sha256', regex=r_sha256, upper=True)
+        na['dynamic'] = True
         tx.create(na)
-
+    else:
+        na['dynamic'] = True
     print 'Neo4J: Android Node with sha256: {}'.format(na['sha256'])
 
     # Create virustotal nodes

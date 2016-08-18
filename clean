@@ -1,6 +1,6 @@
 #!/bin/bash
 echo '---[ Deleting the Backend samples folder and Analyzer analysis Folder ]---'
-rm -rf Backend/analyzer/samples/ StaticAnalysis/analysis/
+rm -rf Backend/analyzer/samples/ StaticAnalysis/analysis/ DynamicAnalysis/analysis/
 mkdir StaticAnalysis/analysis/ Backend/analyzer/samples/
 echo '---[ Cleaning the Neo4J Database ]---'
 (
