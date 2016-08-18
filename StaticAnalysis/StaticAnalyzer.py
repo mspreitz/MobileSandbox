@@ -21,7 +21,7 @@ import xml.etree.ElementTree as ET
 # ssdeep installieren und wieder einkommentieren!!
 ###
 import sys
-sys.path.append(settingsDynamic.PATH_MODULE_MSNEO)
+sys.path.append(settings.PATH_MODULE_MSNEO)
 from msneo import create_node_static
 reload(sys)
 sys.setdefaultencoding('utf-8')

@@ -18,7 +18,7 @@ VBOX_NETM = '255.255.255.0'
 VBOX_DEV = 'vboxnet0'
 WORKINGDIR = 'test/'
 ENABLE_CUCKOO_EXTRA_INFO = False
-PATH_MODULE_MSNEO = '../StaticAnalysis/Neo4J/'
+PATH_MODULE_MSNEO = '../Neo4J/'
 
 
 ADB_PATH = misc_config.ADB_PATH
