@@ -244,9 +244,9 @@ def create_node_dynamic(datadict):
     if count == 0:
         # Create Android Node
         na = Node('Android')
-        add_attribute(na, datadict['file'], 'md5', regex=r_md5, upper=True)
-        add_attribute(na, datadict['file'], 'sha1', regex=r_sha1, upper=True)
-        add_attribute(na, datadict['file'], 'sha256', regex=r_sha256, upper=True)
+        add_attribute(na, datadict['target']['file'], 'md5', regex=r_md5, upper=True)
+        add_attribute(na, datadict['target']['file'], 'sha1', regex=r_sha1, upper=True)
+        add_attribute(na, datadict['target']['file'], 'sha256', regex=r_sha256, upper=True)
         tx.create(na)
 
     print 'Neo4J: Android Node with sha256: {}'.format(na['sha256'])
@@ -256,7 +256,5 @@ def create_node_dynamic(datadict):
         for antivirus, resultdict in datadict['virustotal']['scans'].items():
             if not resultdict['result']: continue # Skip null results
             create_list_nodes_rels(graph, tx, na, 'Antivirus', [resultdict['result']], 'ANTIVIRUS')
-
-        print datadict['virustotal']
 
     tx.commit()
