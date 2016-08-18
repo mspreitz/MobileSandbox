@@ -1,2 +1,4 @@
 #!/bin/bash
+# To avoid inputting a password for dbshell, create a ~/.pgpass file with following content: *:5432:ms_db:ms_use:<password>
+# NOTE / TODO Also make sure to kill any analyzer daemon running, since they open db connections and lock the dbshell...
 ./manage.py sqlclear analyzer | ./manage.py dbshell && ./manage.py migrate

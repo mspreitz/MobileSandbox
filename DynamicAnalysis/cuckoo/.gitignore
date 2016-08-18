@@ -5,3 +5,14 @@
 web_android/analysis/__init__.pyc
 
 *.pyc
+
+# Extra Cuckoo Output Info
+netstat.txt
+processlist.txt
+sboxlist.txt
+
+# Other dynamic cuckoo data
+log/
+data/yara/index_binaries.yar
+data/yara/index_memory.yar
+db/cuckoo.db

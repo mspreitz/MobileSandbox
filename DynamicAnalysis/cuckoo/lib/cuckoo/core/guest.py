@@ -22,7 +22,9 @@ from lib.cuckoo.core.resultserver import ResultServer
 
 import sys
 
-sys.path.append("/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis")
+from misc_config import PATH_DYNAMIC_ANALYSIS
+
+sys.path.append(PATH_DYNAMIC_ANALYSIS)
 import settingsDynamic
 
 log = logging.getLogger(__name__)
@@ -151,18 +153,21 @@ class GuestManager:
         """
         log.info("Starting analysis on guest (id=%s, ip=%s)", self.id, self.ip)
 
-        time.sleep(10)
-        subprocess.call([settingsDynamic.ADB_PATH, "connect", "192.168.56.10"])
-        subprocess.call([settingsDynamic.ADB_PATH, "root"])
-        subprocess.call([settingsDynamic.ADB_PATH, "connect", "192.168.56.10"])
-        # Custom: Get process information
-        self.getProcessList()
-        # Get listening Ports
-        self.getListeningPorts()
-        self.generateFileList()
-
-
-
+        if settingsDynamic.ENABLE_CUCKOO_EXTRA_INFO:
+            time.sleep(10)
+            retnum = subprocess.call([settingsDynamic.ADB_PATH, "kill-server"])
+            #log.info('AM I ALIVE? {} '.format(retnum))
+            retnum = subprocess.call([settingsDynamic.ADB_PATH, "start-server"])
+            #log.info('AM I ALIVE? {} '.format(retnum))
+            retnum = subprocess.call([settingsDynamic.ADB_PATH, "root"])
+            #log.info('AM I ALIVE? {} '.format(retnum))
+            retnum = subprocess.call([settingsDynamic.ADB_PATH, "connect", "192.168.56.10"])
+            #log.info('AM I ALIVE? {} '.format(retnum))
+            # Custom: Get process information
+            self.getProcessList()
+            # Get listening Ports
+            self.getListeningPorts()
+            self.generateFileList()
 
         # TODO: deal with unicode URLs.
         if options["category"] == "file":
@@ -183,7 +188,6 @@ class GuestManager:
             # availability of the agent and verify that it's ready to receive
             # data.
             self.wait(CUCKOO_GUEST_INIT)
-
 
             # Invoke the upload of the analyzer to the guest.
             self.upload_analyzer()

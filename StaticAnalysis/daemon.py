@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from StaticAnalyzer import run
 
 # Local settings in StaticAnalyzer/

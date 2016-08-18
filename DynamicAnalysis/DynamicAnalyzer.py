@@ -2,8 +2,14 @@ import os
 import shutil
 import subprocess
 import time
-import settings as setting
+import settings
 import json
+import re
+import settingsDynamic
+
+import sys
+sys.path.append(settingsDynamic.PATH_MODULE_MSNEO)
+from msneo import create_node_dynamic
 
 proc = None
 resDir = ""
@@ -11,69 +17,69 @@ resDir = ""
 
 def initCuckoo(sampleFile):
     global proc
+    if not os.path.isfile(settings.PATH_IFCONFIG):
+        settings.PATH_IFCONFIG = '/sbin/ifconfig'
 
-    net = subprocess.check_output(["/usr/bin/ifconfig"])
+    net = subprocess.check_output([settings.PATH_IFCONFIG])
     if not "vboxnet0" in net:
         subprocess.call(["vboxmanage", "hostonlyif", "ipconfig",
-                         setting.VBOX_DEV, "--ip", setting.VBOX_IP,
-                         "--netmask", setting.VBOX_NETM])
+                         settings.VBOX_DEV, "--ip", settings.VBOX_IP,
+                         "--netmask", settings.VBOX_NETM])
+    print 'Starting CUCKOO SERVER'
 
-    proc = subprocess.Popen(['python2', setting.CUCKOO_SERVER],
+    proc = subprocess.Popen(['python2', settings.CUCKOO_SERVER],
                             stdout=subprocess.PIPE,
                             stdin=subprocess.PIPE,
                             stderr=subprocess.PIPE)
 
-    subprocess.Popen(["python2",setting.CUCKOO_SUBMIT, sampleFile],
+    print 'Starting CUCKOO SUBMIT'
+    proc2 = subprocess.Popen(["python2",settings.CUCKOO_SUBMIT, sampleFile],
                             stdout=subprocess.PIPE,
                             stdin=subprocess.PIPE,
                             stderr=subprocess.PIPE)
 
+    results = proc2.communicate()
+    print results
+    regex_cuckooID = r'added as task with ID (\d+)'
+    results = re.findall(regex_cuckooID, results[0])
+    if len(results) < 1:
+        print 'ERROR: Could not submit sample to cuckoo-droid!'
+        return None
 
-def getResDir():
-    running = True
-    while(running):
-        time.sleep(1)
-        vboxoutput = subprocess.check_output(['vboxmanage', 'list', 'runningvms'])
-        if vboxoutput == "":
-            pass
-        else:
-            running = False
+    if len(results) > 1:
+        print 'ERROR: Somehow, cuckoo-droid returned two TASK IDs. Please revise this output: '
+        from hexdump import hexdump
+        for idx, result in enumerate(results):
+            print 'RESULT ID {}'.format(idx)
+            hexdump(result)
+        return None
 
-    try:
-        dirs = next(os.walk(setting.CUCKOO_STORAGE))[1]
-    except:
-        dirs = []
-    if (os.path.isdir(setting.CUCKOO_STORAGE + "latest")):
-        cuckooWorkingDir = len(dirs)-1
-    else:
-        cuckooWorkingDir = len(dirs)
+    cuckooID = results[0]
+    return cuckooID
 
-    print "Workingdir is: " + str(cuckooWorkingDir)
-
-    return str(cuckooWorkingDir)
-
-
-def isFinished():
+def isFinished(cuckooID):
     global proc
     global resDir
 
-    resDir = getResDir()
     running=True
     while running:
         time.sleep(1)
-        if os.path.isfile(setting.CUCKOO_STORAGE+str(resDir)+"/reports/report.html"):
-            print "Analysis finished!"
-            running=False
-            time.sleep(3)
-            proc.kill()
-            print "Finish... "
+        path_report = '{}/{}/reports/report.html'.format(settings.CUCKOO_STORAGE,cuckooID)
+        if not os.path.isfile(path_report): continue
+        print "Analysis finished!"
+        running=False
+        time.sleep(3)
+        proc.kill()
+        print "Finish... "
     return True
 
 
-def getListeningPorts(file, file_new):
+def getListeningPorts(dir_extra_info):
     headers = ['Proto','Recv-Q','Send-Q','Local-Address','Foreign-Address','State']
     output = []
-    content = compareLists(file, file_new)
+    file_netstat_before = '{}/{}'.format(dir_extra_info, settings.NETSTAT_FILE)
+    file_netstat_after  = '{}/{}'.format(dir_extra_info, settings.NETSTAT_NEW)
+    content = compareLists(file_netstat_before, file_netstat_after)
     for i in content:
         tmp = i.split()
         res_natstat_entries = {}
@@ -83,10 +89,12 @@ def getListeningPorts(file, file_new):
     return output
 
 
-def getProcesses(file, file_new):
+def getProcesses(dir_extra_info):
+    file_processes_before = '{}/{}'.format(dir_extra_info, settings.PLIST_FILE)
+    file_processes_after  = '{}/{}'.format(dir_extra_info, settings.PLIST_NEW)
     headers = ['User','PID','PPID','VSIZE','RSS','WCHAN','PC','P','NAME']
     output = []
-    content = compareLists(file, file_new)
+    content = compareLists(file_processes_before, file_processes_after)
     for i in content:
         res_process_entries = {}
         tmp = i.split()
@@ -112,19 +120,19 @@ def compareLists(before, after):
 
 def cleanUp():
     try:
-        os.remove("cuckoo/"+setting.FILES_LIST)
-        os.remove("cuckoo/"+setting.PLIST_NEW)
-        os.remove("cuckoo/"+setting.PLIST_FILE)
-        os.remove("cuckoo/"+setting.NETSTAT_NEW)
-        os.remove("cuckoo/"+setting.NETSTAT_LIST)
-        os.remove("cuckoo/"+setting.SBOX_FOLDER_LIST)
+        os.remove("cuckoo/"+settings.FILES_LIST)
+        os.remove("cuckoo/"+settings.PLIST_NEW)
+        os.remove("cuckoo/"+settings.PLIST_FILE)
+        os.remove("cuckoo/"+settings.NETSTAT_NEW)
+        os.remove("cuckoo/"+settings.NETSTAT_LIST)
+        os.remove("cuckoo/"+settings.SBOX_FOLDER_LIST)
         os.removedirs("cuckoo/tmp")
     except:
         pass
 
-def getScreenShots(cuckooWorkingDir, workingDir):
-    screenShotDir = setting.CUCKOO_STORAGE+cuckooWorkingDir+"/shots/"
-    localScreenShotDir = workingDir+"screenshots/"
+def getScreenShots(workingDir, cuckooID):
+    screenShotDir = '{}/{}/shots/'.format(settings.CUCKOO_STORAGE, cuckooID)
+    localScreenShotDir = workingDir+"/screenshots/"
     os.makedirs(localScreenShotDir)
     for dirpath, dirnames, filenames in os.walk(screenShotDir):
         for filename in filenames:
@@ -136,54 +144,52 @@ def getApkFiles(cuckooTmp, workingDir):
     shutil.move(cuckooTmp,workingDir+"/apkfiles")
 
 
-def extractCuckooInfo():
-    global resDir
-
+def extractCuckooInfo(cuckooID):
     # Extract interesting information from cuckoo output
-    output = dict()
-    with open(setting.CUCKOO_STORAGE+str(resDir)+"/reports/report.json") as jsonData:
-        data = json.load(jsonData)
+    file_json = '{}/{}/reports/report.json'.format(settings.CUCKOO_STORAGE, cuckooID)
+
+    with open(file_json, 'r') as jsonData:
+        data = json.load(jsonData) # TODO This might be insecure
 
     # Get various connection types
-    connections = dict()
-    connections['udp'] = []
-    connections['tcp'] = []
-    connections['irc'] = []
-    connections['smtp'] = []
+    connections = {'udp': [], 'tcp':[], 'irc':[], 'smtp':[]}
 
     print "Get network data..."
-    for i in data['network']['udp']:
-        udpSet = dict()
-        if i['dst'] not in udpSet:
-            udpSet['dst'] = i['dst']
-            udpSet['sport'] = i['sport']
-            udpSet['dport'] = i['dport']
-        connections['udp'].append(udpSet)
+    output = {}
+    if 'network' in data:
+        for i in data['network']['udp']:
+            udpSet = dict()
+            if i['dst'] not in udpSet:
+                udpSet['dst'] = i['dst']
+                udpSet['sport'] = i['sport']
+                udpSet['dport'] = i['dport']
+            connections['udp'].append(udpSet)
 
-    for i in data['network']['tcp']:
-        tcpSet = dict()
-        if i['dst'] not in tcpSet:
-            tcpSet['dst'] = i['dst']
-            tcpSet['sport'] = i['sport']
-            tcpSet['dport'] = i['dport']
-        connections['tcp'].append(tcpSet)
+        for i in data['network']['tcp']:
+            tcpSet = dict()
+            if i['dst'] not in tcpSet:
+                tcpSet['dst'] = i['dst']
+                tcpSet['sport'] = i['sport']
+                tcpSet['dport'] = i['dport']
+            connections['tcp'].append(tcpSet)
 
-    for i in data['network']['irc']:
-        ircSet = dict()
-        if i['dst'] not in ircSet:
-            ircSet['dst'] = i['dst']
-            ircSet['sport'] = i['sport']
-            ircSet['dport'] = i['dport']
-        connections['irc'].append(ircSet)
+        for i in data['network']['irc']:
+            ircSet = dict()
+            if i['dst'] not in ircSet:
+                ircSet['dst'] = i['dst']
+                ircSet['sport'] = i['sport']
+                ircSet['dport'] = i['dport']
+            connections['irc'].append(ircSet)
 
-    for i in data['network']['smtp']:
-        smtpSet = dict()
-        if i['dst'] not in smtpSet:
-            smtpSet['dst'] = i['dst']
-            smtpSet['sport'] = i['sport']
-            smtpSet['dport'] = i['dport']
-        connections['tcp'].append(smtpSet)
-
+        for i in data['network']['smtp']:
+            smtpSet = dict()
+            if i['dst'] not in smtpSet:
+                smtpSet['dst'] = i['dst']
+                smtpSet['sport'] = i['sport']
+                smtpSet['dport'] = i['dport']
+            connections['tcp'].append(smtpSet)
+    else:
+        print 'WARNING: network data could not be retrieved'
     output['network'] = connections
     # Get Certificate Info
     print "Get certificate info..."
@@ -200,7 +206,7 @@ def extractCuckooInfo():
     # print data['apkinfo']['static_method_calls']['reflection_method_calls']
 
     # Get VirusTotal Scans
-    virusTotal = dict()
+    virusTotal = {}
     virusTotal['permalink'] = data['virustotal']['permalink']
     virusTotal['positives'] = data['virustotal']['positives']
     output['virustotal'] = virusTotal
@@ -209,23 +215,31 @@ def extractCuckooInfo():
     #for i in info:
     #    print str(i)+":"+str(info[i])
     #print output
-    return output
+    data_report_cuckoo = data
+    return (output, data_report_cuckoo)
 
 
-def createOutput(workingDir, cuckooWorkingDir):
-    result = dict()
+def createOutput(workingDir, cuckooID):
+    print workingDir
+    result = {}
     # Get relevant cuckoo results
     print "Extracting Cuckoo info..."
-    result['cuckoo_out'] = extractCuckooInfo()
+    (result['cuckoo_out'], data_report_cuckoo) = extractCuckooInfo(cuckooID)
     # Compare Processes
     print "Get process info..."
-    result['processes'] = getProcesses("cuckoo/" + setting.PLIST_FILE, "cuckoo/" + setting.PLIST_NEW)
-    # Compare Listening Ports
-    print "Get listening ports..."
-    result['listening'] = getListeningPorts("cuckoo/" + setting.NETSTAT_LIST, "cuckoo/" + setting.NETSTAT_NEW)
-    # Move files to working dir
-    print "Moving files to working dir"
-    getScreenShots(cuckooWorkingDir,workingDir)
+    if settingsDynamic.ENABLE_CUCKOO_EXTRA_INFO:
+        dir_extrainfo = 'cuckoo/'
+        result['processes'] = getProcesses(dir_extrainfo)
+        #"cuckoo/" + settings.PLIST_FILE, "cuckoo/" + settings.PLIST_NEW)
+        # Compare Listening Ports
+        print "Get listening ports..."
+        result['listening'] = getListeningPorts(dir_extrainfo)
+        # Move files to working dir
+        print "Moving files to working dir"
+    else:
+        result['processes'] = []
+        result['listening'] = []
+    getScreenShots(workingDir, cuckooID)
     getApkFiles("cuckoo/tmp", workingDir)
     
 
@@ -233,21 +247,25 @@ def createOutput(workingDir, cuckooWorkingDir):
     print "Pack JSON file and save it...."
     if not os.path.exists(workingDir):
         os.mkdir(workingDir)
-    jsonFileName = workingDir + "dynamic.json"
+    jsonFileName = workingDir + "/dynamic.json"
     jsonFile = open(jsonFileName, "a+")
     jsonFile.write(json.dumps(result))
     jsonFile.close()
+
+    # Add dynamic report data of cuckoo to Neo4j
+    create_node_dynamic(data_report_cuckoo)
 
 
 # Main Programm
 def run(sampleFile, workingDir):
     global resDir
     # Start cuckoo sandbox
-    initCuckoo(sampleFile)
-    if isFinished():
+    cuckooID = initCuckoo(sampleFile)
+    print 'INITIALIZED CUCKOO'
+    if isFinished(cuckooID):
+        print 'FINISHED CUCKOO'
         # Create JSON output file
-        resDir = str(resDir)
-        createOutput(workingDir,resDir)
+        createOutput(workingDir,cuckooID)
         # Remove temp files
         print "Cleaning up temporary files"
         cleanUp()

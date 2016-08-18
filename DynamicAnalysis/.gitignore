@@ -1,2 +1,5 @@
 # Contains the image
 res/
+misc_config.py
+analysis/
+cuckoo/storage

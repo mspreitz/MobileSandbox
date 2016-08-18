@@ -25,7 +25,9 @@ from lib.cuckoo.core.resultserver import ResultServer
 
 import sys
 
-sys.path.append("/home/bruzzzla/PycharmProjects/Analysis/DynamicAnalysis")
+from misc_config import PATH_DYNAMIC_ANALYSIS
+
+sys.path.append(PATH_DYNAMIC_ANALYSIS)
 import settingsDynamic
 
 log = logging.getLogger(__name__)
@@ -250,6 +252,7 @@ class AnalysisManager(Thread):
         log.info("Starting analysis of %s \"%s\" (task=%d)",
                  self.task.category.upper(), self.task.target, self.task.id)
 
+
         # Initialize the analysis folders.
         if not self.init_storage():
             return False
@@ -301,17 +304,15 @@ class AnalysisManager(Thread):
 
             # Start the analysis.
             guest.start_analysis(options)
-
             guest.wait_for_completion()
             succeeded = True
 
-
-            self.getProcessList()
-            self.getListeningPorts()
-            subprocess.Popen([settingsDynamic.ADB_PATH, "kill-server"])
-            self.adbRoot()
-            self.pullDirectories()
-
+            if settingsDynamic.ENABLE_CUCKOO_EXTRA_INFO:
+                self.getProcessList()
+                self.getListeningPorts()
+                subprocess.Popen([settingsDynamic.ADB_PATH, "kill-server"])
+                self.adbRoot()
+                self.pullDirectories()
 
         except CuckooMachineError as e:
             log.error(str(e), extra={"task_id": self.task.id})

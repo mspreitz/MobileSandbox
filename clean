@@ -1,12 +1,16 @@
 #!/bin/bash
+echo '---[ Deleting the Backend samples folder and Analyzer analysis Folder ]---'
 rm -rf Backend/analyzer/samples/ StaticAnalysis/analysis/
 mkdir StaticAnalysis/analysis/ Backend/analyzer/samples/
+echo '---[ Cleaning the Neo4J Database ]---'
 (
+	# TODO Stop neo4j Server, delete data/graph.db/* to remove old property nodes
 	cd StaticAnalysis/Neo4J
 	python -c 'from msneo import clean_all; clean_all()'
 )
-# TODO: Delete everything from postgresql database
-# delete from analyzer_metadata
-# delete from analyzer_fileupload
-# delete from analyzer_queue
-# TODO Stop neo4j Server, delete data/graph.db/* to remove old property nodes
+echo '---[ Cleaning the Postgesql Database ]---'
+(
+	cd Backend
+	./cleandb
+)
+echo '---[ Done ]---'

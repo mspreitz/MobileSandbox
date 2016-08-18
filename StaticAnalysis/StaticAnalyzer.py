@@ -5,7 +5,7 @@ from androguard.decompiler.dad import decompile
 #from base64 import b64decode
 from hexdump import hexdump
 from utils.mhash import *
-from Neo4J.msneo import create_node # TODO Change that to a Relative Parent Import Neo4J
+from Neo4J.msneo import create_node_static # TODO Change that to a Relative Parent Import Neo4J
 from sys import exit
 import chilkat
 import csv
@@ -757,8 +757,8 @@ def clearOldFiles(workingDir):
     jsonFile  = '{}/{}'.format(workingDir,"static.json")
     logFile   = '{}/{}'.format(workingDir,"static.log")
     dumpFile  = '{}/{}'.format(workingDir,"Dump.txt")
-    srcDir    = '{}/{}'.format(workingDir,settings.SOURCELOCATION)
-    unpackDir = '{}/{}'.format(workingDir,settings.UNPACKLOCATION)
+    srcDir    = '{}/{}'.format(workingDir,settings.DEFAULT_NAME_DIR_SOURCE)
+    unpackDir    = '{}/{}'.format(workingDir,settings.DEFAULT_NAME_DIR_UNPACK)
 
     if os.path.isfile(jsonFile):
         os.remove(jsonFile)
@@ -805,7 +805,7 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     jsonFile.close()
 
     # Transfer static analysis data to Neo4J by creating a node
-    create_node(output)
+    create_node_static(output)
 
 
 def run(sampleFile, workingDir):
@@ -814,7 +814,7 @@ def run(sampleFile, workingDir):
 
     logFile = createLogFile(workingDir)
     PREFIX = workingDir
-    unpackLocation = '{}/{}'.format(PREFIX,settings.UNPACKLOCATION)
+    unpackLocation = '{}/{}'.format(PREFIX,settings.DEFAULT_NAME_DIR_UNPACK)
 
     if(PREFIX[-1:]!="/"):
         PREFIX += "/"

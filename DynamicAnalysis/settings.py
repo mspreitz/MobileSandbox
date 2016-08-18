@@ -1,8 +1,9 @@
+import misc_config
 
 CUCKOO_STORAGE = 'cuckoo/storage/analyses/'
 CUCKOO_SUBMIT = 'cuckoo/utils/submit.py'
 CUCKOO_SERVER = 'cuckoo/cuckoo.py'
-ADB_PATH = '/usr/bin/adb'
+#ADB_PATH = '/usr/bin/adb'
 PLIST_FILE = 'processlist.txt'
 PLIST_NEW = 'processlistNew.txt'
 NETSTAT_LIST = 'netstat.txt'
@@ -23,3 +24,7 @@ PATH_SAMPLES = 'analyzer/samples/'
 DEFAULT_NAME_APK = 'sample.apk'
 DEFAULT_NAME_DIR_UNPACK = 'unpack'
 DEFAULT_NAME_DIR_ANALYSIS = 'analysis'
+
+# Misc
+PATH_IFCONFIG = misc_config.PATH_IFCONFIG
+misc_config.ADB_PATH

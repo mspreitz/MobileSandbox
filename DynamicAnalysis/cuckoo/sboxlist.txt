@@ -1,1 +1,0 @@
-opendir failed, Permission denied

@@ -4,6 +4,17 @@ import re
 
 pw = 'msneo' # After changing password from default password neo4j to msneo
 
+def clean_all():
+    graph = Graph(password=pw)
+    tx = graph.begin()
+    tx.run('MATCH (n) DETACH DELETE n')
+    tx.commit()
+
+def show_graph():
+    graph = Graph(password=pw)
+    graph.run('MATCH (n:Android) return n')
+    graph.open_browser()
+
 def add_attribute(node, datadict, attribute, regex=None, upper=False):
     if attribute not in datadict: return
     if regex and not regex.match(datadict[attribute]): return
@@ -57,8 +68,8 @@ def find_unique_node(graph, nodename, key, value, upper=False, maxn=3):
 # TODO Merge duplicates instead of creating a new node
 # TODO Test for != ''
 # TODO Error cases count > 1 print to stderr and do something
-def create_node(datadict):
-    print 'Transferring data to Neo4J database'
+def create_node_static(datadict):
+    print 'Transferring static data to Neo4J database'
     # TODO: Move compiled regex to somewhere only executed once
     r_md5    = re.compile(r'[a-fA-F\d]{32}')
     r_sha1   = re.compile(r'[a-fA-F\d]{40}')
@@ -207,13 +218,10 @@ def create_node(datadict):
 
     tx.commit()
 
-def clean_all():
+def create_node_dynamic(datadict):
+    print 'Transferring dynamic data to Neo4J database'
+
     graph = Graph(password=pw)
     tx = graph.begin()
-    tx.run('MATCH (n) DETACH DELETE n')
+    print len(datadict), type(datadict)
     tx.commit()
-
-def show_graph():
-    graph = Graph(password=pw)
-    graph.run('MATCH (n:Android) return n')
-    graph.open_browser()

@@ -1,0 +1,6 @@
+#!/bin/bash
+# Check with sudo vim /etc/postgresql/9.5/main/pg_hba.conf that local unix authentication method for all is md5
+# And test if HOST is an empty string in settings.py
+sudo service postgresql restart
+sudo /etc/init.d/postgresql reload
+# Now test with psql -p 5432 -U ms_user -W if the connection is possible over unix sockets - or just start the django backend

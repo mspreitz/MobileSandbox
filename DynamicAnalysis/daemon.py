@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import time
 from DynamicAnalyzer import run
 import settings
@@ -63,7 +64,7 @@ while(running):
             print 'ERROR: Cannot create unpack directory for sample [{}]'.format(sha256)
             continue
 
-        # Run static analysis
+        # Run dynamic analysis
         print '[{}] Starting Dynamic Analyzer'.format(sha256)
         workingDir = '{}/{}'.format(settings.DEFAULT_NAME_DIR_ANALYSIS, sha256)
         run(apkFile, workingDir)
