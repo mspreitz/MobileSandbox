@@ -19,7 +19,7 @@
 
 		<h3>Report</h3>
 		{% if type == 'static' %}
-		<table border="1" cellpadding="1">
+		<table border="1" cellpadding="1" width="80%">
 			<tr><th bgcolor="#8a2be2">Static analysis</th></tr>
 			<tr><th bgcolor="#808080">Is this Sample malicious? (Classification)</th></tr>
 			<tr><td>{% if malicious %}Yes{% else %}No{% endif %}</td></tr>
@@ -54,11 +54,19 @@
 
 		{% elif type == 'dynamic' %}
 
-		<table border="1" cellpadding="1">
+		<table border="1" cellpadding="1" width="80%">
+			<tr><th bgcolor="#8a2be2" colspan="9">Dynamic analysis</th></tr>
+
 			{% for key, value in jsondata_dynamic.items %}
 				{% if key == 'processes' %}
-					<table border="1">
-						<tr><th bgcolor="#8a2be2" colspan="9">Dynamic analysis</th></tr>
+					<table border="1" width="80%">
+						<tr><th colspan="2" bgcolor="#808080">VirusTotal</th></tr>
+						<tr><th>Positives</th><th>Permalink</th></tr>
+						<tr><td>{{jsondata_dynamic.cuckoo_out.virustotal.positives}}</td>
+							<td><a href="{{jsondata_dynamic.cuckoo_out.virustotal.permalink}}">Link</a></td></tr>
+					</table>
+					<br><br>
+					<table border="1" width="80%">
 						<tr><th colspan="9" bgcolor="#808080"> {{ key }}</th></tr>
 						<tr><th>User</th><th>PID</th><th>PPID</th><th>VSIZE</th>
 							<th>RSS</th><th>WCHAN</th><th>PC</th><th>P</th><th>Name</th></tr>
@@ -76,7 +84,7 @@
 				<br>
 
 				{% if key == 'listening' %}
-					<table border="1">
+					<table border="1" width="80%">
 						<tr><th colspan="6" bgcolor="#808080"> {{ key }}</th></tr>
 						<tr><th>Proto</th><th>Recv-Q</th><th>Send-Q</th><th>Local-Address</th>
 							<th>Foreign-Adress</th><th>State</th></tr>
@@ -94,7 +102,7 @@
 			<br>
 
 			{% if key == 'cuckoo_out' %}
-				<table border="1">
+				<table border="1" width="80%">
 					<tr><th colspan="3" bgcolor="#808080">Network</th></tr>
 					{% if value.network.udp %}
 						<tr><th colspan="3" bgcolor="#808080">UDP</th></tr>
@@ -133,16 +141,7 @@
 
 			<br><br>
 
-			<table border="1">
-				<tr><th colspan="2" bgcolor="#808080">VirusTotal</th></tr>
-				<tr><th>Positives</th><th>Permalink</th></tr>
-				<tr><td>{{jsondata_dynamic.cuckoo_out.virustotal.positives}}</td>
-					<td><a href="{{jsondata_dynamic.cuckoo_out.virustotal.permalink}}">Link</a></td></tr>
-			</table>
-
-			<br><br>
-
-			<table border="1">
+			<table border="1" width="80%">
 				<tr><th colspan="3" bgcolor="#808080">Screenshots</th></tr>
 				<tr>
 					{% for v in screenshots %}
