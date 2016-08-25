@@ -304,6 +304,8 @@ def showQueue(request):
 
 def showReport(request):
     sha256 = request.GET.get('report')
+    type = request.GET.get('type')
+
     if not sha256: return HttpResponse('Did not specify sha256 GET parameter!')
 
     # Check for valid sha256 hash
@@ -334,6 +336,8 @@ def showReport(request):
     templatedict['jsondata_static'] = jsondata_static
     templatedict['jsondata_dynamic'] = jsondata_dynamic
     templatedict['screenshots'] = screenshots
+    templatedict['sha256'] = sha256
+    templatedict['type'] = type
 
     return render_to_response(template, templatedict)
 

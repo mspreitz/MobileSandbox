@@ -10,10 +10,14 @@
 {% load array_filter %}
 {% load dict_filter %}
 
+<a href="/analyzer/show/?report={{ sha256 }}&type=static">Static Report</a>
+<a href="/analyzer/show/?report={{ sha256 }}&type=dynamic">Dynamic Report</a>
+
 <div id="content">
 	<div id="l_container col-lg-8">
 
 		<h3>Report</h3>
+		{% if type == 'static' %}
 		<table border="1" cellpadding="1">
 			<tr><th bgcolor="#8a2be2">Static analysis</th></tr>
 			<tr><th bgcolor="#808080">Is this Sample malicious? (Classification)</th></tr>
@@ -40,9 +44,8 @@
 				{% endif %}
 			{% endfor %}
 		</table>
-		<br><br><br>
 
-
+		{% elif type == 'dynamic' %}
 
 		<table border="1" cellpadding="1">
 			{% for key, value in jsondata_dynamic.items %}
@@ -143,7 +146,7 @@
 					{% endfor %}
 				</tr>
 			</table>
-
+			{% endif %}
 		</table>
 	</div>
 </div>
