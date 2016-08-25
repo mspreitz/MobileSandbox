@@ -7,13 +7,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.context_processors import csrf
-from django.shortcuts import render_to_response, render, redirect, get_object_or_404
+from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.models import User
 from django.template import RequestContext
-from django.views.generic.edit import FormView
 
 from classifier import classify
-from .forms import UploadForm, UploadFormMulti
+from .forms import UploadFormMulti
 from .models import FileUpload, Queue, Metadata, ClassifiedApp
 from datastructure import *
 from django.db.models import Q
@@ -86,14 +85,9 @@ def loginUser(request):
 
         if user is not None:
             auth_user = authenticate(username=email, password=passwd)
-            #if auth_user.is_active:
             login(request, auth_user)
             # Redirect to member area
             return redirect('/analyzer/home')
-            #return HttpResponse("Login successful! Welcome %s" %user.first_name)
-            #else:
-            #    message = 'The user %s is disabled.' % user.first_name
-            #    return render_to_response('error.html', {'message': message})
         else:
             # Redirect to error page
             message = 'Your email and password do not match'
@@ -319,6 +313,7 @@ def serveFile(request):
     response['Content-Disposition'] = 'attachment; filename="decompiled.zip"'
     response.write(file)
     return response
+
 
 def showReport(request):
     sha256 = request.GET.get('report')
