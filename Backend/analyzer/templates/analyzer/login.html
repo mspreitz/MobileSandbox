@@ -10,8 +10,7 @@
 {% block content %}
     <div id="content" class="login_container p-none">
         <div class="l_container col-lg-8">
-            <form id="userLogin" method="post" action="">
-                {% csrf_token %}
+            <form id="userLogin" method="post" action="">{% csrf_token %}
                 <table class="table">
                     <tr>
                         <td><label for="email">Email</label></td>

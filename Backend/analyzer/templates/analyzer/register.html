@@ -10,7 +10,7 @@
 {% block content %}
     <div id="content" class="register_container p-none">
         <div class="l_content col-lg-8">
-            <form id="register" method="post" action="">
+            <form id="register" method="post" action="">{% csrf_token %}
                 {% csrf_token %}
                 <table class="table">
                     <tr>

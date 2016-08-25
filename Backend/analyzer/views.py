@@ -10,6 +10,7 @@ from django.core.context_processors import csrf
 from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.models import User
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_protect
 
 from classifier import classify
 from .forms import UploadFormMulti
@@ -31,6 +32,7 @@ def index(request):
     return render_to_response("base.html", context_instance=RequestContext(request))
 
 
+@csrf_protect
 def registration(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -72,6 +74,7 @@ def userLogout(request):
     return redirect("/analyzer/")
 
 
+@csrf_protect
 def loginUser(request):
     check = {}
     check.update(csrf(request))
@@ -102,10 +105,6 @@ def anonUpload(request):
     if request.method == 'POST':
         return uploadFile(request, 'Anonymous')
 
-    # TODO What is this check for? Where is it used?
-    check = {}
-    check.update(csrf(request))
-
     template = 'anonUpload.html'
     templatedict = {}
     templatedict['documents'] = FileUpload.objects.all()
@@ -114,14 +113,11 @@ def anonUpload(request):
     return render_to_response(template, templatedict, context_instance=context_instance)
 
 
+@csrf_protect
 @login_required(login_url='/analyzer/userLogin')
 def userHome(request):
     if request.method == 'POST':
         return uploadFile(request, request.user.first_name, anonymous=False)
-
-    # TODO What is this check for? Where is it used?
-    check = {}
-    check.update(csrf(request))
 
     template = 'home.html'
     templatedict = {}
@@ -176,6 +172,7 @@ def dataIsAPK(data):
 
 
 # Upload file and do sanity check
+@csrf_protect
 def uploadFile(request, username, anonymous=True): # TODO Use default values and set those parameters at the last positions e.g. username, anonymous=True
     # TODO Somehow test for accidentally rmtree('/') etc
     if not settings.PATH_SAMPLES or settings.PATH_SAMPLES == '':
@@ -297,6 +294,7 @@ def showQueue(request):
     return render_to_response("queue.html", {"data": data}, context_instance=RequestContext(request))
 
 
+@csrf_protect
 def serveFile(request):
     sha256 = request.GET.get('token')
     if not validateHash(sha256, 'sha256'):
@@ -315,6 +313,7 @@ def serveFile(request):
     return response
 
 
+@csrf_protect
 def showReport(request):
     sha256 = request.GET.get('report')
     type = request.GET.get('type')
@@ -355,6 +354,7 @@ def showReport(request):
     return render_to_response(template, templatedict)
 
 
+@csrf_protect
 def search(request):
     MD5Length = 32
     SHA1Length = 40
