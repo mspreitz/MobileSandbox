@@ -20,26 +20,35 @@ def initCuckoo(sampleFile):
     if not os.path.isfile(settings.PATH_IFCONFIG):
         settings.PATH_IFCONFIG = '/sbin/ifconfig'
 
-    net = subprocess.check_output([settings.PATH_IFCONFIG])
-    if not "vboxnet0" in net:
-        subprocess.call(["vboxmanage", "hostonlyif", "ipconfig",
-                         settings.VBOX_DEV, "--ip", settings.VBOX_IP,
-                         "--netmask", settings.VBOX_NETM])
-    print 'Starting CUCKOO SERVER'
+    try:
+        net = subprocess.check_output([settings.PATH_IFCONFIG])
+        if not "vboxnet0" in net:
+            subprocess.call(["vboxmanage", "hostonlyif", "ipconfig",
+                             settings.VBOX_DEV, "--ip", settings.VBOX_IP,
+                             "--netmask", settings.VBOX_NETM])
 
-    proc = subprocess.Popen(['python2', settings.CUCKOO_SERVER],
+    except:
+        print "Error during check for running VMs"
+
+    print 'Starting CUCKOO SERVER'
+    try:
+        proc = subprocess.Popen(['python2', settings.CUCKOO_SERVER],
                             stdout=subprocess.PIPE,
                             stdin=subprocess.PIPE,
                             stderr=subprocess.PIPE)
+    except:
+        print "Error starting cuckoo server"
 
     print 'Starting CUCKOO SUBMIT'
-    proc2 = subprocess.Popen(["python2",settings.CUCKOO_SUBMIT, sampleFile],
+    try:
+        proc2 = subprocess.Popen(["python2",settings.CUCKOO_SUBMIT, sampleFile],
                             stdout=subprocess.PIPE,
                             stdin=subprocess.PIPE,
                             stderr=subprocess.PIPE)
+        results = proc2.communicate()
+    except:
+        print "Error in sample submission"
 
-    results = proc2.communicate()
-    print results
     regex_cuckooID = r'added as task with ID (\d+)'
     results = re.findall(regex_cuckooID, results[0])
     if len(results) < 1:
@@ -75,7 +84,7 @@ def isFinished(cuckooID):
 
 
 def getListeningPorts(dir_extra_info):
-    headers = ['Proto','Recv-Q','Send-Q','Local-Address','Foreign-Address','State']
+    # headers = ['Proto','Recv-Q','Send-Q','Local-Address','Foreign-Address','State']
     file_netstat_before = '{}/{}'.format(dir_extra_info, settings.NETSTAT_FILE)
     file_netstat_after  = '{}/{}'.format(dir_extra_info, settings.NETSTAT_NEW)
     content = compareLists(file_netstat_before, file_netstat_after)
@@ -88,16 +97,15 @@ def getListeningPorts(dir_extra_info):
 
 
 def getProcesses(dir_extra_info):
+    # headers = ['User','PID','PPID','VSIZE','RSS','WCHAN','PC','P','NAME']
     file_processes_before = '{}/{}'.format(dir_extra_info, settings.PLIST_FILE)
     file_processes_after  = '{}/{}'.format(dir_extra_info, settings.PLIST_NEW)
-    headers = ['User','PID','PPID','VSIZE','RSS','WCHAN','PC','P','NAME']
     content = compareLists(file_processes_before, file_processes_after)
     res_process_entries = []
     for i in content:
         tmp = i.split()
         for u in range(len(tmp)):
             res_process_entries.append(tmp[u])
-            #res_process_entries[headers[u]] = tmp[u]
     return res_process_entries
 
 
@@ -123,11 +131,9 @@ def cleanUp():
         os.remove('{}/{}'.format("cuckoo", settings.NETSTAT_NEW))
         os.remove('{}/{}'.format("cuckoo", settings.NETSTAT_LIST))
         os.remove('{}/{}'.format("cuckoo", settings.SBOX_FOLDER_LIST))
-        # TODO DO WE NEED THE FOLLOWING REMOVES STILL?
-        os.remove("cuckoo/"+settings.FILES_LIST)
-        os.removedirs("cuckoo/tmp")
     except:
         print "Error: could not cleanup all temporary files"
+
 
 def getScreenShots(workingDir, cuckooID):
     screenShotDir = '{}/{}/shots/'.format(settings.CUCKOO_STORAGE, cuckooID)
@@ -136,6 +142,7 @@ def getScreenShots(workingDir, cuckooID):
     for dirpath, dirnames, filenames in os.walk(screenShotDir):
         for filename in filenames:
             shutil.copyfile(screenShotDir+filename, localScreenShotDir+filename)
+
 
 def getApkFiles(cuckooTmp, workingDir):
     os.makedirs(cuckooTmp + "/apkfiles")
@@ -150,7 +157,7 @@ def extractCuckooInfo(cuckooID):
         data = json.load(jsonData) # TODO This might be insecure
 
     # Get various connection types
-    connections = {'udp': [], 'tcp':[], 'irc':[], 'smtp':[]}
+    connections = {'udp': [], 'tcp': [], 'irc': [], 'smtp': []}
 
     print "Get network data..."
     output = {}
