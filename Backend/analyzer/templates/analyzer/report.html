@@ -28,14 +28,20 @@
 					{% if value|is_string %}
 						<tr><td>{{ value }}</td></tr>
 					{% elif value|is_dict %}
-						<table border="1" cellpadding="1">
+
 						{% for k, v in value.items %}
 							{% if v %}
+								{% if k == 'pubkey' %}
+									<tr><th bgcolor="#808080">{{ k }}</th></tr>
+									<tr><td>Keytype: {{ v.keytype }}</td></tr>
+									<tr><td>Exponent: {{ v.exponent }}</td></tr>
+								{% else %}
 								<tr><th bgcolor="#808080">{{ k }}</th></tr>
 								<tr><td>{{ v }}</td></tr>
+								{% endif %}
 							{% endif %}
 						{% endfor %}
-						</table>
+
 					{% else %}
 						{% for v in value %}
 							<tr><td>{{ v }}</td></tr>
