@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^history/$', views.showHistory),
     url(r'^search/$', views.search),
     url(r'^queue/$', views.showQueue),
+    url(r'^download/$', views.serveFile),
     url(r'^samples/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT})
 

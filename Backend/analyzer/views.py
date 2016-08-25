@@ -170,6 +170,7 @@ def showHistory(request):
     data['SHA1'] = sha1
     data['Status'] = status
     data['Report'] = sha256
+    data['Decompiled Files'] = sha256
 
     return render_to_response('history.html', {"data": data})
 
@@ -301,6 +302,23 @@ def showQueue(request):
 
     return render_to_response("queue.html", {"data": data}, context_instance=RequestContext(request))
 
+
+def serveFile(request):
+    sha256 = request.GET.get('token')
+    if not validateHash(sha256, 'sha256'):
+        return render_to_response('error.html', {'message': 'This is not SHA256!'}) # This is Sparta!
+
+    path = '{}/{}'.format('analyzer/samples', getPathFromSHA256(sha256))
+    filePath = '{}/{}'.format(path, 'download.zip')
+    if os.path.exists(filePath):
+        file = open(filePath, 'r')
+    else:
+        return render_to_response('error.html', {'message': 'The file does not exist. Try again later!'})
+
+    response = HttpResponse(file, mimetype='application/zip')
+    response['Content-Disposition'] = 'attachment; filename="decompiled.zip"'
+    response.write(file)
+    return response
 
 def showReport(request):
     sha256 = request.GET.get('report')

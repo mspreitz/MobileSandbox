@@ -23,7 +23,7 @@
             </tr>
             <tr>
             {% for label, value in data.items %}
-                {% if forloop.counter0|divisibleby:4 %}
+                {% if forloop.counter0|divisibleby:5 %}
                     </tr><tr>
                 {% endif %}
                 <td>
@@ -34,6 +34,8 @@
                         {% else %}
                             <a href="/analyzer/show/?report={{ entry }}">Report</a> <br>
                         {% endif %}
+                    {% elif label == 'Decompiled Files' %}
+                        <a href="/analyzer/download/?token={{ entry }}">Download</a> <br>
                     {% else %}
                         {{ entry }} <br>
                     {% endif %}
