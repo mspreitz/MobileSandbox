@@ -64,9 +64,7 @@ def registration(request):
             message = 'Email address already in use! %s' % user.username
             return render_to_response('error.html', {'message': message})
     else:
-        check = {}
-        check.update(csrf(request))
-        return render_to_response("register.html", check)
+        return render_to_response("register.html")
 
 
 def userLogout(request):
@@ -96,9 +94,7 @@ def loginUser(request):
             message = 'Your email and password do not match'
             return render_to_response('error.html', {'message': message})
     else:
-        check = {}
-        check.update(csrf(request))
-        return render_to_response("login.html", check)
+        return render_to_response("login.html")
 
 
 def anonUpload(request):
