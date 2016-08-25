@@ -75,11 +75,10 @@ def isFinished(cuckooID):
         time.sleep(1)
         path_report = '{}/{}/reports/report.html'.format(settings.CUCKOO_STORAGE,cuckooID)
         if not os.path.isfile(path_report): continue
-        print "Analysis finished!"
         running=False
         time.sleep(3)
         proc.kill()
-        print "Finish... "
+        print "Analysis finished!"
     return True
 
 
@@ -111,7 +110,6 @@ def getProcesses(dir_extra_info):
 
 def compareLists(before, after):
     output = []
-
     with open(before,"r") as process:
         lines = process.read().splitlines()
     with open(after, "r") as processNew:
@@ -215,12 +213,9 @@ def extractCuckooInfo(cuckooID):
     virusTotal['permalink'] = data['virustotal']['permalink']
     virusTotal['positives'] = data['virustotal']['positives']
     output['virustotal'] = virusTotal
-    #print connections
-    #info = data['info']['machine']
-    #for i in info:
-    #    print str(i)+":"+str(info[i])
-    #print output
+
     data_report_cuckoo = data
+
     return (output, data_report_cuckoo)
 
 
@@ -235,8 +230,6 @@ def createOutput(workingDir, cuckooID):
     if settingsDynamic.ENABLE_CUCKOO_EXTRA_INFO:
         dir_extrainfo = 'cuckoo/'
         result['processes'] = getProcesses(dir_extrainfo)
-        #"cuckoo/" + settings.PLIST_FILE, "cuckoo/" + settings.PLIST_NEW)
-        # Compare Listening Ports
         print "Get listening ports..."
         result['listening'] = getListeningPorts(dir_extrainfo)
         # Move files to working dir
