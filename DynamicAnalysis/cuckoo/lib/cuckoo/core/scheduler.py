@@ -225,22 +225,80 @@ class AnalysisManager(Thread):
         outFile.write(processList)
         outFile.close()
 
-    def pullDirectories(self):
-        folderList = subprocess.check_output([settingsDynamic.ADB_PATH, "shell", "ls", "/data/data"])
-        folderlist_split = folderList.split()
-        file = open(settingsDynamic.SBOX_FOLDER_LIST, "r").read()
-        if not os.path.isdir('tmp'):
-            os.makedirs('tmp/sdcard')
-            os.makedirs('tmp/data')
-        for i in folderlist_split:
-            if i not in file:
-                #log.error(i)
-                if os.path.isdir('data/data/'+i):
-                    process = subprocess.Popen([settingsDynamic.ADB_PATH, 'pull', '/data/data/%s/.' % i, 'tmp/data/'])
-                    process.wait()
-        process = subprocess.Popen([settingsDynamic.ADB_PATH, 'pull', '/sdcard/.', 'tmp/sdcard'])
-        process.wait()
+    def adb_list_directory(self, directory):
+        process = subprocess.Popen([settingsDynamic.ADB_PATH, "shell", "ls '%s'; echo $?" % directory],
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        split_stdout = stdout.split()
+        dirs = split_stdout[:len(split_stdout) - 2]
+        returncode = split_stdout[len(split_stdout) - 1]
+        if returncode == '0':
+            return dirs
+        else:
+            raise IOError("No such directory.")
 
+    def getPackageName(self):
+        DATA_ROOT_DIR = "/data/data"
+        with open(settingsDynamic.INSTALLED_APPS, 'r') as a:
+            apps = a.read().split()
+            dirs = self.adb_list_directory(DATA_ROOT_DIR)
+            for d in dirs:
+                if not any(d in s for s in apps):
+                    return d
+        return None
+
+    def adb_pull(self, remoteFile, localTargetFolder):
+        process = subprocess.Popen([settingsDynamic.ADB_PATH, "pull", "%s" % remoteFile, "%s" % localTargetFolder])
+        process.wait()
+        if process.returncode != 0:
+            raise IOError("Error during download.")
+
+    def copyDatabase(self):
+        pkgName = self.getPackageName()
+        dir = '../analysis'
+        workingDir = os.path.join(dir, os.listdir(dir)[0])
+
+
+        if pkgName is None:
+            log.error("No app found!!!")
+            return
+        else:
+            log.error(pkgName)
+            DATA_ROOT_DIR = "/data/data"
+            PACKAGE_DATA_DIR = os.path.join(DATA_ROOT_DIR, pkgName)
+            PACKAGE_DATABASE_DIR = os.path.join(PACKAGE_DATA_DIR, "databases")
+            LOCAL_DATABASE_DIR = os.path.join(workingDir, "databases")
+            if not os.path.exists(LOCAL_DATABASE_DIR):
+                os.makedirs(LOCAL_DATABASE_DIR)
+            try:
+                data_dirs = self.adb_list_directory(PACKAGE_DATA_DIR)
+                if 'databases' in data_dirs:
+                    db_dir = self.adb_list_directory(PACKAGE_DATABASE_DIR)
+                    for fl in db_dir:
+                        if fl.lower().endswith('.db') or fl.lower().endswith('.sqlite') or fl.lower().endswith('.sqlite3'):
+                            print "Found DB: %s" % fl
+                            self.adb_pull(os.path.join(PACKAGE_DATABASE_DIR, fl), os.path.join(LOCAL_DATABASE_DIR, fl))
+                            #copied_files.append(os.path.join(LOCAL_DATABASE_DIR, fl))
+            except:
+                print "Error during database search!"
+
+
+    # def pullDirectories(self):
+    #     folderList = subprocess.check_output([settingsDynamic.ADB_PATH, "shell", "ls", "/data/data"])
+    #     folderlist_split = folderList.split()
+    #     file = open(settingsDynamic.SBOX_FOLDER_LIST, "r").read()
+    #     if not os.path.isdir('tmp'):
+    #         os.makedirs('tmp/sdcard')
+    #         os.makedirs('tmp/data')
+    #     for i in folderlist_split:
+    #         if i not in file:
+    #             #log.error(i)
+    #             if os.path.isdir('data/data/'+i):
+    #                 process = subprocess.Popen([settingsDynamic.ADB_PATH, 'pull', '/data/data/%s/.' % i, 'tmp/data/'])
+    #                 process.wait()
+    #     process = subprocess.Popen([settingsDynamic.ADB_PATH, 'pull', '/sdcard/.', 'tmp/sdcard'])
+    #     process.wait()
 
 
 
@@ -312,7 +370,8 @@ class AnalysisManager(Thread):
                 self.getListeningPorts()
                 subprocess.Popen([settingsDynamic.ADB_PATH, "kill-server"])
                 self.adbRoot()
-                self.pullDirectories()
+                #self.pullDirectories()
+                self.copyDatabase()
 
         except CuckooMachineError as e:
             log.error(str(e), extra={"task_id": self.task.id})
