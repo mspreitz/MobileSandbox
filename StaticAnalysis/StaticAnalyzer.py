@@ -167,10 +167,10 @@ def getCertificate(androguardAPK):
         dsa_Q = root.find('Q')
         dsa_G = root.find('G')
         dsa_Y = root.find('Y')
-        certdict['pubkey']['P'] = P.text
-        certdict['pubkey']['Q'] = Q.text
-        certdict['pubkey']['G'] = G.text
-        certdict['pubkey']['Y'] = Y.text
+        certdict['pubkey']['P'] = dsa_P.text
+        certdict['pubkey']['Q'] = dsa_Q.text
+        certdict['pubkey']['G'] = dsa_G.text
+        certdict['pubkey']['Y'] = dsa_Y.text
     elif root.tag == 'ECCPublicKey':
         certdict['pubkey']['keytype'] = 'ECC'
         # TODO

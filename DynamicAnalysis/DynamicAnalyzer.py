@@ -84,7 +84,7 @@ def isFinished(cuckooID):
 
 def getListeningPorts(dir_extra_info):
     # headers = ['Proto','Recv-Q','Send-Q','Local-Address','Foreign-Address','State']
-    file_netstat_before = '{}/{}'.format(dir_extra_info, settings.NETSTAT_FILE)
+    file_netstat_before = '{}/{}'.format(dir_extra_info, settings.NETSTAT_LIST)
     file_netstat_after  = '{}/{}'.format(dir_extra_info, settings.NETSTAT_NEW)
     content = compareLists(file_netstat_before, file_netstat_after)
     res_natstat_entries = []
@@ -110,6 +110,9 @@ def getProcesses(dir_extra_info):
 
 def compareLists(before, after):
     output = []
+    vbox_ip = settings.VBOX_IP
+    snap_ip = settings.SNAP_IP
+
     with open(before,"r") as process:
         lines = process.read().splitlines()
     with open(after, "r") as processNew:
@@ -117,7 +120,8 @@ def compareLists(before, after):
 
     for i in linesNew:
         if i not in lines:
-            output.append(i)
+            if vbox_ip not in i and snap_ip not in i:
+                output.append(i)
     return output
 
 
@@ -150,6 +154,8 @@ def getApkFiles(cuckooTmp, workingDir):
 def extractCuckooInfo(cuckooID):
     # Extract interesting information from cuckoo output
     file_json = '{}/{}/reports/report.json'.format(settings.CUCKOO_STORAGE, cuckooID)
+    vbox_ip = settings.VBOX_IP
+    snap_ip = settings.SNAP_IP
 
     with open(file_json, 'r') as jsonData:
         data = json.load(jsonData) # TODO This might be insecure
@@ -163,34 +169,39 @@ def extractCuckooInfo(cuckooID):
         for i in data['network']['udp']:
             udpSet = dict()
             if i['dst'] not in udpSet:
-                udpSet['dst'] = i['dst']
-                udpSet['sport'] = i['sport']
-                udpSet['dport'] = i['dport']
-            connections['udp'].append(udpSet)
+                if vbox_ip not in i['dst'] and snap_ip not in i['dst']:
+                    udpSet['dst'] = i['dst']
+                    udpSet['sport'] = i['sport']
+                    udpSet['dport'] = i['dport']
+                    connections['udp'].append(udpSet)
 
         for i in data['network']['tcp']:
             tcpSet = dict()
+
             if i['dst'] not in tcpSet:
-                tcpSet['dst'] = i['dst']
-                tcpSet['sport'] = i['sport']
-                tcpSet['dport'] = i['dport']
-            connections['tcp'].append(tcpSet)
+                if vbox_ip not in i['dst'] and snap_ip not in i['dst']:
+                    tcpSet['dst'] = i['dst']
+                    tcpSet['sport'] = i['sport']
+                    tcpSet['dport'] = i['dport']
+                    connections['tcp'].append(tcpSet)
 
         for i in data['network']['irc']:
             ircSet = dict()
             if i['dst'] not in ircSet:
-                ircSet['dst'] = i['dst']
-                ircSet['sport'] = i['sport']
-                ircSet['dport'] = i['dport']
-            connections['irc'].append(ircSet)
+                if vbox_ip not in i['dst'] and snap_ip not in i['dst']:
+                    ircSet['dst'] = i['dst']
+                    ircSet['sport'] = i['sport']
+                    ircSet['dport'] = i['dport']
+                    connections['irc'].append(ircSet)
 
         for i in data['network']['smtp']:
             smtpSet = dict()
             if i['dst'] not in smtpSet:
-                smtpSet['dst'] = i['dst']
-                smtpSet['sport'] = i['sport']
-                smtpSet['dport'] = i['dport']
-            connections['tcp'].append(smtpSet)
+                if vbox_ip not in i['dst'] and snap_ip not in i['dst']:
+                    smtpSet['dst'] = i['dst']
+                    smtpSet['sport'] = i['sport']
+                    smtpSet['dport'] = i['dport']
+                    connections['tcp'].append(smtpSet)
     else:
         print 'WARNING: network data could not be retrieved'
     output['network'] = connections
@@ -268,7 +279,5 @@ def run(sampleFile, workingDir):
         cleanUp()
     else:
         print "Error: Not finished"
-
-
 
 #Todo: Copy Databases, work on code robustness

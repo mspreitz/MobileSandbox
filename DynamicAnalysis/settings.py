@@ -15,6 +15,7 @@ SBOX_FOLDER_LIST = 'sboxlist.txt'
 #FILES_LIST = 'checkNew.txt'
 
 VBOX_IP = '192.168.56.1'
+SNAP_IP = '192.168.56.10'
 VBOX_NETM = '255.255.255.0'
 VBOX_DEV = 'vboxnet0'
 WORKINGDIR = 'test/'
