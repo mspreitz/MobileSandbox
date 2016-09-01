@@ -23,7 +23,80 @@
 			<tr><th bgcolor="#8a2be2">Static analysis</th></tr>
 			<tr><th bgcolor="#808080">Is this Sample malicious? (Classification)</th></tr>
 			<tr><td>{% if malicious %}Yes{% else %}No{% endif %}</td></tr>
-			{% for key, value in jsondata_static.items %}
+            <tr><th>SHA256:</th></tr>
+            <tr><td>{{jsondata_static.sha256}}</td></tr>
+            <tr><th>MD5:</th></tr>
+            <tr><td>{{jsondata_static.md5}}</td></tr>
+            <tr><th>ssdeep:</th></tr>
+            <tr><td>{{jsondata_static.ssdeep}}</td></tr>
+            <tr><th>Used Features:</th></tr>
+            {% for value in jsondata_static.features %}
+                <tr><td>{{value}}</td></tr>
+            {% endfor %}
+            <tr><th>Requested Permissions from Android Manifest:</th></tr>
+            {% for value in jsondata_static.api_permissions %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><th>Used Permissions:</th></tr>
+            {% for value in jsondata_static.app_permissions %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><th>Responsible API calls for used Permissions:</th></tr>
+            {% for value in jsondata_static.api_calls %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><th>Used Intents:</th></tr>
+            {% for value in jsondata_static.intents %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><th>Used Activities:</th></tr>
+            {% for value in jsondata_static.activities %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><th>Potentially dangerous Calls:</th></tr>
+            {% for value in jsondata_static.interesting_calls %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><th>Used Services and Receiver:</th></tr>
+            {% for value in jsondata_static.s_and_r %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><th>Used Providers:</th></tr>
+            {% for value in jsondata_static.providers %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><th>Used Networks:</th></tr>
+            {% for value in jsondata_static.networks %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><th>Found hardcoded URLs and IPs:</th></tr>
+            {% for value in jsondata_static.urls %}
+                {% if value|length > 0 %}
+                    <tr><td>{{value}}</td></tr>
+                {% endif %}
+            {% endfor %}
+
+
+
+<!--			{% for key, value in jsondata_static.items %}
 				{% if value %}
 					<tr><th bgcolor="#808080">{{ key }}</th></tr>
 					{% if value|is_string %}
@@ -49,7 +122,7 @@
 						{% endfor %}
 					{% endif %}
 				{% endif %}
-			{% endfor %}
+			{% endfor %}-->
 		</table>
 
 		{% elif type == 'dynamic' %}
@@ -148,7 +221,7 @@
 						{% if forloop.counter0|divisibleby:3 %}
 								</tr><tr>
 						{% endif %}
-						<td><img src="/{{ MEDIA_URL }}{{v}}" width="300" border="0"></td>
+						<td><img src="{{ MEDIA_URL }}{{v}}" width="300" border="0"></td>
 					{% endfor %}
 				</tr>
 			</table>

@@ -64,7 +64,7 @@ def registration(request):
             message = 'Email address already in use! %s' % user.username
             return render_to_response('error.html', {'message': message})
     else:
-        return render_to_response("register.html")
+        return render_to_response("register.html", context_instance=RequestContext(request))
 
 
 def userLogout(request):
@@ -94,7 +94,7 @@ def loginUser(request):
             message = 'Your email and password do not match'
             return render_to_response('error.html', {'message': message})
     else:
-        return render_to_response("login.html")
+        return render_to_response("login.html", context_instance=RequestContext(request))
 
 
 def anonUpload(request):
@@ -267,7 +267,7 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
     templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles }
     template = 'anonUploadSuccess.html'
     if not anonymous: template = 'uploadSuccess.html'
-    return render_to_response(template, templatedict)
+    return render_to_response(template, templatedict, context_instance=RequestContext(request))
 
 
 def showQueue(request):
@@ -347,7 +347,7 @@ def showReport(request):
     templatedict['sha256'] = sha256
     templatedict['type'] = type
 
-    return render_to_response(template, templatedict)
+    return render_to_response(template, templatedict, context_instance=RequestContext(request))
 
 
 @csrf_protect
@@ -370,7 +370,7 @@ def search(request):
                 if result is not None:
                     sha256 = result.sha256
                     status = result.status
-                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256})
+                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256}, context_instance=RequestContext(request))
 
         # Search for SHA1
         elif len(req) == SHA1Length:
@@ -383,7 +383,7 @@ def search(request):
                 if result is not None:
                     sha256 = result.sha256
                     status = result.status
-                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256})
+                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256}, context_instance=RequestContext(request))
 
         # Search for SHA256
         elif len(req) == SHA256Length:
@@ -396,7 +396,7 @@ def search(request):
                 if result is not None:
                     sha256 = result.sha256
                     status = result.status
-                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256})
+                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256}, context_instance=RequestContext(request))
         else:
             return HttpResponse('This is not a valid input!')
 
