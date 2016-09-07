@@ -1,6 +1,6 @@
 from py2neo import Graph, Node, Relationship
 from hexdump import hexdump
-from misc_config import *
+import misc_config
 import re
 
 # TODO: There still could be a race condition between static and dynamic analysis when committing!
