@@ -6,6 +6,7 @@ import settings
 import json
 import re
 import settingsDynamic
+import misc_config
 
 import sys
 sys.path.append(settingsDynamic.PATH_MODULE_MSNEO)
