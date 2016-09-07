@@ -8,6 +8,12 @@ echo '---[ Cleaning the Neo4J Database ]---'
 	cd Neo4J
 	python -c 'from msneo import clean_all; clean_all()'
 )
+echo '---[ Cleaning the Cuckoo Database ]---'
+(
+	# TODO Stop neo4j Server, delete data/graph.db/* to remove old property nodes
+	cd DynamicAnalysis/cuckoo/
+	python cuckoo.py --clean
+)
 echo '---[ Cleaning the Postgesql Database ]---'
 (
 	cd Backend

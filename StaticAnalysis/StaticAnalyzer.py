@@ -707,6 +707,17 @@ def getAPICalls(workingDir): # TODO Mid-High O (But higher than dangerousAD)
 
     return api_dict_dump
 
+def getFilesExtendedInsideApk(androidAPK):
+    files = {}
+    for filename in androidAPK.zip.namelist():
+        file_data = androidAPK.zip.read(filename)
+        files[filename] = {}
+        files[filename]['md5'] = hash_md5(file_data)
+        files[filename]['sha1'] = hash_sha1(file_data)
+        files[filename]['sha256'] = hash_sha256(file_data)
+        #files['ssdeep'] = hash_ssdeep(file_data)
+    return files
+
 def getFilesInsideApk(androidAPK):
     return androidAPK.get_files()
     #return androidAPK.get_files_types()
@@ -791,7 +802,7 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['networks'] = list(appNet)
     output['providers'] = list(appProviders)
     output['included_files_src'] = list(appFilesSrc)
-    output['included_files'] = list(appFiles)
+    output['included_files'] = appFiles
     output['detected_ad_networks'] = list(detectedAds)
     # Save Certificate Information into output dict
     output['cert'] = cert
@@ -859,7 +870,7 @@ def run(sampleFile, workingDir):
     print "get files in src..."
     appFilesSrc = getFilesInsideApkSrc(workingDir)
     print "get files in APK..."
-    appFiles = getFilesInsideApk(a)
+    appFiles = getFilesExtendedInsideApk(a)
     print "get service and receivers"
     serviceANDreceiver = getServiceReceiver(logFile,a)
     print "search for dangerous calls..."

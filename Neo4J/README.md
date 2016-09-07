@@ -8,6 +8,7 @@ Nodes in Neo4J for the MobileSandbox are:
 * `File` - A file inside an unzipped Android Application
 * `DEX_File` - A file inside the `classes.dex`
 * `Activity` - An activity found inside the AndroidManifest.xml / used in the application
+* `Intent` - An Intent requested for an application
 * `Provider` - A provider found inside the AndroidManifest.xml / used in the application
 * `Service_Receiver` - A service or receiver found inside the AndroidManifest.xml / used in the application
 * `Feature` - A feature found inside the AndroidManifest.xml / used in the application
@@ -18,6 +19,7 @@ Nodes in Neo4J for the MobileSandbox are:
 * `SDK_Version_Max` - The maximal SDK version required to use the application
 * `API_Call` - A procedure call that occurred during dynamic analysis
 * `Permission` - A permission requested in the AndroidManifest.xml or used during dynamic analysis
+* `Antivirus` - A malware name given by any Antivirus engine
 
 Nodes that still need work:
 

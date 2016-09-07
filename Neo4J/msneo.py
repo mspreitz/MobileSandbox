@@ -1,5 +1,6 @@
 from py2neo import Graph, Node, Relationship
 from hexdump import hexdump
+from misc_config import *
 import re
 
 # TODO: There still could be a race condition between static and dynamic analysis when committing!
@@ -28,12 +29,27 @@ def add_attribute(node, datadict, attribute, regex=None, upper=False):
         if upper: node[attribute] = node[attribute].upper()
     return node
 
-def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshipname):
-    # Generate Intent nodes for every new Intent we encounter
+
+# Create a node named nodename in graph using transaction tx that is in relationship with node nrelative, add attributes (same idx list of dicts: attrname -> attr) to nodename if provided.
+# TODO Unmangle this function
+def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshipname, attributes=None, nodematchkey='name', upper=False):
+
+    # Generate nodes for every new node in nodelist
     # TODO Ignore case?
-    for node in nodelist:
+    for idx, node in enumerate(nodelist):
         if node is None: continue
-        (count, n) = find_unique_node(graph, nodename, 'name', node)
+
+        if nodematchkey == 'name':
+            valuetomatch = node
+        else:
+            if not attributes or nodematchkey not in attributes[idx]:
+                print 'ERROR: Attributes was empty or nodematchkey {} did not exist in attributes'.format(nodematchkey)
+                return
+
+            valuetomatch = attributes[idx][nodematchkey]
+
+        (count, n) = find_unique_node(graph, nodename, nodematchkey, valuetomatch, upper=upper)
+
         # Give error if we matched more than 1 nodes
         if count > 1:
             print 'ERROR: Found more than 1 {0} nodes with {0} Name {1}'.format(nodename, node)
@@ -41,9 +57,29 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
 
         if count == 0:
             n = Node(nodename)
-            n['name'] = node
+            n['names'] = []
+            n['names'].append(node)
+            if attributes:
+                for attrname, attr in attributes[idx].items():
+                    if attrname in n and n[attrname] != attr:
+                        print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
+                        continue
+
+                    n[attrname] = attr
             tx.create(n)
             print 'Neo4J: Created {0} Node with name: {1}'.format(nodename, node)
+
+        if count == 1 and attributes:
+            if node not in n['names']:
+                n['names'].append(node)
+
+            for attrname, attr in attributes[idx].items():
+                if attrname in n and n[attrname] != attr:
+                    print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
+                    continue
+
+                n[attrname] = attr
+            n.push()
 
         r = Relationship(nrelative, relationshipname, n)
         tx.merge(r)
@@ -118,7 +154,6 @@ def create_node_static(datadict):
     create_list_nodes_rels(graph, tx, na, 'Permission', permissions, 'USES_PERMISSION')
     create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL')
     create_list_nodes_rels(graph, tx, na, 'API_Call', datadict['interesting_calls'], 'CALLS')
-    create_list_nodes_rels(graph, tx, na, 'File', datadict['included_files'], 'INCLUDES_FILE') # TODO  Somehow higher O than Dex and pretty slow
     create_list_nodes_rels(graph, tx, na, 'DEX_File', datadict['included_files_src'], 'INCLUDES_FILE_SRC')
     create_list_nodes_rels(graph, tx, na, 'Activity', datadict['activities'], 'ACTIVITY')
     create_list_nodes_rels(graph, tx, na, 'Feature', datadict['features'], 'FEATURE')
@@ -132,6 +167,18 @@ def create_node_static(datadict):
     create_list_nodes_rels(graph, tx, na, 'SDK_Version_Max', [ datadict['sdk_version_max']], 'SDK_VERSION_MAX')
     create_list_nodes_rels(graph, tx, na, 'App_Name', [ datadict['app_name']], 'APP_NAME')
     #add_attribute(na, datadict, 'api_calls') # TODO List of lists don't work yet
+
+    # TODO SocketTimeout - takes too long?
+    if misc_config.ENABLE_ZIPFILE_HASHING:
+        # Add Nodes and Relationships with more than 1 attribute
+        included_files = []
+        included_files_attrdicts = []
+        for fileinzip, attrdict in datadict['included_files'].items():
+            included_files.append(fileinzip)
+            included_files_attrdicts.append(attrdict)
+
+        # TODO  Somehow higher O than Dex and pretty slow
+        create_list_nodes_rels(graph, tx, na, 'File', included_files, 'INCLUDES_FILE', attributes=included_files_attrdicts, nodematchkey='md5', upper=True)
 
     # Abort if Certificate Dict is empty
     if not datadict['cert']:
@@ -258,6 +305,7 @@ def create_node_dynamic(datadict):
         tx.create(na)
     else:
         na['dynamic'] = True
+
     print 'Neo4J: Android Node with sha256: {}'.format(na['sha256'])
 
     # Create virustotal nodes
