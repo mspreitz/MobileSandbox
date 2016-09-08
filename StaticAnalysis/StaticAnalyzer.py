@@ -254,33 +254,6 @@ def usedFeatures(logFile,a):
             log(logFile, "AndroidManifest", feature, 1)
     return appFeatures
 
-
-
-def dumpMethods(d, workingDir):
-    result = ""
-    dumpFile = '{}/{}'.format(workingDir,settings.DUMPFILE)
-    fd = os.open(dumpFile, os.O_RDWR|os.O_CREAT, 0666)
-    for current_class in d.get_classes():
-        for method in current_class.get_methods():
-            byteCode = method.get_code()
-            if byteCode != None:
-                byteCode = byteCode.get_bc()
-                try:
-                    for i in byteCode.get_instructions():
-                        result += "%s %s %s\n" % (current_class,i.get_name(),i.get_output())
-                except dvm.InvalidInstruction:
-                    print 'ERROR: Androguard could not decompile. Continue/Abort decompiling this instruction!'
-                    continue
-
-    os.write(fd, result)
-
-
-def findCallinLine(dangerousCalls, call, alias=None):
-    if callalias in dangerousCalls: return True
-    if alias: call = alias
-    dangerousCalls.add(call)
-    return False
-
 def getDangerousCalls(workingDir, logFile, d): # TODO Mid-High O
     nope="""
         if "Cipher" in line:
