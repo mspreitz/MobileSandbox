@@ -11,6 +11,7 @@ import psycopg2
 import shutil
 import time
 import zipfile
+import misc_config
 
 
 def mzip(path, src, dst):
@@ -143,7 +144,7 @@ while(running):
         shutil.move('{}/{}'.format(workingDir, 'static.log'), '{}/{}'.format(reportPath, 'static.log'))
 
         # Remove remaining analysis files
-        shutil.rmtree(workingDir)
+        if misc_config.ENABLE_CLEAR_OLD_FILES: shutil.rmtree(workingDir)
 
         print '[{}] Finished Analysis'.format(sha256)
         # Set new sample status

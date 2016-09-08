@@ -47,3 +47,47 @@ DEFAULT_NAME_DIR_UNPACK = 'unpack'
 DEFAULT_NAME_DIR_SOURCE = 'src'
 DEFAULT_NAME_DIR_ANALYSIS = 'analysis'
 PATH_MODULE_MSNEO = '../Neo4J/'
+PATH_MODULE_CONFIG = '../config/'
+
+###### Dictionaries etc
+
+# Dictionary ApiCall -> Description
+DICT_APICALLS_DANGEROUS = {
+    'Base64' : 'Obfuscation',
+    'Landroid/os/Build;->BRAND:Ljava/lang/String' : 'Access Device Info',
+    'Landroid/os/Build;->DEVICE:Ljava/lang/String' : 'Access Device Info',
+    'Landroid/os/Build;->FINGERPRINT:Ljava/lang/String' : 'Access Device Info',
+    'Landroid/os/Build;->MODEL:Ljava/lang/String' : 'Access Device Info',
+    'Landroid/os/Build;->PRODUCT:Ljava/lang/String' : 'Access Device Info',
+    'Landroid/telephony/SmsMessage;->getMessageBody' : 'readSMS',
+    'Ldalvik/system/BaseDexClassLoader;' : 'Loading of external Libraries',
+    'Ldalvik/system/DexClassLoader;' : 'Loading of external Libraries',
+    'Ldalvik/system/PathClassLoader;' : 'Loading of external Libraries',
+    'Ldalvik/system/SecureClassLoader;' : 'Loading of external Libraries',
+    'Ldalvik/system/URLClassLoader;' : 'Loading of external Libraries',
+    'Ljava/io/IOException;->printStackTrace' : 'printStackTrace', # used by exploits and bad programers
+    'Ljava/lang/Runtime;->exec' : 'Execution of external commands',
+    'Ljava/lang/System;->load' : 'Loading of external Libraries',
+    'Ljava/lang/System;->loadLibrary' : 'Loading of external Libraries',
+    'Ljava/net/HttpURLconnection' : 'HttpURLconnection',
+    'Ljava/net/HttpURLconnection;->setRequestMethod(Ljava/lang/String;)': 'HTTP GET/POST',
+    'Lorg/apache/http/client/methods/HttpPost' : 'HttpPost',
+    'SystemClock.uptimeMillis' : None,
+    'adb_enabled' : 'Check if adb is enabled',
+    'android/os/Exec' : 'Execution of native code',
+    'execHttpRequest': None,
+    'getCellLocation' : None,
+    'getCellSignalStrength' : 'SystemClock.getCellSignalStrength',
+    'getDeviceId' : None,
+    'getExternalStorageDirectory': 'Read/Write External Storage',
+    'getNetworkCountryIso' : None,
+    'getPackageInfo' : None,
+    'getSimCountryIso' : None,
+    'getSubscriberId' : None,
+    'getSystemService' : None,
+    'getWifiState' : None,
+    'sendTextMessage' : 'sendSMS',
+    'setWifiDisabled' : None,
+    'setWifiEnabled' : None,
+    'system/bin/su' : None
+}

@@ -1,7 +1,12 @@
 from py2neo import Graph, Node, Relationship
 from hexdump import hexdump
-import misc_config
 import re
+import settings
+
+import sys
+sys.path.append(settings.PATH_MODULE_CONFIG)
+import misc_config
+
 
 # TODO: There still could be a race condition between static and dynamic analysis when committing!
 # TODO Exchange creates with merges!

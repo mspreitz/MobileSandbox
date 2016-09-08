@@ -15,6 +15,8 @@ import re
 import settings
 import shutil
 import xml.etree.ElementTree as ET
+import misc_config
+import traceback
 #import ssdeep
 
 ### TODO LIST
@@ -257,7 +259,7 @@ def usedFeatures(logFile,a):
 def dumpMethods(d, workingDir):
     result = ""
     dumpFile = '{}/{}'.format(workingDir,settings.DUMPFILE)
-    fd = os.open(dumpFile, os.O_RDWR|os.O_CREAT)
+    fd = os.open(dumpFile, os.O_RDWR|os.O_CREAT, 0666)
     for current_class in d.get_classes():
         for method in current_class.get_methods():
             byteCode = method.get_code()
@@ -270,273 +272,78 @@ def dumpMethods(d, workingDir):
                     print 'ERROR: Androguard could not decompile. Continue/Abort decompiling this instruction!'
                     continue
 
-    os.write(fd,result)
+    os.write(fd, result)
 
 
-def parseDumpFile(workingDir, logFile, d): # TODO Mid-High O
-    log(logFile, 0, "potentially suspicious api-calls", 0)
-    #create dump file
-    file = '{}/{}'.format(workingDir, settings.DUMPFILE)
-    if(os.path.isfile(file)):
-        os.remove(file)
-    dumpMethods(d, workingDir)
+def findCallinLine(dangerousCalls, call, alias=None):
+    if callalias in dangerousCalls: return True
+    if alias: call = alias
+    dangerousCalls.add(call)
+    return False
 
-    dangerousCalls = set()
-    try:
-        dumpFile = open(file).readlines()
-        i = 0
-        for line in dumpFile:
-            i += 1
-            if "Cipher" in line:
-                try:
-                    prevLine = dumpFile[dumpFile.index(line) - 2].split("\n")[0].split('"')[1]
-                    log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                    if "Cipher(" + prevLine + ")" in dangerousCalls:
-                        continue
-                    else:
-                        dangerousCalls.add("Cipher(" + prevLine + ")")
-                except:
+def getDangerousCalls(workingDir, logFile, d): # TODO Mid-High O
+    nope="""
+        if "Cipher" in line:
+            try:
+                prevLine = dumpFile[dumpFile.index(line) - 2].split("\n")[0].split('"')[1]
+                log(logFile, dumplinenumber, line.split("\n")[0], 1)
+                if "Cipher(" + prevLine + ")" in dangerousCalls:
                     continue
-            # only for logging !
-            if "crypto" in line:
-                try:
-                    line = line.split("\n")[0]
-                    log(logFile, file + ":" + str(i), line, 1)
-                except:
-                    continue
-            if "Ljava/net/HttpURLconnection;->setRequestMethod(Ljava/lang/String;)" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "HTTP GET/POST (Ljava/net/HttpURLconnection;->setRequestMethod(Ljava/lang/String;))" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add(
-                        "HTTP GET/POST (Ljava/net/HttpURLconnection;->setRequestMethod(Ljava/lang/String;))")
-            if "Ljava/net/HttpURLconnection" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "HttpURLconnection (Ljava/net/HttpURLconnection)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("HttpURLconnection (Ljava/net/HttpURLconnection)")
-            if "getExternalStorageDirectory" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "Read/Write External Storage" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Read/Write External Storage")
-            if "getSimCountryIso" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "getSimCountryIso" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("getSimCountryIso")
-            if "execHttpRequest" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "execHttpRequest" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("execHttpRequest")
-            if "Lorg/apache/http/client/methods/HttpPost" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "HttpPost (Lorg/apache/http/client/methods/HttpPost)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("HttpPost (Lorg/apache/http/client/methods/HttpPost)")
-            if "Landroid/telephony/SmsMessage;->getMessageBody" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "readSMS (Landroid/telephony/SmsMessage;->getMessageBody)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("readSMS (Landroid/telephony/SmsMessage;->getMessageBody)")
-            if "sendTextMessage" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "sendSMS" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("sendSMS")
-            if "getSubscriberId" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "getSubscriberId" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("getSubscriberId")
-            if "getDeviceId" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "getDeviceId" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("getDeviceId")
-            if "getPackageInfo" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "getPackageInfo" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("getPackageInfo")
-            if "getSystemService" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "getSystemService" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("getSystemService")
-            if "getWifiState" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "getWifiState" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("getWifiState")
-            if "system/bin/su" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "system/bin/su" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("system/bin/su")
-            if "setWifiEnabled" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "setWifiEnabled" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("setWifiEnabled")
-            if "setWifiDisabled" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "setWifiDisabled" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("setWifiDisabled")
-            if "getCellLocation" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "getCellLocation" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("getCellLocation")
-            if "getNetworkCountryIso" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "getNetworkCountryIso" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("getNetworkCountryIso")
-            if "SystemClock.uptimeMillis" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "SystemClock.uptimeMillis" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("SystemClock.uptimeMillis")
-            if "getCellSignalStrength" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "getCellSignalStrength" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("getCellSignalStrength")
-            if "Landroid/os/Build;->BRAND:Ljava/lang/String" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "Access Device Info (Landroid/os/Build;->BRAND:Ljava/lang/String)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Access Device Info (Landroid/os/Build;->BRAND:Ljava/lang/String)")
-            if "Landroid/os/Build;->DEVICE:Ljava/lang/String" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "Access Device Info (Landroid/os/Build;->DEVICE:Ljava/lang/String)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Access Device Info (Landroid/os/Build;->DEVICE:Ljava/lang/String)")
-            if "Landroid/os/Build;->MODEL:Ljava/lang/String" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "Access Device Info (Landroid/os/Build;->MODEL:Ljava/lang/String)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Access Device Info (Landroid/os/Build;->MODEL:Ljava/lang/String)")
-            if "Landroid/os/Build;->PRODUCT:Ljava/lang/String" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "Access Device Info (Landroid/os/Build;->PRODUCT:Ljava/lang/String)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Access Device Info (Landroid/os/Build;->PRODUCT:Ljava/lang/String)")
-            if "Landroid/os/Build;->FINGERPRINT:Ljava/lang/String" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "Access Device Info (Landroid/os/Build;->FINGERPRINT:Ljava/lang/String)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Access Device Info (Landroid/os/Build;->FINGERPRINT:Ljava/lang/String)")
-            if "adb_enabled" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "Check if adb is enabled" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Check if adb is enabled")
-            # used by exploits and bad programers
-            if "Ljava/io/IOException;->printStackTrace" in line:
-                log(logFile, file + ":" + str(i), line.split("\n")[0], 1)
-                if "printStackTrace" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("printStackTrace")
-            if "Ljava/lang/Runtime;->exec" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Execution of external commands (Ljava/lang/Runtime;->exec)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Execution of external commands (Ljava/lang/Runtime;->exec)")
-            if "Ljava/lang/System;->loadLibrary" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Loading of external Libraries (Ljava/lang/System;->loadLibrary)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Loading of external Libraries (Ljava/lang/System;->loadLibrary)")
-            if "Ljava/lang/System;->load" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Loading of external Libraries (Ljava/lang/System;->load)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Loading of external Libraries (Ljava/lang/System;->load)")
-            if "Ldalvik/system/DexClassLoader;" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Loading of external Libraries (Ldalvik/system/DexClassLoader;)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Loading of external Libraries (Ldalvik/system/DexClassLoader;)")
-            if "Ldalvik/system/SecureClassLoader;" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Loading of external Libraries (Ldalvik/system/SecureClassLoader;)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Loading of external Libraries (Ldalvik/system/SecureClassLoader;)")
-            if "Ldalvik/system/PathClassLoader;" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Loading of external Libraries (Ldalvik/system/PathClassLoader;)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Loading of external Libraries (Ldalvik/system/PathClassLoader;)")
-            if "Ldalvik/system/BaseDexClassLoader;" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Loading of external Libraries (Ldalvik/system/BaseDexClassLoader;)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Loading of external Libraries (Ldalvik/system/BaseDexClassLoader;)")
-            if "Ldalvik/system/URLClassLoader;" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Loading of external Libraries (Ldalvik/system/URLClassLoader;)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Loading of external Libraries (Ldalvik/system/URLClassLoader;)")
-            if "android/os/Exec" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Execution of native code (android/os/Exec)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Execution of native code (android/os/Exec)")
-            if "Base64" in line:
-                log(logFile, file + ":" + str(i), line, 1)
-                if "Obfuscation(Base64)" in dangerousCalls:
-                    continue
-                else:
-                    dangerousCalls.add("Obfuscation(Base64)")
-    except:
-        print "Error"
+                dangerousCalls.add("Cipher(" + prevLine + ")")
+            except:
+                continue
+        # only for logging !
+        if "crypto" in line:
+            try:
+                line = line.split("\n")[0]
+                log(logFile, dumplinenumber, line, 1)
+            except:
+                continue
+    """
 
-    return dangerousCalls
+    log(logFile, 0, "Potentially suspicious API-Calls", 0)
+
+    dumpFile = '{}/{}'.format(workingDir,settings.DUMPFILE)
+
+    dumpdata = ''
+
+    apiCalls = {}
+
+    dumplinenumber = 0
+
+    # Dump smali instructions with related class names and output using AndroGuard
+    for current_class in d.get_classes():
+        for method in current_class.get_methods():
+            byteCode = method.get_code()
+            if byteCode is None: continue
+
+            byteCode = byteCode.get_bc()
+            try:
+                for instr in byteCode.get_instructions():
+                    line = '{} {} {}'.format(current_class, instr.get_name(), instr.get_output())
+                    dumpdata += line
+                    dumplinenumber += 1
+
+                    # Parse Dangerous API Calls
+                    for apicall, apicall_description in settings.DICT_APICALLS_DANGEROUS.items():
+                        if apicall not in line: continue
+                        log(logFile, 'Dump.txt:{}'.format(dumplinenumber), line, 1)
+                        apiCalls[apicall] = {'dangerous':True}
+                        break
+
+            except dvm.InvalidInstruction:
+                print 'ERROR: Androguard could not decompile. Continue/Abort decompiling this instruction!'
+                continue
+
+    with open(dumpFile, 'w') as f:
+        f.write(dumpdata)
+
+    return apiCalls
 
 
 def getSampleInfo(sampleFile,logFile,a):
-    # Todo: get application label
-    # Todo: check if SDK-Version ect. is specified...
+    # TODO: get application label
+    # TODO: check if SDK-Version ect. is specified...
 
     appInfos = {}
     with open(sampleFile, 'rb') as f:
@@ -641,7 +448,6 @@ def getPermission(logFile,a):
 
 def getActivities(a):
     return set(a.get_activities())
-
 
 def extractSourceFiles(PREFIX,d,vmx): # TODO High O
     check_dirs(settings.SOURCELOCATION,PREFIX)
@@ -797,7 +603,7 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['intents'] = list(appIntents)
     output['activities'] = list(appActivities)
     output['s_and_r'] = list(servicesANDreceiver)
-    output['interesting_calls'] = list(dangerousCalls)
+    output['interesting_calls'] = dangerousCalls.keys()
     output['urls'] = list(appUrls)
     output['networks'] = list(appNet)
     output['providers'] = list(appProviders)
@@ -822,7 +628,7 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
 
 def run(sampleFile, workingDir):
 
-    clearOldFiles(workingDir)
+    if misc_config.ENABLE_CLEAR_OLD_FILES: clearOldFiles(workingDir)
 
     logFile = createLogFile(workingDir)
     PREFIX = workingDir
@@ -854,7 +660,7 @@ def run(sampleFile, workingDir):
     print "unpacking sample..."
     unpack(sampleFile,PREFIX)
     print "extracting source files..."
-    extractSourceFiles(PREFIX,d,vmx)
+    if misc_config.ENABLE_EXTRACT_SOURCES: extractSourceFiles(PREFIX,d,vmx)
     print "get network data..."
     appNet = getNet(a)                                        #Todo: Ausgabe testen! android.net?!?!?!?
     print "get providers..."
@@ -868,17 +674,20 @@ def run(sampleFile, workingDir):
     print "get intents..."
     appIntents = getIntents(logFile,a)
     print "get files in src..."
-    appFilesSrc = getFilesInsideApkSrc(workingDir)
+    if misc_config.ENABLE_EXTRACT_SOURCES:
+        appFilesSrc = getFilesInsideApkSrc(workingDir)
+    else:
+        appFilesSrc = []
     print "get files in APK..."
     appFiles = getFilesExtendedInsideApk(a)
     print "get service and receivers"
     serviceANDreceiver = getServiceReceiver(logFile,a)
     print "search for dangerous calls..."
-    dangerousCalls = parseDumpFile(workingDir,logFile,d)
-    print "get urls and ips..."
-    appUrls = parseURLs(workingDir,logFile)
+    dangerousCalls = getDangerousCalls(workingDir,logFile,d)
     print "check api permissions..."
     api_dict = getAPICalls(workingDir)
+    print "get urls and ips..."
+    appUrls = parseURLs(workingDir,logFile)
     #print "create ssdeep hash..."
     #ssdeepValue = ssdeepHash(sampleFile)
     print "check for ad-networks"
