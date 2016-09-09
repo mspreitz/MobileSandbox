@@ -279,10 +279,9 @@ def getAPICallsADs(workingDir, logFile, d): # TODO Mid-High O
 
     data_dump = ''
 
+    dumplinenumber = 0
     api_calls_dump = {}
     dict_detected_ads = {}
-
-    dumplinenumber = 0
 
     # Dump smali instructions with related class names and output using AndroGuard
     for current_class in d.get_classes():
@@ -294,7 +293,7 @@ def getAPICallsADs(workingDir, logFile, d): # TODO Mid-High O
             try:
                 for instr in byteCode.get_instructions():
                     line = '{} {} {}'.format(current_class, instr.get_name(), instr.get_output())
-                    data_dump += line
+                    data_dump += line + '\n'
                     dumplinenumber += 1
 
                     # Parse API Calls from Dump
@@ -311,7 +310,6 @@ def getAPICallsADs(workingDir, logFile, d): # TODO Mid-High O
                         break
 
 
-
             except dvm.InvalidInstruction:
                 print 'ERROR: Androguard could not decompile. Continue/Abort decompiling this instruction!'
                 continue
@@ -319,6 +317,42 @@ def getAPICallsADs(workingDir, logFile, d): # TODO Mid-High O
     path_dump = '{}/{}'.format(workingDir,settings.DUMPFILE)
     with open(path_dump, 'w') as f:
         f.write(data_dump)
+
+    TODO="""
+    bigregex = ''
+
+    set_apicall_names = set()
+    for apicall_name, apicall_attributes in settings.DICT_APICALLS.items():
+        bigregex += apicall_name + '|'
+        set_apicall_names.add(apicall_name)
+
+
+    set_adslibs_paths = set()
+    dict_adslib_path_to_adslib_name = {}
+    for adslib_name, adslib_attributes in settings.DICT_ADSLIBS.items():
+        bigregex += adslib_attributes['path'] + '|'
+        set_adslibs_paths.add(adslib_attributes['path'])
+        dict_adslib_path_to_adslib_name[adslib_attributes['path']] = adslib_name
+
+
+    bigregex = bigregex[:len(bigregex)-1]
+    bigregex = '({})'.format(bigregex)
+
+    print 'prereg'
+    set_results = re.findall(bigregex, data_dump)
+    if len(set_results) < 1:
+        return ({}, {})
+    print 'postreg'
+
+    set_results = set([ x[0] for x in set_results ])
+
+    for apicall_name in (set_apicall_names & set_results):
+        api_calls_dump[apicall_name] = settings.DICT_APICALLS[apicall_name]
+
+    for adslib_path in (set_adslibs_paths & set_results):
+        adslib_name = dict_adslib_path_to_adslib_name[adslib_path]
+        dict_detected_ads[adslib_name] = settings.DICT_ADSLIBS[adslib_name]
+    """
 
     return (api_calls_dump, dict_detected_ads)
 
