@@ -240,7 +240,7 @@ def createOutput(workingDir, cuckooID):
     (result['cuckoo_out'], data_report_cuckoo) = extractCuckooInfo(cuckooID)
     # Compare Processes
     print "Get process info..."
-    if settingsDynamic.ENABLE_CUCKOO_EXTRA_INFO:
+    if misc_config.ENABLE_CUCKOO_EXTRA_INFO:
         dir_extrainfo = 'cuckoo/'
         result['processes'] = getProcesses(dir_extrainfo)
         print "Get listening ports..."
