@@ -3,6 +3,8 @@ The following attributes have to be added to the respective configuration files
 
 ## Individual Configuration file `misc_config.py`
 
+This configuration file contains constants that are platform and installation-individual.
+
 * `ENABLE_EXTRACT_SOURCES` - Boolean, `True`: Enable extracting and decompiling sources (lowers performance) from the `classes.dex` file
 * `ENABLE_ZIPFILE_HASHING` - Boolean, `True`: Enable hashing (md5, sha1, sha256) all files inside an application (APK/ZIP)
 * `ENABLE_CLEAR_OLD_FILES` - Boolean, `True`: Enable deleting files in the `analysis` folder for each analyzer after analysis of an application
