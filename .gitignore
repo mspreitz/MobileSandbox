@@ -11,4 +11,4 @@ src/
 DynamicAnalysis/cuckoo/db
 
 # Individual misc_config in config folder
-config/misc_config
+config/misc_config.py
