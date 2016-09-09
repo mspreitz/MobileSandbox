@@ -280,7 +280,7 @@ def getDangerousCalls(workingDir, logFile, d): # TODO Mid-High O
 
     dumpdata = ''
 
-    apiCalls = {}
+    api_calls_dump = {}
 
     dumplinenumber = 0
 
@@ -297,21 +297,19 @@ def getDangerousCalls(workingDir, logFile, d): # TODO Mid-High O
                     dumpdata += line
                     dumplinenumber += 1
 
-                    # Parse Dangerous API Calls
-                    for apicall, apicall_description in settings.DICT_APICALLS_DANGEROUS.items():
+                    # Parse API Calls from Dump
+                    for apicall, apicall_attributes in settings.DICT_APICALLS.items():
                         if apicall not in line: continue
                         log(logFile, 'Dump.txt:{}'.format(dumplinenumber), line, 1)
-                        apiCalls[apicall] = {'dangerous':True}
+                        api_calls_dump[apicall] = apicall_attributes
                         break
+
 
             except dvm.InvalidInstruction:
                 print 'ERROR: Androguard could not decompile. Continue/Abort decompiling this instruction!'
                 continue
 
-    with open(dumpFile, 'w') as f:
-        f.write(dumpdata)
-
-    return apiCalls
+    return api_calls_dump
 
 
 def getSampleInfo(sampleFile,logFile,a):
@@ -456,7 +454,6 @@ def extractSourceFiles(PREFIX,d,vmx): # TODO High O
 
 def getAPICalls(workingDir): # TODO Mid-High O (But higher than dangerousAD)
     path_dump = '{}/{}'.format(workingDir,settings.DUMPFILE)
-    # TODO Check if dump exists
 
     # Find any api_calls that match the api_call regex
     # TODO NOTE Maybe the regex is still wrong, please revise
@@ -564,19 +561,23 @@ def clearOldFiles(workingDir):
 
 
 def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
-                 dangerousCalls, appUrls, appInfos, api_dict, appFilesSrc, appActivities, cert, appFiles):
+                 appUrls, appInfos, api_dict, appFilesSrc, appActivities, cert, appFiles):
     output = appInfos # Since it already contains a dict of most fingerprints
     output['app_permissions'] = list(appPermissions)
     output['api_permissions'] = []
     output['api_calls'] = []
-    for api_call, api_permission in api_dict.items():
-        output['api_permissions'].append(api_permission)
+    output['interesting_calls'] = []
+    for api_call, api_call_attributes in api_dict.items():
         output['api_calls'].append(api_call)
+        if api_call_attributes['permission']:
+            output['api_permissions'].append(api_call_attributes['permission'])
+        if api_call_attributes['dangerous']:
+            output['interesting_calls'].append(api_call)
+
     output['features'] = list(appFeatures)
     output['intents'] = list(appIntents)
     output['activities'] = list(appActivities)
     output['s_and_r'] = list(servicesANDreceiver)
-    output['interesting_calls'] = dangerousCalls.keys()
     output['urls'] = list(appUrls)
     output['networks'] = list(appNet)
     output['providers'] = list(appProviders)
@@ -655,10 +656,10 @@ def run(sampleFile, workingDir):
     appFiles = getFilesExtendedInsideApk(a)
     print "get service and receivers"
     serviceANDreceiver = getServiceReceiver(logFile,a)
-    print "search for dangerous calls..."
-    dangerousCalls = getDangerousCalls(workingDir,logFile,d)
-    print "check api permissions..."
-    api_dict = getAPICalls(workingDir)
+    print "get (dangerous) api calls..."
+    api_dict = getDangerousCalls(workingDir,logFile,d)
+    #print "check api permissions..."
+    #api_dict = getAPICalls(workingDir)
     print "get urls and ips..."
     appUrls = parseURLs(workingDir,logFile)
     #print "create ssdeep hash..."
@@ -669,7 +670,7 @@ def run(sampleFile, workingDir):
     cert = getCertificate(a)
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,detectedAds,
-                 dangerousCalls,appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles)#,ssdeepValue)
+                 appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles)#,ssdeepValue)
     print "copy icon image..."
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."

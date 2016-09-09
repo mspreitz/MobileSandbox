@@ -91,3 +91,20 @@ DICT_APICALLS_DANGEROUS = {
     'setWifiEnabled' : None,
     'system/bin/su' : None
 }
+
+# Get dictionary APICall -> Attributes
+# Dictionary from call to permission(s)
+DICT_APICALLS = {}
+# Add dangerous APICall dictionary
+for apicall, api_description in DICT_APICALLS_DANGEROUS.items():
+    DICT_APICALLS[apicall] = {'description' : api_description, 'dangerous':True, 'permission': None}
+
+# Get all api_calls and api_permissions from the static APIcalls.txt dump
+with open(APICALLS, 'r') as file_apicalls:
+    for line in file_apicalls.readlines():
+        (api_call, api_permission) = line.split("|") # TODO This dies if the APICalls.txt format is not call|permission\n
+        api_permission = api_permission.replace('\n','')
+        if api_call not in DICT_APICALLS:
+            DICT_APICALLS[api_call] = {'permission': api_permission, 'dangerous':False}
+        else:
+            DICT_APICALLS[api_call]['permission'] = api_permission

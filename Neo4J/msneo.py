@@ -1,10 +1,9 @@
 from py2neo import Graph, Node, Relationship
 from hexdump import hexdump
 import re
-import settings
-
 import sys
-sys.path.append(settings.PATH_MODULE_CONFIG)
+PATH_MODULE_CONFIG = '../config/'
+sys.path.append(PATH_MODULE_CONFIG)
 import misc_config
 
 
@@ -62,15 +61,18 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
 
         if count == 0:
             n = Node(nodename)
-            n['names'] = []
-            n['names'].append(node)
-            if attributes:
-                for attrname, attr in attributes[idx].items():
-                    if attrname in n and n[attrname] != attr:
-                        print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
-                        continue
+            if nodematchkey=='name':
+                n['name'] = node
+            else:
+                n['names'] = []
+                n['names'].append(node)
+                if attributes:
+                    for attrname, attr in attributes[idx].items():
+                        if attrname in n and n[attrname] != attr:
+                            print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
+                            continue
 
-                    n[attrname] = attr
+                        n[attrname] = attr
             tx.create(n)
             print 'Neo4J: Created {0} Node with name: {1}'.format(nodename, node)
 
