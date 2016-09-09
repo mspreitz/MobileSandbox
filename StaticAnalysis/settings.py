@@ -108,3 +108,9 @@ with open(APICALLS, 'r') as file_apicalls:
             DICT_APICALLS[api_call] = {'permission': api_permission, 'dangerous':False}
         else:
             DICT_APICALLS[api_call]['permission'] = api_permission
+
+import csv
+DICT_ADSLIBS = {}
+with open(ADSLIBS, 'Ur') as file_adslibs:
+    for (name_ad, path_ad) in csv.reader(file_adslibs, delimiter=';'):
+        DICT_ADSLIBS[name_ad] = {'path': path_ad}

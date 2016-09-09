@@ -7,7 +7,6 @@ from hexdump import hexdump
 from utils.mhash import *
 from sys import exit
 import chilkat
-import csv
 import datetime
 import json
 import os
@@ -255,7 +254,7 @@ def usedFeatures(logFile,a):
             log(logFile, "AndroidManifest", feature, 1)
     return appFeatures
 
-def getDangerousCalls(workingDir, logFile, d): # TODO Mid-High O
+def getAPICallsADs(workingDir, logFile, d): # TODO Mid-High O
     nope="""
         if "Cipher" in line:
             try:
@@ -275,13 +274,13 @@ def getDangerousCalls(workingDir, logFile, d): # TODO Mid-High O
                 continue
     """
 
+
     log(logFile, 0, "Potentially suspicious API-Calls", 0)
 
-    dumpFile = '{}/{}'.format(workingDir,settings.DUMPFILE)
-
-    dumpdata = ''
+    data_dump = ''
 
     api_calls_dump = {}
+    dict_detected_ads = {}
 
     dumplinenumber = 0
 
@@ -295,22 +294,33 @@ def getDangerousCalls(workingDir, logFile, d): # TODO Mid-High O
             try:
                 for instr in byteCode.get_instructions():
                     line = '{} {} {}'.format(current_class, instr.get_name(), instr.get_output())
-                    dumpdata += line
+                    data_dump += line
                     dumplinenumber += 1
 
                     # Parse API Calls from Dump
+                    # TODO Exchange if apicall in line with regex over the whole dump
                     for apicall, apicall_attributes in settings.DICT_APICALLS.items():
                         if apicall not in line: continue
                         log(logFile, 'Dump.txt:{}'.format(dumplinenumber), line, 1)
                         api_calls_dump[apicall] = apicall_attributes
                         break
 
+                    for adslib_name, adslib_attributes in settings.DICT_ADSLIBS.items():
+                        if adslib_attributes['path'] not in line: continue
+                        dict_detected_ads[adslib_name] = adslib_attributes['path'] 
+                        break
+
+
 
             except dvm.InvalidInstruction:
                 print 'ERROR: Androguard could not decompile. Continue/Abort decompiling this instruction!'
                 continue
 
-    return api_calls_dump
+    path_dump = '{}/{}'.format(workingDir,settings.DUMPFILE)
+    with open(path_dump, 'w') as f:
+        f.write(data_dump)
+
+    return (api_calls_dump, dict_detected_ads)
 
 
 def getSampleInfo(sampleFile,logFile,a):
@@ -452,38 +462,6 @@ def extractSourceFiles(PREFIX,d,vmx): # TODO High O
             source.flush()
             source.close()
 
-
-def getAPICalls(workingDir): # TODO Mid-High O (But higher than dangerousAD)
-    path_dump = '{}/{}'.format(workingDir,settings.DUMPFILE)
-
-    # Find any api_calls that match the api_call regex
-    # TODO NOTE Maybe the regex is still wrong, please revise
-    api_calls_dump = set()
-    regex_api_call = '[^\s]+;->[^\s\(\)\;]+'
-    with open(path_dump, 'r') as file_dump:
-        data_dump = file_dump.read()
-        for api_call in re.findall(regex_api_call, data_dump):
-            if api_call[0] == 'L': api_call = api_call[1:]
-            api_calls_dump.add(api_call)
-
-    # TODO This can be stored somewhere in memory after initial start and always be reused
-    # Dictionary from call to permission(s)
-    api_dict = {}
-    # Get all api_calls and api_permissions from the static APIcalls.txt dump
-    with open(settings.APICALLS, 'r') as file_apicalls:
-        for line in file_apicalls.readlines():
-            (api_call, api_permission) = line.split("|") # TODO This dies if the APICalls.txt format is not call|permission\n
-            api_permission = api_permission.replace('\n','')
-            api_dict[api_call] = api_permission # NOTE We require APICalls.txt to have a unique list
-
-    api_dict_dump = {}
-    # Store any api_call/permission found in the dump to a list
-    for api_call in api_calls_dump:
-        if api_call not in api_dict: continue
-        api_dict_dump[api_call] = api_dict[api_call]
-
-    return api_dict_dump
-
 def getFilesExtendedInsideApk(androidAPK):
     files = {}
     for filename in androidAPK.zip.namelist():
@@ -512,40 +490,9 @@ def getFilesInsideApkSrc(workingDir):
     return fileList
 
 
-#Todo: Funktion testen
-#Check Ad-Networks
-def check():
-    dumpFile = settings.DUMPFILE
-    with open(settings.ADSLIBS, 'Ur') as f:
-        sPath = list(tuple(rec) for rec in csv.reader(f, delimiter=';'))
-    detectedAds = set()
-    for path in sPath:
-        adPath = str(path[1])
-        if(adPath in dumpFile):
-            if (str(path[0]) not in detectedAds) and (str(path[0]) != ""):
-                detectedAds.add(str(path[0]))
-            else:
-                continue
-        else:
-            continue
-    return detectedAds
-
-
-# create ssdeep hashes
-#def ssdeepHash(fileSystemPosition):
-#    try:
-#        ssdeepValue = ssdeep.hash_from_file(fileSystemPosition)
-#        return ssdeepValue
-#    except Exception as e:
-#        print str(e.message)
-#        ssdeepValue = "(None)"
-#        return ssdeepValue
-
-
 def clearOldFiles(workingDir):
     jsonFile  = '{}/{}'.format(workingDir,"static.json")
     logFile   = '{}/{}'.format(workingDir,"static.log")
-    dumpFile  = '{}/{}'.format(workingDir,"Dump.txt")
     srcDir    = '{}/{}'.format(workingDir,settings.DEFAULT_NAME_DIR_SOURCE)
     unpackDir    = '{}/{}'.format(workingDir,settings.DEFAULT_NAME_DIR_UNPACK)
 
@@ -553,8 +500,6 @@ def clearOldFiles(workingDir):
         os.remove(jsonFile)
     if os.path.isfile(logFile):
         os.remove(logFile)
-    if os.path.isfile(dumpFile):
-        os.remove(dumpFile)
     if os.path.exists(srcDir):
         shutil.rmtree(srcDir)
     if os.path.exists(unpackDir):
@@ -657,20 +602,16 @@ def run(sampleFile, workingDir):
     appFiles = getFilesExtendedInsideApk(a)
     print "get service and receivers"
     serviceANDreceiver = getServiceReceiver(logFile,a)
-    print "get (dangerous) api calls..."
-    api_dict = getDangerousCalls(workingDir,logFile,d)
-    #print "check api permissions..."
-    #api_dict = getAPICalls(workingDir)
+    print "get (dangerous) api calls and ad-networks..."
+    (api_dict, ads_dict) = getAPICallsADs(workingDir,logFile,d)
     print "get urls and ips..."
     appUrls = parseURLs(workingDir,logFile)
     #print "create ssdeep hash..."
     #ssdeepValue = ssdeepHash(sampleFile)
-    print "check for ad-networks"
-    detectedAds = check()
     print "extract certificate information"
     cert = getCertificate(a)
     print "create json report..."
-    createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,detectedAds,
+    createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,ads_dict,
                  appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles)#,ssdeepValue)
     print "copy icon image..."
     copyIcon(PREFIX,workingDir)
