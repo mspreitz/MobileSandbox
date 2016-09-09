@@ -511,10 +511,9 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output = appInfos # Since it already contains a dict of most fingerprints
     output['app_permissions'] = list(appPermissions)
     output['api_permissions'] = []
-    output['api_calls'] = []
+    output['api_calls'] = api_dict
     output['interesting_calls'] = []
     for api_call, api_call_attributes in api_dict.items():
-        output['api_calls'].append(api_call)
         if api_call_attributes['permission']:
             output['api_permissions'].append(api_call_attributes['permission'])
         if api_call_attributes['dangerous']:
@@ -529,7 +528,7 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['providers'] = list(appProviders)
     output['included_files_src'] = list(appFilesSrc)
     output['included_files'] = appFiles
-    output['detected_ad_networks'] = list(detectedAds)
+    output['detected_ad_networks'] = detectedAds
     # Save Certificate Information into output dict
     output['cert'] = cert
 

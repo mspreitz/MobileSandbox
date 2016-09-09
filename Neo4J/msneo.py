@@ -38,10 +38,12 @@ def add_attribute(node, datadict, attribute, regex=None, upper=False):
 # TODO Unmangle this function
 def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshipname, attributes=None, nodematchkey='name', upper=False):
 
+    modified_related_nodes = []
+
     # Generate nodes for every new node in nodelist
     # TODO Ignore case?
     for idx, node in enumerate(nodelist):
-        if node is None: continue
+        if node is None or node=='': continue
 
         if nodematchkey == 'name':
             valuetomatch = node
@@ -57,6 +59,7 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
         # Give error if we matched more than 1 nodes
         if count > 1:
             print 'ERROR: Found more than 1 {0} nodes with {0} Name {1}'.format(nodename, node)
+            modified_related_nodes.append(None)
             continue
 
         if count == 0:
@@ -66,18 +69,20 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
             else:
                 n['names'] = []
                 n['names'].append(node)
-                if attributes:
-                    for attrname, attr in attributes[idx].items():
-                        if attrname in n and n[attrname] != attr:
-                            print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
-                            continue
 
-                        n[attrname] = attr
+            if attributes:
+                for attrname, attr in attributes[idx].items():
+                    if attrname in n and n[attrname] != attr:
+                        print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
+                        continue
+
+                    n[attrname] = attr
+
             tx.create(n)
             print 'Neo4J: Created {0} Node with name: {1}'.format(nodename, node)
 
         if count == 1 and attributes:
-            if node not in n['names']:
+            if nodematchkey!='name' and node not in n['names']:
                 n['names'].append(node)
 
             for attrname, attr in attributes[idx].items():
@@ -86,10 +91,12 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
                     continue
 
                 n[attrname] = attr
-            n.push()
+            print 'Neo4J: Updated {0} Node'.format(node)
 
         r = Relationship(nrelative, relationshipname, n)
         tx.merge(r)
+        modified_related_nodes.append(n)
+        return modified_related_nodes
 
 def find_unique_node(graph, nodename, key, value, upper=False, maxn=3):
     if upper: value = value.upper()
@@ -152,28 +159,57 @@ def create_node_static(datadict):
 
     print 'Neo4J: Static Got Android Node with sha256: {}'.format(datadict['sha256'])
 
-    create_list_nodes_rels(graph, tx, na, 'Intent', datadict['intents'], 'ACTION_WITH_INTENT')
-    # TODO Difference api/app permissions
-    # TODO Permissions could be duplicates and cause an error, since the changes have not been committed yet -> No differentiation between them yet -> mege them
-    #create_list_nodes_rels(graph, tx, na, 'Permission', datadict['api_permissions'], 'USES_PERMISSION')
+    # Create nodes with only a name attribute
     permissions = set(datadict['app_permissions'])
-    permissions |= set(datadict['api_permissions'])
-    create_list_nodes_rels(graph, tx, na, 'Permission', permissions, 'USES_PERMISSION')
-    create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL')
-    create_list_nodes_rels(graph, tx, na, 'API_Call', datadict['interesting_calls'], 'CALLS')
-    create_list_nodes_rels(graph, tx, na, 'DEX_File', datadict['included_files_src'], 'INCLUDES_FILE_SRC')
+    permissions |= set(datadict['api_permissions']) # TODO Difference app/api permissions
+    nodes_permissions = create_list_nodes_rels(graph, tx, na, 'Permission', permissions, 'USES_PERMISSION')
+    create_list_nodes_rels(graph, tx, na, 'Intent', datadict['intents'], 'ACTION_WITH_INTENT')
     create_list_nodes_rels(graph, tx, na, 'Activity', datadict['activities'], 'ACTIVITY')
     create_list_nodes_rels(graph, tx, na, 'Feature', datadict['features'], 'FEATURE')
     create_list_nodes_rels(graph, tx, na, 'Provider', datadict['providers'], 'PROVIDER')
     create_list_nodes_rels(graph, tx, na, 'Service_Receiver', datadict['s_and_r'], 'SERVICE_RECEIVER') # TODO split s_and_r
-    create_list_nodes_rels(graph, tx, na, 'Detected_Ad_Networks', datadict['detected_ad_networks'], 'DETECTED_AD_NETWORK')
-    create_list_nodes_rels(graph, tx, na, 'Networks', datadict['networks'], 'NETWORK')
     create_list_nodes_rels(graph, tx, na, 'Package_Name', [ datadict['package_name']], 'PACKAGE_NAME')
     create_list_nodes_rels(graph, tx, na, 'SDK_Version_Target', [ datadict['sdk_version_target']], 'SDK_VERSION_TARGET')
     create_list_nodes_rels(graph, tx, na, 'SDK_Version_Min', [ datadict['sdk_version_min']], 'SDK_VERSION_MIN')
     create_list_nodes_rels(graph, tx, na, 'SDK_Version_Max', [ datadict['sdk_version_max']], 'SDK_VERSION_MAX')
     create_list_nodes_rels(graph, tx, na, 'App_Name', [ datadict['app_name']], 'APP_NAME')
-    #add_attribute(na, datadict, 'api_calls') # TODO List of lists don't work yet
+    create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL')
+    create_list_nodes_rels(graph, tx, na, 'Networks', datadict['networks'], 'NETWORK')
+    create_list_nodes_rels(graph, tx, na, 'AD_Network', datadict['detected_ad_networks'], 'AD_NETWORK')
+
+
+    # Create nodes that may result in a high number of nodes, only have a name attribute
+    create_list_nodes_rels(graph, tx, na, 'DEX_File', datadict['included_files_src'], 'INCLUDES_FILE_SRC')
+
+
+    # Nodes with special attributes
+    nodes_api_calls = create_list_nodes_rels(graph, tx, na, 'API_Call', datadict['api_calls'].keys(), 'CALLS', attributes=datadict['api_calls'].values())
+    # TODO: Add relationship APICall -[CALL_USES_PERMISSION]->Permission
+    TODO="""
+    if nodes_api_calls:
+        for node_permission in graph.find('Permission'):
+            if node_permission in nodes_permissions: continue
+            nodes_permissions.append(node_permission)
+
+        dict_api_call_name_to_node = {}
+        dict_permissions_name_to_node = {}
+        for node in nodes_api_calls:
+            if not node: continue
+            dict_api_call_name_to_node[node['name']] = node
+        for node in nodes_permissions:
+            if not node: continue
+            dict_permissions_name_to_node[node['name']] = node
+        # TODO Either separate dicts and only parse api_calls once or do it twice: here and in django template views
+        for api_call_name, api_call_attributes in datadict['api_calls'].items():
+            if 'permission' not in api_call_attributes: continue
+            if api_call_name not in dict_api_call_name_to_node: continue
+            print 'Find {} in {}'.format(api_call_attributes['permission'], dict_permissions_name_to_node)
+            if api_call_attributes['permission'] not in dict_permissions_name_to_node: continue
+            print 3
+            r = Relationship(dict_api_call_name_to_node[api_call_name], 'CALL_REQUESTS_PERMISSION', dict_permissions_name_to_node[api_call_attributes['permission']])
+            tx.create(r)
+            print '----------------------'
+    """
 
     # TODO SocketTimeout - takes too long?
     if misc_config.ENABLE_ZIPFILE_HASHING:
@@ -185,7 +221,8 @@ def create_node_static(datadict):
             included_files_attrdicts.append(attrdict)
 
         # TODO  Somehow higher O than Dex and pretty slow
-        create_list_nodes_rels(graph, tx, na, 'File', included_files, 'INCLUDES_FILE', attributes=included_files_attrdicts, nodematchkey='md5', upper=True)
+        tmp_nodes = create_list_nodes_rels(graph, tx, na, 'File', included_files, 'INCLUDES_FILE', attributes=included_files_attrdicts, nodematchkey='md5', upper=True)
+        #graph.push(tmp_nodes) # TODO Doesn't work!
 
     # Abort if Certificate Dict is empty
     if not datadict['cert']:
