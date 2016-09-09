@@ -1,5 +1,3 @@
-import misc_config
-
 CUCKOO_STORAGE = 'cuckoo/storage/analyses/'
 CUCKOO_SUBMIT = 'cuckoo/utils/submit.py'
 CUCKOO_SERVER = 'cuckoo/cuckoo.py'
@@ -23,12 +21,11 @@ SCREENSHOT_DIR = 'screenshots'
 APK_FILES = 'apkfiles'
 REPORT_DIR = 'reports'
 
-BACKEND_PATH = '../Backend/'
+import os
+cwd=os.path.dirname(os.path.realpath(__file__))
+BACKEND_PATH = '{}/../Backend/'.format(cwd)
+print BACKEND_PATH
 PATH_SAMPLES = 'analyzer/samples/'
 DEFAULT_NAME_APK = 'sample.apk'
 DEFAULT_NAME_DIR_UNPACK = 'unpack'
 DEFAULT_NAME_DIR_ANALYSIS = 'analysis'
-
-# Misc
-PATH_IFCONFIG = misc_config.PATH_IFCONFIG
-misc_config.ADB_PATH

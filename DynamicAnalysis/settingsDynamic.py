@@ -1,5 +1,3 @@
-import misc_config
-
 CUCKOO_STORAGE = 'cuckoo/storage/analyses/'
 CUCKOO_SUBMIT = 'cuckoo/utils/submit.py'
 CUCKOO_SERVER = 'cuckoo/cuckoo.py'
@@ -20,6 +18,7 @@ VBOX_DEV = 'vboxnet0'
 WORKINGDIR = 'test/'
 PATH_MODULE_MSNEO = '../Neo4J/'
 
-
-ADB_PATH = misc_config.ADB_PATH
-ENABLE_CUCKOO_EXTRA_INFO = misc_config.ENABLE_CUCKOO_EXTRA_INFO
+import os
+cwd=os.path.dirname(os.path.realpath(__file__))
+PATH_MODULE_CONFIG = '{}/config/'.format(cwd)
+print PATH_MODULE_CONFIG

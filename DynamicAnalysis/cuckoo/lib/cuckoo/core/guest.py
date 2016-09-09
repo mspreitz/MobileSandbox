@@ -22,10 +22,14 @@ from lib.cuckoo.core.resultserver import ResultServer
 
 import sys
 
-from misc_config import PATH_DYNAMIC_ANALYSIS
-
+# TODO Including paths this way isn't beautiful, please fix
+PATH_DYNAMIC_ANALYSIS='{}/../'.format(CUCKOO_ROOT)
+PATH_MODULE_CONFIG='{}/../../config/'.format(CUCKOO_ROOT)
 sys.path.append(PATH_DYNAMIC_ANALYSIS)
+sys.path.append(PATH_MODULE_CONFIG)
+reload(sys)
 import settingsDynamic
+import misc_config
 
 log = logging.getLogger(__name__)
 
@@ -153,7 +157,7 @@ class GuestManager:
         """
         log.info("Starting analysis on guest (id=%s, ip=%s)", self.id, self.ip)
 
-        if settingsDynamic.ENABLE_CUCKOO_EXTRA_INFO:
+        if misc_config.ENABLE_CUCKOO_EXTRA_INFO:
             time.sleep(10)
             retnum = subprocess.call([settingsDynamic.ADB_PATH, "kill-server"])
             #log.info('AM I ALIVE? {} '.format(retnum))

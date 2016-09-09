@@ -6,11 +6,12 @@ import settings
 import json
 import re
 import settingsDynamic
-import misc_config
 
 import sys
 sys.path.append(settingsDynamic.PATH_MODULE_MSNEO)
+sys.path.append(settingsDynamic.PATH_MODULE_CONFIG)
 from msneo import create_node_dynamic
+import misc_config
 
 proc = None
 resDir = ""
@@ -18,11 +19,11 @@ resDir = ""
 
 def initCuckoo(sampleFile):
     global proc
-    if not os.path.isfile(settings.PATH_IFCONFIG):
-        settings.PATH_IFCONFIG = '/sbin/ifconfig'
+    if not os.path.isfile(misc_config.PATH_IFCONFIG):
+        misc_config.PATH_IFCONFIG = '/sbin/ifconfig'
 
     try:
-        net = subprocess.check_output([settings.PATH_IFCONFIG])
+        net = subprocess.check_output([misc_config.PATH_IFCONFIG])
         if not "vboxnet0" in net:
             subprocess.call(["vboxmanage", "hostonlyif", "ipconfig",
                              settings.VBOX_DEV, "--ip", settings.VBOX_IP,

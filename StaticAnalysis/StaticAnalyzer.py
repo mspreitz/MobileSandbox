@@ -15,7 +15,6 @@ import re
 import settings
 import shutil
 import xml.etree.ElementTree as ET
-import misc_config
 import traceback
 #import ssdeep
 
@@ -24,7 +23,9 @@ import traceback
 ###
 import sys
 sys.path.append(settings.PATH_MODULE_MSNEO)
+sys.path.append(settings.PATH_MODULE_CONFIG)
 from msneo import create_node_static
+import misc_config
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
