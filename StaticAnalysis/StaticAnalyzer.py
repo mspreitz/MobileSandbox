@@ -541,7 +541,7 @@ def clearOldFiles(workingDir):
 
 
 def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
-                 appUrls, appInfos, api_dict, appFilesSrc, appActivities, cert, appFiles):
+                 appUrls, appInfos, api_dict, appFilesSrc, appActivities, cert, appFiles, list_dex_strings):
     output = appInfos # Since it already contains a dict of most fingerprints
     output['app_permissions'] = list(appPermissions)
     output['api_permissions'] = []
@@ -565,6 +565,7 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['detected_ad_networks'] = detectedAds
     # Save Certificate Information into output dict
     output['cert'] = cert
+    output['strings'] = list_dex_strings
 
 
     # save the JSON dict to a file for later use
@@ -643,9 +644,12 @@ def run(sampleFile, workingDir):
     #ssdeepValue = ssdeepHash(sampleFile)
     print "extract certificate information"
     cert = getCertificate(a)
+    print 'get strings...'
+    list_dex_strings = []
+    if misc_config.ENABLE_STRING_PARSING: d.get_strings()
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,ads_dict,
-                 appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles)#,ssdeepValue)
+                 appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles, list_dex_strings)#,ssdeepValue)
     print "copy icon image..."
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."

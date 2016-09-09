@@ -41,7 +41,6 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
     modified_related_nodes = []
 
     # Generate nodes for every new node in nodelist
-    # TODO Ignore case?
     for idx, node in enumerate(nodelist):
         if node is None or node=='': continue
 
@@ -50,7 +49,7 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
         else:
             if not attributes or nodematchkey not in attributes[idx]:
                 print 'ERROR: Attributes was empty or nodematchkey {} did not exist in attributes'.format(nodematchkey)
-                return
+                continue
 
             valuetomatch = attributes[idx][nodematchkey]
 
@@ -96,7 +95,7 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
         r = Relationship(nrelative, relationshipname, n)
         tx.merge(r)
         modified_related_nodes.append(n)
-        return modified_related_nodes
+    return modified_related_nodes
 
 def find_unique_node(graph, nodename, key, value, upper=False, maxn=3):
     if upper: value = value.upper()
@@ -180,6 +179,7 @@ def create_node_static(datadict):
 
     # Create nodes that may result in a high number of nodes, only have a name attribute
     create_list_nodes_rels(graph, tx, na, 'DEX_File', datadict['included_files_src'], 'INCLUDES_FILE_SRC')
+    if misc_config.ENABLE_STRING_PARSING: create_list_nodes_rels(graph, tx, na, 'String', datadict['strings'], 'CONTAINS_STRING')
 
 
     # Nodes with special attributes
