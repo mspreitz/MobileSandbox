@@ -42,7 +42,9 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
 
     # Generate nodes for every new node in nodelist
     for idx, node in enumerate(nodelist):
-        if node is None or node=='': continue
+        if node is None: continue
+        node = node
+        if node=='': continue
 
         if nodematchkey == 'name':
             valuetomatch = node
@@ -71,6 +73,7 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
 
             if attributes:
                 for attrname, attr in attributes[idx].items():
+                    attr = attr
                     if attrname in n and n[attrname] != attr:
                         print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
                         continue
@@ -78,19 +81,23 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
                     n[attrname] = attr
 
             tx.create(n)
-            print 'Neo4J: Created {0} Node with name: {1}'.format(nodename, node)
+            print 'Neo4J: Created {0} Node with name: {{{1}}}'.format(nodename, node)
 
         if count == 1 and attributes:
+            changed = False
             if nodematchkey!='name' and node not in n['names']:
                 n['names'].append(node)
+                changed = True
 
             for attrname, attr in attributes[idx].items():
+                attr = attr
                 if attrname in n and n[attrname] != attr:
                     print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
                     continue
 
+                changed = True
                 n[attrname] = attr
-            print 'Neo4J: Updated {0} Node'.format(node)
+            if changed: print 'Neo4J: Updated Node {}'.format(nodename)
 
         r = Relationship(nrelative, relationshipname, n)
         tx.merge(r)
@@ -179,7 +186,8 @@ def create_node_static(datadict):
 
     # Create nodes that may result in a high number of nodes, only have a name attribute
     create_list_nodes_rels(graph, tx, na, 'DEX_File', datadict['included_files_src'], 'INCLUDES_FILE_SRC')
-    if misc_config.ENABLE_STRING_PARSING: create_list_nodes_rels(graph, tx, na, 'String', datadict['strings'], 'CONTAINS_STRING')
+    if misc_config.ENABLE_PARSING_STRINGS: create_list_nodes_rels(graph, tx, na, 'String', datadict['strings'], 'CONTAINS_STRING')
+    if misc_config.ENABLE_PARSING_FIELDS: create_list_nodes_rels(graph, tx, na, 'Field', datadict['fields'], 'CONTAINS_FIELD')
 
 
     # Nodes with special attributes

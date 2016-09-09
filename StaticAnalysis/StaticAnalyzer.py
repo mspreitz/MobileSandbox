@@ -541,7 +541,7 @@ def clearOldFiles(workingDir):
 
 
 def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
-                 appUrls, appInfos, api_dict, appFilesSrc, appActivities, cert, appFiles, list_dex_strings):
+                 appUrls, appInfos, api_dict, appFilesSrc, appActivities, cert, appFiles, dict_dex):
     output = appInfos # Since it already contains a dict of most fingerprints
     output['app_permissions'] = list(appPermissions)
     output['api_permissions'] = []
@@ -565,7 +565,8 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['detected_ad_networks'] = detectedAds
     # Save Certificate Information into output dict
     output['cert'] = cert
-    output['strings'] = list_dex_strings
+    output['strings'] = dict_dex['strings']
+    output['fields'] = dict_dex['fields']
 
 
     # save the JSON dict to a file for later use
@@ -644,12 +645,15 @@ def run(sampleFile, workingDir):
     #ssdeepValue = ssdeepHash(sampleFile)
     print "extract certificate information"
     cert = getCertificate(a)
+
+    dict_dex = {'strings':[], 'fields':[]}
     print 'get strings...'
-    list_dex_strings = []
-    if misc_config.ENABLE_STRING_PARSING: d.get_strings()
+    if misc_config.ENABLE_PARSING_STRINGS: dict_dex['strings'] = list(set([ string.strip() for s in d.get_strings()]))
+    print 'get fields...'
+    if misc_config.ENABLE_PARSING_FIELDS: dict_dex['fields'] = list(set([ field.get_name().strip() for field in d.get_all_fields() ]))
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,ads_dict,
-                 appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles, list_dex_strings)#,ssdeepValue)
+                 appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles, dict_dex)#,ssdeepValue)
     print "copy icon image..."
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."
