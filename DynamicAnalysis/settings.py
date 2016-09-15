@@ -20,12 +20,8 @@ REPORT_DIR = 'reports'
 
 import os
 cwd=os.path.dirname(os.path.realpath(__file__))
-PATH_MODULE_CONFIG = '{}/config/'.format(cwd)
-print PATH_MODULE_CONFIG
-
-cwd=os.path.dirname(os.path.realpath(__file__))
+PATH_MODULE_CONFIG = '{}/../config/'.format(cwd)
 BACKEND_PATH = '{}/../Backend/'.format(cwd)
-print BACKEND_PATH
 PATH_SAMPLES = 'analyzer/samples/'
 DEFAULT_NAME_APK = 'sample.apk'
 DEFAULT_NAME_DIR_UNPACK = 'unpack'

@@ -231,7 +231,6 @@ def extractCuckooInfo(cuckooID):
 
 
 def createOutput(workingDir, cuckooID):
-    print workingDir
     result = {}
     # Get relevant cuckoo results
     print "Extracting Cuckoo info..."

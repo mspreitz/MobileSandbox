@@ -37,7 +37,7 @@ def add_attribute(node, datadict, attribute, regex=None, upper=False):
 
 # Create a node named nodename in graph using transaction tx that is in relationship with node nrelative, add attributes (same idx list of dicts: attrname -> attr) to nodename if provided.
 # TODO Unmangle this function
-def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshipname, attributes=None, nodematchkey='name', upper=False):
+def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshipname, attributes=None, nodematchkey='name', upper=False, relationshipattributes=None):
 
     modified_related_nodes = []
 
@@ -72,7 +72,6 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
 
             if attributes:
                 for attrname, attr in attributes[idx].items():
-                    attr = attr
                     if attrname in n and n[attrname] != attr:
                         print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
                         continue
@@ -99,6 +98,9 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
             #if changed: print 'Neo4J: Updated Node {}'.format(nodename)
 
         r = Relationship(nrelative, relationshipname, n)
+        if relationshipattributes:
+            for attrname, attr in relationshipattributes[idx].items():
+                r[attrname] = attr
         tx.merge(r)
         modified_related_nodes.append(n)
     return modified_related_nodes
@@ -159,6 +161,7 @@ def create_node_static(datadict):
         add_attribute(na, datadict, 'md5', regex=r_md5, upper=True)
         add_attribute(na, datadict, 'sha1', regex=r_sha1, upper=True)
         add_attribute(na, datadict, 'sha256', regex=r_sha256, upper=True)
+        add_attribute(na, datadict, 'ssdeep')
         na['static'] = True
         tx.create(na)
 
@@ -382,8 +385,66 @@ def create_node_dynamic(datadict):
 
     # Create virustotal nodes
     if 'virustotal' in datadict:
+        set_av_results = set()
         for antivirus, resultdict in datadict['virustotal']['scans'].items():
             if not resultdict['result']: continue # Skip null results
-            create_list_nodes_rels(graph, tx, na, 'Antivirus', [resultdict['result']], 'ANTIVIRUS')
+            set_av_results.add(resultdict['result'])
+        create_list_nodes_rels(graph, tx, na, 'Antivirus', list(set_av_results), 'ANTIVIRUS')
 
+    # Add network traffic data
+    localhost = '192.168.56.10' # TODO Move this
+    if 'network' in datadict:
+        nodes_hosts = []
+        # Case HOSTS
+        if 'hosts' in datadict['network'] and len(datadict['network']['hosts']) > 0:
+            nodes_hosts = create_list_nodes_rels(graph, tx, na, 'Host', datadict['network']['hosts'], 'NETWORK_CONTACT')
+
+        # Hosts dict for a quick lookup
+        dict_hosts = {}
+        for node in nodes_hosts:
+            dict_hosts[node['name']] = node
+
+        # Case UDP: Add contacted IPs through UDP with additional relationship attributes
+        if 'udp' in datadict['network'] and len(datadict['network']['udp']) > 0:
+            dict_udp_hosts = {}
+            for udpdict in datadict['network']['udp']:
+                remotehost = None
+                remoteport = None
+                if udpdict['src'] == localhost:
+                    remotehost = udpdict['dst']
+                    remoteport = udpdict['dport']
+                elif udpdict['dst'] == localhost:
+                    remotehost = udpdict['src']
+                    remoteport = udpdict['sport']
+                else:
+                    print 'ERROR: Neither src nor dst is localhost {} in UDP connection. Real values: dst {}, src: {}'.format(localhost, udpdict['dst'], udpdict['src'])
+                    continue
+                if remotehost not in dict_udp_hosts:
+                    dict_udp_hosts[remotehost] = set()
+                dict_udp_hosts[remotehost].add(remoteport)
+
+            for hostname, ports in dict_udp_hosts.items():
+                create_list_nodes_rels(graph, tx, dict_hosts[hostname], 'Port', ports, 'OPENED_PORT')
+
+        # Case DNS: TODO
+        if 'dns' in datadict['network'] and len(datadict['network']['dns']) > 0:
+            pass
+        # Case IRC: TODO
+        if 'irc' in datadict['network'] and len(datadict['network']['irc']) > 0:
+            pass
+        # Case HTTP: TODO
+        if 'http' in datadict['network'] and len(datadict['network']['http']) > 0:
+            pass
+        # Case SMTP: TODO
+        if 'smtp' in datadict['network'] and len(datadict['network']['smtp']) > 0:
+            pass
+        # Case TCP: TODO
+        if 'tcp' in datadict['network'] and len(datadict['network']['tcp']) > 0:
+            pass
+        # Case DOMAINS: TODO
+        if 'domains' in datadict['network'] and len(datadict['network']['domains']) > 0:
+            pass
+        # Case ICMP: TODO
+        if 'icmp' in datadict['network'] and len(datadict['network']['icmp']) > 0:
+            pass
     tx.commit()

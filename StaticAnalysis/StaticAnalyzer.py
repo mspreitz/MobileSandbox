@@ -15,11 +15,8 @@ import settings
 import shutil
 import xml.etree.ElementTree as ET
 import traceback
-#import ssdeep
+import ssdeep
 
-### TODO LIST
-# ssdeep installieren und wieder einkommentieren!!
-###
 import sys
 sys.path.append(settings.PATH_MODULE_MSNEO)
 sys.path.append(settings.PATH_MODULE_CONFIG)
@@ -519,7 +516,7 @@ def getFilesExtendedInsideApk(androidAPK):
         files[filename]['md5'] = hash_md5(file_data)
         files[filename]['sha1'] = hash_sha1(file_data)
         files[filename]['sha256'] = hash_sha256(file_data)
-        #files['ssdeep'] = hash_ssdeep(file_data)
+        files[filename]['ssdeep'] = hash_ssdeep(file_data)
     return files
 
 def getFilesInsideApk(androidAPK):
@@ -658,8 +655,6 @@ def run(sampleFile, workingDir):
     (api_dict, ads_dict) = getAPICallsADs(workingDir,logFile,d)
     print "get urls and ips..."
     appUrls = parseURLs(workingDir,logFile)
-    #print "create ssdeep hash..."
-    #ssdeepValue = ssdeepHash(sampleFile)
     print "extract certificate information"
     cert = getCertificate(a)
 
@@ -671,7 +666,7 @@ def run(sampleFile, workingDir):
     if misc_config.ENABLE_PARSING_METHODS: dict_dex['methods'] = list(set([ x.get_name().strip() for x in d.get_methods()]))
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,ads_dict,
-                 appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles, dict_dex)#,ssdeepValue)
+                 appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles, dict_dex)
     print "copy icon image..."
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."
