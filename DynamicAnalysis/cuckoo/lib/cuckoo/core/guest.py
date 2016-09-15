@@ -20,10 +20,14 @@ from lib.cuckoo.common.exceptions import CuckooGuestError
 from lib.cuckoo.common.utils import TimeoutServer, sanitize_filename
 from lib.cuckoo.core.resultserver import ResultServer
 
-import DynamicAnalysis.settings as settings
-import config.misc_config as misc_config
-#import misc_config
-#import settings
+import sys
+PATH_DYNAMIC_ANALYSIS='{}/../'.format(CUCKOO_ROOT)
+PATH_MODULE_CONFIG='{}/../../config/'.format(CUCKOO_ROOT)
+sys.path.append(PATH_DYNAMIC_ANALYSIS)
+sys.path.append(PATH_MODULE_CONFIG)
+reload(sys)
+import settings
+import misc_config
 
 
 log = logging.getLogger(__name__)

@@ -23,10 +23,15 @@ from lib.cuckoo.core.plugins import list_plugins, RunAuxiliary, RunProcessing
 from lib.cuckoo.core.plugins import RunSignatures, RunReporting
 from lib.cuckoo.core.resultserver import ResultServer
 
-import DynamicAnalysis.settings as settings
-import config.misc_config as misc_config
-#import settings
-#import misc_config
+import sys
+# TODO Including paths this way isn't beautiful, please fix
+PATH_DYNAMIC_ANALYSIS='{}/../'.format(CUCKOO_ROOT)
+PATH_MODULE_CONFIG='{}/../../config/'.format(CUCKOO_ROOT)
+sys.path.append(PATH_DYNAMIC_ANALYSIS)
+sys.path.append(PATH_MODULE_CONFIG)
+reload(sys)
+import settings
+import misc_config
 
 
 log = logging.getLogger(__name__)

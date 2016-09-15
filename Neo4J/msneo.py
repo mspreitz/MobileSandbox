@@ -279,10 +279,6 @@ def create_node_static(datadict):
     add_attribute(nc, certdict, 'TrustedRoot')
     add_attribute(nc, certdict, 'validFromStr')
     add_attribute(nc, certdict, 'validToStr')
-
-
-
-
     tx.create(nc)
     print 'Neo4J: Created Certificate Node with Sha1Thumbprint: {}'.format(certdict['Sha1Thumbprint'])
 

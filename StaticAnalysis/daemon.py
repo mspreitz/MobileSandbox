@@ -11,7 +11,7 @@ import psycopg2
 import shutil
 import time
 import zipfile
-import config.misc_config as misc_config
+import misc_config
 
 
 def mzip(path, src, dst):

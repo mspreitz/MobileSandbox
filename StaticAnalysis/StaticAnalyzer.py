@@ -23,9 +23,9 @@ import traceback
 import sys
 sys.path.append(settings.PATH_MODULE_MSNEO)
 sys.path.append(settings.PATH_MODULE_CONFIG)
-from msneo import create_node_static
-import config.misc_config as misc_config
 reload(sys)
+from msneo import create_node_static
+import misc_config
 sys.setdefaultencoding('utf-8')
 
 def errorMessage(msg):

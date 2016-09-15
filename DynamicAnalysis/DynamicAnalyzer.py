@@ -10,7 +10,7 @@ import sys
 sys.path.append(settings.PATH_MODULE_MSNEO)
 sys.path.append(settings.PATH_MODULE_CONFIG)
 from msneo import create_node_dynamic
-import config.misc_config as misc_config
+import misc_config
 
 proc = None
 resDir = ""
