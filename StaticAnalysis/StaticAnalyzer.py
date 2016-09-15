@@ -567,6 +567,8 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['cert'] = cert
     output['strings'] = dict_dex['strings']
     output['fields'] = dict_dex['fields']
+    output['classes'] = dict_dex['classes']
+    output['methods'] = dict_dex['methods']
 
 
     # save the JSON dict to a file for later use
@@ -646,11 +648,12 @@ def run(sampleFile, workingDir):
     print "extract certificate information"
     cert = getCertificate(a)
 
-    dict_dex = {'strings':[], 'fields':[]}
-    print 'get strings...'
-    if misc_config.ENABLE_PARSING_STRINGS: dict_dex['strings'] = list(set([ string.strip() for s in d.get_strings()]))
-    print 'get fields...'
+    dict_dex = {'strings':[], 'fields':[], 'classes':[], 'methods':[]}
+    print 'get strings, fields, classes, methods...'
+    if misc_config.ENABLE_PARSING_STRINGS: dict_dex['strings'] = list(set([ x.strip() for x in d.get_strings()]))
     if misc_config.ENABLE_PARSING_FIELDS: dict_dex['fields'] = list(set([ field.get_name().strip() for field in d.get_all_fields() ]))
+    if misc_config.ENABLE_PARSING_CLASSES: dict_dex['classes'] = list(set([ x.get_name().strip() for x in d.get_classes()]))
+    if misc_config.ENABLE_PARSING_METHODS: dict_dex['methods'] = list(set([ x.get_name().strip() for x in d.get_methods()]))
     print "create json report..."
     createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,ads_dict,
                  appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles, dict_dex)#,ssdeepValue)

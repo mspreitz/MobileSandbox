@@ -84,10 +84,10 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
             print 'Neo4J: Created {0} Node with name: {{{1}}}'.format(nodename, node)
 
         if count == 1 and attributes:
-            changed = False
+            #changed = False
             if nodematchkey!='name' and node not in n['names']:
                 n['names'].append(node)
-                changed = True
+                #changed = True
 
             for attrname, attr in attributes[idx].items():
                 attr = attr
@@ -95,9 +95,9 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
                     print 'ERROR: node {0} - Different Attributes {1} found but {2} expected'.format(nodename, attr, n[attrname])
                     continue
 
-                changed = True
+                #changed = True
                 n[attrname] = attr
-            if changed: print 'Neo4J: Updated Node {}'.format(nodename)
+            #if changed: print 'Neo4J: Updated Node {}'.format(nodename)
 
         r = Relationship(nrelative, relationshipname, n)
         tx.merge(r)
@@ -188,6 +188,8 @@ def create_node_static(datadict):
     create_list_nodes_rels(graph, tx, na, 'DEX_File', datadict['included_files_src'], 'INCLUDES_FILE_SRC')
     if misc_config.ENABLE_PARSING_STRINGS: create_list_nodes_rels(graph, tx, na, 'String', datadict['strings'], 'CONTAINS_STRING')
     if misc_config.ENABLE_PARSING_FIELDS: create_list_nodes_rels(graph, tx, na, 'Field', datadict['fields'], 'CONTAINS_FIELD')
+    if misc_config.ENABLE_PARSING_CLASSES: create_list_nodes_rels(graph, tx, na, 'Class', datadict['classes'], 'CONTAINS_CLASS')
+    if misc_config.ENABLE_PARSING_METHODS: create_list_nodes_rels(graph, tx, na, 'Method', datadict['methods'], 'CONTAINS_METHOD')
 
 
     # Nodes with special attributes

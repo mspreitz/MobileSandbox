@@ -3,7 +3,12 @@ import os
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'analyzer'))
 
-DEBUG = True
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS.append('131.188.31.150')
+
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -27,10 +32,6 @@ DATABASES = {
 }
 
 
-
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
