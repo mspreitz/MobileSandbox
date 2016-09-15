@@ -20,16 +20,11 @@ from lib.cuckoo.common.exceptions import CuckooGuestError
 from lib.cuckoo.common.utils import TimeoutServer, sanitize_filename
 from lib.cuckoo.core.resultserver import ResultServer
 
-import sys
+import DynamicAnalysis.settings as settings
+import config.misc_config as misc_config
+#import misc_config
+#import settings
 
-# TODO Including paths this way isn't beautiful, please fix
-PATH_DYNAMIC_ANALYSIS='{}/../'.format(CUCKOO_ROOT)
-PATH_MODULE_CONFIG='{}/../../config/'.format(CUCKOO_ROOT)
-sys.path.append(PATH_DYNAMIC_ANALYSIS)
-sys.path.append(PATH_MODULE_CONFIG)
-reload(sys)
-import settingsDynamic
-import misc_config
 
 log = logging.getLogger(__name__)
 
@@ -89,22 +84,22 @@ class GuestManager:
 
 
     def getProcessList(self):
-        with open(settingsDynamic.PLIST_FILE, "w+") as outFile:
+        with open(settings.PLIST_FILE, "w+") as outFile:
             log.info("Get process list")
             # time.sleep(5)
-            processList = subprocess.check_output([settingsDynamic.ADB_PATH, "shell", "ps"])
+            processList = subprocess.check_output([misc_config.ADB_PATH, "shell", "ps"])
             outFile.write(processList)
             outFile.close()
 
     def getListeningPorts(self):
-        with open(settingsDynamic.NETSTAT_LIST, "w+") as outFile:
-            netstat = subprocess.check_output([settingsDynamic.ADB_PATH, "shell", "netstat -lntu"])
+        with open(settings.NETSTAT_LIST, "w+") as outFile:
+            netstat = subprocess.check_output([misc_config.ADB_PATH, "shell", "netstat -lntu"])
             outFile.write(netstat)
             outFile.close()
 
     def generateFileList(self):
-        with open(settingsDynamic.SBOX_FOLDER_LIST,"w+") as outFile:
-            folderList = subprocess.check_output([settingsDynamic.ADB_PATH, "shell", "ls", "/data/data"])
+        with open(settings.SBOX_FOLDER_LIST,"w+") as outFile:
+            folderList = subprocess.check_output([misc_config.ADB_PATH, "shell", "ls", "/data/data"])
             outFile.write(folderList)
             outFile.close()
 
@@ -159,13 +154,13 @@ class GuestManager:
 
         if misc_config.ENABLE_CUCKOO_EXTRA_INFO:
             time.sleep(10)
-            retnum = subprocess.call([settingsDynamic.ADB_PATH, "kill-server"])
+            retnum = subprocess.call([misc_config.ADB_PATH, "kill-server"])
             #log.info('AM I ALIVE? {} '.format(retnum))
-            retnum = subprocess.call([settingsDynamic.ADB_PATH, "start-server"])
+            retnum = subprocess.call([misc_config.ADB_PATH, "start-server"])
             #log.info('AM I ALIVE? {} '.format(retnum))
-            retnum = subprocess.call([settingsDynamic.ADB_PATH, "root"])
+            retnum = subprocess.call([misc_config.ADB_PATH, "root"])
             #log.info('AM I ALIVE? {} '.format(retnum))
-            retnum = subprocess.call([settingsDynamic.ADB_PATH, "connect", "192.168.56.10"])
+            retnum = subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
             #log.info('AM I ALIVE? {} '.format(retnum))
             # Custom: Get process information
             self.getProcessList()

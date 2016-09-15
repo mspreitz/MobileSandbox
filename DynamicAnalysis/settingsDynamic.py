@@ -1,7 +1,6 @@
 CUCKOO_STORAGE = 'cuckoo/storage/analyses/'
 CUCKOO_SUBMIT = 'cuckoo/utils/submit.py'
 CUCKOO_SERVER = 'cuckoo/cuckoo.py'
-#ADB_PATH = '/usr/bin/adb'
 PLIST_FILE = 'processlist.txt'
 PLIST_NEW = 'processlistNew.txt'
 NETSTAT_LIST = 'netstat.txt'

@@ -24,7 +24,7 @@ import sys
 sys.path.append(settings.PATH_MODULE_MSNEO)
 sys.path.append(settings.PATH_MODULE_CONFIG)
 from msneo import create_node_static
-import misc_config
+import config.misc_config as misc_config
 reload(sys)
 sys.setdefaultencoding('utf-8')
 

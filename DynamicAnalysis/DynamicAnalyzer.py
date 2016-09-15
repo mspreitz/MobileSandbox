@@ -2,16 +2,15 @@ import os
 import shutil
 import subprocess
 import time
-import settings
 import json
 import re
-import settingsDynamic
+import settings
 
 import sys
-sys.path.append(settingsDynamic.PATH_MODULE_MSNEO)
-sys.path.append(settingsDynamic.PATH_MODULE_CONFIG)
+sys.path.append(settings.PATH_MODULE_MSNEO)
+sys.path.append(settings.PATH_MODULE_CONFIG)
 from msneo import create_node_dynamic
-import misc_config
+import config.misc_config as misc_config
 
 proc = None
 resDir = ""
@@ -179,7 +178,6 @@ def extractCuckooInfo(cuckooID):
 
         for i in data['network']['tcp']:
             tcpSet = dict()
-
             if i['dst'] not in tcpSet:
                 if vbox_ip not in i['dst'] and snap_ip not in i['dst']:
                     tcpSet['dst'] = i['dst']
@@ -282,4 +280,5 @@ def run(sampleFile, workingDir):
     else:
         print "Error: Not finished"
 
+#run("40.apk", "analysis")
 #Todo: Copy Databases, work on code robustness

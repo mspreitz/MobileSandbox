@@ -23,16 +23,11 @@ from lib.cuckoo.core.plugins import list_plugins, RunAuxiliary, RunProcessing
 from lib.cuckoo.core.plugins import RunSignatures, RunReporting
 from lib.cuckoo.core.resultserver import ResultServer
 
-import sys
+import DynamicAnalysis.settings as settings
+import config.misc_config as misc_config
+#import settings
+#import misc_config
 
-# TODO Including paths this way isn't beautiful, please fix
-PATH_DYNAMIC_ANALYSIS='{}/../'.format(CUCKOO_ROOT)
-PATH_MODULE_CONFIG='{}/../../config/'.format(CUCKOO_ROOT)
-sys.path.append(PATH_DYNAMIC_ANALYSIS)
-sys.path.append(PATH_MODULE_CONFIG)
-reload(sys)
-import settingsDynamic
-import misc_config
 
 log = logging.getLogger(__name__)
 
@@ -209,28 +204,28 @@ class AnalysisManager(Thread):
         return options
 
     def adbRoot(self):
-        subprocess.call([settingsDynamic.ADB_PATH, "connect", "192.168.56.10"])
-        subprocess.call([settingsDynamic.ADB_PATH, "root"])
-        #subprocess.call([settingsDynamic.ADB_PATH, "kill-server"])
-        subprocess.call([settingsDynamic.ADB_PATH, "connect", "192.168.56.10"])
+        subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
+        subprocess.call([misc_config.ADB_PATH, "root"])
+        #subprocess.call([misc_config.ADB_PATH, "kill-server"])
+        subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
 
     # Custom
     def getListeningPorts(self):
-        outFile = open(settingsDynamic.NETSTAT_NEW, "w+")
-        netstat = subprocess.check_output([settingsDynamic.ADB_PATH, "shell", "netstat -lntu"])
+        outFile = open(settings.NETSTAT_NEW, "w+")
+        netstat = subprocess.check_output([misc_config.ADB_PATH, "shell", "netstat -lntu"])
         outFile.write(netstat)
         outFile.close()
 
     # Custom
     def getProcessList(self):
         # Custom: Get process list after analysis
-        outFile = open(settingsDynamic.PLIST_NEW, "w+")
-        processList = subprocess.check_output([settingsDynamic.ADB_PATH, "shell", "ps"])
+        outFile = open(settings.PLIST_NEW, "w+")
+        processList = subprocess.check_output([misc_config.ADB_PATH, "shell", "ps"])
         outFile.write(processList)
         outFile.close()
 
     def adb_list_directory(self, directory):
-        process = subprocess.Popen([settingsDynamic.ADB_PATH, "shell", "ls '%s'; echo $?" % directory],
+        process = subprocess.Popen([misc_config.ADB_PATH, "shell", "ls '%s'; echo $?" % directory],
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
@@ -244,7 +239,7 @@ class AnalysisManager(Thread):
 
     def getPackageName(self):
         DATA_ROOT_DIR = "/data/data"
-        with open(settingsDynamic.INSTALLED_APPS, 'r') as a:
+        with open(settings.INSTALLED_APPS, 'r') as a:
             apps = a.read().split()
             dirs = self.adb_list_directory(DATA_ROOT_DIR)
             for d in dirs:
@@ -253,7 +248,7 @@ class AnalysisManager(Thread):
         return None
 
     def adb_pull(self, remoteFile, localTargetFolder):
-        process = subprocess.Popen([settingsDynamic.ADB_PATH, "pull", "%s" % remoteFile, "%s" % localTargetFolder])
+        process = subprocess.Popen([misc_config.ADB_PATH, "pull", "%s" % remoteFile, "%s" % localTargetFolder])
         process.wait()
         if process.returncode != 0:
             raise IOError("Error during download.")
@@ -268,7 +263,6 @@ class AnalysisManager(Thread):
             log.error("No app found!!!")
             return
         else:
-            log.error(pkgName)
             DATA_ROOT_DIR = "/data/data"
             PACKAGE_DATA_DIR = os.path.join(DATA_ROOT_DIR, pkgName)
             PACKAGE_DATABASE_DIR = os.path.join(PACKAGE_DATA_DIR, "databases")
@@ -289,9 +283,9 @@ class AnalysisManager(Thread):
 
 
     # def pullDirectories(self):
-    #     folderList = subprocess.check_output([settingsDynamic.ADB_PATH, "shell", "ls", "/data/data"])
+    #     folderList = subprocess.check_output([misc_config.ADB_PATH, "shell", "ls", "/data/data"])
     #     folderlist_split = folderList.split()
-    #     file = open(settingsDynamic.SBOX_FOLDER_LIST, "r").read()
+    #     file = open(settings.SBOX_FOLDER_LIST, "r").read()
     #     if not os.path.isdir('tmp'):
     #         os.makedirs('tmp/sdcard')
     #         os.makedirs('tmp/data')
@@ -299,9 +293,9 @@ class AnalysisManager(Thread):
     #         if i not in file:
     #             #log.error(i)
     #             if os.path.isdir('data/data/'+i):
-    #                 process = subprocess.Popen([settingsDynamic.ADB_PATH, 'pull', '/data/data/%s/.' % i, 'tmp/data/'])
+    #                 process = subprocess.Popen([misc_config.ADB_PATH, 'pull', '/data/data/%s/.' % i, 'tmp/data/'])
     #                 process.wait()
-    #     process = subprocess.Popen([settingsDynamic.ADB_PATH, 'pull', '/sdcard/.', 'tmp/sdcard'])
+    #     process = subprocess.Popen([misc_config.ADB_PATH, 'pull', '/sdcard/.', 'tmp/sdcard'])
     #     process.wait()
 
 
@@ -372,7 +366,7 @@ class AnalysisManager(Thread):
             if misc_config.ENABLE_CUCKOO_EXTRA_INFO:
                 self.getProcessList()
                 self.getListeningPorts()
-                subprocess.Popen([settingsDynamic.ADB_PATH, "kill-server"])
+                subprocess.Popen([misc_config.ADB_PATH, "kill-server"])
                 self.adbRoot()
                 #self.pullDirectories()
                 self.copyDatabase()
