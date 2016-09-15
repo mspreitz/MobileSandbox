@@ -307,9 +307,9 @@ def create_node_static(datadict):
     if 'SubjectOU' in certdict: create_list_nodes_rels(graph, tx, nc, 'SubjectOU', [certdict['SubjectOU'],], 'SUBJECT_ORGAN_UNIT')
     if 'SubjectS' in certdict: create_list_nodes_rels(graph, tx, nc, 'SubjectS', [certdict['SubjectS'],], 'SUBJECT_STATE')
 
-    if 'AuthorityKeyId' in certdict: create_list_nodes_rels(graph, tx, nc, 'AuthorityKeyId', [certdict['AuthorityKeyId'],], 'AUTHORITY_KEYID')
-    if 'OcspUrl' in certdict: create_list_nodes_rels(graph, tx, nc, 'OcspUrl', [certdict['OcspUrl'],], 'OCSP_URL')
-    if 'Rfc822Name' in certdict: create_list_nodes_rels(graph, tx, nc, 'Rfc822Name', [certdict['Rfc822Name'],], 'RFC822_NAME')
+    if 'AuthorityKeyId' in certdict: create_list_nodes_rels(graph, tx, nc, 'AuthorityKeyId', [certdict['AuthorityKeyId'],], 'CERT_AUTHORITY_KEYID')
+    if 'OcspUrl' in certdict: create_list_nodes_rels(graph, tx, nc, 'OcspUrl', [certdict['OcspUrl'],], 'CERT_OCSP_URL')
+    if 'Rfc822Name' in certdict: create_list_nodes_rels(graph, tx, nc, 'Rfc822Name', [certdict['Rfc822Name'],], 'CERT_RFC822_NAME')
     if 'Version' in certdict: create_list_nodes_rels(graph, tx, nc, 'Version', [certdict['Version'],], 'CERT_CONTENT_VERSION')
 
 
