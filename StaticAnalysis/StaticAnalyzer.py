@@ -138,6 +138,21 @@ def getCertificate(androguardAPK):
     certdict['SubjectS'] = cert.subjectS() # state or province
 
     # Other
+    certdict['AuthorityKeyId'] = cert.authorityKeyId()
+    certdict['CertVersion'] = cert.get_CertVersion()
+    certdict['Expired'] = cert.get_Expired()
+    certdict['ForClientAuthentication'] = cert.get_ForClientAuthentication()
+    certdict['ForCodeSigning'] = cert.get_ForCodeSigning()
+    certdict['ForSecureEmail'] = cert.get_ForSecureEmail()
+    certdict['ForServerAuthentication'] = cert.get_ForServerAuthentication()
+    certdict['ForTimeStamping'] = cert.get_ForTimeStamping()
+    certdict['IsRoot'] = cert.get_IsRoot()
+    certdict['OcspUrl'] = cert.ocspUrl()
+    certdict['Revoked'] = cert.get_Revoked()
+    certdict['SelfSigned'] = cert.get_SelfSigned()
+    certdict['SignatureVerified'] = cert.get_SignatureVerified()
+    certdict['TrustedRoot'] = cert.get_TrustedRoot()
+
     certdict['Rfc822Name'] = cert.rfc822Name()
     certdict['SerialNumber'] = cert.serialNumber()
     certdict['Sha1Thumbprint'] = cert.sha1Thumbprint()

@@ -28,9 +28,10 @@ def add_attribute(node, datadict, attribute, regex=None, upper=False):
     if attribute not in datadict: return
     if regex and not regex.match(datadict[attribute]): return
 
-    if datadict[attribute] != '':
-        node[attribute] = datadict[attribute]
-        if upper: node[attribute] = node[attribute].upper()
+    if datadict[attribute] == '': return node
+
+    node[attribute] = datadict[attribute]
+    if upper: node[attribute] = node[attribute].upper()
     return node
 
 
@@ -42,9 +43,7 @@ def create_list_nodes_rels(graph, tx, nrelative, nodename, nodelist, relationshi
 
     # Generate nodes for every new node in nodelist
     for idx, node in enumerate(nodelist):
-        if node is None: continue
-        node = node
-        if node=='': continue
+        if node is None or node=='': continue
 
         if nodematchkey == 'name':
             valuetomatch = node
@@ -259,37 +258,60 @@ def create_node_static(datadict):
         tx.commit()
         return
 
-    # Create Certificate Node
+    # Create Certificate Node with its distinguishable and boolean attributes
     nc = Node('Certificate')
-    add_attribute(nc, certdict, 'IssuerC')
-    add_attribute(nc, certdict, 'IssuerCN')
+    add_attribute(nc, certdict, 'CertVersion')
+    add_attribute(nc, certdict, 'Expired')
+    add_attribute(nc, certdict, 'ForClientAuthentication')
+    add_attribute(nc, certdict, 'ForCodeSigning')
+    add_attribute(nc, certdict, 'ForSecureEmail')
+    add_attribute(nc, certdict, 'ForServerAuthentication')
+    add_attribute(nc, certdict, 'ForTimeStamping')
+    add_attribute(nc, certdict, 'IsRoot')
     add_attribute(nc, certdict, 'IssuerDN')
-    add_attribute(nc, certdict, 'IssuerE')
-    add_attribute(nc, certdict, 'IssuerL')
-    add_attribute(nc, certdict, 'IssuerO')
-    add_attribute(nc, certdict, 'IssuerOU')
-    add_attribute(nc, certdict, 'IssuerS')
-    add_attribute(nc, certdict, 'SubjectC')
-    add_attribute(nc, certdict, 'SubjectCN')
+    add_attribute(nc, certdict, 'Revoked')
+    add_attribute(nc, certdict, 'SelfSigned')
+    add_attribute(nc, certdict, 'SignatureVerified')
     add_attribute(nc, certdict, 'SubjectDN')
-    add_attribute(nc, certdict, 'SubjectE')
-    add_attribute(nc, certdict, 'SubjectKeyId')
-    add_attribute(nc, certdict, 'SubjectL')
-    add_attribute(nc, certdict, 'SubjectO')
-    add_attribute(nc, certdict, 'SubjectOU')
-    add_attribute(nc, certdict, 'SubjectS')
-    add_attribute(nc, certdict, 'Rfc822Name')
     add_attribute(nc, certdict, 'SerialNumber')
+    add_attribute(nc, certdict, 'SubjectKeyId')
     add_attribute(nc, certdict, 'Sha1Thumbprint', regex=r_sha1, upper=True)
+    add_attribute(nc, certdict, 'TrustedRoot')
     add_attribute(nc, certdict, 'validFromStr')
     add_attribute(nc, certdict, 'validToStr')
-    add_attribute(nc, certdict, 'Version')
+
+
+
+
     tx.create(nc)
     print 'Neo4J: Created Certificate Node with Sha1Thumbprint: {}'.format(certdict['Sha1Thumbprint'])
 
     # Create SIGNED_WITH Relationship between Android Application and Certificate
     r = Relationship(na, 'SIGNED_WITH', nc)
     tx.create(r)
+
+    # Create certificate related nodes describing common attributes
+    if 'IssuerC' in certdict: create_list_nodes_rels(graph, tx, nc, 'IssuerC', [certdict['IssuerC'],], 'ISSUER_COUNTRY')
+    if 'IssuerCN' in certdict: create_list_nodes_rels(graph, tx, nc, 'IssuerCN', [certdict['IssuerCN'],], 'ISSUER_COMMON_NAME')
+    if 'IssuerE' in certdict: create_list_nodes_rels(graph, tx, nc, 'IssuerE', [certdict['IssuerE'],], 'ISSUER_EMAIL')
+    if 'IssuerL' in certdict: create_list_nodes_rels(graph, tx, nc, 'IssuerL', [certdict['IssuerL'],], 'ISSUER_LOCALITY')
+    if 'IssuerO' in certdict: create_list_nodes_rels(graph, tx, nc, 'IssuerO', [certdict['IssuerO'],], 'ISSUER_ORGANIZATION')
+    if 'IssuerOU' in certdict: create_list_nodes_rels(graph, tx, nc, 'IssuerOU', [certdict['IssuerOU'],], 'ISSUER_ORGAN_UNIT')
+    if 'IssuerS' in certdict: create_list_nodes_rels(graph, tx, nc, 'IssuerS', [certdict['IssuerS'],], 'ISSUER_STATE')
+
+    if 'SubjectC' in certdict: create_list_nodes_rels(graph, tx, nc, 'SubjectC', [certdict['SubjectC'],], 'SUBJECT_COUNTRY')
+    if 'SubjectCN' in certdict: create_list_nodes_rels(graph, tx, nc, 'SubjectCN', [certdict['SubjectCN'],], 'SUBJECT_COMMON_NAME')
+    if 'SubjectE' in certdict: create_list_nodes_rels(graph, tx, nc, 'SubjectE', [certdict['SubjectE'],], 'SUBJECT_EMAIL')
+    if 'SubjectL' in certdict: create_list_nodes_rels(graph, tx, nc, 'SubjectL', [certdict['SubjectL'],], 'SUBJECT_LOCALITY')
+    if 'SubjectO' in certdict: create_list_nodes_rels(graph, tx, nc, 'SubjectO', [certdict['SubjectO'],], 'SUBJECT_ORGANIZATION')
+    if 'SubjectOU' in certdict: create_list_nodes_rels(graph, tx, nc, 'SubjectOU', [certdict['SubjectOU'],], 'SUBJECT_ORGAN_UNIT')
+    if 'SubjectS' in certdict: create_list_nodes_rels(graph, tx, nc, 'SubjectS', [certdict['SubjectS'],], 'SUBJECT_STATE')
+
+    if 'AuthorityKeyId' in certdict: create_list_nodes_rels(graph, tx, nc, 'AuthorityKeyId', [certdict['AuthorityKeyId'],], 'AUTHORITY_KEYID')
+    if 'OcspUrl' in certdict: create_list_nodes_rels(graph, tx, nc, 'OcspUrl', [certdict['OcspUrl'],], 'OCSP_URL')
+    if 'Rfc822Name' in certdict: create_list_nodes_rels(graph, tx, nc, 'Rfc822Name', [certdict['Rfc822Name'],], 'RFC822_NAME')
+    if 'Version' in certdict: create_list_nodes_rels(graph, tx, nc, 'Version', [certdict['Version'],], 'CERT_CONTENT_VERSION')
+
 
     # Abort if Public Key Dict is empty
     if certdict['pubkey']['keytype'] is None:
