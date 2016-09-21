@@ -97,11 +97,13 @@ class GuestManager:
 
     def getListeningPorts(self):
         with open(settings.NETSTAT_LIST, "w+") as outFile:
+            log.info("Get listening ports")
             netstat = subprocess.check_output([misc_config.ADB_PATH, "shell", "netstat -lntu"])
             outFile.write(netstat)
             outFile.close()
 
     def generateFileList(self):
+        log.info("Get file list")
         with open(settings.SBOX_FOLDER_LIST,"w+") as outFile:
             folderList = subprocess.check_output([misc_config.ADB_PATH, "shell", "ls", "/data/data"])
             outFile.write(folderList)
@@ -158,13 +160,14 @@ class GuestManager:
 
         if misc_config.ENABLE_CUCKOO_EXTRA_INFO:
             time.sleep(10)
-            retnum = subprocess.call([misc_config.ADB_PATH, "kill-server"])
+            #subprocess.call([misc_config.ADB_PATH, "kill-server"])
             #log.info('AM I ALIVE? {} '.format(retnum))
-            retnum = subprocess.call([misc_config.ADB_PATH, "start-server"])
+            #subprocess.call([misc_config.ADB_PATH, "start-server"])
             #log.info('AM I ALIVE? {} '.format(retnum))
-            retnum = subprocess.call([misc_config.ADB_PATH, "root"])
+            subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
+            #subprocess.Popen([misc_config.ADB_PATH, "root"])
             #log.info('AM I ALIVE? {} '.format(retnum))
-            retnum = subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
+            #subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
             #log.info('AM I ALIVE? {} '.format(retnum))
             # Custom: Get process information
             self.getProcessList()

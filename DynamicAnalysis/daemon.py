@@ -50,8 +50,12 @@ while(running):
         continue
 
     for (sampleID, filename, sha256, apkPath) in rows:
+        print sampleID
         apkPath = '{}/{}'.format(settings.BACKEND_PATH, apkPath)
         apkFile = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_APK)
+
+        reportDir = '{}/{}'.format(apkPath, settings.REPORT_DIR)
+        if not os.path.isdir(reportDir): os.makedirs(reportDir)
 
         print '[{}] Running Analysis'.format(sha256)
         # Update the analysis status to running for this sample
@@ -65,8 +69,6 @@ while(running):
         run(apkFile, workingDir)
 
         # Move JSON-Report to backend
-        reportDir = '{}/{}'.format(apkPath, settings.REPORT_DIR)
-        if not os.path.isdir(reportDir): os.makedirs(reportDir)
         shutil.move('{}/{}'.format(workingDir, 'dynamic.json'), '{}/{}'.format(reportDir, 'dynamic.json'))
 
         # Move screenshots to backend

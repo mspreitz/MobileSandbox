@@ -1,7 +1,7 @@
 # Copyright (C) 2010-2015 Cuckoo Foundation.
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
-
+import hashlib
 import os
 import subprocess
 import time
@@ -210,8 +210,12 @@ class AnalysisManager(Thread):
 
     def adbRoot(self):
         subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
-        subprocess.call([misc_config.ADB_PATH, "root"])
-        #subprocess.call([misc_config.ADB_PATH, "kill-server"])
+        process = subprocess.Popen([misc_config.ADB_PATH, "root"],
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        time.sleep(5)
+        # Workaround: sometimes the command "adb root" hangs. After 5 seconds we kill the process and continue
+        process.kill()
         subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
 
     # Custom
@@ -240,7 +244,7 @@ class AnalysisManager(Thread):
         if returncode == '0':
             return dirs
         else:
-            raise IOError("No such directory.")
+            raise IOError("[*] No such directory.")
 
     def getPackageName(self):
         DATA_ROOT_DIR = "/data/data"
@@ -258,33 +262,51 @@ class AnalysisManager(Thread):
         if process.returncode != 0:
             raise IOError("Error during download.")
 
+    def createSHA256(self, apkFile):
+        try:
+            return hashlib.sha256(open(apkFile, 'rb').read()).hexdigest()
+        except:
+            raise IOError('File not found')
+
+
     def copyDatabase(self):
+        apkPath = self.build_options()['target']
+        sha256 = self.createSHA256(apkPath)
+        print "SHA256: "+sha256
+
         pkgName = self.getPackageName()
-        dir = '../analysis'
-        workingDir = os.path.join(dir, os.listdir(dir)[0])
+        dir = os.path.join(misc_config.PATH_DYNAMIC_ANALYSIS,'analysis')
+        try:
+            #workingDir = os.path.join(dir, os.listdir(dir)[0])
+            log.debug("Trying to get databases")
+            workingDir = os.path.join(dir, sha256)
 
-
-        if pkgName is None:
-            log.error("No app found!!!")
-            return
-        else:
-            DATA_ROOT_DIR = "/data/data"
-            PACKAGE_DATA_DIR = os.path.join(DATA_ROOT_DIR, pkgName)
-            PACKAGE_DATABASE_DIR = os.path.join(PACKAGE_DATA_DIR, "databases")
-            LOCAL_DATABASE_DIR = os.path.join(workingDir, "databases")
-            if not os.path.exists(LOCAL_DATABASE_DIR):
-                os.makedirs(LOCAL_DATABASE_DIR)
-            try:
-                data_dirs = self.adb_list_directory(PACKAGE_DATA_DIR)
-                if 'databases' in data_dirs:
-                    db_dir = self.adb_list_directory(PACKAGE_DATABASE_DIR)
-                    for fl in db_dir:
-                        if fl.lower().endswith('.db') or fl.lower().endswith('.sqlite') or fl.lower().endswith('.sqlite3'):
-                            print "Found DB: %s" % fl
-                            self.adb_pull(os.path.join(PACKAGE_DATABASE_DIR, fl), os.path.join(LOCAL_DATABASE_DIR, fl))
-                            #copied_files.append(os.path.join(LOCAL_DATABASE_DIR, fl))
-            except:
-                print "Error during database search!"
+            if pkgName is None:
+                log.error("No app found!!!")
+                return
+            else:
+                log.debug("Package name is: " + pkgName)
+                if not os.path.isdir(os.path.join(workingDir, "databases")):
+                    os.makedirs(os.path.join(workingDir, "databases"))
+                DATA_ROOT_DIR = "/data/data"
+                PACKAGE_DATA_DIR = os.path.join(DATA_ROOT_DIR, pkgName)
+                PACKAGE_DATABASE_DIR = os.path.join(PACKAGE_DATA_DIR, "databases")
+                LOCAL_DATABASE_DIR = os.path.join(workingDir, "databases")
+                if not os.path.exists(LOCAL_DATABASE_DIR):
+                    os.makedirs(LOCAL_DATABASE_DIR)
+                try:
+                    data_dirs = self.adb_list_directory(PACKAGE_DATA_DIR)
+                    if 'databases' in data_dirs:
+                        db_dir = self.adb_list_directory(PACKAGE_DATABASE_DIR)
+                        for fl in db_dir:
+                            if fl.lower().endswith('.db') or fl.lower().endswith('.sqlite') or fl.lower().endswith('.sqlite3'):
+                                print "Found DB: %s" % fl
+                                self.adb_pull(os.path.join(PACKAGE_DATABASE_DIR, fl), os.path.join(LOCAL_DATABASE_DIR, fl))
+                                #copied_files.append(os.path.join(LOCAL_DATABASE_DIR, fl))
+                except:
+                    print "Error during database search!"
+        except:
+            print "Error: Folder not found!"
 
 
     # def pullDirectories(self):
@@ -347,8 +369,6 @@ class AnalysisManager(Thread):
 
         aux = RunAuxiliary(task=self.task, machine=self.machine)
         aux.start()
-
-        print self.build_options()
 
         try:
             # Mark the selected analysis machine in the database as started.
