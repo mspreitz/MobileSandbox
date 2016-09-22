@@ -29,6 +29,7 @@ PATH_DYNAMIC_ANALYSIS='{}/../'.format(CUCKOO_ROOT)
 PATH_MODULE_CONFIG='{}/../../config/'.format(CUCKOO_ROOT)
 sys.path.append(PATH_DYNAMIC_ANALYSIS)
 sys.path.append(PATH_MODULE_CONFIG)
+sys.path.append('/opt/android-sdk/tools/monkeyrunner')
 reload(sys)
 import settings
 import misc_config
@@ -218,6 +219,7 @@ class AnalysisManager(Thread):
         process.kill()
         subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
 
+
     # Custom
     def getListeningPorts(self):
         outFile = open(settings.NETSTAT_NEW, "w+")
@@ -393,7 +395,6 @@ class AnalysisManager(Thread):
                 self.getListeningPorts()
                 subprocess.Popen([misc_config.ADB_PATH, "kill-server"])
                 self.adbRoot()
-                #self.pullDirectories()
                 self.copyDatabase()
 
         except CuckooMachineError as e:

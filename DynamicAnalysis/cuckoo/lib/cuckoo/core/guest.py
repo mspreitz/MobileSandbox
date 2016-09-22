@@ -87,10 +87,25 @@ class GuestManager:
         return True
 
 
+    from random import randint
+    def simulateUserInteraction(self):
+        log.debug("Starting to simulate user interaction")
+        eventCodes = [57, 58, 59, 60, 61, 62, 66, 19, 20, 21, 22, 23, 82, 92, 93, 67]
+        eventLen = len(eventCodes)
+        runs = self.randint(5, 9)
+        # If the app has started press enter first
+        subprocess.call([misc_config.ADB_PATH, "shell", "input", "keyevent", "66"])
+
+        # Randomly choose some input events
+        for x in range(runs):
+            rand = self.randint(0, eventLen-1)
+            subprocess.call([misc_config.ADB_PATH, "shell", "input", "keyevent", str(eventCodes[rand])])
+            time.sleep(2)
+
+
     def getProcessList(self):
         with open(settings.PLIST_FILE, "w+") as outFile:
             log.info("Get process list")
-            # time.sleep(5)
             processList = subprocess.check_output([misc_config.ADB_PATH, "shell", "ps"])
             outFile.write(processList)
             outFile.close()
@@ -160,15 +175,8 @@ class GuestManager:
 
         if misc_config.ENABLE_CUCKOO_EXTRA_INFO:
             time.sleep(10)
-            #subprocess.call([misc_config.ADB_PATH, "kill-server"])
-            #log.info('AM I ALIVE? {} '.format(retnum))
-            #subprocess.call([misc_config.ADB_PATH, "start-server"])
-            #log.info('AM I ALIVE? {} '.format(retnum))
             subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
-            #subprocess.Popen([misc_config.ADB_PATH, "root"])
-            #log.info('AM I ALIVE? {} '.format(retnum))
-            #subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
-            #log.info('AM I ALIVE? {} '.format(retnum))
+
             # Custom: Get process information
             self.getProcessList()
             # Get listening Ports
@@ -231,6 +239,12 @@ class GuestManager:
             raise CuckooGuestError("{0}: guest communication timeout, check "
                                    "networking or try to increase "
                                    "timeout".format(self.id))
+
+        # Custom
+        # Give the app some time to start up
+        time.sleep(5)
+        self.simulateUserInteraction()
+
 
     def wait_for_completion(self):
         """Wait for analysis completion.
