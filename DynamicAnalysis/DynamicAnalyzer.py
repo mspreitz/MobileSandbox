@@ -16,6 +16,11 @@ proc = None
 resDir = ""
 
 
+if misc_config.ENABLE_SENTRY_LOGGING:
+    from raven import Client
+    client = Client('http://46a1768b67214ab3be829c0de0b9b96f:60acd07481a449c6a44196e166a5d613@localhost:9000/2')
+
+
 def initCuckoo(sampleFile):
     global proc
     if not os.path.isfile(misc_config.PATH_IFCONFIG):
@@ -30,6 +35,8 @@ def initCuckoo(sampleFile):
 
     except:
         print "Error during check for running VMs"
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureException()
 
     print 'Starting CUCKOO SERVER'
     try:
@@ -39,6 +46,8 @@ def initCuckoo(sampleFile):
                             stderr=subprocess.PIPE)
     except:
         print "Error starting cuckoo server"
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureException()
 
     print 'Starting CUCKOO SUBMIT'
     try:
@@ -49,14 +58,26 @@ def initCuckoo(sampleFile):
         results = proc2.communicate()
     except:
         print "Error in sample submission"
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureException()
 
     regex_cuckooID = r'added as task with ID (\d+)'
-    results = re.findall(regex_cuckooID, results[0])
+    try:
+        results = re.findall(regex_cuckooID, results[0])
+    except:
+        print "Error finding task ID"
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureException()
+
     if len(results) < 1:
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureMessage('ERROR: Could not submit sample to cuckoo-droid!')
         print 'ERROR: Could not submit sample to cuckoo-droid!'
         return None
 
     if len(results) > 1:
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureMessage('ERROR: Somehow, cuckoo-droid returned two TASK IDs. Please revise this output: ')
         print 'ERROR: Somehow, cuckoo-droid returned two TASK IDs. Please revise this output: '
         from hexdump import hexdump
         for idx, result in enumerate(results):
@@ -136,6 +157,8 @@ def cleanUp():
         os.remove('{}/{}'.format("cuckoo", settings.SBOX_FOLDER_LIST))
     except:
         print "Error: could not cleanup all temporary files"
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureException()
 
 
 def getScreenShots(workingDir, cuckooID):
@@ -204,6 +227,8 @@ def extractCuckooInfo(cuckooID):
                     connections['tcp'].append(smtpSet)
     else:
         print 'WARNING: network data could not be retrieved'
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureMessage('WARNING: network data could not be retrieved')
     output['network'] = connections
     # Get Certificate Info
     print "Get certificate info..."
@@ -211,6 +236,8 @@ def extractCuckooInfo(cuckooID):
         output['certificate'] = data['apkinfo']['certificate']
     except:
         print "No certificate found!"
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureException()
 
     output['droppedFiles'] = data['dropped']
 
@@ -277,6 +304,8 @@ def run(sampleFile, workingDir):
         print "Cleaning up temporary files"
         cleanUp()
     else:
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureMessage("Error: Not finished")
         print "Error: Not finished"
 
 #run("40.apk", "analysis")

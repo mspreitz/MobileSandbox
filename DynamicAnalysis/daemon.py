@@ -6,6 +6,13 @@ import settings
 import psycopg2
 import sys
 import os
+import misc_config
+
+
+if misc_config.ENABLE_SENTRY_LOGGING:
+    from raven import Client
+    client = Client('http://46a1768b67214ab3be829c0de0b9b96f:60acd07481a449c6a44196e166a5d613@localhost:9000/2')
+
 
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
@@ -21,6 +28,8 @@ def copytree(src, dst, symlinks=False, ignore=None):
 try:
     conn = psycopg2.connect("dbname='ms_db' user='ms_user' host='localhost' password='2HmUKLvf'")
 except:
+    if misc_config.ENABLE_SENTRY_LOGGING:
+        client.captureException()
     print "Unable to connect to the database"
     sys.exit(1)
 
@@ -41,6 +50,8 @@ while(running):
         col = db.execute("SELECT id, fileName, sha256, path FROM analyzer_queue WHERE type='dynamic' AND status='idle'")
         rows = db.fetchall()
     except psycopg2.ProgrammingError as pe:
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureException()
         print 'ERROR', pe
         time.sleep(5)
 

@@ -25,6 +25,10 @@ from msneo import create_node_static
 import misc_config
 sys.setdefaultencoding('utf-8')
 
+if misc_config.ENABLE_SENTRY_LOGGING:
+    from raven import Client
+    client = Client('http://46a1768b67214ab3be829c0de0b9b96f:60acd07481a449c6a44196e166a5d613@localhost:9000/2')
+
 def errorMessage(msg):
     print "Error: >> "+msg
 
@@ -323,6 +327,8 @@ def getAPICallsADs(workingDir, logFile, d): # TODO Mid-High O
 
 
             except dvm.InvalidInstruction:
+                if misc_config.ENABLE_SENTRY_LOGGING:
+                    client.captureException()
                 print 'ERROR: Androguard could not decompile. Continue/Abort decompiling this instruction!'
                 continue
 
@@ -448,6 +454,8 @@ def check_dirs(directory,PREFIX):
         try:
             os.makedirs(PREFIX+directory)
         except:
+            if misc_config.ENABLE_SENTRY_LOGGING:
+                client.captureException()
             errorMessage("Failed to create directory")
             pass
 
