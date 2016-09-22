@@ -18,6 +18,16 @@ from .models import FileUpload, Queue, Metadata, ClassifiedApp
 from datastructure import *
 from django.db.models import Q
 from django.conf import settings
+PATH_MODULE_CONFIG='../config/'
+sys.path.append(PATH_MODULE_CONFIG)
+reload(sys)
+
+import misc_config
+
+if misc_config.ENABLE_SENTRY_LOGGING:
+    from raven import Client
+    client = Client('http://46a1768b67214ab3be829c0de0b9b96f:60acd07481a449c6a44196e166a5d613@localhost:9000/2')
+
 
 from mhash import * # TODO: Move that and the utils/mhash from the StaticAnalyzer to a single file.
 
@@ -220,6 +230,8 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
             # NOTE We don't have permissions to create the directory
             # NOTE Or the direcytory exists already
             # See https://docs.python.org/2/library/os.html#os.makedirs
+            if misc_config.ENABLE_SENTRY_LOGGING:
+                client.captureException()
             uploadedFiles[sentFile.name]['error'] = 'An internal server error occurred.'
             continue
 
@@ -454,16 +466,16 @@ def validateHash(hash, type):
         try:
             result = re.match(r'^\w{64}$', hash)
         except RuntimeError:
-            print 'This is not sha256'
+            print 'This is not sha256 format'
     elif type == 'sha1':
         try:
             result = re.match(r'^\w{40}$', hash)
         except RuntimeError:
-            print 'This is not sha1'
+            print 'This is not sha1 format'
     elif type == 'md5':
         try:
             result = re.match(r'^\w{32}$', hash)
         except RuntimeError:
-            print 'This is not md5'
+            print 'This is not md5 format'
 
     return result is not None

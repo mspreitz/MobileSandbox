@@ -29,7 +29,6 @@ PATH_DYNAMIC_ANALYSIS='{}/../'.format(CUCKOO_ROOT)
 PATH_MODULE_CONFIG='{}/../../config/'.format(CUCKOO_ROOT)
 sys.path.append(PATH_DYNAMIC_ANALYSIS)
 sys.path.append(PATH_MODULE_CONFIG)
-sys.path.append('/opt/android-sdk/tools/monkeyrunner')
 reload(sys)
 import settings
 import misc_config
