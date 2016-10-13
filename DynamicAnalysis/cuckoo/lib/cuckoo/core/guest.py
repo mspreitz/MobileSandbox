@@ -125,6 +125,7 @@ class GuestManager:
             outFile.close()
 
 
+
     def upload_analyzer(self):
         """Upload analyzer to guest.
         @return: operation status.

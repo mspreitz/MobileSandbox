@@ -310,7 +310,6 @@ class AnalysisManager(Thread):
             print "Error: Folder not found!"
 
 
-
     def launch_analysis(self):
         """Start analysis."""
         succeeded = False
