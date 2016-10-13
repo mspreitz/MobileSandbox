@@ -99,8 +99,10 @@ class GuestManager:
         for x in range(runs):
             rand = self.randint(0, eventLen-1)
             subprocess.call([misc_config.ADB_PATH, "shell", "input", "keyevent", str(eventCodes[rand])])
-            time.sleep(2)
-        # Again, press enter
+            # Between each motion sleep a random amount of time between 1 and 6 seconds
+            timeToSleep = self.randint(1, 6)
+            time.sleep(timeToSleep)
+        # Again, press enter at the end
         subprocess.call([misc_config.ADB_PATH, "shell", "input", "keyevent", "66"])
 
     def getProcessList(self):
