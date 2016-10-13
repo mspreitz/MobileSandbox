@@ -242,7 +242,7 @@ class GuestManager:
 
         # Custom
         # Give the app some time to start up
-        time.sleep(5)
+        time.sleep(10)
         self.simulateUserInteraction()
 
 

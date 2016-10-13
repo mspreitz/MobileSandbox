@@ -17,6 +17,7 @@ PATH_MODULE_MSNEO = '../Neo4J/'
 SCREENSHOT_DIR = 'screenshots'
 APK_FILES = 'apkfiles'
 REPORT_DIR = 'reports'
+DATABASES_DIR = 'databases'
 
 import os
 cwd=os.path.dirname(os.path.realpath(__file__))

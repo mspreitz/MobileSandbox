@@ -93,6 +93,8 @@ while(running):
         if not os.path.isdir(filesDir): os.makedirs(filesDir)
         copytree('{}/{}'.format(workingDir, settings.APK_FILES), filesDir)
 
+        copytree('{}/{}'.format(workingDir, settings.DATABASES_DIR), filesDir)
+
         # Remove temporary files
         shutil.rmtree(workingDir)
 
