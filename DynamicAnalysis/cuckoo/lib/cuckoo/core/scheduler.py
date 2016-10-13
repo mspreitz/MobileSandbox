@@ -273,12 +273,10 @@ class AnalysisManager(Thread):
     def copyDatabase(self):
         apkPath = self.build_options()['target']
         sha256 = self.createSHA256(apkPath)
-        print "SHA256: "+sha256
 
         pkgName = self.getPackageName()
         dir = os.path.join(misc_config.PATH_DYNAMIC_ANALYSIS,'analysis')
         try:
-            #workingDir = os.path.join(dir, os.listdir(dir)[0])
             log.debug("Trying to get databases")
             workingDir = os.path.join(dir, sha256)
 
@@ -303,28 +301,11 @@ class AnalysisManager(Thread):
                             if fl.lower().endswith('.db') or fl.lower().endswith('.sqlite') or fl.lower().endswith('.sqlite3'):
                                 print "Found DB: %s" % fl
                                 self.adb_pull(os.path.join(PACKAGE_DATABASE_DIR, fl), os.path.join(LOCAL_DATABASE_DIR, fl))
-                                #copied_files.append(os.path.join(LOCAL_DATABASE_DIR, fl))
                 except:
                     print "Error during database search!"
         except:
             print "Error: Folder not found!"
 
-
-    # def pullDirectories(self):
-    #     folderList = subprocess.check_output([misc_config.ADB_PATH, "shell", "ls", "/data/data"])
-    #     folderlist_split = folderList.split()
-    #     file = open(settings.SBOX_FOLDER_LIST, "r").read()
-    #     if not os.path.isdir('tmp'):
-    #         os.makedirs('tmp/sdcard')
-    #         os.makedirs('tmp/data')
-    #     for i in folderlist_split:
-    #         if i not in file:
-    #             #log.error(i)
-    #             if os.path.isdir('data/data/'+i):
-    #                 process = subprocess.Popen([misc_config.ADB_PATH, 'pull', '/data/data/%s/.' % i, 'tmp/data/'])
-    #                 process.wait()
-    #     process = subprocess.Popen([misc_config.ADB_PATH, 'pull', '/sdcard/.', 'tmp/sdcard'])
-    #     process.wait()
 
 
 
