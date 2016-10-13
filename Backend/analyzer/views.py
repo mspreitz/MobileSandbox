@@ -215,10 +215,14 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
         # meaning the directory structure with saved APKs and Analyzer result does already exist
         # then tell the user that the sample is already in process / uploaded
         if os.path.isdir(apkDir):
-            queue = Queue.objects.get(sha256=appInfos['sha256'])
+            try:
+                queue = Queue.objects.get(sha256=appInfos['sha256'], type="static")
+            except:
+                queue = Metadata.objects.get(sha256=appInfos['sha256'])
 
             if queue.status == 'idle' or queue.status == 'running':
                 uploadedFiles[sentFile.name]['error'] = 'This sample has already been submitted. The analysis is currently running.'
+                                                        #'Please visit <a href="/analyzer/show/?report=%s">Link</a>' % appInfos['sha256']
                 continue
             uploadedFiles[sentFile.name]['report'] = '/analyzer/show/?report={}'.format(appInfos['sha256']) # Report to redirect
             continue

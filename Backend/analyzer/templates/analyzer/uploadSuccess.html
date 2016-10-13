@@ -25,7 +25,7 @@
 				{% elif dict.error %}
 					<td>Error: {{dict.error}}</td>
 				{% elif dict.report %}
-					<td>Report already finished! See {{dict.report}}</td>
+					<td>Report already finished! See <a href="{{dict.report}}">Report</a></td>
 				{% else %}
 					<td>{{dict.error}}</td>
 				{% endif %}
