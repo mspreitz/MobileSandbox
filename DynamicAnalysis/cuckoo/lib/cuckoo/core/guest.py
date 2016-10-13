@@ -89,7 +89,6 @@ class GuestManager:
 
     from random import randint
     def simulateUserInteraction(self):
-        log.debug("Starting to simulate user interaction")
         eventCodes = [57, 58, 59, 60, 61, 62, 66, 19, 20, 21, 22, 23, 82, 92, 93, 67]
         eventLen = len(eventCodes)
         runs = self.randint(5, 9)
@@ -101,7 +100,8 @@ class GuestManager:
             rand = self.randint(0, eventLen-1)
             subprocess.call([misc_config.ADB_PATH, "shell", "input", "keyevent", str(eventCodes[rand])])
             time.sleep(2)
-
+        # Again, press enter
+        subprocess.call([misc_config.ADB_PATH, "shell", "input", "keyevent", "66"])
 
     def getProcessList(self):
         with open(settings.PLIST_FILE, "w+") as outFile:
@@ -176,6 +176,7 @@ class GuestManager:
         if misc_config.ENABLE_CUCKOO_EXTRA_INFO:
             time.sleep(10)
             subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
+            log.info("Starting to collect information")
 
             # Custom: Get process information
             self.getProcessList()
@@ -242,6 +243,7 @@ class GuestManager:
 
         # Custom
         # Give the app some time to start up
+        log.debug("Starting to simulate user interaction")
         time.sleep(10)
         self.simulateUserInteraction()
 

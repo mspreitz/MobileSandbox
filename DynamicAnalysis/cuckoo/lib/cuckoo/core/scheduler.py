@@ -217,6 +217,7 @@ class AnalysisManager(Thread):
         # Workaround: sometimes the command "adb root" hangs. After 5 seconds we kill the process and continue
         process.kill()
         subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
+        time.sleep(3)
 
 
     # Custom
@@ -240,21 +241,20 @@ class AnalysisManager(Thread):
                                    stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         split_stdout = stdout.split()
-        dirs = split_stdout[:len(split_stdout) - 2]
-        returncode = split_stdout[len(split_stdout) - 1]
-        if returncode == '0':
-            return dirs
-        else:
-            raise IOError("[*] No such directory.")
+        return split_stdout[:len(split_stdout) - 2]
+
 
     def getPackageName(self):
         DATA_ROOT_DIR = "/data/data"
-        with open(settings.INSTALLED_APPS, 'r') as a:
+        with open(settings.INSTALLED_APPS, 'r+') as a:
             apps = a.read().split()
             dirs = self.adb_list_directory(DATA_ROOT_DIR)
             for d in dirs:
                 if not any(d in s for s in apps):
-                    return d
+                    if not d == 'opendir':
+                        return d
+                    else:
+                        raise OSError("Permission to device denied!")
         return None
 
     def adb_pull(self, remoteFile, localTargetFolder):
@@ -276,15 +276,18 @@ class AnalysisManager(Thread):
 
         pkgName = self.getPackageName()
         dir = os.path.join(misc_config.PATH_DYNAMIC_ANALYSIS,'analysis')
+
+        log.error(pkgName)
+
         try:
             log.debug("Trying to get databases")
             workingDir = os.path.join(dir, sha256)
 
+
             if pkgName is None:
-                log.error("No app found!!!")
+                log.error("App dir not found!")
                 return
             else:
-                log.debug("Package name is: " + pkgName)
                 if not os.path.isdir(os.path.join(workingDir, "databases")):
                     os.makedirs(os.path.join(workingDir, "databases"))
                 DATA_ROOT_DIR = "/data/data"
@@ -305,7 +308,6 @@ class AnalysisManager(Thread):
                     print "Error during database search!"
         except:
             print "Error: Folder not found!"
-
 
 
 
