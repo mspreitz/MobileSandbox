@@ -106,6 +106,10 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(SETTINGS_PATH, 'templates'),
     os.path.join(SETTINGS_PATH, 'analyzer/templates/analyzer/'),
+    {
+    'BACKEND': 'django.contrib.auth.context_processors.auth',
+    'BACKEND': 'django.contrib.messages.context_processors.messages',
+    }
 )
 
 MIDDLEWARE_CLASSES = (
