@@ -4,6 +4,7 @@ from os import listdir
 import requests
 import re
 import sys
+import time
 
 if len(sys.argv) != 2:
     sys.stderr.write('Usage: {} <sample-directory>\n'.format(sys.argv[0]))
@@ -35,6 +36,8 @@ r = client.get('{}/'.format(url), data=data)
 headers['X-CSRFToken'] = client.cookies['csrftoken']
 r = client.post('{}/userLogin/'.format(url), data=data, cookies=client.cookies, headers=headers)
 
+time_analysis_total = 0
+
 # TODO: MultiValueDict should contain one file named 'attachments' with multiple InMemoryUploadedFiles - doesn't work as one post yet
 for f in listdir(sys.argv[1]):
     sys.stdout.write('{} ... '.format(f))
@@ -44,6 +47,12 @@ for f in listdir(sys.argv[1]):
         files['attachments'] = tmp.read()
 
     headers['X-CSRFToken'] = client.cookies['csrftoken']
+    time_analysis_start = time.time()
     r = client.post('{}/home/'.format(url), data=data, files=files, cookies=client.cookies, headers=headers)
+    time_analysis_end = time.time()
+    time_analysis_diff = time_analysis_end - time_analysis_start
     sys.stdout.write('{}\n'.format(r.status_code))
+    sys.stdout.write('Time taken (seconds): {}\n'.format(time_analysis_diff))
+    time_analysis_total += time_analysis_diff
     sys.stdout.flush()
+sys.stdout.write('Time taken in total (seconds): {}\n'.format(time_analysis_total))

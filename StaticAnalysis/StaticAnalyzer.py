@@ -8,6 +8,7 @@ from utils.mhash import *
 from sys import exit
 import chilkat
 import datetime
+import time
 import json
 import os
 import re
@@ -604,6 +605,8 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
 
 
 def run(sampleFile, workingDir):
+    if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE:
+        time_analysis_start = time.time()
 
     if misc_config.ENABLE_CLEAR_OLD_FILES: clearOldFiles(workingDir)
 
@@ -679,3 +682,10 @@ def run(sampleFile, workingDir):
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."
     closeLogFile(logFile)
+    if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE:
+        time_analysis_end = time.time()
+        time_analysis_diff = time_analysis_end - time_analysis_start
+        with open(misc_config.LOGFILE_STOPPING_FILE, 'a') as f:
+            line = '{} | {} | {} | {}\n'.format(appInfos['sha256'], time_analysis_start, time_analysis_end, time_analysis_diff)
+            sys.stdout.write(line)
+            f.write(line)
