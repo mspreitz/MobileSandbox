@@ -38,9 +38,13 @@ r = client.post('{}/userLogin/'.format(url), data=data, cookies=client.cookies, 
 
 time_analysis_total = 0
 
+logfile = open('log.txt', 'w')
+
 # TODO: MultiValueDict should contain one file named 'attachments' with multiple InMemoryUploadedFiles - doesn't work as one post yet
 for f in listdir(sys.argv[1]):
-    sys.stdout.write('{} ... '.format(f))
+    line = '{} ... '.format(f)
+    sys.stdout.write(line)
+    logfile.write(line)
     f_abs = '{}/{}'.format(sys.argv[1], f)
     files = {}
     with open(f_abs, 'rb') as tmp:
@@ -51,8 +55,14 @@ for f in listdir(sys.argv[1]):
     r = client.post('{}/home/'.format(url), data=data, files=files, cookies=client.cookies, headers=headers)
     time_analysis_end = time.time()
     time_analysis_diff = time_analysis_end - time_analysis_start
-    sys.stdout.write('{}\n'.format(r.status_code))
-    sys.stdout.write('Time taken (seconds): {}\n'.format(time_analysis_diff))
+    line = '{}\n'.format(r.status_code)
+    sys.stdout.write(line)
+    logfile.write(line)
+    line = 'Time taken (seconds): {}\n'.format(time_analysis_diff)
+    logfile.write(line)
+    sys.stdout.write(line)
     time_analysis_total += time_analysis_diff
     sys.stdout.flush()
-sys.stdout.write('Time taken in total (seconds): {}\n'.format(time_analysis_total))
+line = 'Time taken in total (seconds): {}\n'.format(time_analysis_total)
+logfile.write(line)
+sys.stdout.write(line)
