@@ -28,6 +28,7 @@ if len(data) != 2:
 
 # Setup the connection including session and csrftoken
 HOST, PORT = '131.188.31.150', 55555
+HOST = '127.0.0.1'
 url = 'http://{}:{}/analyzer'.format(HOST,PORT)
 headers = {}
 client = requests.session()

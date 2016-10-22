@@ -6,3 +6,13 @@ MATCH (c:Antivirus)-[r]-(a:Android) WITH c,count(c) AS samples WHERE samples > 1
 
 # Display top most nodes that are in relationships with Android nodes
 MATCH (c)-[r]-(a:Android) WITH c,count(c) AS samples WHERE samples > 10 RETURN samples, c.name, labels(c) ORDER BY samples DESC, labels(c)[0] ASC
+
+# Given the SHA256 of a sample s, return the types of nodes that connect other samples with s
+# Took 1s for 10k samples
+MATCH (n1:Android)-[r1]-(r)-[r2]-(n2:Android) WHERE n1.sha256 = '2794FA55EB3A413572A7E7A5EEBE292DFC1A7DCC07459EB20605703135AC59CA' WITH r, LABELS(r)[0] as l RETURN DISTINCT l, COUNT(r) as cnt ORDER BY cnt ASC
+
+# Same as previous, but return the name of the connecting nodes
+MATCH (n1:Android)-[r1]-(r)-[r2]-(n2:Android) WHERE n1.sha256 = '2794FA55EB3A413572A7E7A5EEBE292DFC1A7DCC07459EB20605703135AC59CA' WITH r, r.name as l RETURN DISTINCT l, COUNT(r) as cnt ORDER BY cnt DESC
+
+# Display them to begin clicking
+MATCH (n1:Android)-[r1]-(r)-[r2]-(n2:Android) WHERE n1.sha256 = '2794FA55EB3A413572A7E7A5EEBE292DFC1A7DCC07459EB20605703135AC59CA' WITH n1, r, r.name as l RETURN DISTINCT l, r, n1
