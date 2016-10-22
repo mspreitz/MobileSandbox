@@ -1,0 +1,11 @@
+#!/bin/bash
+ORANGE="\e[01;32m"
+OFF="\e[m"
+SAMPLES=$(wc analysis.txt | awk '{print $1}' | tr -d '\n')
+TOTAL_TIME=$(cat analysis.txt | awk '{print $7}' | paste -sd+ | bc)
+echo -e "Seconds taken for ${ORANGE}$SAMPLES${OFF} samples: $TOTAL_TIME"
+AVG=$(echo "scale=5; $TOTAL_TIME/$SAMPLES" | bc)
+echo "Average per sample is (in seconds): $AVG"
+SORTED=$(LC_ALL=C sort -gk7 analysis.txt | column -t)
+echo "$SORTED" | head -n1
+echo "$SORTED" | tail -n1

@@ -1,0 +1,2 @@
+#!/bin/bash
+watch 'LC_ALL=C sort -gk7 analysis.txt | column -t '
