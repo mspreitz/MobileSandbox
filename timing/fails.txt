@@ -13,6 +13,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/json/encoder.py", line 270, in iterencode
     return _iterencode(o, 0)
 UnicodeDecodeError: 'utf8' codec can't decode byte 0xf1 in position 4: unexpected end of data
+
 [FBA16537D59EDF6C392F7EA439FB6E4FD5C6DE8B6A72F8806690714647068462] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -25,6 +26,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/zipfile.py", line 811, in _RealGetContents
     raise BadZipfile, "File is not a zip file"
 zipfile.BadZipfile: File is not a zip file
+
 [967E08250FCE02760DBEC6FD681C21AA599190C6668D16C8B04FBB425726919D] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -37,6 +39,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/zipfile.py", line 811, in _RealGetContents
     raise BadZipfile, "File is not a zip file"
 zipfile.BadZipfile: File is not a zip file
+
 [F5C1A66F39AF8AAA3DC52C0396A1A7C363E47E250FE8C638F6DDA2A0DBE99C42] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -54,6 +57,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/zipfile.py", line 647, in _update_crc
     raise BadZipfile("Bad CRC-32 for file %r" % self.name)
 zipfile.BadZipfile: Bad CRC-32 for file 'classes.dex'
+
 [1446E09EBD8002F29E795456FA6DB323F16972229A7050D68A04517F8F2EDCE6] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -64,6 +68,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 391, in __init__
 struct.error: unpack requires a string argument of length 8
+
 Got Sample Information for Sample with SHA256: 26D8EE0E0A0420DFFDD84B4EC25C47E09191998F47BFEC0D93D1081F2D5F4F02
 extract manifest...
 unpacking sample...
@@ -96,6 +101,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/json/encoder.py", line 270, in iterencode
     return _iterencode(o, 0)
 UnicodeDecodeError: 'utf8' codec can't decode byte 0xf1 in position 4: unexpected end of data
+
 [603DDF3ECB067D2905CF2BB1CA63624C9B2B3AB453F69AEE9964BB2997D7F4DD] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -106,6 +112,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 391, in __init__
 struct.error: unpack requires a string argument of length 8
+
 [166B2DF1E21E38DF6627E269209481F12258027F2CAFC23BAC5FD849689FD3F2] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -123,6 +130,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/zipfile.py", line 647, in _update_crc
     raise BadZipfile("Bad CRC-32 for file %r" % self.name)
 zipfile.BadZipfile: Bad CRC-32 for file 'res/drawable/bg.jpg'
+
 Got Sample Information for Sample with SHA256: 97640C8520B87BF35A8B87FD7E6DE43E91B76132A14D1FC2613E5149E3AF11A9
 extract manifest...
 unpacking sample...
@@ -155,6 +163,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/json/encoder.py", line 270, in iterencode
     return _iterencode(o, 0)
 UnicodeDecodeError: 'utf8' codec can't decode byte 0x8a in position 9: invalid start byte
+
 [DDD14D96DF7160FF7C1F0133EEF00E8C3EA62846C9BA6DB3237949C9D6173819] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -165,6 +174,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 391, in __init__
 struct.error: unpack requires a string argument of length 8
+
 [E8F561D237647C7A2EF5099E70324A3C39D1370984683795052EC96F182A645E] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -175,6 +185,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 391, in __init__
 struct.error: unpack requires a string argument of length 8
+
 [90BEE3644EE11CB1B1FF892784E57EE25A0D75D2D182AA293F65231FB6D76176] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -185,6 +196,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 391, in __init__
 struct.error: unpack requires a string argument of length 8
+
 [7AD8C41BF4E87DB0F0D1C0917C7B911263CAE5EF149F082CBEF01AEA5E1B6B80] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -195,6 +207,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 391, in __init__
 struct.error: unpack requires a string argument of length 8
+
 Got Sample Information for Sample with SHA256: 85668BAB89E96E144C094B2583289750B3E056481C735579BA66403A0C807130
 extract manifest...
 unpacking sample...
@@ -227,6 +240,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/json/encoder.py", line 270, in iterencode
     return _iterencode(o, 0)
 UnicodeDecodeError: 'utf8' codec can't decode byte 0x8a in position 9: invalid start byte
+
 [9C1D20CC2ABE34B90BB71C7D9EBD0674975B53517DB8C5C4338F01E6AE370BB9] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -244,6 +258,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/zipfile.py", line 647, in _update_crc
     raise BadZipfile("Bad CRC-32 for file %r" % self.name)
 zipfile.BadZipfile: Bad CRC-32 for file 'res/drawable/bg_default.png'
+
 [F9C6A9F6AC4ED88C4E92623B3A41094651EFA0CD5B19647D01F4466ACA4CCEEE] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -254,6 +269,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 391, in __init__
 struct.error: unpack requires a string argument of length 8
+
 [F3C7EB1FD8E6EC2CB7D93A10F64723734A210C6840F5AC60469315A11C47A966] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -264,6 +280,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 391, in __init__
 struct.error: unpack requires a string argument of length 8
+
 [838291401845A81E3638F733935DFA272BC8DFC5A96931C1E8CE9E60CB7BDACE] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -273,6 +290,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7567, in __init__
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecod
+
 [B24AF1EB8D14BF247161C8DB34A6397F9A76D73D8F46C95FC5B16EE6C1FB73AF] Starting Static Analyzer
 get sample info...
 Got Sample Information for Sample with SHA256: B24AF1EB8D14BF247161C8DB34A6397F9A76D73D8F46C95FC5B16EE6C1FB73AF
@@ -307,6 +325,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/json/encoder.py", line 270, in iterencode
     return _iterencode(o, 0)
 UnicodeDecodeError: 'utf8' codec can't decode byte 0xf1 in position 4: unexpected end of data
+
 [2F4D2544FA8259DD73E191B3B78784724B79F4C8B7235DABE7CCFC58A95E5E93] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -319,6 +338,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/zipfile.py", line 811, in _RealGetContents
     raise BadZipfile, "File is not a zip file"
 zipfile.BadZipfile: File is not a zip file
+
 [B2F5463B1F42065430C37C89A6035F983286A73A2F7D6F49E48CE9F38B8E497E] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -329,6 +349,7 @@ Traceback (most recent call last):
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 7573, in _load
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/dvm.py", line 391, in __init__
 struct.error: unpack requires a string argument of length 8
+
 [EDC59A6223FB6AF5E8A038CD32ADA988E1CF4BDF154E4745EF33A0784ACD131F] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -346,6 +367,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/zipfile.py", line 647, in _update_crc
     raise BadZipfile("Bad CRC-32 for file %r" % self.name)
 zipfile.BadZipfile: Bad CRC-32 for file u'assets/MC3_Pack_iPhoneHD - Copie (9) - Copie.png'
+
 [14F20F7C7301A6B805B4C51799BAB166B3A80D0DDA25C95974AD3E8A32CC9EB9] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>
@@ -363,6 +385,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/zipfile.py", line 647, in _update_crc
     raise BadZipfile("Bad CRC-32 for file %r" % self.name)
 zipfile.BadZipfile: Bad CRC-32 for file 'res/drawable/on1.png'
+
 [56896DF58ED4D7EAAAD6B27BE852833D1E0217ADD4966B0059A339E0F01D0891] Starting Static Analyzer
 Traceback (most recent call last):
   File "./daemon.py", line 115, in <module>

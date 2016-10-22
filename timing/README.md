@@ -1,5 +1,5 @@
 # Time stopping results for the Static Analyzer
-* Samples have been selected from known `malware` samples (see internal `malware` repository) using the `random-samples](./random-samples) script.
+* Samples have been selected from known `malware` samples (see internal `malware` repository) using the [random-samples](./random-samples) script.
 * Number of uploaded samples: `10000`
 * Number of samples successfully analyzed: `9265`
 	* Note that the reason for most failures has been the sample size filter (>10 MB). See [fails.txt](./fails.txt) for the remaining reasons/bugs.
