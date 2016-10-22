@@ -2,7 +2,7 @@
 * Number of uploaded samples: `10000`
 * Number of samples successfully analyzed: `9265`
 	* Note that the reason for most failures has been the sample size filter (>10 MB). See [fails.txt](./fails.txt) for the remaining reasons/bugs.
-* Average time needed for a sample with all `ENABLE_*` settings set to `False`:
+* Average time needed for a sample with all `ENABLE_*` settings set to `FALSE` is about `7` seconds as computated using the [time](./time) script:
 
 ```bash
 $ ./time

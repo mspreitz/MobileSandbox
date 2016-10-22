@@ -1,1 +1,5 @@
-ls | shuf -n10000 | while read f; do cp "$f" ~/randomsamples/; done
+#!/bin/bash
+DIR_TRAINING_SAMPLES="/tmp/randomsamples"
+DIR_ALL_SAMPLES="."
+mkdir "$DIR_TRAINING_SAMPLES"
+ls "$DIR_ALL_SAMPLES" | shuf -n10000 | while read f; do cp "$f" "$DIR_TRAINING_SAMPLES"; done
