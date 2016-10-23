@@ -597,7 +597,15 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
         os.mkdir(workingDir)
     jsonFileName = '{}/{}'.format(workingDir,"static.json")
     jsonFile = open(jsonFileName, "a+")
-    jsonFile.write(json.dumps(output))
+    try:
+        jsonFile.write(json.dumps(output))
+    except UnicodeDecodeError:
+        # TODO Decide to either use encode_ascii=False, specify a certain non-ascii decoding or do something else
+        # TODO Also, if aborted, notify user that something bad happened
+        jsonFile.write(json.dumps({'error':'Could not decode report into ASCII-json'}))
+        errorMessage("Could not decode the json output of the report! Abort!")
+        jsonFile.close()
+        return
     jsonFile.close()
 
     # Transfer static analysis data to Neo4J by creating a node
