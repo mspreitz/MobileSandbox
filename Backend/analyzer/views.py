@@ -251,12 +251,18 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
 
         # TODO Since zipfile cannot read from stream, we have to check for zipfile contents here
         # Second APK test on the saved file
-        z = zipfile.ZipFile(apkFile) # TODO May cause an exception
+        try:
+            z = zipfile.ZipFile(apkFile) # TODO May cause an exception
+        except zipfile.BadZipfile:
+            # TODO Remove the directory, otherwise an exception is thrown after uploading the sample again
+            uploadedFiles[sentFile.name]['error'] = 'Sample has to be in APK format: Not a ZIP file'
+            continue
+
         zfiles = set(z.namelist())
         afiles = set(['classes.dex', 'AndroidManifest.xml'])
         if len(afiles-zfiles) != 0:
-            uploadedFiles[sentFile.name]['error'] = 'One of the following files is not in the sample: {}'.format(afiles)
             # TODO Remove the directory, otherwise an exception is thrown after uploading the sample again
+            uploadedFiles[sentFile.name]['error'] = 'One of the following files is not in the sample: {}'.format(afiles)
             continue
 
         # Put file in Queue for analysis
