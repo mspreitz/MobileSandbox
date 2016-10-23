@@ -3,6 +3,8 @@ import re
 from collections import OrderedDict
 
 import sys
+import zipfile
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -173,6 +175,10 @@ def showHistory(request):
 def dataIsAPK(data):
     magic = '\x50\x4b\x03\x04' # ZIP Magic
     if data[:4] != magic: return False
+
+    # Open the zipfile, check if required files are inside the APK
+    # TODO We open the zipfile twice now, get rid of redundancy
+    
     # TODO classes.dex, AndroidManifest.xml, resources.arsc
     return True
 
@@ -232,11 +238,25 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
             os.makedirs(apkDir)
         except os.error:
             # NOTE We don't have permissions to create the directory
-            # NOTE Or the direcytory exists already
+            # NOTE Or the directory exists already
             # See https://docs.python.org/2/library/os.html#os.makedirs
             if misc_config.ENABLE_SENTRY_LOGGING:
                 client.captureException()
             uploadedFiles[sentFile.name]['error'] = 'An internal server error occurred.'
+            continue
+
+        # Save the APK to the generated directory
+        apkFile = '{}/sample.apk'.format(apkDir)
+        with open(apkFile, 'wb') as f: f.write(data)
+
+        # TODO Since zipfile cannot read from stream, we have to check for zipfile contents here
+        # Second APK test on the saved file
+        z = zipfile.ZipFile(apkFile) # TODO May cause an exception
+        zfiles = set(z.namelist())
+        afiles = set(['classes.dex', 'AndroidManifest.xml'])
+        if len(afiles-zfiles) != 0:
+            uploadedFiles[sentFile.name]['error'] = 'One of the following files is not in the sample: {}'.format(afiles)
+            # TODO Remove the directory, otherwise an exception is thrown after uploading the sample again
             continue
 
         # Put file in Queue for analysis
@@ -271,10 +291,6 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
                 md5=appInfos['md5'],
                 username=request.user.username
         )
-
-        # Save the APK to the generated directory
-        apkFile = '{}/sample.apk'.format(apkDir)
-        with open(apkFile, 'wb') as f: f.write(data)
 
         uploadedFiles[sentFile.name]['uploaded'] = appInfos['sha256']
 
