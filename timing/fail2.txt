@@ -1,0 +1,50 @@
+[70EF18BDB3D4D3EAC21F6576DBD9DA267AEC1BBAD8553B5CD517F5BA6E3E1288] Starting Static Analyzer
+get sample info...
+Traceback (most recent call last):
+  File "./daemon.py", line 115, in <module>
+    run(apkFile, workingDir)
+  File "/home/o/git/MobileSandbox/StaticAnalysis/StaticAnalyzer.py", line 650, in run
+    appInfos = getSampleInfo(sampleFile,logFile,a)
+  File "/home/o/git/MobileSandbox/StaticAnalysis/StaticAnalyzer.py", line 397, in getSampleInfo
+    appInfos['app_name'] = a.get_app_name()
+  File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/apk.py", line 309, in get_app_name
+TypeError: warning() takes exactly 1 argument (2 given)
+[D533A54ABEA0DD783C1ED4C231608863E2785452454BFE88B995B00F6E85D2E3] Starting Static Analyzer
+get sample info...
+Traceback (most recent call last):
+  File "./daemon.py", line 115, in <module>
+    run(apkFile, workingDir)
+  File "/home/o/git/MobileSandbox/StaticAnalysis/StaticAnalyzer.py", line 650, in run
+    appInfos = getSampleInfo(sampleFile,logFile,a)
+  File "/home/o/git/MobileSandbox/StaticAnalysis/StaticAnalyzer.py", line 397, in getSampleInfo
+    appInfos['app_name'] = a.get_app_name()
+  File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/apk.py", line 309, in get_app_name
+TypeError: warning() takes exactly 1 argument (2 given)
+[91A37C248EF9DA28EA0F35D34BD82D597C56BF546BA799EB730483C7A311E565] Starting Static Analyzer
+Traceback (most recent call last):
+  File "./daemon.py", line 115, in <module>
+    run(apkFile, workingDir)
+  File "/home/o/git/MobileSandbox/StaticAnalysis/StaticAnalyzer.py", line 640, in run
+    except zipfile.BadZipfile: # TODO
+NameError: global name 'zipfile' is not defined
+[E0264898EDB6386C808D60505097DB8AAFAD8CBDEBD5D12ABB5A9E2A7C863162] Starting Static Analyzer
+Error: >> Encountered BadZipfile
+Terminating...
+[E0264898EDB6386C808D60505097DB8AAFAD8CBDEBD5D12ABB5A9E2A7C863162] Packing everything to the Backend Sample Directory
+Traceback (most recent call last):
+  File "./daemon.py", line 139, in <module>
+    copytree('{}/{}'.format(workingDir, 'unpack'), unpackPath) # copytree custom? TODO
+  File "./daemon.py", line 36, in copytree
+    for item in os.listdir(src):
+OSError: [Errno 2] No such file or directory: 'analysis/E0264898EDB6386C808D60505097DB8AAFAD8CBDEBD5D12ABB5A9E2A7C863162/unpack'
+[0CFE406B6A538241733515E214AC27E76E625CD0099CFC497476FDB3FCAE27FF] Starting Static Analyzer
+get sample info...
+Traceback (most recent call last):
+  File "./daemon.py", line 115, in <module>
+    run(apkFile, workingDir)
+  File "/home/o/git/MobileSandbox/StaticAnalysis/StaticAnalyzer.py", line 651, in run
+    appInfos = getSampleInfo(sampleFile,logFile,a)
+  File "/home/o/git/MobileSandbox/StaticAnalysis/StaticAnalyzer.py", line 398, in getSampleInfo
+    appInfos['app_name'] = a.get_app_name()
+  File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/apk.py", line 309, in get_app_name
+TypeError: warning() takes exactly 1 argument (2 given)

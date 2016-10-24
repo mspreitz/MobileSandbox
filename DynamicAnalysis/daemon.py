@@ -77,7 +77,7 @@ while(running):
         # Run dynamic analysis
         print '[{}] Starting Dynamic Analyzer'.format(sha256)
         workingDir = '{}/{}'.format(settings.DEFAULT_NAME_DIR_ANALYSIS, sha256)
-        run(apkFile, workingDir)
+        run(apkFile, workingDir, sha256)
 
         # Move JSON-Report to backend
         shutil.move('{}/{}'.format(workingDir, 'dynamic.json'), '{}/{}'.format(reportDir, 'dynamic.json'))
@@ -93,7 +93,8 @@ while(running):
         if not os.path.isdir(filesDir): os.makedirs(filesDir)
         copytree('{}/{}'.format(workingDir, settings.APK_FILES), filesDir)
 
-        copytree('{}/{}'.format(workingDir, settings.DATABASES_DIR), filesDir)
+        dir_databases = '{}/{}'.format(workingDir, settings.DATABASES_DIR)
+        if os.path.isdir(dir_databases): copytree(dir_databases, filesDir)
 
         # Remove temporary files
         shutil.rmtree(workingDir)

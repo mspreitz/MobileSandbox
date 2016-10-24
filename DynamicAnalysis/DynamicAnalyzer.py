@@ -291,7 +291,9 @@ def createOutput(workingDir, cuckooID):
 
 
 # Main Programm
-def run(sampleFile, workingDir):
+def run(sampleFile, workingDir, sha256):
+    if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE_DYNAMIC:
+        time_analysis_start = time.time()
     global resDir
     # Start cuckoo sandbox
     cuckooID = initCuckoo(sampleFile)
@@ -307,6 +309,13 @@ def run(sampleFile, workingDir):
         if misc_config.ENABLE_SENTRY_LOGGING:
             client.captureMessage("Error: Not finished")
         print "Error: Not finished"
+    if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE_DYNAMIC:
+        time_analysis_end = time.time()
+        time_analysis_diff = time_analysis_end - time_analysis_start
+        with open(misc_config.LOGFILE_STOPPING_FILE_DYNAMIC, 'a') as f:
+            line = '{} | {} | {} | {}\n'.format(sha256, time_analysis_start, time_analysis_end, time_analysis_diff)
+            sys.stdout.write(line)
+            f.write(line)
 
 #run("40.apk", "analysis")
 #Todo: Copy Databases, work on code robustness

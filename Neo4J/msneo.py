@@ -395,7 +395,7 @@ def create_node_dynamic(datadict):
     localhost = '192.168.56.10' # TODO Move this
     if 'network' in datadict:
         nodes_hosts = []
-        # Case HOSTS
+        # Case HOSTS: Generate initial hosts list
         if 'hosts' in datadict['network'] and len(datadict['network']['hosts']) > 0:
             nodes_hosts = create_list_nodes_rels(graph, tx, na, 'Host', datadict['network']['hosts'], 'NETWORK_CONTACT')
 
@@ -426,12 +426,36 @@ def create_node_dynamic(datadict):
             for hostname, ports in dict_udp_hosts.items():
                 create_list_nodes_rels(graph, tx, dict_hosts[hostname], 'Port', ports, 'OPENED_PORT')
 
-        # Case DNS: TODO
+        # Case DNS: 'dns':
+        #   [
+        #       {'type':string, 'request':string, 'answers':list} ,
+        #       ...
+        #   ]
+        # Type: A or AAAA
+        # Request: Request URL for DNS, e.g. client.a1b2c3d4e5.in
+        # Answers: ????
         if 'dns' in datadict['network'] and len(datadict['network']['dns']) > 0:
-            pass
+            dns_requests = [ dnsdict['request'] for dnsdict in datadict['network']['dns'] ]
+            nodes_requests = create_list_nodes_rels(graph, tx, na, 'DNS_Request', dns_requests, 'RESOLVE_DOMAIN_NAME')
+
+        # Case DOMAINS: 'domains'
+        # [
+        #   {'ip':string, 'domain':string}
+        #   ...
+        # ]
+        # IP: IP of the domain contacted - can be empty, too
+        # Domain: Domain name of the domain contacted
+        # TODO Merge this with hosts
+        if 'domains' in datadict['network'] and len(datadict['network']['domains']) > 0:
+            for dict_domain in datadict['network']['domains']:
+                node_domain = create_list_nodes_rels(graph, tx, na, 'Domain', [dict_domain['domain']], 'NETWORK_CONTACT')
+                if dict_domain['ip'] != '':
+                    create_list_nodes_rels(graph, tx, node_domain, 'IP', [dict_domain['ip']], 'RESOLVED_IP')
+
         # Case IRC: TODO
         if 'irc' in datadict['network'] and len(datadict['network']['irc']) > 0:
             pass
+
         # Case HTTP: TODO
         if 'http' in datadict['network'] and len(datadict['network']['http']) > 0:
             pass
@@ -440,9 +464,6 @@ def create_node_dynamic(datadict):
             pass
         # Case TCP: TODO
         if 'tcp' in datadict['network'] and len(datadict['network']['tcp']) > 0:
-            pass
-        # Case DOMAINS: TODO
-        if 'domains' in datadict['network'] and len(datadict['network']['domains']) > 0:
             pass
         # Case ICMP: TODO
         if 'icmp' in datadict['network'] and len(datadict['network']['icmp']) > 0:
