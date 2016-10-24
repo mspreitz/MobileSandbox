@@ -17,6 +17,7 @@ import shutil
 import xml.etree.ElementTree as ET
 import traceback
 import ssdeep
+import zipfile
 
 import sys
 sys.path.append(settings.PATH_MODULE_MSNEO)
@@ -635,7 +636,13 @@ def run(sampleFile, workingDir):
         errorMessage("Could not find APK file %s !" % sampleFile+"\nTerminating...")
         exit(1)
 
-    a = apk.APK(sampleFile)
+    try:
+        a = apk.APK(sampleFile)
+    except zipfile.BadZipfile: # TODO
+        errorMessage("Encountered BadZipfile\nTerminating...")
+        return
+
+
     dv = dvm.APK(sampleFile)
     d = dvm.DalvikVMFormat(a.get_dex())
     vmx = analysis.newVMAnalysis(d)

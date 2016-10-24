@@ -136,7 +136,8 @@ while(running):
         mzip(workingDir, ['src/', 'unpack/'], '{}/download'.format(apkPath))
 
         # Move unpack files to BACKEND UNPACK DIR
-        copytree('{}/{}'.format(workingDir, 'unpack'), unpackPath) # copytree custom? TODO
+        dir_unpack = '{}/{}'.format(workingDir, 'unpack')
+        if os.path.isdir(dir_unpack): copytree(dir_unpack, unpackPath) # copytree custom? TODO
 
         # Move Manifest to BACKEND SAMPLES DIR
         shutil.move('{}/{}'.format(workingDir, 'AndroidManifest.xml'), '{}/{}'.format(apkPath, 'AndroidManifest.xml'))

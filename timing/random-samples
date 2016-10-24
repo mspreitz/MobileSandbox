@@ -1,5 +1,6 @@
 #!/bin/bash
-DIR_TRAINING_SAMPLES="/tmp/randomsamples"
-DIR_ALL_SAMPLES="."
+[[ $# -ne 2 ]] && echo "Usage: $0 <Source Directory> <Target Directory>" && exit 1
+DIR_ALL_SAMPLES="$1"
+DIR_TRAINING_SAMPLES="$2"
 mkdir "$DIR_TRAINING_SAMPLES"
-ls "$DIR_ALL_SAMPLES" | shuf -n10000 | while read f; do cp "$f" "$DIR_TRAINING_SAMPLES"; done
+ls "$DIR_ALL_SAMPLES" | shuf -n10000 | while read f; do cp "${DIR_ALL_SAMPLES}/${f}" "${DIR_TRAINING_SAMPLES}"; done
