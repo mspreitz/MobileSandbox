@@ -11,7 +11,7 @@ import misc_config
 # TODO Exchange creates with merges!
 # TODO Get several found more than 1 in Antivirus results
 
-pw = 'msneo' # After changing password from default password neo4j to msneo
+pw = misc_config.MSNEO_PASSWORD # 'msneo' # After changing password from default password neo4j to msneo
 
 def clean_all():
     graph = Graph(password=pw)

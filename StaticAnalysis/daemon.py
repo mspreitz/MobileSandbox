@@ -45,7 +45,8 @@ def copytree(src, dst, symlinks=False, ignore=None):
 
 # Connect to database
 try:
-    conn = psycopg2.connect("dbname='ms_db' user='ms_user' host='localhost' password='2HmUKLvf'")
+    #conn = psycopg2.connect("dbname='ms_db' user='ms_user' host='localhost' password='2HmUKLvf'")
+    conn = psycopg2.connect(dbname='ms_db', user='ms_user', password="2HmUKLvf")
 except:
     if misc_config.ENABLE_SENTRY_LOGGING:
         client.captureException()
