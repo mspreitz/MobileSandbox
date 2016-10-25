@@ -12,6 +12,7 @@ import shutil
 import time
 import zipfile
 import misc_config
+import traceback
 
 
 if misc_config.ENABLE_SENTRY_LOGGING:
@@ -49,6 +50,7 @@ except:
     if misc_config.ENABLE_SENTRY_LOGGING:
         client.captureException()
     print "Unable to connect to the database"
+    traceback.print_exc()
     sys.exit(1)
 
 if not settings.BACKEND_PATH or settings.BACKEND_PATH == '':

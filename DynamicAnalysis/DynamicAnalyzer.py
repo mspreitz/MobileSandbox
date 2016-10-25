@@ -248,9 +248,10 @@ def extractCuckooInfo(cuckooID):
 
     # Get VirusTotal Scans
     virusTotal = {}
-    virusTotal['permalink'] = data['virustotal']['permalink']
-    virusTotal['positives'] = data['virustotal']['positives']
-    output['virustotal'] = virusTotal
+    if 'permalink' in data['virustotal']:
+        virusTotal['permalink'] = data['virustotal']['permalink']
+        virusTotal['positives'] = data['virustotal']['positives']
+        output['virustotal'] = virusTotal
 
     data_report_cuckoo = data
 

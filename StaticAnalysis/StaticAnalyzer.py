@@ -398,6 +398,10 @@ def getSampleInfo(sampleFile,logFile,a):
         appInfos['app_name'] = a.get_app_name()
     except AttributeError: # TODO: This is a bug by androguard. Issue a pull request for this funciton
         appInfos['app_name'] = None
+        traceback.print_exc()
+    except TypeError: # TODO Another bug by androguard in line 309
+        appInfos['app_name'] = None
+        traceback.print_exc()
     appInfos['apk_name'] = str(sampleFile).split("/")[-1]
     appInfos['package_name'] = a.get_package()
 

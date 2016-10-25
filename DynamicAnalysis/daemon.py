@@ -7,6 +7,7 @@ import psycopg2
 import sys
 import os
 import misc_config
+import traceback
 
 
 if misc_config.ENABLE_SENTRY_LOGGING:
@@ -30,6 +31,7 @@ try:
 except:
     if misc_config.ENABLE_SENTRY_LOGGING:
         client.captureException()
+    traceback.print_exc()
     print "Unable to connect to the database"
     sys.exit(1)
 

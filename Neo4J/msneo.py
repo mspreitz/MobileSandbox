@@ -384,7 +384,7 @@ def create_node_dynamic(datadict):
     print 'Neo4J: Android Node with sha256: {}'.format(na['sha256'])
 
     # Create virustotal nodes
-    if 'virustotal' in datadict:
+    if 'virustotal' in datadict and 'permalink' in datadict['virustotal']:
         set_av_results = set()
         for antivirus, resultdict in datadict['virustotal']['scans'].items():
             if not resultdict['result']: continue # Skip null results

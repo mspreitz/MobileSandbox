@@ -48,3 +48,25 @@ Traceback (most recent call last):
     appInfos['app_name'] = a.get_app_name()
   File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/apk.py", line 309, in get_app_name
 TypeError: warning() takes exactly 1 argument (2 given)
+[705520B6548C3BFA4F9F375130E31DB175FAD6884DA1A3FDA5BF0807B8DFED8E] Starting Static Analyzer
+get sample info...
+Traceback (most recent call last):
+  File "./daemon.py", line 115, in <module>
+    run(apkFile, workingDir)
+  File "/home/o/git/MobileSandbox/StaticAnalysis/StaticAnalyzer.py", line 651, in run
+    appInfos = getSampleInfo(sampleFile,logFile,a)
+  File "/home/o/git/MobileSandbox/StaticAnalysis/StaticAnalyzer.py", line 398, in getSampleInfo
+    appInfos['app_name'] = a.get_app_name()
+  File "build/bdist.linux-x86_64/egg/androguard/core/bytecodes/apk.py", line 309, in get_app_name
+TypeError: warning() takes exactly 1 argument (2 given)
+[7834FAAFA966738987F84160CA4ED804D215A552573658CA02E81F05D3BF2799] Packing everything to the Backend Sample Directory
+Traceback (most recent call last):
+  File "./daemon.py", line 143, in <module>
+    shutil.move('{}/{}'.format(workingDir, 'AndroidManifest.xml'), '{}/{}'.format(apkPath, 'AndroidManifest.xml'))
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 82, in copyfile
+    with open(src, 'rb') as fsrc:
+IOError: [Errno 2] No such file or directory: 'analysis/7834FAAFA966738987F84160CA4ED804D215A552573658CA02E81F05D3BF2799/AndroidManifest.xml'
