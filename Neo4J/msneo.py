@@ -391,6 +391,28 @@ def create_node_dynamic(datadict):
             set_av_results.add(resultdict['result'])
         create_list_nodes_rels(graph, tx, na, 'Antivirus', list(set_av_results), 'ANTIVIRUS')
 
+    # Create nodes from apkinfo
+    if 'apkinfo' in datadict:
+        # Create files nodes including generated md5 sums
+        # [{
+        #   'size'           : integer  # Size of the file
+        #   'type'           : string   # Type of the file - unknown if pip install python-magic hasn't been done beforehand
+        #   'name'           : string   # Name of the file
+        #   'md5'            : string   # MD5 Hash 
+        # }]
+        # TODO: This is redundant information if we enable zipfile hashing
+        if 'files' in datadict['apkinfo']:
+            list_files = []
+            list_files_attributes = []
+            for dict_file in datadict['apkinfo']['files']:
+                list_files.append(dict_file['name'])
+                del dict_file['name']
+                dict_file['md5']=dict_file['md5'].upper()
+                list_files_attributes.append(dict_file)
+            node_files = create_list_nodes_rels(graph, tx, na, 'File', list_files, 'CONTAINS_FILE', attributes=list_files_attributes, nodematchkey='md5', upper=True)
+
+
+
     # Add network traffic data
     # Add contacted IPs through UDP with additional relationship attributes. Result built from dpkt
     localhost = '192.168.56.10' # TODO Move this
