@@ -402,13 +402,24 @@ def create_node_dynamic(datadict):
         # }]
         # TODO: This is redundant information if we enable zipfile hashing
         if 'files' in datadict['apkinfo']:
+            # Map from md5(file) -> index
+            dict_map_files = {}
             list_files = []
             list_files_attributes = []
+            max_index = 0
             for dict_file in datadict['apkinfo']['files']:
-                list_files.append(dict_file['name'])
-                del dict_file['name']
                 dict_file['md5']=dict_file['md5'].upper()
-                list_files_attributes.append(dict_file)
+                fileidname = '{}_{}'.format(dict_file['md5'],dict_file['name']) # TODO Add names in a proper way
+                if dict_file['md5'] in dict_map_files:
+                    list_index = dict_map_files[dict_file['md5']]
+                    list_files_attributes[list_index][fileidname] = dict_file['name']
+                else:
+                    list_files_attributes.append(dict_file)
+                    list_files_attributes[max_index][fileidname] = dict_file['name']
+                    dict_map_files[dict_file['md5']] = max_index
+                    del list_files_attributes[max_index]['name']
+                    list_files.append(dict_file['md5'])
+                    max_index += 1
             node_files = create_list_nodes_rels(graph, tx, na, 'File', list_files, 'CONTAINS_FILE', attributes=list_files_attributes, nodematchkey='md5', upper=True)
 
 
