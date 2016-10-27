@@ -70,3 +70,14 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/shutil.py", line 82, in copyfile
     with open(src, 'rb') as fsrc:
 IOError: [Errno 2] No such file or directory: 'analysis/7834FAAFA966738987F84160CA4ED804D215A552573658CA02E81F05D3BF2799/AndroidManifest.xml'
+[E159358A5BF9EA3467D42675B6E847809E6F6E3BE08952EAA695E36DEAC45266] Packing everything to the Backend Sample Directory
+Traceback (most recent call last):
+  File "./daemon.py", line 146, in <module>
+    shutil.move('{}/{}'.format(workingDir, 'AndroidManifest.xml'), '{}/{}'.format(apkPath, 'AndroidManifest.xml'))
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 82, in copyfile
+    with open(src, 'rb') as fsrc:
+IOError: [Errno 2] No such file or directory: 'analysis/E159358A5BF9EA3467D42675B6E847809E6F6E3BE08952EAA695E36DEAC45266/AndroidManifest.xml'
