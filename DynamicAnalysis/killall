@@ -1,0 +1,6 @@
+#!/bin/bash
+pkill tcpdump
+pkill python2
+pkill VBoxNetDHCP
+pkill VBoxSVC
+pkill VBoxXPCOMIPCD

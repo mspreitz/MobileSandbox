@@ -392,10 +392,16 @@ def create_node_dynamic(datadict):
         create_list_nodes_rels(graph, tx, na, 'Antivirus', list(set_av_results), 'ANTIVIRUS')
 
     # Add network traffic data
+    # Add contacted IPs through UDP with additional relationship attributes. Result built from dpkt
     localhost = '192.168.56.10' # TODO Move this
     if 'network' in datadict:
+        # TODO Merge domains + hosts
+        # Case 'hosts': https://github.com/brad-accuvant/cuckoo-modified/blob/master/modules/processing/network.py#L666
+        # list [
+        #   string # List of non-private IP addresses
+        # ]
+        # Generate initial hosts list
         nodes_hosts = []
-        # Case HOSTS: Generate initial hosts list
         if 'hosts' in datadict['network'] and len(datadict['network']['hosts']) > 0:
             nodes_hosts = create_list_nodes_rels(graph, tx, na, 'Host', datadict['network']['hosts'], 'NETWORK_CONTACT')
 
@@ -404,7 +410,15 @@ def create_node_dynamic(datadict):
         for node in nodes_hosts:
             dict_hosts[node['name']] = node
 
-        # Case UDP: Add contacted IPs through UDP with additional relationship attributes
+        # Case 'udp': https://github.com/brad-accuvant/cuckoo-modified/blob/master/modules/processing/network.py#L622
+        # [{ 
+        #   'src'           : string        # Source IP
+        #   'src'           : string        # Destination IP
+        #   'offset'        : integer       # Offset to dumpfile
+        #   'time'          : integer       # Time vector in dumpfile
+        #   'sport'         : integer       # Source Port
+        #   'dport'         : integer       # Destination Port
+        # }]
         if 'udp' in datadict['network'] and len(datadict['network']['udp']) > 0:
             dict_udp_hosts = {}
             for udpdict in datadict['network']['udp']:
@@ -426,45 +440,76 @@ def create_node_dynamic(datadict):
             for hostname, ports in dict_udp_hosts.items():
                 create_list_nodes_rels(graph, tx, dict_hosts[hostname], 'Port', ports, 'OPENED_PORT')
 
-        # Case DNS: 'dns':
+        # Case 'dns': https://github.com/brad-accuvant/cuckoo-modified/blob/master/modules/processing/network.py#L283
+        # [{
+        #   'type'          : string        # Query Type: A, AAAA etc
+        #   'request'       : string        # Query Name: Domain Name
+        #   'answers'       : list          # Answers
         #   [
-        #       {'type':string, 'request':string, 'answers':list} ,
-        #       ...
+        #          'data':     : string     # Query Data, e.g. IP on A, domain name on CNAME etc - depending on Query Type
+        #          'type':     : string     # Query Type
         #   ]
-        # Type: A or AAAA
-        # Request: Request URL for DNS, e.g. client.a1b2c3d4e5.in
-        # Answers: ????
+        # }]
         if 'dns' in datadict['network'] and len(datadict['network']['dns']) > 0:
             dns_requests = [ dnsdict['request'] for dnsdict in datadict['network']['dns'] ]
             nodes_requests = create_list_nodes_rels(graph, tx, na, 'DNS_Request', dns_requests, 'RESOLVE_DOMAIN_NAME')
 
-        # Case DOMAINS: 'domains'
-        # [
-        #   {'ip':string, 'domain':string}
-        #   ...
-        # ]
-        # IP: IP of the domain contacted - can be empty, too
-        # Domain: Domain name of the domain contacted
-        # TODO Merge this with hosts
+        # Case 'domains': https://github.com/brad-accuvant/cuckoo-modified/blob/master/modules/processing/network.py#L397
+        # [{
+        #   'domain'    : string  # Domain Name
+        #   'ip'        : string  # IP
+        # }]
+        dict_map_domains = {}
         if 'domains' in datadict['network'] and len(datadict['network']['domains']) > 0:
             for dict_domain in datadict['network']['domains']:
                 node_domain = create_list_nodes_rels(graph, tx, na, 'Domain', [dict_domain['domain']], 'NETWORK_CONTACT')
+                dict_map_domains[dict_domain['domain']] = node_domain
                 if dict_domain['ip'] != '':
                     create_list_nodes_rels(graph, tx, node_domain, 'IP', [dict_domain['ip']], 'RESOLVED_IP')
 
+        # Case HTTP:
+        # [{
+        #   'count'         : integer   # Number of same requests
+        #   'body'          : string    # HTTP Body parsed from a file object (cuckoo uses dpkt http://dpkt.readthedocs.io/en/latest/_modules/dpkt/http.html?highlight=body )
+        #   'uri'           : string    # URI/Full URL
+        #   'user-agent'    : string    # Useragent
+        #   'method'        : string    # GET/POST etc
+        #   'host'          : string    # Host/Domainname without protocol and directory
+        #   'version'       : string    # HTTP Version
+        #   'path'          : string    # Path including file, but without domain prefix
+        #   'data'          : string    # Request verbatim (do not confuse this with the response - which doesn't exist somehow)
+        #   'port'          : integer   # Port number contacted
+        # }]
+        if 'http' in datadict['network'] and len(datadict['network']['http']) > 0:
+            # NOTE Since domain is the same as host right now (not the IP), we will use the domain nodes
+            # Create relationships from host to contacting sample with attributes (useful to e.g. display the URI instead of rel. type)
+            for dict_http in datadict['network']['http']:
+                # If the domain hasn't been created before, create it now
+                # NOTE This should not happen, since we created domain nodes beforehand and all contacted domains/host names are listed in the previous dict
+                # TODO Merge hosts and domains to avoid a conflict
+                node_domain = None
+                if dict_http['host'] not in dict_map_domains:
+                    node_domain = create_list_nodes_rels(graph, tx, na, 'Domain', [dict_http['host']], 'NETWORK_CONTACT')
+                    dict_map_domains[dict_http['host']] = node_domain
+                if not node_domain: node_domain = dict_map_domains[dict_http['host']]
+                r = Relationship(na, 'HTTP_REQUEST', node_domain) # TODO ,dict_http => Hyperedges not supported
+                for attrname, attr in dict_http.items():
+                    r[attrname] = attr
+                tx.merge(r)
+                print 'Neo4J: Created {0} Relationship with name: {{{1}}}'.format('HTTP_REQUEST', node_domain)
+
+
+        # Case TCP: TODO
+        if 'tcp' in datadict['network'] and len(datadict['network']['tcp']) > 0:
+            pass
         # Case IRC: TODO
         if 'irc' in datadict['network'] and len(datadict['network']['irc']) > 0:
             pass
 
-        # Case HTTP: TODO
-        if 'http' in datadict['network'] and len(datadict['network']['http']) > 0:
-            pass
         # Case SMTP: TODO
         if 'smtp' in datadict['network'] and len(datadict['network']['smtp']) > 0:
             pass
-        # Case TCP: TODO
-        if 'tcp' in datadict['network'] and len(datadict['network']['tcp']) > 0:
-            pass
+
         # Case ICMP: TODO
         if 'icmp' in datadict['network'] and len(datadict['network']['icmp']) > 0:
             pass
