@@ -382,16 +382,16 @@ def showReport(request):
 
     template = 'report.html'
     templatedict = {}
+    templatedict['sha256'] = sha256
 
     if type == "static":
         templatedict['malicious'] = classifiedapp.malicious
         templatedict['jsondata_static'] = jsondata_static
-        templatedict['sha256'] = sha256
         templatedict['type'] = type
     elif type == "dynamic":
         templatedict['jsondata_dynamic'] = jsondata_dynamic
         templatedict['screenshots'] = screenshots
-        templatedict['sha256'] = sha256
+
         templatedict['type'] = type
 
     return render_to_response(template, templatedict, context_instance=RequestContext(request))
