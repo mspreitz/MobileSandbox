@@ -302,7 +302,7 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
 
     # Return redirect link for every successful report - or redirect to the report page
     # For every error in the uploadedFiles, print a table with apkname and error
-    templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles }
+    templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles, 'hash': appInfos['sha256'] }
     template = 'anonUploadSuccess.html'
     if not anonymous: template = 'uploadSuccess.html'
     return render_to_response(template, templatedict, context_instance=RequestContext(request))
@@ -391,7 +391,6 @@ def showReport(request):
     elif type == "dynamic":
         templatedict['jsondata_dynamic'] = jsondata_dynamic
         templatedict['screenshots'] = screenshots
-
         templatedict['type'] = type
 
     return render_to_response(template, templatedict, context_instance=RequestContext(request))
