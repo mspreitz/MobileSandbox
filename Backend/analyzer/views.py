@@ -359,11 +359,15 @@ def showReport(request):
         return render_to_response('error.html', {'message': 'This is not SHA256!'}) # This is Sparta!
 
     reports = loadResults(sha256)
-
-    if reports is None:
-        return render_to_response('error.html', {'message': 'The report for this sample does not exist (yet?)'})
-
     (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots) = reports
+
+
+    if file_report_static is None and type == "static":
+        return render_to_response('error.html', {'message': 'The report for this sample does not exist. Please try'
+                                                            'later after the analysis is complete'})
+    if file_report_dynamic is None and type == "dynamic":
+        return render_to_response('error.html', {'message': 'The report for this sample does not exist. Please try'
+                                                            'later after the analysis is complete'})
 
     meta = Metadata.objects.get(sha256=sha256)
 
@@ -378,12 +382,17 @@ def showReport(request):
 
     template = 'report.html'
     templatedict = {}
-    templatedict['malicious'] = classifiedapp.malicious
-    templatedict['jsondata_static'] = jsondata_static
-    templatedict['jsondata_dynamic'] = jsondata_dynamic
-    templatedict['screenshots'] = screenshots
-    templatedict['sha256'] = sha256
-    templatedict['type'] = type
+
+    if type == "static":
+        templatedict['malicious'] = classifiedapp.malicious
+        templatedict['jsondata_static'] = jsondata_static
+        templatedict['sha256'] = sha256
+        templatedict['type'] = type
+    elif type == "dynamic":
+        templatedict['jsondata_dynamic'] = jsondata_dynamic
+        templatedict['screenshots'] = screenshots
+        templatedict['sha256'] = sha256
+        templatedict['type'] = type
 
     return render_to_response(template, templatedict, context_instance=RequestContext(request))
 
@@ -450,22 +459,25 @@ def loadResults(sha256):
 
     file_report_static  = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_STATIC)
 
-    if not os.path.isfile(file_report_static):
-        reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
-        return reports
+    if os.path.isfile(file_report_static):
+    #    reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
+    #    return reports
+        with open(file_report_static, 'r') as f:
+            jsondata_static = f.read()
+            jsondata_static = json.loads(jsondata_static)
+    else:
+        file_report_static = None
 
-    with open(file_report_static, 'r') as f:
-        jsondata_static = f.read()
-        jsondata_static = json.loads(jsondata_static)
 
     file_report_dynamic = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_DYNAMIC)
-    if not os.path.isfile(file_report_dynamic):
-        reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
-        return reports
-
-    with open(file_report_dynamic, 'r') as f:
-        jsondata_dynamic = f.read()
-        jsondata_dynamic = json.loads(jsondata_dynamic)
+    if os.path.isfile(file_report_dynamic):
+    #    reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
+    #    return reports
+        with open(file_report_dynamic, 'r') as f:
+            jsondata_dynamic = f.read()
+            jsondata_dynamic = json.loads(jsondata_dynamic)
+    else:
+        file_report_dynamic = None
 
     screenshots = []
     for root, dirs, files in os.walk(path_screenshots):
