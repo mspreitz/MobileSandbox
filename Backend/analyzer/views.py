@@ -446,7 +446,8 @@ def search(request):
         else:
             return HttpResponse('This is not a valid input!')
 
-
+        return render_to_response('error.html', {'message': 'We could not find this sample in our database! '
+                                                            'Please submit it to our system.'})
 
 def loadResults(sha256):
     path_apk            = '{}/{}'.format(settings.PATH_SAMPLES,getPathFromSHA256(sha256))
