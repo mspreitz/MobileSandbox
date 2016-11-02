@@ -19,6 +19,9 @@ APK_FILES = 'apkfiles'
 REPORT_DIR = 'reports'
 DATABASES_DIR = 'databases'
 
+BASE_URL = 'http://localhost:8000/analyzer/show/?report='
+SENDERS_MAIL = 'no-reply@mobilesandbox.org'
+
 import os
 cwd=os.path.dirname(os.path.realpath(__file__))
 PATH_MODULE_CONFIG = '{}/../config/'.format(cwd)
