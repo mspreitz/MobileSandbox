@@ -19,6 +19,9 @@ APK_FILES = 'apkfiles'
 REPORT_DIR = 'reports'
 DATABASES_DIR = 'databases'
 
+TIMEOUT = 360
+RETRY = 3
+
 BASE_URL = 'http://localhost:8000/analyzer/show/?report='
 SENDERS_MAIL = 'no-reply@mobilesandbox.org'
 

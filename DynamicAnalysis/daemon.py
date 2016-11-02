@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import shutil
+import subprocess
 import time
 from DynamicAnalyzer import run
 import settings
@@ -81,7 +82,32 @@ while(running):
         # Run dynamic analysis
         print '[{}] Starting Dynamic Analyzer'.format(sha256)
         workingDir = '{}/{}'.format(settings.DEFAULT_NAME_DIR_ANALYSIS, sha256)
-        run(apkFile, workingDir, sha256)
+
+        status = run(apkFile, workingDir, sha256)
+
+        # If VirtualBox gets stuck kill it and try again
+        for i in range(settings.RETRY):
+            if status == "TimedOut":
+                print "Analysis failed for the %s time" % i
+
+                command = "/usr/bin/ps waux|awk '/--startvm/{print $2}'"
+                command2 = "/usr/bin/ps waux|awk '/cuckoo.py/{print $2}'"
+
+                output = subprocess.check_output(command, shell=True)
+                output2 = subprocess.check_output(command2, shell=True)
+                pid = output.split("\n")
+                pid2 = output2.split("\n")
+                for i in pid:
+                    if i != "":
+                        subprocess.call(["kill", pid])
+
+                for i in pid2:
+                    if i != "":
+                        subprocess.call(["kill", pid2])
+                status = run(apkFile, workingDir, sha256)
+            else:
+                continue
+
 
         # Move JSON-Report to backend
         shutil.move('{}/{}'.format(workingDir, 'dynamic.json'), '{}/{}'.format(reportDir, 'dynamic.json'))

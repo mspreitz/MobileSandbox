@@ -91,9 +91,18 @@ def initCuckoo(sampleFile):
 def isFinished(cuckooID):
     global proc
     global resDir
+    global sample
+    global wDir
+    global sha256Val
+
+    startTime = time.time()
 
     running=True
     while running:
+        timeOut = startTime + settings.TIMEOUT
+        if(time.time() > timeOut):
+            return "TimedOut"
+
         time.sleep(1)
         path_report = '{}/{}/reports/report.html'.format(settings.CUCKOO_STORAGE,cuckooID)
         if not os.path.isfile(path_report): continue
@@ -297,6 +306,14 @@ def run(sampleFile, workingDir, sha256):
     if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE_DYNAMIC:
         time_analysis_start = time.time()
     global resDir
+    global sample
+    global wDir
+    global sha256Val
+
+    sample = sampleFile
+    wDir = workingDir
+    sha256Val = sha256
+
     # Start cuckoo sandbox
     cuckooID = initCuckoo(sampleFile)
     print 'INITIALIZED CUCKOO'
