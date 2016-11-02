@@ -367,18 +367,21 @@ def showReport(request):
                                                             'later after the analysis is complete'})
     if file_report_dynamic is None and type == "dynamic":
         return render_to_response('error.html', {'message': 'The report for this sample does not exist. Please try'
-                                                            'later after the analysis is complete'})
+                                                            ' again later after the analysis is complete'})
 
     meta = Metadata.objects.get(sha256=sha256)
 
     classifiedapp = None
-    try:
-        classfiedapp = ClassifiedApp.objects.get(sample_id=meta.id)
-    except:
-        classify(file_report_static, meta.id)
 
-    if classifiedapp is None:
-        classifiedapp = ClassifiedApp.objects.get(sample_id=meta.id)
+    if file_report_static is not None:
+        try:
+            classfiedapp = ClassifiedApp.objects.get(sample_id=meta.id)
+        except:
+            classify(file_report_static, meta.id)
+
+        if classifiedapp is None:
+            classifiedapp = ClassifiedApp.objects.get(sample_id=meta.id)
+
 
     template = 'report.html'
     templatedict = {}
