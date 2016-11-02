@@ -34,6 +34,62 @@ def add_attribute(node, datadict, attribute, regex=None, upper=False):
     if upper: node[attribute] = node[attribute].upper()
     return node
 
+# Splits URI by .
+# Returns dictionary with lastURItoken and a short_description with the format: ([<first character of first URI tokens]+)*.<last two URI tokens>
+# Short description: Only first character in each URI token, full name in last
+def get_short_uri_attributes(datadict):
+    list_attributes = []
+    for element in datadict:
+        dict_description = {'short_description': 'N/A', 'lastURItoken': 'N/A'} # TODO Collusion with descriptions that really are N/A
+        list_uri_els = element.split('.')
+        if len(element) == 1:
+            dict_description['short_description'] = list_uri_els[0]
+        else:
+            dict_description['short_description'] = '.'.join([ x[0]+'*' for x in list_uri_els[:-1] ])
+            dict_description['short_description'] += '.' + '.'.join(list_uri_els[-1:])
+        if len(element) > 0:
+            dict_description['lastURItoken'] = list_uri_els[-1]
+        list_attributes.append(dict_description)
+    return list_attributes
+
+# Returns short description for URLs using a pretty weird regex.
+# Short description: hostname (IP/domainname without subs) '/' file requested 
+def get_short_url_attributes(datadict):
+    # TODO Check with multiple test URLs
+    # http://stackoverflow.com/questions/27745/getting-parts-of-a-url-regex
+    """
+        Positions
+        ? 0 url
+          1 protocol
+          2 host
+          3 path
+          4 file
+          5 query
+        ? 6 hash
+    """
+    # Positions:
+    urlregex = '^((http[s]?|ftp):\\/)?\\/?([^:\\/\\s]+)((\\/\\w+)*\\/)([\\w\\-\\.]+[^#?\\s]+)(.*)?(#[\\w\\-]+)?$'
+
+
+    list_attributes = []
+    for element in datadict:
+        dict_description = {}
+        dict_description['short_description'] = 'N/A'
+        dict_description['host'] = 'N/A'
+        dict_description['file'] = 'N/A'
+        results = re.findall(urlregex, element)
+        if len(results) == 1:
+            results = results[0]
+            hostname = results[2]
+            requested_file = results[4]
+            if len(requested_file) > 0 and requested_file[0] == '/':
+                requested_file = requested_file[1:]
+            dict_description['host'] = hostname
+            dict_description['file'] = requested_file
+            dict_description['short_description'] = '{}/{}'.format(hostname, requested_file)
+        list_attributes.append(dict_description)
+
+    return list_attributes
 
 # Create a node named nodename in graph using transaction tx that is in relationship with node nrelative, add attributes (same idx list of dicts: attrname -> attr) to nodename if provided.
 # TODO Unmangle this function
@@ -162,6 +218,10 @@ def create_node_static(datadict):
         add_attribute(na, datadict, 'sha1', regex=r_sha1, upper=True)
         add_attribute(na, datadict, 'sha256', regex=r_sha256, upper=True)
         add_attribute(na, datadict, 'ssdeep')
+        if 'app_name' in datadict:
+            add_attribute(na, datadict, 'app_name')
+        else:
+            na['app_name'] = 'N/A'
         na['static'] = True
         tx.create(na)
 
@@ -170,18 +230,61 @@ def create_node_static(datadict):
     # Create nodes with only a name attribute
     permissions = set(datadict['app_permissions'])
     permissions |= set(datadict['api_permissions']) # TODO Difference app/api permissions
-    nodes_permissions = create_list_nodes_rels(graph, tx, na, 'Permission', permissions, 'USES_PERMISSION')
-    create_list_nodes_rels(graph, tx, na, 'Intent', datadict['intents'], 'ACTION_WITH_INTENT')
-    create_list_nodes_rels(graph, tx, na, 'Activity', datadict['activities'], 'ACTIVITY')
-    create_list_nodes_rels(graph, tx, na, 'Feature', datadict['features'], 'FEATURE')
-    create_list_nodes_rels(graph, tx, na, 'Provider', datadict['providers'], 'PROVIDER')
-    create_list_nodes_rels(graph, tx, na, 'Service_Receiver', datadict['s_and_r'], 'SERVICE_RECEIVER') # TODO split s_and_r
-    create_list_nodes_rels(graph, tx, na, 'Package_Name', [ datadict['package_name']], 'PACKAGE_NAME')
+    # Create Permission nodes
+    list_attributes = get_short_uri_attributes(permissions)
+    nodes_permissions = create_list_nodes_rels(graph, tx, na, 'Permission', permissions, 'USES_PERMISSION', attributes = list_attributes)
+
+    # Create Intent nodes
+    # Short description: *.<last two URI tokens>
+    list_attributes = []
+    for intent in datadict['intents']:
+        dict_description = {'short_description': 'N/A', 'lastURItoken': 'N/A'} # TODO Collusion with descriptions that really are N/A
+        list_uri_els = intent.split('.')
+        if len(intent) == 1:
+            dict_description['short_description'] = list_uri_els[0]
+        elif len(intent) == 2:
+            dict_description['short_description'] = '.'.join(list_uri_els)
+        else:
+            dict_description['short_description'] = '*.'+'.'.join(list_uri_els[-2:])
+        if len(intent) > 0:
+            dict_description['lastURItoken'] = list_uri_els[-1]
+        list_attributes.append(dict_description)
+    create_list_nodes_rels(graph, tx, na, 'Intent', datadict['intents'], 'ACTION_WITH_INTENT', attributes=list_attributes)
+
+    # Create Activity nodes
+    list_attributes = get_short_uri_attributes(datadict['activities'])
+    create_list_nodes_rels(graph, tx, na, 'Activity', datadict['activities'], 'ACTIVITY', attributes=list_attributes)
+
+    # Create Feature nodes
+    list_attributes = get_short_uri_attributes(datadict['features'])
+    create_list_nodes_rels(graph, tx, na, 'Feature', datadict['features'], 'FEATURE', attributes=list_attributes)
+
+    # Create Provider nodes
+    list_attributes = get_short_uri_attributes(datadict['providers'])
+    create_list_nodes_rels(graph, tx, na, 'Provider', datadict['providers'], 'PROVIDER', attributes=list_attributes)
+
+    # Create Service and Receiver nodes
+    # TODO Split s_and_r
+    list_attributes = get_short_uri_attributes(datadict['s_and_r'])
+    create_list_nodes_rels(graph, tx, na, 'Service_Receiver', datadict['s_and_r'], 'SERVICE_RECEIVER', attributes=list_attributes)
+
+    # Create package name nodes
+    list_attributes = get_short_uri_attributes([datadict['package_name']])
+    create_list_nodes_rels(graph, tx, na, 'Package_Name', [ datadict['package_name']], 'PACKAGE_NAME', attributes=list_attributes)
+
+    # Create SDK Version nodes
     create_list_nodes_rels(graph, tx, na, 'SDK_Version_Target', [ datadict['sdk_version_target']], 'SDK_VERSION_TARGET')
     create_list_nodes_rels(graph, tx, na, 'SDK_Version_Min', [ datadict['sdk_version_min']], 'SDK_VERSION_MIN')
     create_list_nodes_rels(graph, tx, na, 'SDK_Version_Max', [ datadict['sdk_version_max']], 'SDK_VERSION_MAX')
+
+    # Create appname nodes
     create_list_nodes_rels(graph, tx, na, 'App_Name', [ datadict['app_name']], 'APP_NAME')
-    create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL')
+
+    # Create URL nodes
+    list_attributes = get_short_url_attributes(datadict['urls'])
+    create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL', attributes=list_attributes)
+
+
     create_list_nodes_rels(graph, tx, na, 'Networks', datadict['networks'], 'NETWORK')
     create_list_nodes_rels(graph, tx, na, 'AD_Network', datadict['detected_ad_networks'], 'AD_NETWORK')
 

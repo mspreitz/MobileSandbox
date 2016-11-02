@@ -1,12 +1,25 @@
 #!/bin/bash
+set -e
+set -x
 echo '---[ Deleting the Backend samples folder and Analyzer analysis Folder ]---'
-rm -rf Backend/analyzer/samples/ StaticAnalysis/analysis/ DynamicAnalysis/analysis/
-mkdir StaticAnalysis/analysis/ Backend/analyzer/samples/
+# Trailing slashes are mandatory .. http://unix.stackexchange.com/questions/37329/efficiently-delete-large-directory-containing-thousands-of-files
+DIR_EMPTY='./empty/'
+rm -rf "$DIR_EMPTY"
+mkdir -p "$DIR_EMPTY"
+# Second fastest way after perl: rsync
+# perl only handles directories with no subdirectories..
+# perl -e 'for(<*>){((stat)[9]<(unlink))}'
+rsync -a --delete "$DIR_EMPTY" ./Backend/analyzer/samples/
+rsync -a --delete "$DIR_EMPTY" ./StaticAnalysis/analysis/
+rsync -a --delete "$DIR_EMPTY" ./DynamicAnalysis/analysis/
+mkdir -p StaticAnalysis/analysis/ Backend/analyzer/samples/ DynamicAnalysis/analysis
 echo '---[ Cleaning the Neo4J Database ]---'
 (
-	# TODO Stop neo4j Server, delete data/graph.db/* to remove old property nodes
-	cd Neo4J
-	python -c 'from msneo import clean_all; clean_all()'
+	DIR_NEO='/home/o/neo4j-community-3.0.4/'
+	cd "$DIR_NEO"
+	rm -rf ./data/databases/graph.db/
+	ulimit -n 40000
+	./bin/neo4j restart
 )
 echo '---[ Cleaning the Cuckoo Database ]---'
 (
