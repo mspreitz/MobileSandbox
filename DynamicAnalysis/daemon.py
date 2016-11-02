@@ -92,18 +92,16 @@ while(running):
 
                 command = "/usr/bin/ps waux|awk '/--startvm/{print $2}'"
                 command2 = "/usr/bin/ps waux|awk '/cuckoo.py/{print $2}'"
-
                 output = subprocess.check_output(command, shell=True)
                 output2 = subprocess.check_output(command2, shell=True)
+
+                pid = output + output2
                 pid = output.split("\n")
-                pid2 = output2.split("\n")
+
                 for i in pid:
                     if i != "":
                         subprocess.call(["kill", pid])
 
-                for i in pid2:
-                    if i != "":
-                        subprocess.call(["kill", pid2])
                 status = run(apkFile, workingDir, sha256)
             else:
                 continue
