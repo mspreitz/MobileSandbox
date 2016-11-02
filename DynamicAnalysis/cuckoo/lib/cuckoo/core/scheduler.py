@@ -263,6 +263,7 @@ class AnalysisManager(Thread):
         if process.returncode != 0:
             raise IOError("Error during download.")
 
+
     def createSHA256(self, apkFile):
         try:
             return hashlib.sha256(open(apkFile, 'rb').read()).hexdigest()
@@ -273,16 +274,12 @@ class AnalysisManager(Thread):
     def copyDatabase(self):
         apkPath = self.build_options()['target']
         sha256 = self.createSHA256(apkPath)
-
         pkgName = self.getPackageName()
         dir = os.path.join(misc_config.PATH_DYNAMIC_ANALYSIS,'analysis')
-
-        log.error(pkgName)
 
         try:
             log.debug("Trying to get databases")
             workingDir = os.path.join(dir, sha256)
-
 
             if pkgName is None:
                 log.error("App dir not found!")
@@ -376,7 +373,13 @@ class AnalysisManager(Thread):
                 self.getListeningPorts()
                 subprocess.Popen([misc_config.ADB_PATH, "kill-server"])
                 self.adbRoot()
-                self.copyDatabase()
+                try:
+                    self.copyDatabase()
+                except:
+                    log.error('Copy database failed!')
+
+                #Stop adb server
+                subprocess.Popen([misc_config.ADB_PATH, "kill-server"])
 
         except CuckooMachineError as e:
             log.error(str(e), extra={"task_id": self.task.id})

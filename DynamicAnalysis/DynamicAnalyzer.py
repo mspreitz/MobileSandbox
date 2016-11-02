@@ -43,7 +43,7 @@ def initCuckoo(sampleFile):
         proc = subprocess.Popen(['python2', settings.CUCKOO_SERVER],
                             stdout=subprocess.PIPE,
                             stdin=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
+                            stderr=subprocess.STDOUT)
     except:
         print "Error starting cuckoo server"
         if misc_config.ENABLE_SENTRY_LOGGING:
@@ -155,6 +155,7 @@ def cleanUp():
         os.remove('{}/{}'.format("cuckoo", settings.NETSTAT_NEW))
         os.remove('{}/{}'.format("cuckoo", settings.NETSTAT_LIST))
         os.remove('{}/{}'.format("cuckoo", settings.SBOX_FOLDER_LIST))
+
     except:
         print "Error: could not cleanup all temporary files"
         if misc_config.ENABLE_SENTRY_LOGGING:
@@ -317,6 +318,3 @@ def run(sampleFile, workingDir, sha256):
             line = '{} | {} | {} | {}\n'.format(sha256, time_analysis_start, time_analysis_end, time_analysis_diff)
             sys.stdout.write(line)
             f.write(line)
-
-#run("40.apk", "analysis")
-#Todo: Copy Databases, work on code robustness
