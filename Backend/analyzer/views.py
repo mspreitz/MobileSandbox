@@ -170,7 +170,7 @@ def showHistory(request):
     data['Report'] = sha256
     data['Decompiled Files'] = sha256
 
-    return render_to_response('history.html', {"data": data})
+    return render_to_response('history.html', {"data": data}, context_instance=RequestContext(request))
 
 def dataIsAPK(data):
     magic = '\x50\x4b\x03\x04' # ZIP Magic

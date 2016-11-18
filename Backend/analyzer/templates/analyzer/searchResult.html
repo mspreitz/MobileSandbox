@@ -1,9 +1,21 @@
 {% extends "sandbox.html" %}
 
 {% block nav %}
-<ul class="nav">
-            <li><a href="/analyzer/home/">Home</a></li>
-</ul>
+{% if user.is_authenticated %}
+    <ul class="nav">
+        <li><a href="/analyzer/home/">Home</a></li>
+        <li><a href="/analyzer/history/">History</a></li>
+        <li><a href="/analyzer/logout/">Logout</a></li>
+    </ul>
+{% else %}
+    <ul class="nav">
+        <li><a href="/analyzer/">Home</a></li>
+        <li><a href="/analyzer/userLogin/">Login</a></li>
+        <li><a href="/analyzer/registration/">Registration</a></li>
+        <li><a href="/analyzer/anonUpload/">Anonymous Submission</a></li>
+        <li><a href="/analyzer/queue/">Queue</a></li>
+    </ul>
+{% endif %}
 {% endblock %}
 
 {% block content %}

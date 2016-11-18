@@ -3,6 +3,9 @@
 {% block nav %}
 <ul class="nav">
 	<li><a href="/analyzer/home/">Home</a></li>
+	<li><a href="/analyzer/show/?report={{ sha256 }}&type=static">Static Report</a></li>
+	<li><a href="/analyzer/show/?report={{ sha256 }}&type=dynamic">Dynamic Report</a></li>
+	<li><a href="/analyzer/download/?token={{ sha256 }}">Download decompiled files</a></li>
 </ul>
 {% endblock %}
 
@@ -10,18 +13,14 @@
 {% load array_filter %}
 {% load dict_filter %}
 
-<a href="/analyzer/show/?report={{ sha256 }}&type=static">Static Report</a>
-<a href="/analyzer/show/?report={{ sha256 }}&type=dynamic">Dynamic Report</a> <br><br>
-<a href="/analyzer/download/?token={{ sha256 }}">Download decompiled files</a>
-
 <div id="content">
 	<div id="l_container col-lg-8">
 
 		<h3>Report</h3>
 		{% if type == 'static' %}
 		<table border="1" cellpadding="1" width="80%">
-			<tr><th bgcolor="#8a2be2">Static analysis</th></tr>
-			<tr><th bgcolor="#808080">Is this Sample malicious? (Classification)</th></tr>
+			<tr><th bgcolor="#f5f5f5">Static analysis</th></tr>
+			<tr><th bgcolor="white">Is this Sample malicious? (Classification)</th></tr>
 			<tr><td>{% if malicious %}Yes{% else %}No{% endif %}</td></tr>
             <tr><th>SHA256:</th></tr>
             <tr><td>{{jsondata_static.sha256}}</td></tr>
@@ -128,19 +127,19 @@
 		{% elif type == 'dynamic' %}
 
 		<table border="1" cellpadding="1" width="80%">
-			<tr><th bgcolor="#8a2be2" colspan="9">Dynamic analysis</th></tr>
+			<tr><th bgcolor="#f5f5f5" colspan="9">Dynamic analysis</th></tr>
 
 			{% for key, value in jsondata_dynamic.items %}
 				{% if key == 'processes' %}
 					<table border="1" width="80%">
-						<tr><th colspan="2" bgcolor="#808080">VirusTotal</th></tr>
+						<tr><th colspan="2" bgcolor="white">VirusTotal</th></tr>
 						<tr><th>Positives</th><th>Permalink</th></tr>
 						<tr><td>{{jsondata_dynamic.cuckoo_out.virustotal.positives}}</td>
 							<td><a href="{{jsondata_dynamic.cuckoo_out.virustotal.permalink}}">Link</a></td></tr>
 					</table>
 					<br><br>
 					<table border="1" width="80%">
-						<tr><th colspan="9" bgcolor="#808080"> {{ key }}</th></tr>
+						<tr><th colspan="9" bgcolor="white"> {{ key }}</th></tr>
 						<tr><th>User</th><th>PID</th><th>PPID</th><th>VSIZE</th>
 							<th>RSS</th><th>WCHAN</th><th>PC</th><th>P</th><th>Name</th></tr>
 						<tr>
@@ -158,7 +157,7 @@
 
 				{% if key == 'listening' %}
 					<table border="1" width="80%">
-						<tr><th colspan="6" bgcolor="#808080"> {{ key }}</th></tr>
+						<tr><th colspan="6" bgcolor="white"> {{ key }}</th></tr>
 						<tr><th>Proto</th><th>Recv-Q</th><th>Send-Q</th><th>Local-Address</th>
 							<th>Foreign-Adress</th><th>State</th></tr>
 						<tr>
@@ -176,9 +175,9 @@
 
 			{% if key == 'cuckoo_out' %}
 				<table border="1" width="80%">
-					<tr><th colspan="3" bgcolor="#808080">Network</th></tr>
+					<tr><th colspan="3" bgcolor="white">Network</th></tr>
 					{% if value.network.udp %}
-						<tr><th colspan="3" bgcolor="#808080">UDP</th></tr>
+						<tr><th colspan="3" bgcolor="white">UDP</th></tr>
 						<tr><th>Destination</th><th>Source Port</th><th>Destination Port</th></tr>
 						{% for v in value.network.udp %}
 							<tr><td>{{v.dst}}</td><td>{{ v.sport }}</td><td>{{v.dport}}</td></tr>
@@ -186,7 +185,7 @@
 					{% endif %}
 
 					{% if value.network.tcp %}
-						<tr><th colspan="3" bgcolor="#808080">TCP</th></tr>
+						<tr><th colspan="3" bgcolor="white">TCP</th></tr>
 						<tr><th>Destination</th><th>Source Port</th><th>Destination Port</th></tr>
 						{% for v in value.network.tcp %}
 							<tr><td>{{v.dst}}</td><td>{{ v.sport }}</td><td>{{v.dport}}</td></tr>
@@ -194,7 +193,7 @@
 					{% endif %}
 
 					{% if value.network.irc %}
-						<tr><th colspan="3" bgcolor="#808080">IRC</th></tr>
+						<tr><th colspan="3" bgcolor="white">IRC</th></tr>
 						<tr><th>Destination</th><th>Source Port</th><th>Destination Port</th></tr>
 						{% for v in value.network.irc %}
 							<tr><td>{{v.dst}}</td><td>{{ v.sport }}</td><td>{{v.dport}}</td></tr>
@@ -202,7 +201,7 @@
 					{% endif %}
 
 					{% if value.network.smtp %}
-						<tr><th colspan="3" bgcolor="#808080">SMTP</th></tr>
+						<tr><th colspan="3" bgcolor="white">SMTP</th></tr>
 						<tr><th>Destination</th><th>Source Port</th><th>Destination Port</th></tr>
 						{% for v in value.network.smtp %}
 							<tr><td>{{v.dst}}</td><td>{{ v.sport }}</td><td>{{v.dport}}</td></tr>
@@ -215,7 +214,7 @@
 			<br><br>
 
 			<table border="1" width="80%">
-				<tr><th colspan="3" bgcolor="#808080">Screenshots</th></tr>
+				<tr><th colspan="3" bgcolor="white">Screenshots</th></tr>
 				<tr>
 					{% for v in screenshots %}
 						{% if forloop.counter0|divisibleby:3 %}

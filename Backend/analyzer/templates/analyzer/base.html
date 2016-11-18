@@ -1,19 +1,27 @@
 {% extends "sandbox.html" %}
 
+{% block nav %}
+    <ul class="nav">
+    {% if user.is_authenticated %}
+        <li><a href="/analyzer/home/">Home</a></li>
+        <li><a href="/analyzer/history/">Report history</a></li>
+        <li><a href="/analyzer/queue/">Queue</a></li>
+        <li><a href="/analyzer/logout/">Log Out</a></li>
+    {% else %}
+        <li><a href="/analyzer/userLogin/">Login</a></li>
+        <li><a href="/analyzer/registration/">Registration</a></li>
+        <li><a href="/analyzer/anonUpload/">Anonymous Submission</a></li>
+        <li><a href="/analyzer/queue/">Queue</a></li>
+    {% endif %}
+    </ul>
+{% endblock %}
+
 {% block content %}
-    <div id="content" class="login_container p-none">
-        <div class="l_container col-lg-8">
-            {% if user.is_authenticated %}
-                <li><a href="/analyzer/home/">Home</a></li>
-                <li><a href="/analyzer/history/">Report history</a></li>
-                <li><a href="/analyzer/queue/">Queue</a></li>
-                <li><a href="/analyzer/logout/">Log Out</a></li>
-            {% else %}
-                <a href="/analyzer/userLogin/">Login</a>&nbsp |
-                &nbsp<a href="/analyzer/registration/">Registration</a>&nbsp |
-                &nbsp<a href="/analyzer/anonUpload/">Anonymous Submission</a>&nbsp |
-                &nbsp<a href="/analyzer/queue/">Queue</a>
-            {% endif %}
-        </div>
+<div id="content">
+    <div id="l_container col-lg-8">
+    <h4>Welcome to Mobile Sandbox</h4>
+    <p>......</p>
     </div>
-{% endblock content %}
+</div>
+
+{% endblock %}}

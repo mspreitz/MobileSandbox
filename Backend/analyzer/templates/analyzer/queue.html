@@ -9,7 +9,11 @@
     </ul>
 {% else %}
     <ul class="nav">
-            <li><a href="/analyzer/">Home</a></li>
+        <li><a href="/analyzer/">Home</a></li>
+        <li><a href="/analyzer/userLogin/">Login</a></li>
+        <li><a href="/analyzer/registration/">Registration</a></li>
+        <li><a href="/analyzer/anonUpload/">Anonymous Submission</a></li>
+        <li><a href="/analyzer/queue/">Queue</a></li>
     </ul>
 {% endif %}
 {% endblock %}
@@ -21,7 +25,7 @@
     <div id="l_container col-lg-8">
         <h3>Queue</h3>
         <table border="1" cellpadding="2">
-            <tr><th bgcolor="#8a2be2" colspan="4">Last 10 samples currently in the queue</th></tr>
+            <tr><th bgcolor="#f5f5f5" colspan="4">Last 10 samples currently in the queue</th></tr>
             {% if data %}
                 <tr><th>No.</th><th>SHA256</th><th>Type</th><th>Status</th></tr>
                 <tr>
