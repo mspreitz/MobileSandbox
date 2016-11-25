@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import datetime
+
 from StaticAnalyzer import run
 
 # Local settings in StaticAnalyzer/
@@ -65,6 +67,7 @@ db = conn.cursor()
 
 running = True
 while(running):
+
     # Get static queue elements where status is idle
     rows = None
     try: # TODO If we start more than 1 daemons, we should either use fetch_one / LIMIT 1 or somehow synchronize and fetchall once every X seconds

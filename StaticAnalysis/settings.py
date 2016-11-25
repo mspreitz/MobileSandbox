@@ -49,6 +49,7 @@ DEFAULT_NAME_DIR_ANALYSIS = 'analysis'
 PATH_MODULE_MSNEO = '../Neo4J/'
 PATH_MODULE_CONFIG = '../config/'
 
+
 ###### Dictionaries etc
 
 # Dictionary ApiCall -> Description

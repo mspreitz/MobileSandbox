@@ -20,6 +20,8 @@ class Queue(models.Model):
     path = models.CharField(max_length=255)
     status = models.CharField(max_length=10)
     type = models.CharField(max_length=10)
+    starttime = models.DateTimeField(auto_now_add=True)
+    retry = models.IntegerField()
 
 
 class Metadata(models.Model):

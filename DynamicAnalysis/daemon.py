@@ -2,6 +2,9 @@
 import shutil
 import subprocess
 import time
+
+from datetime import datetime
+
 from DynamicAnalyzer import run
 import settings
 import psycopg2
@@ -51,6 +54,30 @@ running = True
 while(running):
     rows = None
 
+    #Check for jobs that are too long in the queue and restart them
+    try:
+        col = db.execute("SELECT id, starttime, retry, sha256 FROM analyzer_queue WHERE type='dynamic' AND status='running'")
+        rows = db.fetchall()
+    except psycopg2.ProgrammingError as pe:
+        if misc_config.ENABLE_SENTRY_LOGGING:
+            client.captureException()
+        print 'ERROR', pe
+        time.sleep(5)
+
+    for (sampleID, starttime, retry, sha256) in rows:
+        currentTime = datetime.now()
+        distance = (currentTime - starttime).total_seconds()
+
+        if distance > settings.TIMEOUT:
+            if retry <= settings.RETRY:
+                retry = retry + 1
+                db.execute("UPDATE analyzer_queue SET status='idle', retry=%s, "
+                           "starttime=CURRENT_TIMESTAMP WHERE id=%s AND type='dynamic'" % (retry, sampleID))
+                db.connection.commit()
+            else:
+                print "The dynamic analysis of the sample %s failed" % sha256
+
+
     try:
         col = db.execute("SELECT id, fileName, sha256, path FROM analyzer_queue WHERE type='dynamic' AND status='idle'")
         rows = db.fetchall()
@@ -74,9 +101,10 @@ while(running):
         if not os.path.isdir(reportDir): os.makedirs(reportDir)
 
         print '[{}] Running Analysis'.format(sha256)
+        currentTime = datetime.now()
         # Update the analysis status to running for this sample
-        db.execute("UPDATE analyzer_queue SET status='running' WHERE id=%s" % (sampleID))
-        db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % (sha256))
+        db.execute("UPDATE analyzer_queue SET status='running', starttime=CURRENT_TIMESTAMP WHERE id=%s" % (sampleID))
+        db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % sha256)
         db.connection.commit()
 
         # Run dynamic analysis

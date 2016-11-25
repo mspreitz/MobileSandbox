@@ -267,11 +267,12 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
 
         # Put file in Queue for analysis
         Queue.objects.create(
-                filename = sentFile.name,
-                status='idle',
-                sha256=appInfos['sha256'],
-                path=apkDir,
-                type='static'
+            filename=sentFile.name,
+            status='idle',
+            sha256=appInfos['sha256'],
+            path=apkDir,
+            type='static',
+            retry=0
         )
 
         Queue.objects.create(
@@ -279,7 +280,8 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
             status='idle',
             sha256=appInfos['sha256'],
             path=apkDir,
-            type='dynamic'
+            type='dynamic',
+            retry=0
         )
 
         # NOTE: We only hash once -  we don't want to hash later again for the static analyzer - performance ! :)
