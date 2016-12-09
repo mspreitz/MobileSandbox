@@ -92,36 +92,6 @@
                     <tr><td>{{value}}</td></tr>
                 {% endif %}
             {% endfor %}
-
-
-
-<!--			{% for key, value in jsondata_static.items %}
-				{% if value %}
-					<tr><th bgcolor="#808080">{{ key }}</th></tr>
-					{% if value|is_string %}
-						<tr><td>{{ value }}</td></tr>
-					{% elif value|is_dict %}
-
-						{% for k, v in value.items %}
-							{% if v %}
-								{% if k == 'pubkey' %}
-									<tr><th bgcolor="#808080">{{ k }}</th></tr>
-									<tr><td>Keytype: {{ v.keytype }}</td></tr>
-									<tr><td>Exponent: {{ v.exponent }}</td></tr>
-								{% else %}
-								<tr><th bgcolor="#808080">{{ k }}</th></tr>
-								<tr><td>{{ v }}</td></tr>
-								{% endif %}
-							{% endif %}
-						{% endfor %}
-
-					{% else %}
-						{% for v in value %}
-							<tr><td>{{ v }}</td></tr>
-						{% endfor %}
-					{% endif %}
-				{% endif %}
-			{% endfor %}-->
 		</table>
 
 		{% elif type == 'dynamic' %}
@@ -224,6 +194,8 @@
 					{% endfor %}
 				</tr>
 			</table>
+			{% else %}
+				<p>Plese select a report in the top navigation bar</p>
 			{% endif %}
 		</table>
 	</div>
