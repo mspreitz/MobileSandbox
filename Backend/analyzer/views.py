@@ -43,6 +43,12 @@ BASE_URL = 'http://localhost:8000/analyzer/show/?report='
 def index(request):
     return render_to_response("base.html", context_instance=RequestContext(request))
 
+def checkMailValid(email):
+    match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email)
+    if match is None:
+        return False
+    else:
+        return True
 
 @csrf_protect
 def registration(request):
@@ -54,7 +60,7 @@ def registration(request):
         match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email)
 
         # Check for empty input fields
-        if match is None:
+        if not checkMailValid(email):
             message = 'Please enter a valid email address!'
             return render_to_response('error.html', {'message': message})
         if username == "":
@@ -266,23 +272,49 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
             continue
 
         # Put file in Queue for analysis
-        Queue.objects.create(
-            filename=sentFile.name,
-            status='idle',
-            sha256=appInfos['sha256'],
-            path=apkDir,
-            type='static',
-            retry=0
-        )
+        if anonymous:
+            mail = request.POST.get("email")
+            if checkMailValid(mail):
+                Queue.objects.create(
+                    filename=sentFile.name,
+                    status='idle',
+                    sha256=appInfos['sha256'],
+                    path=apkDir,
+                    type='static',
+                    retry=0,
+                    email=mail
+                )
 
-        Queue.objects.create(
-            filename=sentFile.name,
-            status='idle',
-            sha256=appInfos['sha256'],
-            path=apkDir,
-            type='dynamic',
-            retry=0
-        )
+                Queue.objects.create(
+                    filename=sentFile.name,
+                    status='idle',
+                    sha256=appInfos['sha256'],
+                    path=apkDir,
+                    type='dynamic',
+                    retry=0,
+                    email=mail
+                )
+            else:
+                message = 'Please enter a valid email address!'
+                return render_to_response('error.html', {'message': message})
+        else:
+            Queue.objects.create(
+                filename=sentFile.name,
+                status='idle',
+                sha256=appInfos['sha256'],
+                path=apkDir,
+                type='static',
+                retry=0
+            )
+
+            Queue.objects.create(
+                filename=sentFile.name,
+                status='idle',
+                sha256=appInfos['sha256'],
+                path=apkDir,
+                type='dynamic',
+                retry=0
+            )
 
         # NOTE: We only hash once -  we don't want to hash later again for the static analyzer - performance ! :)
         # TODO Read the hashes from Metadata or Queue and never hash again! Do once, reuse often principle

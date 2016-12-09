@@ -182,10 +182,13 @@ class GuestManager:
             log.info("Starting to collect information")
 
             # Custom: Get process information
-            self.getProcessList()
-            # Get listening Ports
-            self.getListeningPorts()
-            self.generateFileList()
+            try:
+                self.getProcessList()
+                # Get listening Ports
+                self.getListeningPorts()
+                self.generateFileList()
+            except:
+                log.error("ADB Error occured!")
 
         # TODO: deal with unicode URLs.
         if options["category"] == "file":

@@ -22,6 +22,7 @@ class Queue(models.Model):
     type = models.CharField(max_length=10)
     starttime = models.DateTimeField(auto_now_add=True)
     retry = models.IntegerField()
+    email = models.CharField(max_length=200)
 
 
 class Metadata(models.Model):

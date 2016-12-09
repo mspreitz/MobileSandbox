@@ -38,6 +38,10 @@ class NetlogConnection(object):
         self.proto = proto
 
     def connect(self):
+        """
+
+        :rtype: object
+        """
         i = 1
         # this can loop forever, if we can't connect the whole analysis is useless anyways
         while True:

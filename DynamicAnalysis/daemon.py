@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+import sys
+sys.path.append('../')
+
 import shutil
 import subprocess
 import time
@@ -14,7 +17,7 @@ import misc_config
 import traceback
 import smtplib
 from email.mime.text import MIMEText
-
+import Backend.analyzer.mail as mail
 
 if misc_config.ENABLE_SENTRY_LOGGING:
     from raven import Client
@@ -156,36 +159,23 @@ while(running):
         shutil.rmtree(workingDir)
 
         print '[{}] Finished Analysis'.format(sha256)
+
+        # Send Notification Mail
+        sendMailTo = ""
+
+        c = db.execute("SELECT username FROM analyzer_metadata WHERE sha256='%s'" % sha256)
+        r = db.fetchall()
+        sendMailTo = r[0][0]
+
+        if sendMailTo == "":
+            co = db.execute("SELECT email FROM analyzer_queue WHERE sha256='%s'" % sha256)
+            ro = db.fetchall()
+            sendMailTo = ro[0][0]
+
+        mail.sendNotification(sendMailTo, sha256)
+
+
         # Set new sample status
         db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
         db.execute("UPDATE analyzer_metadata SET status='finished' WHERE sha256='%s'" % sha256)
         db.connection.commit()
-
-
-        # Send notification to the user
-        # uncommented for now
-        #db.execute("SELECT username FROM analyzer_metadata WHERE sha256='%s'" % sha256)
-        #email = db.fetchone()[0]
-        #
-        #if email != "":
-        #    db.execute("SELECT first_name FROM auth_user WHERE username = %s" % email)
-        #    username = db.fetchone()[0]
-        #
-        #    msg = """From: MobileSandbox <%s>
-        #        To: <%s>
-        #        Subject: Analysis is finished!
-        #
-        #        Dear %s, \n
-        #        the analysis of your submitted sample is finished now. In order to view the report\n
-        #        please visit the following link.\n\n
-        #        %s%s\n\n
-        #        Best Regards\n
-        #        MobileSandbox Team
-        #        """ % (settings.SENDERS_MAIL, email, username, settings.BASE_URL, sha256)
-        #
-        #    try:
-        #        smtpObj = smtplib.SMTP('localhost')
-        #        smtpObj.sendmail("%s", email, msg) % settings.SENDERS_MAIL
-        #        print "Successfully sent email"
-        #    except smtplib.SMTPException:
-        #        print "Error: unable to send email"
