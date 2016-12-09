@@ -36,7 +36,7 @@ def copytree(src, dst, symlinks=False, ignore=None):
 
 # Connect to database
 try:
-    conn = psycopg2.connect(dbname=misc_config.SQL_DB, user='ms_user', password='2HmUKLvf')
+    conn = psycopg2.connect(dbname=misc_config.SQL_DB, user=misc_config.SQL_USER, password=misc_config.SQL_PASSWORD)
 except:
     if misc_config.ENABLE_SENTRY_LOGGING:
         client.captureException()
@@ -172,7 +172,8 @@ while(running):
             ro = db.fetchall()
             sendMailTo = ro[0][0]
 
-        mail.sendNotification(sendMailTo, sha256)
+        # Uncomment after installed on the server
+        #mail.sendNotification(sendMailTo, sha256)
 
 
         # Set new sample status

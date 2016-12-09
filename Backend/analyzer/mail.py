@@ -1,19 +1,7 @@
 import sys
 sys.path.append('../')
 import smtplib
-import sys
-import traceback
-import psycopg2
 import DynamicAnalysis.settings as settings
-import config.misc_config as misc_config
-
-try:
-    conn = psycopg2.connect(dbname=misc_config.SQL_DB, user='ms_user', password='2HmUKLvf')
-except:
-    traceback.print_exc()
-    print "Unable to connect to the database"
-    sys.exit(1)
-db = conn.cursor()
 
 def sendNotification(email, sha256):
     if email != "":
