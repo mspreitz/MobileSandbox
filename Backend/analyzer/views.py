@@ -43,6 +43,23 @@ BASE_URL = 'http://localhost:8000/analyzer/show/?report='
 def index(request):
     return render_to_response("base.html", context_instance=RequestContext(request))
 
+
+def handler404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+
+    return response
+
+
+
+def handler500(request):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
+
+
 def checkMailValid(email):
     match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email)
     if match is None:

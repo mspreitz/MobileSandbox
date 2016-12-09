@@ -6,7 +6,9 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'anal
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 #ALLOWED_HOSTS = []
-#ALLOWED_HOSTS.append('131.188.31.150')
+#ALLOWED_HOSTS.append('localhost')
+#ALLOWED_HOSTS.append('127.0.0.1')
+#ALLOWED_HOSTS.append('[::1]')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
