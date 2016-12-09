@@ -14,11 +14,17 @@
     <div id="l_container col-lg-8">
 
         <h4>Hi {{full_name}}, welcome to MobileSandbox</h4>
+        <p>You can submit an Android application (apk-file) below and the Mobile-Sandbox-System will analyze it for
+        malicious behaviour. After the analysis is finished you will receive a notification email containing the link
+        to your report.</p><br>
         <form action="/analyzer/home/" method="POST" enctype="multipart/form-data">
              {% csrf_token %}
 			 {{ form.as_p }}
             <p><input type="submit" value="Send" /></p>
         </form>
     </div>
+    <br><br>
+    <p>This service is run purely as a research tool and a best effort service.
+        We reserve the right to take it down at any point for maintenance or other reasons.</p>
 </div>
 {% endblock %}

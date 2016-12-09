@@ -15,12 +15,17 @@
     <div id="l_container col-lg-8">
 
         <h4>Mobile Sandbox - Anonymous FileUpload</h4>
+        <p>Please provide a Android application (apk-file) and the Mobile-Sandbox-System will analyze the file for
+        malicious behaviour.</p><br>
        <form action="/analyzer/anonUpload/" method="POST" enctype="multipart/form-data">
-           <p>Email for Notification(optional): <input type="text" name="email"></p><br>
+           <p><input type="text" name="email"> Email for Notification (optional) </p><br>
              {% csrf_token %}
 			 {{ form.as_p }}
             <p><input type="submit" value="Send" /></p>
         </form>
     </div>
+    <br><br>
+    <p>This service is run purely as a research tool and a best effort service.
+        We reserve the right to take it down at any point for maintenance or other reasons.</p>
 </div>
 {% endblock %}

@@ -24,6 +24,13 @@
         </div>
     </div>
 </div>
+<div id="masthead">
+      <div class="inner">
+        <div class="container">
+	  <h1><img src="{{ STATIC_URL }}images/logo_small.png" alt="Mobile Sandbox"/></h1>
+        </div><!-- /container -->
+      </div>
+    </div>
 {% endblock %}
 
 <div class="container">
@@ -33,13 +40,15 @@
         {% endblock %}
     </section>
 </div>
-<br><br>
-<div class="footer">
-    <div class="inner">
+<div id="footer">
+      <div class="inner">
         <div class="container">
-            <a href="http://mobilesandbox.org" target="_blank">MobileSandbox</a>
+          <p class="right"><a href="#">Back to top</a></p>
+          <p>
+            <a href="http://mobilesandbox.org" target="_blank">Mobile-Sandbox (NG)</a>
+          </p>
         </div>
+      </div>
     </div>
-</div>
 </body>
 </html>
