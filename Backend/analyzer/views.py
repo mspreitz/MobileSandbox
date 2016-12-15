@@ -216,7 +216,8 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
 
     form = UploadFormMulti(request.POST, request.FILES)
     if not form.is_valid():
-        return HttpResponse('The form was not valid!')
+        message = 'The form was not valid!'
+        return render_to_response('error.html', {'message': message})
 
     uploadedFiles = {}
     for sentFile in request.FILES.getlist('attachments'): uploadedFiles[sentFile.name] = {}
@@ -251,10 +252,15 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
 
             if queue.status == 'idle' or queue.status == 'running':
                 uploadedFiles[sentFile.name]['error'] = 'This sample has already been submitted. The analysis is currently running.'
-                                                        #'Please visit <a href="/analyzer/show/?report=%s">Link</a>' % appInfos['sha256']
+                                                         #'Please visit <a href="/analyzer/show/?report=%s">Link</a>' % appInfos['sha256']
                 continue
-            uploadedFiles[sentFile.name]['report'] = '/analyzer/show/?report={}'.format(appInfos['sha256']) # Report to redirect
-            continue
+            # If the sample is already sumbitted show the user the link immediatelly
+            else:
+                templatedict = {'url': BASE_URL, 'uploaded_files': uploadedFiles, 'hash': appInfos['sha256']}
+                template = 'existing_sample.html'
+                if anonymous: template = 'existing_sample_anon.html'
+                return render_to_response(template, templatedict, context_instance=RequestContext(request))
+
 
         # Otherwise, generate the directory structure
         try:
@@ -356,6 +362,7 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
     templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles, 'hash': appInfos['sha256'] }
     template = 'anonUploadSuccess.html'
     if not anonymous: template = 'uploadSuccess.html'
+
     return render_to_response(template, templatedict, context_instance=RequestContext(request))
 
 

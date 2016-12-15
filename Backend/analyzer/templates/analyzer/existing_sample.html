@@ -1,0 +1,19 @@
+{% extends "sandbox.html" %}
+
+{% block nav %}
+<ul class="nav">
+	<li><a href="/analyzer/home/">Home</a></li>
+	<li><a href="/analyzer/history/">Report history</a></li>
+	<li><a href="/analyzer/logout/">Log Out</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div id="l_container col-lg-8">
+        <h3>Your sample is already in our database</h3>
+        <p>In order to view your report use the following link.</p><br>
+        <a href="{{ url }}{{ hash }}">{{ url }}{{ hash }}</a>
+    </div>
+</div>
+{% endblock %}
