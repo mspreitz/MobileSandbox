@@ -1,5 +1,13 @@
 {% extends "sandbox.html" %}
 
+
+
+{% block nav %}
+<ul class="nav">
+    <li><a href="/analyzer/">Home</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
 <script>
 function goBack() {
@@ -13,4 +21,4 @@ function goBack() {
         <a href="#" onclick="goBack()">Go Back!</a>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

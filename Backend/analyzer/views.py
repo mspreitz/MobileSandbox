@@ -79,13 +79,13 @@ def registration(request):
         # Check for empty input fields
         if not checkMailValid(email):
             message = 'Please enter a valid email address!'
-            return render_to_response('error.html', {'message': message})
+            return render_to_response('error.html', {'message': message},context_instance=RequestContext(request))
         if username == "":
             message = 'Please provide an username!'
-            return render_to_response('error.html', {'message': message})
+            return render_to_response('error.html', {'message': message},context_instance=RequestContext(request))
         if passwd == "":
             message = 'Please provide a password!'
-            return render_to_response('error.html', {'message': message})
+            return render_to_response('error.html', {'message': message},context_instance=RequestContext(request))
 
         try:
             user = User.objects.get(username=username)
@@ -97,7 +97,7 @@ def registration(request):
             return render_to_response("registerSuccess.html")
         else:
             message = 'Email address already in use! %s' % user.username
-            return render_to_response('error.html', {'message': message})
+            return render_to_response('error.html', {'message': message},context_instance=RequestContext(request))
     else:
         return render_to_response("register.html", context_instance=RequestContext(request))
 
@@ -127,7 +127,7 @@ def loginUser(request):
         else:
             # Redirect to error page
             message = 'Your email and password do not match'
-            return render_to_response('error.html', {'message': message})
+            return render_to_response('error.html', {'message': message},context_instance=RequestContext(request))
     else:
         return render_to_response("login.html", context_instance=RequestContext(request))
 
@@ -217,7 +217,7 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
     form = UploadFormMulti(request.POST, request.FILES)
     if not form.is_valid():
         message = 'The form was not valid!'
-        return render_to_response('error.html', {'message': message})
+        return render_to_response('error.html', {'message': message},context_instance=RequestContext(request))
 
     uploadedFiles = {}
     for sentFile in request.FILES.getlist('attachments'): uploadedFiles[sentFile.name] = {}
@@ -319,7 +319,7 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
                 )
             else:
                 message = 'Please enter a valid email address!'
-                return render_to_response('error.html', {'message': message})
+                return render_to_response('error.html', {'message': message},context_instance=RequestContext(request))
         else:
             Queue.objects.create(
                 filename=sentFile.name,
@@ -390,14 +390,14 @@ def showQueue(request):
 def serveFile(request):
     sha256 = request.GET.get('token')
     if not validateHash(sha256, 'sha256'):
-        return render_to_response('error.html', {'message': 'This is not SHA256!'}) # This is Sparta!
+        return render_to_response('error.html', {'message': 'This is not SHA256!'},context_instance=RequestContext(request)) # This is Sparta!
 
     path = '{}/{}'.format('analyzer/samples', getPathFromSHA256(sha256))
     filePath = '{}/{}'.format(path, 'download.zip')
     if os.path.exists(filePath):
         file = open(filePath, 'r')
     else:
-        return render_to_response('error.html', {'message': 'The file does not exist. Try again later!'})
+        return render_to_response('error.html', {'message': 'The file does not exist. Try again later!'},context_instance=RequestContext(request))
 
     response = HttpResponse(file, mimetype='application/zip')
     response['Content-Disposition'] = 'attachment; filename="decompiled.zip"'
@@ -414,7 +414,7 @@ def showReport(request):
 
     # Check for valid sha256 hash
     if not validateHash(sha256, 'sha256'):
-        return render_to_response('error.html', {'message': 'This is not SHA256!'}) # This is Sparta!
+        return render_to_response('error.html', {'message': 'This is not SHA256!'},context_instance=RequestContext(request)) # This is Sparta!
 
     reports = loadResults(sha256)
     (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots) = reports
@@ -422,10 +422,10 @@ def showReport(request):
 
     if file_report_static is None and type == "static":
         return render_to_response('error.html', {'message': 'The report for this sample does not exist. Please try'
-                                                            'later after the analysis is complete'})
+                                                            'later after the analysis is complete'},context_instance=RequestContext(request))
     if file_report_dynamic is None and type == "dynamic":
         return render_to_response('error.html', {'message': 'The report for this sample does not exist. Please try'
-                                                            ' again later after the analysis is complete'})
+                                                            ' again later after the analysis is complete'},context_instance=RequestContext(request))
 
     meta = Metadata.objects.get(sha256=sha256)
 
@@ -508,7 +508,7 @@ def search(request):
             return HttpResponse('This is not a valid input!')
 
         return render_to_response('error.html', {'message': 'We could not find this sample in our database! '
-                                                            'Please submit it to our system.'})
+                                                            'Please submit it to our system.'},context_instance=RequestContext(request))
 
 def loadResults(sha256):
     path_apk            = '{}/{}'.format(settings.PATH_SAMPLES,getPathFromSHA256(sha256))
