@@ -29,6 +29,7 @@ if ! [ $requirements == "" ]; then
 	wget http://chilkatdownload.com/9.5.0.65/chilkat-9.5.0-python-2.7-x86_64-linux.tar.gz
 	tar -xvzf chilkat-9.5.0-python-2.7-x86_64-linux.tar.gz
 	cd chilkat-9.5.0-python-2.7-x86_64-linux && python installChilkat.py 
+	rm -rf chilkat-9.5.0-python-2.7-x86_64-linux*
 else
 	echo -e "[*] You did not provide the requirements file!\n  exit installation routine";
 	exit 1
