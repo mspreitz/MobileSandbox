@@ -25,7 +25,7 @@ DATABASES = {
         'NAME': 'ms_db',                    # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'ms_user',
-        'HOST':'',
+        'HOST':'localhost',
         'PASSWORD': '2HmUKLvf',
         'PORT': '5432'                      # Set to empty string for default
     }

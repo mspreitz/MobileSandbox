@@ -1,3 +1,4 @@
+
 Django==1.8
 ssdeep
 chilkat
@@ -5,6 +6,10 @@ py2neo
 requests
 raven
 sentry
+scipy
+numpy
+django-multiupload
+django-inspect
 
 #cuckoo
 maec==4.0.1.0
