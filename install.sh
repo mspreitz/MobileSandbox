@@ -21,7 +21,8 @@ if [ ! -f $HOME/.mobilesandbox.txt ]; then
 
 	touch $HOME/.mobilesandbox.txt
 else
-	echo -e "[*] This script was already executed and all required applications should be installed. If you want to re-run the installation please delete the .mobilesandbox.txt in your root folder"
+	echo -e "[*] This script was already executed and all required applications should be installed.
+	If you want to re-run the installation please delete the .mobilesandbox.txt in your root folder"
 fi 
 
 echo -e "Please enter the full path to your requirements.txt (eg. /home/MS/requirements.txt) and press [ENTER]";
