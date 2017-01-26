@@ -36,7 +36,7 @@ from mhash import * # TODO: Move that and the utils/mhash from the StaticAnalyze
 
 # Constants
 TMP_PATH = 'analyzer/tmp/'
-BASE_URL = 'http://localhost:8000/analyzer/show/?report='
+BASE_URL = 'http://localhost:8000/show/?report='
 
 # Views
 
@@ -104,7 +104,7 @@ def registration(request):
 
 def userLogout(request):
     logout(request)
-    return redirect("/analyzer/")
+    return redirect("/")
 
 
 @csrf_protect
@@ -123,7 +123,7 @@ def loginUser(request):
             auth_user = authenticate(username=email, password=passwd)
             login(request, auth_user)
             # Redirect to member area
-            return redirect('/analyzer/home')
+            return redirect('/home')
         else:
             # Redirect to error page
             message = 'Your email and password do not match'
@@ -145,7 +145,7 @@ def anonUpload(request):
 
 
 @csrf_protect
-@login_required(login_url='/analyzer/userLogin')
+@login_required(login_url='/userLogin')
 def userHome(request):
     if request.method == 'POST':
         return uploadFile(request, request.user.first_name, anonymous=False)
@@ -159,7 +159,7 @@ def userHome(request):
     return render_to_response(template, templatedict, context_instance=context_instance)
 
 
-@login_required(login_url='/analyzer/userLogin')
+@login_required(login_url='/userLogin')
 def showHistory(request):
     username = request.user.username
     result = Metadata.objects.filter(username=username)
@@ -245,14 +245,33 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
         # meaning the directory structure with saved APKs and Analyzer result does already exist
         # then tell the user that the sample is already in process / uploaded
         if os.path.isdir(apkDir):
-            try:
+            queue = None
+            if Queue.objects.filter(sha256=appInfos['sha256'], type="static").exists():
                 queue = Queue.objects.get(sha256=appInfos['sha256'], type="static")
-            except:
+            elif Metadata.objects.filter(sha256=appInfos['sha256']).exists():
                 queue = Metadata.objects.get(sha256=appInfos['sha256'])
 
-            if queue.status == 'idle' or queue.status == 'running':
-                uploadedFiles[sentFile.name]['error'] = 'This sample has already been submitted. The analysis is currently running.'
-                                                         #'Please visit <a href="/analyzer/show/?report=%s">Link</a>' % appInfos['sha256']
+            #try:
+            #    queue = Queue.objects.get(sha256=appInfos['sha256'], type="static")
+            #except:
+            #   queue = Metadata.objects.get(sha256=appInfos['sha256'])
+
+            # Todo: Check if file is already in metadata!!!
+
+            if queue is not None and (queue.status == 'idle' or queue.status == 'running'):
+                entries = Queue.objects.all()
+                count = 1
+                for i in range(len(entries)):
+                    if entries[i].type == 'dynamic':
+                        if queue.sha256 == entries[i].sha256:
+                            break
+                        else:
+                            count += 1
+
+                uploadedFiles[sentFile.name]['error'] = 'This sample has already been submitted. The analysis is currently running. ' \
+                                                        'Your sample has position %s in the queue. This should give you an estimate' \
+                                                        ' when the analysis is finished.' % count
+                                                         #'Please visit <a href="/show/?report=%s">Link</a>' % appInfos['sha256']
                 continue
             # If the sample is already sumbitted show the user the link immediatelly
             else:
@@ -281,7 +300,7 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
         # TODO Since zipfile cannot read from stream, we have to check for zipfile contents here
         # Second APK test on the saved file
         try:
-            z = zipfile.ZipFile(apkFile) # TODO May cause an exception
+            z = zipfile.ZipFile(apkFile)
         except zipfile.BadZipfile:
             # TODO Remove the directory, otherwise an exception is thrown after uploading the sample again
             uploadedFiles[sentFile.name]['error'] = 'Sample has to be in APK format: Not a ZIP file'
@@ -361,7 +380,8 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
     # For every error in the uploadedFiles, print a table with apkname and error
     templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles, 'hash': appInfos['sha256'] }
     template = 'anonUploadSuccess.html'
-    if not anonymous: template = 'uploadSuccess.html'
+    if not anonymous:
+        template = 'uploadSuccess.html'
 
     return render_to_response(template, templatedict, context_instance=RequestContext(request))
 
@@ -419,12 +439,28 @@ def showReport(request):
     reports = loadResults(sha256)
     (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots) = reports
 
+    if Queue.objects.filter(sha256=sha256).exists():
+        queue = Queue.objects.get(sha256=sha256)
+        entries = Queue.objects.all()
+        count = 1
+        found = False
+        res = ''
+        if queue:
+            for i in range(len(entries)):
+                if entries[i].type == 'dynamic':
+                    if queue.sha256 == entries[i].sha256:
+                        found = True
+                        break
+                    else:
+                        count += 1
+            if found:
+                res = 'However your sample is in the queue and has position %s. This should give you an estimate when the analysis is finished' % count
 
     if file_report_static is None and type == "static":
-        return render_to_response('error.html', {'message': 'The report for this sample does not exist. Please try'
+        return render_to_response('error.html', {'message': 'The report for this sample does not exist. '+res+' Please try'
                                                             'later after the analysis is complete'},context_instance=RequestContext(request))
     if file_report_dynamic is None and type == "dynamic":
-        return render_to_response('error.html', {'message': 'The report for this sample does not exist. Please try'
+        return render_to_response('error.html', {'message': 'The report for this sample does not exist. '+res+' Please try'
                                                             ' again later after the analysis is complete'},context_instance=RequestContext(request))
 
     meta = Metadata.objects.get(sha256=sha256)
