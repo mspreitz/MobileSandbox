@@ -2,10 +2,10 @@
 
 {% block nav %}
 <ul class="nav">
-	<li><a href="/analyzer/home/">Home</a></li>
-	<li><a href="/analyzer/show/?report={{ sha256 }}&type=static">Static Report</a></li>
-	<li><a href="/analyzer/show/?report={{ sha256 }}&type=dynamic">Dynamic Report</a></li>
-	<li><a href="/analyzer/download/?token={{ sha256 }}">Download decompiled files</a></li>
+	<li><a href="/home/">Home</a></li>
+	<li><a href="/show/?report={{ sha256 }}&type=static">Static Report</a></li>
+	<li><a href="/show/?report={{ sha256 }}&type=dynamic">Dynamic Report</a></li>
+	<li><a href="/download/?token={{ sha256 }}">Download decompiled files</a></li>
 </ul>
 {% endblock %}
 

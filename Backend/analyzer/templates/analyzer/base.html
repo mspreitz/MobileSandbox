@@ -3,15 +3,15 @@
 {% block nav %}
     <ul class="nav">
     {% if user.is_authenticated %}
-        <li><a href="/analyzer/home/">Home</a></li>
-        <li><a href="/analyzer/history/">Report history</a></li>
-        <li><a href="/analyzer/queue/">Queue</a></li>
+        <li><a href="/home/">Home</a></li>
+        <li><a href="/history/">Report history</a></li>
+        <li><a href="/queue/">Queue</a></li>
         <li><a href="/analyzer/logout/">Log Out</a></li>
     {% else %}
-        <li><a href="/analyzer/userLogin/">Login</a></li>
-        <li><a href="/analyzer/registration/">Registration</a></li>
-        <li><a href="/analyzer/anonUpload/">Anonymous Submission</a></li>
-        <li><a href="/analyzer/queue/">Queue</a></li>
+        <li><a href="/userLogin/">Login</a></li>
+        <li><a href="/registration/">Registration</a></li>
+        <li><a href="/anonUpload/">Anonymous Submission</a></li>
+        <li><a href="/queue/">Queue</a></li>
     {% endif %}
     </ul>
 {% endblock %}

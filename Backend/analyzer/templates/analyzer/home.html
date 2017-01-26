@@ -2,10 +2,10 @@
 
 {% block nav %}
 <ul class="nav">
-    <li><a href="/analyzer/home/">Home</a></li>
-    <li><a href="/analyzer/history/">Report history</a></li>
-    <li><a href="/analyzer/queue/">Queue</a></li>
-    <li><a href="/analyzer/logout/">Log Out</a></li>
+    <li><a href="/home/">Home</a></li>
+    <li><a href="/history/">Report history</a></li>
+    <li><a href="/queue/">Queue</a></li>
+    <li><a href="/logout/">Log Out</a></li>
 </ul>
 {% endblock %}
 
@@ -17,7 +17,7 @@
         <p>You can submit an Android application (apk-file) below and the Mobile-Sandbox-System will analyze it for
         malicious behaviour. After the analysis is finished you will receive a notification email containing the link
         to your report.</p><br>
-        <form action="/analyzer/home/" method="POST" enctype="multipart/form-data">
+        <form action="/home/" method="POST" enctype="multipart/form-data">
              {% csrf_token %}
 			 {{ form.as_p }}
             <p><input type="submit" value="Send" /></p>

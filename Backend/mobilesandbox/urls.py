@@ -1,15 +1,15 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-admin.autodiscover()
+#admin.autodiscover()
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = [
-    url(r'^$', include('analyzer.urls')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^', include('analyzer.urls')),
+    #url(r'^admin/', admin.site.urls),
 
     # Examples:
     # url(r'^$', 'mobilesandbox.views.home', name='home'),

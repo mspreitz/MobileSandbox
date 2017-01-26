@@ -2,9 +2,9 @@
 
 {% block nav %}
 <ul class="nav">
-    <li><a href="/analyzer/home/">Home</a></li>
-    <li><a href="/analyzer/queue/">Queue</a></li>
-    <li><a href="/analyzer/logout/">Logout</a></li>
+    <li><a href="/home/">Home</a></li>
+    <li><a href="/queue/">Queue</a></li>
+    <li><a href="/logout/">Logout</a></li>
 </ul>
 {% endblock %}
 
@@ -32,10 +32,10 @@
                         {% if entry == 'analyzing' %}
                             analyzing... <br>
                         {% else %}
-                            <a href="/analyzer/show/?report={{ entry }}">Report</a> <br>
+                            <a href="/show/?report={{ entry }}">Report</a> <br>
                         {% endif %}
                     {% elif label == 'Decompiled Files' %}
-                        <a href="/analyzer/download/?token={{ entry }}">Download</a> <br>
+                        <a href="/download/?token={{ entry }}">Download</a> <br>
                     {% else %}
                         {{ entry }} <br>
                     {% endif %}

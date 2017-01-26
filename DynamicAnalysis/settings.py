@@ -22,14 +22,14 @@ DATABASES_DIR = 'databases'
 TIMEOUT = 360
 RETRY = 3
 
-BASE_URL = 'http://localhost:8000/analyzer/show/?report='
+BASE_URL = 'http://localhost:8000/show/?report='
 SENDERS_MAIL = 'no-reply@mobilesandbox.org'
 
 import os
 cwd=os.path.dirname(os.path.realpath(__file__))
 PATH_MODULE_CONFIG = '{}/../config/'.format(cwd)
 BACKEND_PATH = '{}/../Backend/'.format(cwd)
-PATH_SAMPLES = 'analyzer/samples/'
+PATH_SAMPLES = 'samples/'
 DEFAULT_NAME_APK = 'sample.apk'
 DEFAULT_NAME_DIR_UNPACK = 'unpack'
 DEFAULT_NAME_DIR_ANALYSIS = 'analysis'

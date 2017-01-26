@@ -2,11 +2,11 @@
 
 {% block nav %}
 <ul class="nav">
-    <li><a href="/analyzer/">Home</a></li>
-    <li><a href="/analyzer/userLogin/">Login</a></li>
-    <li><a href="/analyzer/registration/">Registration</a></li>
-    <li><a href="/analyzer/anonUpload/">Anonymous Submission</a></li>
-    <li><a href="/analyzer/queue/">Queue</a></li>
+    <li><a href="/">Home</a></li>
+    <li><a href="/userLogin/">Login</a></li>
+    <li><a href="/registration/">Registration</a></li>
+    <li><a href="/anonUpload/">Anonymous Submission</a></li>
+    <li><a href="/queue/">Queue</a></li>
 </ul>
 {% endblock %}
 
@@ -17,7 +17,7 @@
         <h4>Mobile Sandbox - Anonymous FileUpload</h4>
         <p>Please provide a Android application (apk-file) and the Mobile-Sandbox-System will analyze the file for
         malicious behaviour.</p><br>
-       <form action="/analyzer/anonUpload/" method="POST" enctype="multipart/form-data">
+       <form action="/anonUpload/" method="POST" enctype="multipart/form-data">
            <p><input type="text" name="email"> Email for Notification (optional) </p><br>
              {% csrf_token %}
 			 {{ form.as_p }}

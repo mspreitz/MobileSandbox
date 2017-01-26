@@ -3,17 +3,17 @@
 {% block nav %}
 {% if user.is_authenticated %}
     <ul class="nav">
-        <li><a href="/analyzer/home/">Home</a></li>
-        <li><a href="/analyzer/history/">Report History</a></li>
-        <li><a href="/analyzer/logout/">Logout</a></li>
+        <li><a href="/home/">Home</a></li>
+        <li><a href="/history/">Report History</a></li>
+        <li><a href="/logout/">Logout</a></li>
     </ul>
 {% else %}
     <ul class="nav">
-        <li><a href="/analyzer/">Home</a></li>
-        <li><a href="/analyzer/userLogin/">Login</a></li>
-        <li><a href="/analyzer/registration/">Registration</a></li>
-        <li><a href="/analyzer/anonUpload/">Anonymous Submission</a></li>
-        <li><a href="/analyzer/queue/">Queue</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/userLogin/">Login</a></li>
+        <li><a href="/registration/">Registration</a></li>
+        <li><a href="/anonUpload/">Anonymous Submission</a></li>
+        <li><a href="/queue/">Queue</a></li>
     </ul>
 {% endif %}
 {% endblock %}
