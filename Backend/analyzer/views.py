@@ -52,7 +52,6 @@ def handler404(request):
     return response
 
 
-
 def handler500(request):
     response = render_to_response('500.html', {},
                                   context_instance=RequestContext(request))
@@ -271,7 +270,6 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
                 uploadedFiles[sentFile.name]['error'] = 'This sample has already been submitted. The analysis is currently running. ' \
                                                         'Your sample has position %s in the queue. This should give you an estimate' \
                                                         ' when the analysis is finished.' % count
-                                                         #'Please visit <a href="/show/?report=%s">Link</a>' % appInfos['sha256']
                 continue
             # If the sample is already sumbitted show the user the link immediatelly
             else:

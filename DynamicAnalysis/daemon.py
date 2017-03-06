@@ -145,12 +145,20 @@ while(running):
         screenshotDir = '{}/{}'.format(apkPath, settings.SCREENSHOT_DIR)
         print 'Screenshot-dir: '+screenshotDir
         if not os.path.isdir(screenshotDir): os.makedirs(screenshotDir)
-        copytree('{}/{}'.format(workingDir, settings.SCREENSHOT_DIR), screenshotDir)
+        try:
+            copytree('{}/{}'.format(workingDir, settings.SCREENSHOT_DIR), screenshotDir)
+        except:
+            print "Screenshot dir already exists! Removint..."
+            shutil.rmtree(screenshotDir)
 
         # Move apkfiles to backend
         filesDir = '{}/{}'.format(apkPath, settings.APK_FILES)
         if not os.path.isdir(filesDir): os.makedirs(filesDir)
-        copytree('{}/{}'.format(workingDir, settings.APK_FILES), filesDir)
+        try:
+            copytree('{}/{}'.format(workingDir, settings.APK_FILES), filesDir)
+        except:
+            print "ApkDir already exists! Removing..."
+            shutil.rmtree(filesDir)
 
         dir_databases = '{}/{}'.format(workingDir, settings.DATABASES_DIR)
         if os.path.isdir(dir_databases): copytree(dir_databases, filesDir)
