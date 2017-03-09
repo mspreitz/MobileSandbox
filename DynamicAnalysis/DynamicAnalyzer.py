@@ -51,6 +51,7 @@ def initCuckoo(sampleFile):
 
     print 'Starting CUCKOO SUBMIT'
     try:
+	print sampleFile
         proc2 = subprocess.Popen(["python2",settings.CUCKOO_SUBMIT, sampleFile],
                             stdout=subprocess.PIPE,
                             stdin=subprocess.PIPE,
@@ -96,7 +97,7 @@ def isFinished(cuckooID):
     global sha256Val
 
     startTime = time.time()
-
+    print "Waiting for sample with cuckoo id %s" % cuckooID
     running=True
     while running:
         timeOut = startTime + settings.TIMEOUT
@@ -104,7 +105,7 @@ def isFinished(cuckooID):
             return "TimedOut"
 
         time.sleep(1)
-        path_report = '{}/{}/reports/report.html'.format(settings.CUCKOO_STORAGE,cuckooID)
+        path_report = '{}/{}/reports/report.json'.format(settings.CUCKOO_STORAGE,cuckooID)
         if not os.path.isfile(path_report): continue
         running=False
         time.sleep(3)
@@ -117,7 +118,10 @@ def getListeningPorts(dir_extra_info):
     # headers = ['Proto','Recv-Q','Send-Q','Local-Address','Foreign-Address','State']
     file_netstat_before = '{}/{}'.format(dir_extra_info, settings.NETSTAT_LIST)
     file_netstat_after  = '{}/{}'.format(dir_extra_info, settings.NETSTAT_NEW)
-    content = compareLists(file_netstat_before, file_netstat_after)
+    try:
+    	content = compareLists(file_netstat_before, file_netstat_after)
+    except:
+	return []
     res_natstat_entries = []
     for i in content:
         tmp = i.split()
@@ -130,7 +134,10 @@ def getProcesses(dir_extra_info):
     # headers = ['User','PID','PPID','VSIZE','RSS','WCHAN','PC','P','NAME']
     file_processes_before = '{}/{}'.format(dir_extra_info, settings.PLIST_FILE)
     file_processes_after  = '{}/{}'.format(dir_extra_info, settings.PLIST_NEW)
-    content = compareLists(file_processes_before, file_processes_after)
+    try:
+    	content = compareLists(file_processes_before, file_processes_after)
+    except:
+	return []
     res_process_entries = []
     for i in content:
         tmp = i.split()
@@ -192,7 +199,7 @@ def extractCuckooInfo(cuckooID):
     snap_ip = settings.SNAP_IP
 
     with open(file_json, 'r') as jsonData:
-        data = json.load(jsonData) # TODO This might be insecure
+        data = json.load(jsonData)
 
     # Get various connection types
     connections = {'udp': [], 'tcp': [], 'irc': [], 'smtp': []}

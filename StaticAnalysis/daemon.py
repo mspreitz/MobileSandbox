@@ -48,7 +48,7 @@ def copytree(src, dst, symlinks=False, ignore=None):
 # Connect to database
 try:
     #conn = psycopg2.connect("dbname='ms_db' user='ms_user' host='localhost' password='2HmUKLvf'")
-    conn = psycopg2.connect(dbname=misc_config.SQL_DB, user=misc_config.SQL_USER, password=misc_config.SQL_PASSWORD)
+    conn = psycopg2.connect(dbname=misc_config.SQL_DB, user=misc_config.SQL_USER, host='localhost', password=misc_config.SQL_PASSWORD)
 except:
     if misc_config.ENABLE_SENTRY_LOGGING:
         client.captureException()
@@ -56,9 +56,9 @@ except:
     traceback.print_exc()
     sys.exit(1)
 
-if not settings.BACKEND_PATH or settings.BACKEND_PATH == '':
-    print 'ERROR: Please set the relative path for the Backend Data Folder'
-    sys.exit(1)
+#if not settings.BACKEND_PATH or settings.BACKEND_PATH == '':
+#    print 'ERROR: Please set the relative path for the Backend Data Folder'
+#    sys.exit(1)
 
 if not os.path.isdir(settings.DEFAULT_NAME_DIR_ANALYSIS): os.makedirs(settings.DEFAULT_NAME_DIR_ANALYSIS)
 
@@ -105,6 +105,7 @@ while(running):
         # Create BACKEND direcory that contains the unpacked resources
         # TODO Maybe move this somewhere later.
         try:
+	    print unpackPath
             os.makedirs(unpackPath)
         except os.error:
             if misc_config.ENABLE_SENTRY_LOGGING:
@@ -139,8 +140,10 @@ while(running):
             print 'Wrote Certificate to {}'.format(cFile)
 
         # Zip decompiled source files for the user to download
-        mzip(workingDir, ['src/', 'unpack/'], '{}/download'.format(apkPath))
-
+        try:
+            mzip(workingDir, ['src/', 'unpack/'], '{}/download'.format(apkPath))
+        except:
+            print "Error: Could not pack the zip file"
         # Move unpack files to BACKEND UNPACK DIR
         dir_unpack = '{}/{}'.format(workingDir, 'unpack')
         if os.path.isdir(dir_unpack): copytree(dir_unpack, unpackPath) # copytree custom? TODO

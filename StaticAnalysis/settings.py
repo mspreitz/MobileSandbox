@@ -14,7 +14,7 @@ DUMPFILE = "Dump.txt"
 TMPDIR = "/tmp/analysis/"
 
 # Samples Folder for the Backend
-BACKEND_PATH = '../Backend/'
+BACKEND_PATH = ''
 
 # Constants # TODO Names are a bit long
 PATH_SAMPLES = 'analyzer/samples/'

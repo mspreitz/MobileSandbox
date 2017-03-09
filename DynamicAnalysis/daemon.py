@@ -36,7 +36,7 @@ def copytree(src, dst, symlinks=False, ignore=None):
 
 # Connect to database
 try:
-    conn = psycopg2.connect(dbname=misc_config.SQL_DB, user=misc_config.SQL_USER, password=misc_config.SQL_PASSWORD)
+    conn = psycopg2.connect(dbname=misc_config.SQL_DB, user=misc_config.SQL_USER, host="localhost",  password=misc_config.SQL_PASSWORD)
 except:
     if misc_config.ENABLE_SENTRY_LOGGING:
         client.captureException()
@@ -44,9 +44,9 @@ except:
     print "Unable to connect to the database"
     sys.exit(1)
 
-if not settings.BACKEND_PATH or settings.BACKEND_PATH == '':
-    print 'ERROR: Please set the relative path for the Backend Data Folder'
-    sys.exit(1)
+#if not settings.BACKEND_PATH or settings.BACKEND_PATH == '':
+#    print 'ERROR: Please set the relative path for the Backend Data Folder'
+#    sys.exit(1)
 
 if not os.path.isdir(settings.DEFAULT_NAME_DIR_ANALYSIS): os.makedirs(settings.DEFAULT_NAME_DIR_ANALYSIS)
 
@@ -69,6 +69,7 @@ while(running):
 
     for (sampleID, starttime, retry, sha256) in rows:
         currentTime = datetime.now()
+	starttime = starttime.replace(tzinfo=None)
         distance = (currentTime - starttime).total_seconds()
 
         if distance > settings.TIMEOUT:
@@ -181,7 +182,7 @@ while(running):
             sendMailTo = ro[0][0]
 
         # Uncomment after installed on the server
-        #mail.sendNotification(sendMailTo, sha256)
+        mail.sendNotification(sendMailTo, sha256)
 
         # Set new sample status
         db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)

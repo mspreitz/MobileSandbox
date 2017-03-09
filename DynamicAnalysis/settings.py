@@ -1,4 +1,4 @@
-CUCKOO_STORAGE = 'cuckoo/storage/analyses/'
+CUCKOO_STORAGE = '/var/www/html/DynamicAnalysis/cuckoo/storage/analyses/'
 CUCKOO_SUBMIT = 'cuckoo/utils/submit.py'
 CUCKOO_SERVER = 'cuckoo/cuckoo.py'
 PLIST_FILE = 'processlist.txt'
@@ -19,16 +19,17 @@ APK_FILES = 'apkfiles'
 REPORT_DIR = 'reports'
 DATABASES_DIR = 'databases'
 
-TIMEOUT = 360
+TIMEOUT = 4000
 RETRY = 3
 
-BASE_URL = 'http://localhost:8000/show/?report='
+BASE_URL = 'https://mobilesandbox.org/show/?report='
 SENDERS_MAIL = 'no-reply@mobilesandbox.org'
 
 import os
 cwd=os.path.dirname(os.path.realpath(__file__))
 PATH_MODULE_CONFIG = '{}/../config/'.format(cwd)
-BACKEND_PATH = '{}/../Backend/'.format(cwd)
+BACKEND_PATH = ''
+#BACKEND_PATH = '{}/../Backend/'.format(cwd)
 PATH_SAMPLES = 'samples/'
 DEFAULT_NAME_APK = 'sample.apk'
 DEFAULT_NAME_DIR_UNPACK = 'unpack'
