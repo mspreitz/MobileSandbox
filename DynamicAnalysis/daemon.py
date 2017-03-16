@@ -186,5 +186,12 @@ while(running):
 
         # Set new sample status
         db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
-        db.execute("UPDATE analyzer_metadata SET status='finished' WHERE sha256='%s'" % sha256)
+        stat = db.execute("SELECT status FROM analyzer_metadata WHERE sha256='%s'" % sha256)
+        res = db.fetchall()
+        res = res[0][0]
+
+        if res == "finished-1":
+            db.execute("UPDATE analyzer_metadata SET status='complete' WHERE sha256='%s'" % sha256)
+        else:
+            db.execute("UPDATE analyzer_metadata SET status='finished-2' WHERE sha256='%s'" % sha256)
         db.connection.commit()

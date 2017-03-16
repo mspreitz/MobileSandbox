@@ -96,8 +96,8 @@ class ClassifierOperation():
 
 def classify(staticReportFile, sampleId):
     # init classifier
-    model_file = 'analyzer/classifier_data/model/2013-01-19.model'
-    dimensions_file = 'analyzer/classifier_data/model/dimensions.log'
+    model_file = '/var/www/html/Backend/analyzer/classifier_data/model/2013-01-19.model'
+    dimensions_file = '/var/www/html/Backend/analyzer/classifier_data/model/dimensions.log'
     model = SVMModel(model_file, dimensions_file)
     classifierOp = ClassifierOperation(model)
     classifierOp.set_threshold(-0.1348)

@@ -20,7 +20,7 @@ from .models import FileUpload, Queue, Metadata, ClassifiedApp
 from datastructure import *
 from django.db.models import Q
 from django.conf import settings
-PATH_MODULE_CONFIG='../config/'
+PATH_MODULE_CONFIG='/var/www/html/config/'
 sys.path.append(PATH_MODULE_CONFIG)
 reload(sys)
 
@@ -36,7 +36,7 @@ from mhash import * # TODO: Move that and the utils/mhash from the StaticAnalyze
 
 # Constants
 TMP_PATH = 'analyzer/tmp/'
-BASE_URL = 'http://localhost:8000/show/?report='
+BASE_URL = 'https://mobilesandbox.org/show/?report='
 
 # Views
 
@@ -87,13 +87,13 @@ def registration(request):
             return render_to_response('error.html', {'message': message},context_instance=RequestContext(request))
 
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.get(username=email)
         except:
             user = None
 
         if user is None:
             User.objects.create_user(username=email, password=passwd, first_name=username)
-            return render_to_response("registerSuccess.html")
+            return render_to_response("registerSuccess.html", context_instance=RequestContext(request))
         else:
             message = 'Email address already in use! %s' % user.username
             return render_to_response('error.html', {'message': message},context_instance=RequestContext(request))
@@ -167,30 +167,59 @@ def showHistory(request):
     sha256 = []
     filename = []
     status = []
+    dynamic = []
+    static = []
+    decompiled = []
 
     for dat in result:
         if len(filename) > 0:
             sha1.append(dat.sha1)
-            if not dat.status == 'finished':
-                sha256.append("analyzing")
+            if dat.status == "finished-1" or dat.status == "complete":
+                static.append(dat.sha256)
+                decompiled.append(dat.sha256)
             else:
+                static.append("False")
+                decompiled.append("False")
+
+            if dat.status == "finished-2" or dat.status == "complete":
+                dynamic.append(dat.sha256)
+            else:
+                dynamic.append("False")
+
+            if dat.status == "complete":
                 sha256.append(dat.sha256)
+
+            # if not dat.status == 'finished':
+            #     sha256.append("analyzing")
+            # else:
+            #     sha256.append(dat.sha256)
             filename.append(dat.filename)
             status.append(dat.status)
-        else:
-            sha1 = [dat.sha1]
-            if not dat.status == 'finished':
-                sha256 = ['analyzing']
-            else:
-                sha256 = [dat.sha256]
 
+        else:
+            if dat.status == "finished-1" or dat.status == "complete":
+                static = [dat.sha256]
+                decompiled = [dat.sha256]
+            else:
+                static = ['analyzing']
+
+            if dat.status == "finished-2" or dat.status == "complete":
+                dynamic = [dat.sha256]
+            else:
+                dynamic = ['analyzing']
+
+            sha1 = [dat.sha1]
+            sha256 = [dat.sha256]
             filename = [dat.filename]
             status = [dat.status]
+
     data['Filename'] = filename
     data['SHA1'] = sha1
+    data['Static'] = static
+    data['Dynamic'] = dynamic
     data['Status'] = status
-    data['Report'] = sha256
-    data['Decompiled Files'] = sha256
+    data['Decompiled Files'] = decompiled
+
 
     return render_to_response('history.html', {"data": data}, context_instance=RequestContext(request))
 
@@ -272,7 +301,7 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
                                                         ' when the analysis is finished.' % count
                 continue
             # If the sample is already sumbitted show the user the link immediatelly
-            else:
+            elif queue is not None:
                 templatedict = {'url': BASE_URL, 'uploaded_files': uploadedFiles, 'hash': appInfos['sha256']}
                 template = 'existing_sample.html'
                 if anonymous: template = 'existing_sample_anon.html'
@@ -282,13 +311,13 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
         # Otherwise, generate the directory structure
         try:
             os.makedirs(apkDir)
-        except os.error:
+        except os.error as err:
             # NOTE We don't have permissions to create the directory
             # NOTE Or the directory exists already
             # See https://docs.python.org/2/library/os.html#os.makedirs
             if misc_config.ENABLE_SENTRY_LOGGING:
                 client.captureException()
-            uploadedFiles[sentFile.name]['error'] = 'An internal server error occurred.'
+            uploadedFiles[sentFile.name]['error'] = err  #'An internal server error occurred.!!!!'
             continue
 
         # Save the APK to the generated directory
@@ -312,7 +341,7 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
             continue
 
         # Put file in Queue for analysis
-        if anonymous:
+        if anonymous and not (request.POST.get('email') == ""):
             mail = request.POST.get("email")
             if checkMailValid(mail):
                 Queue.objects.create(
@@ -410,14 +439,14 @@ def serveFile(request):
     if not validateHash(sha256, 'sha256'):
         return render_to_response('error.html', {'message': 'This is not SHA256!'},context_instance=RequestContext(request)) # This is Sparta!
 
-    path = '{}/{}'.format('analyzer/samples', getPathFromSHA256(sha256))
+    path = '{}/{}'.format('/var/www/html/Backend/analyzer/samples', getPathFromSHA256(sha256))
     filePath = '{}/{}'.format(path, 'download.zip')
     if os.path.exists(filePath):
         file = open(filePath, 'r')
     else:
         return render_to_response('error.html', {'message': 'The file does not exist. Try again later!'},context_instance=RequestContext(request))
 
-    response = HttpResponse(file, mimetype='application/zip')
+    response = HttpResponse(file, content_type='application/zip')
     response['Content-Disposition'] = 'attachment; filename="decompiled.zip"'
     response.write(file)
     return response
@@ -435,7 +464,12 @@ def showReport(request):
         return render_to_response('error.html', {'message': 'This is not SHA256!'},context_instance=RequestContext(request)) # This is Sparta!
 
     reports = loadResults(sha256)
-    (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots) = reports
+    if reports is not None:
+        (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots) = reports
+    else:
+        file_report_static = None
+        file_report_dynamic = None
+
 
     if Queue.objects.filter(sha256=sha256).exists():
         queue = Queue.objects.get(sha256=sha256)
@@ -511,7 +545,11 @@ def search(request):
                 if result is not None:
                     sha256 = result.sha256
                     status = result.status
-                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256}, context_instance=RequestContext(request))
+                    if status == 'finished':
+                        target = "/show/?report=%s" % sha256
+                        return redirect(target)
+                    else:
+                        return render_to_response("searchResult.html", {'status': status, 'sha256': sha256}, context_instance=RequestContext(request))
 
         # Search for SHA1
         elif len(req) == SHA1Length:
@@ -524,7 +562,11 @@ def search(request):
                 if result is not None:
                     sha256 = result.sha256
                     status = result.status
-                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256}, context_instance=RequestContext(request))
+                    if status == 'finished':
+                        target = "/show/?report=%s" % sha256
+                        return redirect(target)
+                    else:
+                        return render_to_response("searchResult.html", {'status': status, 'sha256': sha256}, context_instance=RequestContext(request))
 
         # Search for SHA256
         elif len(req) == SHA256Length:
@@ -537,20 +579,31 @@ def search(request):
                 if result is not None:
                     sha256 = result.sha256
                     status = result.status
-                    return render_to_response("searchResult.html", {'status': status, 'sha256': sha256}, context_instance=RequestContext(request))
+                    if status == 'finished':
+                        target = "/show/?report=%s" % sha256
+                        return redirect(target)
+                    else:
+                        return render_to_response("searchResult.html", {'status': status, 'sha256': sha256}, context_instance=RequestContext(request))
+
         else:
-            return HttpResponse('This is not a valid input!')
+            return render_to_response('error.html', {
+                'message': 'Your input is not valid. Please provide the md5, sha1, sha256 or sha512 checksum for your sample'}, context_instance=RequestContext(request))
 
         return render_to_response('error.html', {'message': 'We could not find this sample in our database! '
                                                             'Please submit it to our system.'},context_instance=RequestContext(request))
 
 def loadResults(sha256):
-    path_apk            = '{}/{}'.format(settings.PATH_SAMPLES,getPathFromSHA256(sha256))
+    hashedPath 		= getPathFromSHA256(sha256)
+    path_apk            = '{}/{}'.format(settings.PATH_SAMPLES,hashedPath)
+    path_short		= '{}/{}'.format(settings.PATH_SAMPLES_SHORT, hashedPath)
     path_reports        = '{}/{}'.format(path_apk, settings.DEFAULT_NAME_DIR_REPORTS)
     path_screenshots    = '{}/{}'.format(path_apk, settings.DEFAULT_NAME_SCREENSHOTS)
+
     if not os.path.isdir(path_reports): return None
 
-    (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots) = (None, None, None, None, None)
+    reports = (None, None, None, None, None)
+
+    (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots) = reports
 
     file_report_static  = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_STATIC)
 
@@ -577,7 +630,7 @@ def loadResults(sha256):
     screenshots = []
     for root, dirs, files in os.walk(path_screenshots):
         for f in files:
-            screenshots.append('{}/{}'.format(path_screenshots, f))
+            screenshots.append('{}/{}'.format(path_short+'screenshots/', f))
 
     reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
 

@@ -2,16 +2,18 @@
 import os
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'analyzer'))
+DJANGO_ROOT = '/var/www/html/Backend/mobilesandbox/'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS.append('131.188.31.187')
 #ALLOWED_HOSTS.append('localhost')
 #ALLOWED_HOSTS.append('127.0.0.1')
 #ALLOWED_HOSTS.append('[::1]')
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+#TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -27,7 +29,7 @@ DATABASES = {
         'USER': 'ms_user',
         'HOST':'localhost',
         'PASSWORD': '2HmUKLvf',
-        'PORT': '5432'                      # Set to empty string for default
+        'PORT': ''                      # Set to empty string for default
     }
 }
 
@@ -63,7 +65,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'samples/')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = 'http://localhost:8000/'
+MEDIA_URL = 'https://mobilesandbox.org/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -162,22 +164,31 @@ LOGGING = {
     },
     'handlers': {
         'mail_admins': {
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+	'applogfile': {
+        'level':'DEBUG',
+        'class':'logging.handlers.RotatingFileHandler',
+        'filename': os.path.join(DJANGO_ROOT, 'MS.log'),
+        'maxBytes': 1024*1024*15,
+        'backupCount': 10,
+    },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'handlers': ['applogfile'],
+            'level': 'DEBUG',
             'propagate': True,
         },
     }
 }
 
 # Constants
-PATH_SAMPLES = 'analyzer/samples/'
+PATH_SAMPLES = '/var/www/html/Backend/analyzer/samples/'
+PATH_SAMPLES_SHORT = 'samples/'
+#PATH_SAMPLES = 'analyzer/samples/'
 DEFAULT_NAME_DIR_REPORTS = 'reports'
 DEFAULT_NAME_APK = 'sample.apk'
 DEFAULT_NAME_REPORT_STATIC = 'static.json'

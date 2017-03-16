@@ -23,21 +23,44 @@
             </tr>
             <tr>
             {% for label, value in data.items %}
-                {% if forloop.counter0|divisibleby:5 %}
+                {% if forloop.counter0|divisibleby:6 %}
                     </tr><tr>
                 {% endif %}
                 <td>
                 {% for entry in value %}
-                    {% if label == 'Report' %}
-                        {% if entry == 'analyzing' %}
-                            analyzing... <br>
+                    {% if label == 'Static' %}
+                        {% if entry == "False" %}
+                            running <br>
                         {% else %}
-                            <a href="/show/?report={{ entry }}">Report</a> <br>
+                            <a href="/show/?report={{ entry }}&type=static">Report</a> <br>
                         {% endif %}
-                    {% elif label == 'Decompiled Files' %}
-                        <a href="/download/?token={{ entry }}">Download</a> <br>
-                    {% else %}
-                        {{ entry }} <br>
+                    {% endif %}
+                    {% if label == 'Dynamic' %}
+                        {% if entry == "False" %}
+                            running <br>
+                        {% else %}
+                            <a href="/show/?report={{ entry }}&type=dynamic">Report</a> <br>
+                        {% endif %}
+                    {% endif %}
+                    {% if label == 'Decompiled Files' %}
+                        {% if entry == "False" %}
+                            -- <br>
+                        {% else %}
+                            <a href="/download/?token={{ entry }}">Download</a> <br>
+                        {% endif %}
+                    {% endif %}
+                    {% if label == 'Filename' %}
+                        {{entry}} <br>
+                    {% endif %}
+                    {% if label == 'SHA1' %}
+                        {{entry}} <br>
+                    {% endif %}
+                    {% if label == 'Status' %}
+                        {% if entry == 'finished-1' or entry == 'finished-2' %}
+                            running <br>
+                        {% else %}
+                            {{entry}}
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
                 </td>

@@ -194,7 +194,7 @@
 						{% if forloop.counter0|divisibleby:3 %}
 								</tr><tr>
 						{% endif %}
-						<td><img src="{{ MEDIA_URL }}{{v}}" width="300" border="0"></td>
+						<td><a href="{{ MEDIA_URL }}{{v}}" target="_blank"><img src="{{ MEDIA_URL }}{{v}}" width="300" border="0"></a></td>
 					{% endfor %}
 				</tr>
 			</table>
