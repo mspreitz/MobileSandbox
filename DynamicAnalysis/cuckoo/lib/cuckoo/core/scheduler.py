@@ -369,14 +369,34 @@ class AnalysisManager(Thread):
             succeeded = True
 
             if misc_config.ENABLE_CUCKOO_EXTRA_INFO:
-                self.getProcessList()
-                self.getListeningPorts()
-                subprocess.Popen([misc_config.ADB_PATH, "kill-server"])
-                self.adbRoot()
                 try:
-                    self.copyDatabase()
+                    self.getProcessList()
+                    self.getListeningPorts()
+                    subprocess.Popen([misc_config.ADB_PATH, "kill-server"])
+                    self.adbRoot()
+                    try:
+                        self.copyDatabase()
+                    except:
+                        log.error('Copy database failed!')
                 except:
-                    log.error('Copy database failed!')
+                    log.info("Error with ADB! Trying again...")
+                    try:
+                        subprocess.Popen([misc_config.ADB_PATH, "kill-server"])
+                        subprocess.Popen(["killall adb"])
+                        time.sleep(2)
+                        subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
+                        time.sleep(5)
+                        self.getProcessList()
+                        self.getListeningPorts()
+                        subprocess.Popen([misc_config.ADB_PATH, "kill-server"])
+                        self.adbRoot()
+                        try:
+                            self.copyDatabase()
+                        except:
+                            log.error('Copy database failed!')
+                    except:
+                        log.info("Error with ADB again...")
+
 
                 #Stop adb server
                 subprocess.Popen([misc_config.ADB_PATH, "kill-server"])

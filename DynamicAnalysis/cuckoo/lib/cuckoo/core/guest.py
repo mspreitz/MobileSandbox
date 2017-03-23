@@ -188,7 +188,19 @@ class GuestManager:
                 self.getListeningPorts()
                 self.generateFileList()
             except:
-                log.error("ADB Error occured!")
+                log.info("ADB Error occured! Try again...")
+                try:
+                    subprocess.Popen([misc_config.ADB_PATH, "kill-server"])
+                    subprocess.Popen(["killall adb"])
+                    time.sleep(2)
+                    subprocess.call([misc_config.ADB_PATH, "connect", "192.168.56.10"])
+                    time.sleep(5)
+                    self.getProcessList()
+                    # Get listening Ports
+                    self.getListeningPorts()
+                    self.generateFileList()
+                except:
+                    log.info("ADB Error for the second time!")
 
         # TODO: deal with unicode URLs.
         if options["category"] == "file":

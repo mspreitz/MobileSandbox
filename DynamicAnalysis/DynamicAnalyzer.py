@@ -51,7 +51,7 @@ def initCuckoo(sampleFile):
 
     print 'Starting CUCKOO SUBMIT'
     try:
-	print sampleFile
+        #print sampleFile
         proc2 = subprocess.Popen(["python2",settings.CUCKOO_SUBMIT, sampleFile],
                             stdout=subprocess.PIPE,
                             stdin=subprocess.PIPE,
@@ -100,9 +100,10 @@ def isFinished(cuckooID):
     print "Waiting for sample with cuckoo id %s" % cuckooID
     running=True
     while running:
-        timeOut = startTime + settings.TIMEOUT
-        if(time.time() > timeOut):
-            return "TimedOut"
+        # Don't use timeout for now
+        #timeOut = startTime + settings.TIMEOUT
+        #if(time.time() > timeOut):
+        #    return "TimedOut"
 
         time.sleep(1)
         path_report = '{}/{}/reports/report.json'.format(settings.CUCKOO_STORAGE,cuckooID)
@@ -119,9 +120,10 @@ def getListeningPorts(dir_extra_info):
     file_netstat_before = '{}/{}'.format(dir_extra_info, settings.NETSTAT_LIST)
     file_netstat_after  = '{}/{}'.format(dir_extra_info, settings.NETSTAT_NEW)
     try:
-    	content = compareLists(file_netstat_before, file_netstat_after)
+        content = compareLists(file_netstat_before, file_netstat_after)
     except:
-	return []
+        return []
+
     res_natstat_entries = []
     for i in content:
         tmp = i.split()
@@ -135,9 +137,9 @@ def getProcesses(dir_extra_info):
     file_processes_before = '{}/{}'.format(dir_extra_info, settings.PLIST_FILE)
     file_processes_after  = '{}/{}'.format(dir_extra_info, settings.PLIST_NEW)
     try:
-    	content = compareLists(file_processes_before, file_processes_after)
+        content = compareLists(file_processes_before, file_processes_after)
     except:
-	return []
+        return []
     res_process_entries = []
     for i in content:
         tmp = i.split()

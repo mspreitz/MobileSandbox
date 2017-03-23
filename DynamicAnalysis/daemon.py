@@ -107,8 +107,14 @@ while(running):
         print '[{}] Running Analysis'.format(sha256)
         currentTime = datetime.now()
         # Update the analysis status to running for this sample
+        stat = db.execute("SELECT status FROM analyzer_metadata WHERE sha256='%s'" % sha256)
+        res = db.fetchall()
+        res = res[0][0]
+
         db.execute("UPDATE analyzer_queue SET status='running', starttime=CURRENT_TIMESTAMP WHERE id=%s" % (sampleID))
-        db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % sha256)
+
+        if res == 'idle':
+            db.execute("UPDATE analyzer_metadata SET status='running' WHERE sha256='%s'" % sha256)
         db.connection.commit()
 
         # Run dynamic analysis
@@ -189,6 +195,8 @@ while(running):
         stat = db.execute("SELECT status FROM analyzer_metadata WHERE sha256='%s'" % sha256)
         res = db.fetchall()
         res = res[0][0]
+
+        print "Debug: res is %s" % res
 
         if res == "finished-1":
             db.execute("UPDATE analyzer_metadata SET status='complete' WHERE sha256='%s'" % sha256)

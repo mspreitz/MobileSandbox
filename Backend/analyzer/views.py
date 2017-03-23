@@ -113,13 +113,13 @@ def loginUser(request):
     if request.method == 'POST':
         email = request.POST['email']
         passwd = request.POST['password']
-        try:
-            user = User.objects.get(username=email)
-        except:
-            user = None
-
-        if user is not None:
-            auth_user = authenticate(username=email, password=passwd)
+        #try:
+        #    user = User.objects.get(username=email)
+        #except:
+        #    user = None
+        auth_user = authenticate(username=email, password=passwd)
+        if auth_user is not None:
+            #auth_user = authenticate(username=email, password=passwd)
             login(request, auth_user)
             # Redirect to member area
             return redirect('/home')
@@ -189,13 +189,8 @@ def showHistory(request):
             if dat.status == "complete":
                 sha256.append(dat.sha256)
 
-            # if not dat.status == 'finished':
-            #     sha256.append("analyzing")
-            # else:
-            #     sha256.append(dat.sha256)
             filename.append(dat.filename)
             status.append(dat.status)
-
         else:
             if dat.status == "finished-1" or dat.status == "complete":
                 static = [dat.sha256]
@@ -219,7 +214,6 @@ def showHistory(request):
     data['Dynamic'] = dynamic
     data['Status'] = status
     data['Decompiled Files'] = decompiled
-
 
     return render_to_response('history.html', {"data": data}, context_instance=RequestContext(request))
 
@@ -545,7 +539,7 @@ def search(request):
                 if result is not None:
                     sha256 = result.sha256
                     status = result.status
-                    if status == 'finished':
+                    if status == 'complete':
                         target = "/show/?report=%s" % sha256
                         return redirect(target)
                     else:
@@ -562,7 +556,7 @@ def search(request):
                 if result is not None:
                     sha256 = result.sha256
                     status = result.status
-                    if status == 'finished':
+                    if status == 'complete':
                         target = "/show/?report=%s" % sha256
                         return redirect(target)
                     else:
@@ -579,7 +573,7 @@ def search(request):
                 if result is not None:
                     sha256 = result.sha256
                     status = result.status
-                    if status == 'finished':
+                    if status == 'complete':
                         target = "/show/?report=%s" % sha256
                         return redirect(target)
                     else:
@@ -587,7 +581,7 @@ def search(request):
 
         else:
             return render_to_response('error.html', {
-                'message': 'Your input is not valid. Please provide the md5, sha1, sha256 or sha512 checksum for your sample'}, context_instance=RequestContext(request))
+                'message': 'Your input is not valid. Please provide the md5, sha1 or sha256 checksum for your sample'}, context_instance=RequestContext(request))
 
         return render_to_response('error.html', {'message': 'We could not find this sample in our database! '
                                                             'Please submit it to our system.'},context_instance=RequestContext(request))
