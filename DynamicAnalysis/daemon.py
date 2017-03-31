@@ -196,7 +196,7 @@ while(running):
         res = db.fetchall()
         res = res[0][0]
 
-        print "Debug: res is %s" % res
+        #print "Debug: res is %s" % res
 
         if res == "finished-1":
             db.execute("UPDATE analyzer_metadata SET status='complete' WHERE sha256='%s'" % sha256)

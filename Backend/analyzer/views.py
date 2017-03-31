@@ -31,15 +31,13 @@ if misc_config.ENABLE_SENTRY_LOGGING:
     client = Client('http://46a1768b67214ab3be829c0de0b9b96f:60acd07481a449c6a44196e166a5d613@localhost:9000/2')
 
 
-from mhash import * # TODO: Move that and the utils/mhash from the StaticAnalyzer to a single file.
-
+from mhash import *
 
 # Constants
-TMP_PATH = 'analyzer/tmp/'
-BASE_URL = 'https://mobilesandbox.org/show/?report='
+TMP_PATH = misc_config.TMP_PATH
+BASE_URL = misc_config.BASE_URL
 
 # Views
-
 def index(request):
     return render_to_response("base.html", context_instance=RequestContext(request))
 
@@ -220,18 +218,13 @@ def showHistory(request):
 def dataIsAPK(data):
     magic = '\x50\x4b\x03\x04' # ZIP Magic
     if data[:4] != magic: return False
-
-    # Open the zipfile, check if required files are inside the APK
-    # TODO We open the zipfile twice now, get rid of redundancy
-    
-    # TODO classes.dex, AndroidManifest.xml, resources.arsc
     return True
 
 
 # Upload file and do sanity check
+#Use default values and set those parameters at the last positions e.g. username, anonymous=True
 @csrf_protect
-def uploadFile(request, username, anonymous=True): # TODO Use default values and set those parameters at the last positions e.g. username, anonymous=True
-    # TODO Somehow test for accidentally rmtree('/') etc
+def uploadFile(request, username, anonymous=True):
     if not settings.PATH_SAMPLES or settings.PATH_SAMPLES == '':
         print 'Fatal Failure. Abort!'
         sys.exit(1)
@@ -273,12 +266,6 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
             elif Metadata.objects.filter(sha256=appInfos['sha256']).exists():
                 queue = Metadata.objects.get(sha256=appInfos['sha256'])
 
-            #try:
-            #    queue = Queue.objects.get(sha256=appInfos['sha256'], type="static")
-            #except:
-            #   queue = Metadata.objects.get(sha256=appInfos['sha256'])
-
-            # Todo: Check if file is already in metadata!!!
 
             if queue is not None and (queue.status == 'idle' or queue.status == 'running'):
                 entries = Queue.objects.all()
@@ -318,19 +305,17 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
         apkFile = '{}/sample.apk'.format(apkDir)
         with open(apkFile, 'wb') as f: f.write(data)
 
-        # TODO Since zipfile cannot read from stream, we have to check for zipfile contents here
+        # Since zipfile cannot read from stream, we have to check for zipfile contents here
         # Second APK test on the saved file
         try:
             z = zipfile.ZipFile(apkFile)
         except zipfile.BadZipfile:
-            # TODO Remove the directory, otherwise an exception is thrown after uploading the sample again
             uploadedFiles[sentFile.name]['error'] = 'Sample has to be in APK format: Not a ZIP file'
             continue
 
         zfiles = set(z.namelist())
         afiles = set(['classes.dex', 'AndroidManifest.xml'])
         if len(afiles-zfiles) != 0:
-            # TODO Remove the directory, otherwise an exception is thrown after uploading the sample again
             uploadedFiles[sentFile.name]['error'] = 'One of the following files is not in the sample: {}'.format(afiles)
             continue
 
@@ -379,8 +364,6 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
                 retry=0
             )
 
-        # NOTE: We only hash once -  we don't want to hash later again for the static analyzer - performance ! :)
-        # TODO Read the hashes from Metadata or Queue and never hash again! Do once, reuse often principle
         # Generate other hashes
         appInfos['md5'] = hash_md5(data)
         appInfos['sha1'] = hash_sha1(data)
@@ -399,7 +382,7 @@ def uploadFile(request, username, anonymous=True): # TODO Use default values and
 
     # Return redirect link for every successful report - or redirect to the report page
     # For every error in the uploadedFiles, print a table with apkname and error
-    templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles, 'hash': appInfos['sha256'] }
+    templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles, 'hash': appInfos['sha256']}
     template = 'anonUploadSuccess.html'
     if not anonymous:
         template = 'uploadSuccess.html'

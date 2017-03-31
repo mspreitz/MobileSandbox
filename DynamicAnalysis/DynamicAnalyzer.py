@@ -116,7 +116,6 @@ def isFinished(cuckooID):
 
 
 def getListeningPorts(dir_extra_info):
-    # headers = ['Proto','Recv-Q','Send-Q','Local-Address','Foreign-Address','State']
     file_netstat_before = '{}/{}'.format(dir_extra_info, settings.NETSTAT_LIST)
     file_netstat_after  = '{}/{}'.format(dir_extra_info, settings.NETSTAT_NEW)
     try:
@@ -133,7 +132,6 @@ def getListeningPorts(dir_extra_info):
 
 
 def getProcesses(dir_extra_info):
-    # headers = ['User','PID','PPID','VSIZE','RSS','WCHAN','PC','P','NAME']
     file_processes_before = '{}/{}'.format(dir_extra_info, settings.PLIST_FILE)
     file_processes_after  = '{}/{}'.format(dir_extra_info, settings.PLIST_NEW)
     try:
@@ -183,6 +181,8 @@ def cleanUp():
 def getScreenShots(workingDir, cuckooID):
     screenShotDir = '{}/{}/shots/'.format(settings.CUCKOO_STORAGE, cuckooID)
     localScreenShotDir = workingDir+"/screenshots/"
+    if os.path.exists(localScreenShotDir):
+        shutil.rmtree(localScreenShotDir)
     os.makedirs(localScreenShotDir)
     for dirpath, dirnames, filenames in os.walk(screenShotDir):
         for filename in filenames:
@@ -190,6 +190,8 @@ def getScreenShots(workingDir, cuckooID):
 
 
 def getApkFiles(cuckooTmp, workingDir):
+    if os.path.exists(cuckooTmp + "/apkfiles"):
+        shutil.rmtree(cuckooTmp + "/apkfiles")
     os.makedirs(cuckooTmp + "/apkfiles")
     shutil.move(cuckooTmp, workingDir+"/apkfiles")
 
@@ -337,10 +339,12 @@ def run(sampleFile, workingDir, sha256):
         if misc_config.ENABLE_SENTRY_LOGGING:
             client.captureMessage("Error: Not finished")
         print "Error: Not finished"
-    if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE_DYNAMIC:
-        time_analysis_end = time.time()
-        time_analysis_diff = time_analysis_end - time_analysis_start
-        with open(misc_config.LOGFILE_STOPPING_FILE_DYNAMIC, 'a') as f:
-            line = '{} | {} | {} | {}\n'.format(sha256, time_analysis_start, time_analysis_end, time_analysis_diff)
-            sys.stdout.write(line)
-            f.write(line)
+
+    # Timing to check for perfomance ( Testing purposes! Do not uncomment for when running live )
+    #if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE_DYNAMIC:
+    #    time_analysis_end = time.time()
+    #    time_analysis_diff = time_analysis_end - time_analysis_start
+    #    with open(misc_config.LOGFILE_STOPPING_FILE_DYNAMIC, 'a') as f:
+    #        line = '{} | {} | {} | {}\n'.format(sha256, time_analysis_start, time_analysis_end, time_analysis_diff)
+    #        sys.stdout.write(line)
+    #        f.write(line)

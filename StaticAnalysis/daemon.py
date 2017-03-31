@@ -62,7 +62,6 @@ except:
 
 if not os.path.isdir(settings.DEFAULT_NAME_DIR_ANALYSIS): os.makedirs(settings.DEFAULT_NAME_DIR_ANALYSIS)
 
-# TODO: If we run cleandb or any db changing operation, we have to close this cursor or kill the daemon beforehand
 db = conn.cursor()
 
 running = True
@@ -70,7 +69,7 @@ while(running):
 
     # Get static queue elements where status is idle
     rows = None
-    try: # TODO If we start more than 1 daemons, we should either use fetch_one / LIMIT 1 or somehow synchronize and fetchall once every X seconds
+    try:
         col = db.execute("SELECT id, filename, sha256, path FROM analyzer_queue WHERE type='static' AND status='idle'")
         rows = db.fetchall()
     except psycopg2.ProgrammingError as pe:
@@ -85,7 +84,6 @@ while(running):
         continue
 
     for (sampleID, filename, sha256, apkPath) in rows:
-        # TODO samplesPath / apkPath
         apkPath = '{}/{}'.format(settings.BACKEND_PATH, apkPath) # Samples Directory plus APK directory structure in Backend
         apkFile = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_APK) # APK in Samples Directory
         unpackPath = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_DIR_UNPACK) # Unpacked Resources Directory in Samples Directory
@@ -94,6 +92,7 @@ while(running):
         # TODO Recurring analysis on updated modules don't work this way : ( - fnd some other mechanism to check on already executed analysis!
         if os.path.exists(unpackPath):
             print 'ERROR: Resources Directory already exists for sample in Queue [{}]. Analysis underway or already done. Abort!'.format(sha256)
+            time.sleep(5)
             continue
 
         print '[{}] Running Analysis'.format(sha256)
@@ -108,9 +107,8 @@ while(running):
         db.connection.commit()
 
         # Create BACKEND direcory that contains the unpacked resources
-        # TODO Maybe move this somewhere later.
         try:
-	    print unpackPath
+            #print unpackPath
             os.makedirs(unpackPath)
         except os.error:
             if misc_config.ENABLE_SENTRY_LOGGING:
@@ -129,7 +127,6 @@ while(running):
         print '[{}] Packing everything to the Backend Sample Directory'.format(sha256)
 
         # Get Cert file
-        # TODO Find out how to make a single regex
         globregex_both = '{}/{}/META-INF/*.[DR]SA'.format(workingDir, settings.DEFAULT_NAME_DIR_UNPACK)
         result = glob.glob(globregex_both)
 
@@ -180,7 +177,7 @@ while(running):
         res = db.fetchall()
         res = res[0][0]
 
-        print "Debug: res is %s" % res
+        #print "Debug: res is %s" % res
 
         if res == "finished-2":
             db.execute("UPDATE analyzer_metadata SET status='complete' WHERE sha256='%s'" % sha256)

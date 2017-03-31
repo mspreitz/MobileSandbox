@@ -102,13 +102,12 @@ def getManifest(PREFIX,dv):
 
 # See https://www.chilkatsoft.com/refdoc/pythonCkCertRef.html
 def getCertificate(androguardAPK):
-    # TODO Returns empty cert on any error case for now
+    # Returns empty cert on any error case for now
 
-    # TODO ECC missing
     r_cert = re.compile(r'META-INF/.*\.[DR]{1}SA')
     cert = [ f for f in androguardAPK.get_files() if r_cert.match(f) ]
 
-    # TODO: Cannot handle more than 1 certificate (solution: Read MANIFEST.MF and extract the name from here)
+    # Cannot handle more than 1 certificate (solution: Read MANIFEST.MF and extract the name from here)
     if len(cert) != 1: return {}
 
     (success, cert) = androguardAPK.get_certificate(cert[0])
@@ -247,21 +246,6 @@ def getIntents(logFile,a):
     return intents
 
 
-#Todo: Funktion testen!
-def getNet(a):
-     appNet = set()
-     for line in a.xml:
-         if "android.net" not in line: continue
-         try:
-             net = line.split("=")[1].split("\"")[1]
-             print errorMessage("Etwas gefunden!!!! (getNet Funktion)")
-             if net != "":
-                 appNet.add(net)
-         except:
-             continue
-     return appNet
-
-
 def usedFeatures(logFile,a):
     log(logFile, 0, "used features", 0)
     appFeatures = set()
@@ -390,7 +374,6 @@ def getSampleInfo(sampleFile,logFile,a):
         print 'ERROR: cannot read sample {}'.format(sampleFile)
         exit(1)
 
-    # TODO: Why replace None results with ''?
     appInfos['sdk_version_target'] = a.get_target_sdk_version()
     appInfos['sdk_version_min'] = a.get_min_sdk_version()
     appInfos['sdk_version_max'] = a.get_max_sdk_version()
@@ -491,7 +474,7 @@ def getPermission(logFile,a):
 def getActivities(a):
     return set(a.get_activities())
 
-def extractSourceFiles(PREFIX,d,vmx): # TODO High O
+def extractSourceFiles(PREFIX,d,vmx):
     check_dirs(settings.SOURCELOCATION,PREFIX)
 
     for _class in d.get_classes():
@@ -605,8 +588,6 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     try:
         jsonFile.write(json.dumps(output))
     except UnicodeDecodeError:
-        # TODO Decide to either use encode_ascii=False, specify a certain non-ascii decoding or do something else
-        # TODO Also, if aborted, notify user that something bad happened
         jsonFile.write(json.dumps({'error':'Could not decode report into ASCII-json'}))
         errorMessage("Could not decode the json output of the report! Abort!")
         jsonFile.close()
@@ -642,7 +623,7 @@ def run(sampleFile, workingDir):
 
     try:
         a = apk.APK(sampleFile)
-    except zipfile.BadZipfile: # TODO
+    except zipfile.BadZipfile:
         errorMessage("Encountered BadZipfile\nTerminating...")
         return
 
@@ -659,9 +640,7 @@ def run(sampleFile, workingDir):
     print "unpacking sample..."
     unpack(sampleFile,PREFIX)
     print "extracting source files..."
-    if misc_config.ENABLE_EXTRACT_SOURCES: extractSourceFiles(PREFIX,d,vmx)
-    print "get network data..."
-    appNet = getNet(a)                                        #Todo: Ausgabe testen! android.net?!?!?!?
+    if misc_config.ENABLE_EXTRACT_SOURCES: extractSourceFiles(PREFIX, d, vmx)
     print "get providers..."
     appProviders = getProviders(logFile,a)
     print "get permissions..."
@@ -701,10 +680,12 @@ def run(sampleFile, workingDir):
     copyIcon(PREFIX,workingDir)
     print "closing log-file..."
     closeLogFile(logFile)
-    if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE:
-        time_analysis_end = time.time()
-        time_analysis_diff = time_analysis_end - time_analysis_start
-        with open(misc_config.LOGFILE_STOPPING_FILE, 'a') as f:
-            line = '{} | {} | {} | {}\n'.format(appInfos['sha256'], time_analysis_start, time_analysis_end, time_analysis_diff)
-            sys.stdout.write(line)
-            f.write(line)
+
+
+    #if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE:
+    #    time_analysis_end = time.time()
+    #    time_analysis_diff = time_analysis_end - time_analysis_start
+    #    with open(misc_config.LOGFILE_STOPPING_FILE, 'a') as f:
+    #        line = '{} | {} | {} | {}\n'.format(appInfos['sha256'], time_analysis_start, time_analysis_end, time_analysis_diff)
+    #        sys.stdout.write(line)
+    #        f.write(line)
