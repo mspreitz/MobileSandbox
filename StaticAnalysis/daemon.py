@@ -48,7 +48,6 @@ def copytree(src, dst, symlinks=False, ignore=None):
 
 # Connect to database
 try:
-    #conn = psycopg2.connect("dbname='ms_db' user='ms_user' host='localhost' password='2HmUKLvf'")
     conn = psycopg2.connect(dbname=misc_config.SQL_DB, user=misc_config.SQL_USER, host='localhost', password=misc_config.SQL_PASSWORD)
 except:
     if misc_config.ENABLE_SENTRY_LOGGING:
@@ -56,10 +55,6 @@ except:
     print "Unable to connect to the database"
     traceback.print_exc()
     sys.exit(1)
-
-#if not settings.BACKEND_PATH or settings.BACKEND_PATH == '':
-#    print 'ERROR: Please set the relative path for the Backend Data Folder'
-#    sys.exit(1)
 
 if not os.path.isdir(settings.DEFAULT_NAME_DIR_ANALYSIS): os.makedirs(settings.DEFAULT_NAME_DIR_ANALYSIS)
 
@@ -114,9 +109,7 @@ while(running):
         except os.error:
             if misc_config.ENABLE_SENTRY_LOGGING:
                 client.captureException()
-            # NOTE We don't have permissions to create the directory
-            # NOTE Or the direcytory exists already (Can not happen because we check if the unpackPath already exists and continue...)
-            # See https://docs.python.org/2/library/os.html#os.makedirs
+
             print 'ERROR: Cannot create unpack directory for sample [{}]'.format(sha256)
             continue
 
@@ -176,9 +169,7 @@ while(running):
         # Delete sample from queue
         db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
 
-        # Set up mail notification
-        # Send Notification Mail
-        # Todo: Move the notification down where we check if analysis is complete and do the same for static analyzer!
+        # Todo: Mail muss noch getestet werden...
         sendMailTo = ""
 
         stat = db.execute("SELECT status FROM analyzer_metadata WHERE sha256='%s'" % sha256)
@@ -186,6 +177,7 @@ while(running):
         res = res[0][0]
 
         if res == "finished-2":
+            # Set status to complete and send notification to the user
             db.execute("UPDATE analyzer_metadata SET status='complete' WHERE sha256='%s'" % sha256)
             # Analysis is finished here.
             # Send mail notification to the user

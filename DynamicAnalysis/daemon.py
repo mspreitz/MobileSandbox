@@ -176,6 +176,9 @@ while(running):
         # Send Notification Mail
         sendMailTo = ""
 
+        # Todo: Mail noch testen... Auch ein paar andere Änderungen wurden gemacht die getestet gehören!!
+        # Todo !!!
+
         # Set new sample status
         db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
         stat = db.execute("SELECT status FROM analyzer_metadata WHERE sha256='%s'" % sha256)
