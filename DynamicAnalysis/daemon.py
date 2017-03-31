@@ -5,9 +5,7 @@ sys.path.append('../')
 import shutil
 import subprocess
 import time
-
 from datetime import datetime
-
 from DynamicAnalyzer import run
 import settings
 import psycopg2
@@ -58,28 +56,28 @@ while(running):
     rows = None
 
     #Check for jobs that are too long in the queue and restart them
-    try:
-        col = db.execute("SELECT id, starttime, retry, sha256 FROM analyzer_queue WHERE type='dynamic' AND status='running'")
-        rows = db.fetchall()
-    except psycopg2.ProgrammingError as pe:
-        if misc_config.ENABLE_SENTRY_LOGGING:
-            client.captureException()
-        print 'ERROR', pe
-        time.sleep(5)
-
-    for (sampleID, starttime, retry, sha256) in rows:
-        currentTime = datetime.now()
-	starttime = starttime.replace(tzinfo=None)
-        distance = (currentTime - starttime).total_seconds()
-
-        if distance > settings.TIMEOUT:
-            if retry <= settings.RETRY:
-                retry = retry + 1
-                db.execute("UPDATE analyzer_queue SET status='idle', retry=%s, "
-                           "starttime=CURRENT_TIMESTAMP WHERE id=%s AND type='dynamic'" % (retry, sampleID))
-                db.connection.commit()
-            else:
-                print "The dynamic analysis of the sample %s failed" % sha256
+    # try:
+    #     col = db.execute("SELECT id, starttime, retry, sha256 FROM analyzer_queue WHERE type='dynamic' AND status='running'")
+    #     rows = db.fetchall()
+    # except psycopg2.ProgrammingError as pe:
+    #     if misc_config.ENABLE_SENTRY_LOGGING:
+    #         client.captureException()
+    #     print 'ERROR', pe
+    #     time.sleep(5)
+    #
+    # for (sampleID, starttime, retry, sha256) in rows:
+    #     currentTime = datetime.now()
+	#     starttime = starttime.replace(tzinfo=None)
+    #     distance = (currentTime - starttime).total_seconds()
+    #
+    #     if distance > settings.TIMEOUT:
+    #         if retry <= settings.RETRY:
+    #             retry = retry + 1
+    #             db.execute("UPDATE analyzer_queue SET status='idle', retry=%s, "
+    #                        "starttime=CURRENT_TIMESTAMP WHERE id=%s AND type='dynamic'" % (retry, sampleID))
+    #             db.connection.commit()
+    #         else:
+    #             print "The dynamic analysis of the sample %s failed" % sha256
 
 
     try:
@@ -178,28 +176,25 @@ while(running):
         # Send Notification Mail
         sendMailTo = ""
 
-        c = db.execute("SELECT username FROM analyzer_metadata WHERE sha256='%s'" % sha256)
-        r = db.fetchall()
-        sendMailTo = r[0][0]
-
-        if sendMailTo == "":
-            co = db.execute("SELECT email FROM analyzer_queue WHERE sha256='%s'" % sha256)
-            ro = db.fetchall()
-            sendMailTo = ro[0][0]
-
-        # Uncomment after installed on the server
-        mail.sendNotification(sendMailTo, sha256)
-
         # Set new sample status
         db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
         stat = db.execute("SELECT status FROM analyzer_metadata WHERE sha256='%s'" % sha256)
         res = db.fetchall()
         res = res[0][0]
 
-        #print "Debug: res is %s" % res
-
         if res == "finished-1":
             db.execute("UPDATE analyzer_metadata SET status='complete' WHERE sha256='%s'" % sha256)
+            # Analysis is finished here.
+            # Send mail notification to the user
+            c = db.execute("SELECT username FROM analyzer_metadata WHERE sha256='%s'" % sha256)
+            r = db.fetchall()
+            sendMailTo = r[0][0]
+
+            if sendMailTo == "":
+                co = db.execute("SELECT email FROM analyzer_queue WHERE sha256='%s'" % sha256)
+                ro = db.fetchall()
+                sendMailTo = ro[0][0]
+            mail.sendNotification(sendMailTo, sha256)
         else:
             db.execute("UPDATE analyzer_metadata SET status='finished-2' WHERE sha256='%s'" % sha256)
         db.connection.commit()

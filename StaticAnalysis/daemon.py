@@ -15,6 +15,7 @@ import time
 import zipfile
 import misc_config
 import traceback
+import Backend.analyzer.mail as mail
 
 
 if misc_config.ENABLE_SENTRY_LOGGING:
@@ -171,16 +172,32 @@ while(running):
         if misc_config.ENABLE_CLEAR_OLD_FILES: shutil.rmtree(workingDir)
 
         print '[{}] Finished Analysis'.format(sha256)
-        # Set new sample status
+
+        # Delete sample from queue
         db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
+
+        # Set up mail notification
+        # Send Notification Mail
+        # Todo: Move the notification down where we check if analysis is complete and do the same for static analyzer!
+        sendMailTo = ""
+
         stat = db.execute("SELECT status FROM analyzer_metadata WHERE sha256='%s'" % sha256)
         res = db.fetchall()
         res = res[0][0]
 
-        #print "Debug: res is %s" % res
-
         if res == "finished-2":
             db.execute("UPDATE analyzer_metadata SET status='complete' WHERE sha256='%s'" % sha256)
+            # Analysis is finished here.
+            # Send mail notification to the user
+            c = db.execute("SELECT username FROM analyzer_metadata WHERE sha256='%s'" % sha256)
+            r = db.fetchall()
+            sendMailTo = r[0][0]
+
+            if sendMailTo == "":
+                co = db.execute("SELECT email FROM analyzer_queue WHERE sha256='%s'" % sha256)
+                ro = db.fetchall()
+                sendMailTo = ro[0][0]
+            mail.sendNotification(sendMailTo, sha256)
         else:
             db.execute("UPDATE analyzer_metadata SET status='finished-1' WHERE sha256='%s'" % sha256)
         db.connection.commit()
