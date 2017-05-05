@@ -1,3 +1,6 @@
+import random
+import string
+
 from androguard.core.analysis import analysis
 from androguard.core.bytecodes import apk
 from androguard.core.bytecodes import dvm
@@ -208,7 +211,6 @@ def unpack(sampleFile, PREFIX):
 
 
 def copyIcon(PREFIX,unpackLocation):
-
     icon = None
     with open(PREFIX+"AndroidManifest.xml") as manifest:
         for line in manifest:
@@ -318,7 +320,7 @@ def getAPICallsADs(workingDir, logFile, d): # TODO Mid-High O
                 print 'ERROR: Androguard could not decompile. Continue/Abort decompiling this instruction!'
                 continue
 
-    path_dump = '{}/{}'.format(workingDir,settings.DUMPFILE)
+    path_dump = '{}/{}'.format(workingDir, settings.DUMPFILE)
     with open(path_dump, 'w') as f:
         f.write(data_dump)
 
@@ -363,7 +365,6 @@ def getAPICallsADs(workingDir, logFile, d): # TODO Mid-High O
 
 def getSampleInfo(sampleFile,logFile,a):
     # TODO: get application label
-    # TODO: check if SDK-Version ect. is specified...
 
     appInfos = {}
     with open(sampleFile, 'rb') as f:
@@ -435,10 +436,10 @@ def parseURLs(workingdir,logFile):
 
 def convert_descriptor(name):
     name=name[1:]
-    return name.replace("/",".").replace(";","")
+    return name.replace("/", ".").replace(";", "")
 
 
-def check_dirs(directory,PREFIX):
+def check_dirs(directory, PREFIX):
     if not os.path.exists(PREFIX+directory):
         try:
             os.makedirs(PREFIX+directory)
@@ -474,14 +475,22 @@ def getPermission(logFile,a):
 def getActivities(a):
     return set(a.get_activities())
 
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
 def extractSourceFiles(PREFIX,d,vmx):
     check_dirs(settings.SOURCELOCATION,PREFIX)
 
     for _class in d.get_classes():
         class_path = convert_descriptor(_class.get_name())
-        path = check_path(class_path,PREFIX)
+        path = check_path(class_path, PREFIX)
         if not os.path.exists(path):
-            source = open(path, "w")
+            if len(path) > 255:
+                ext = os.path.basename(path).split(".")[-1]
+                newName = os.path.dirname(path)+"/filename_to_long_suspiciousFile-"+id_generator()+"."+ext
+                source = open(newName, "w")
+            else:
+                source = open(path, "w")
             for field in _class.get_fields():
 
                 access_flags = field.get_access_flags_string()
@@ -500,7 +509,6 @@ def extractSourceFiles(PREFIX,d,vmx):
                     for line in ms.get_source().split("\n"):
                         source.write("\t%s\n" % line)
                 except:
-                    errorMessage("There was an error in decompiling one source file! Continuing...")
                     continue
             source.flush()
             source.close()
@@ -518,7 +526,6 @@ def getFilesExtendedInsideApk(androidAPK):
 
 def getFilesInsideApk(androidAPK):
     return androidAPK.get_files()
-    #return androidAPK.get_files_types()
 
 def getFilesInsideApkSrc(workingDir):
     fileList = set()
@@ -549,7 +556,7 @@ def clearOldFiles(workingDir):
         shutil.rmtree(unpackDir)
 
 
-def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
+def createOutput(workingDir, appProviders, appPermissions, appFeatures, appIntents, servicesANDreceiver, detectedAds,
                  appUrls, appInfos, api_dict, appFilesSrc, appActivities, cert, appFiles, dict_dex):
     output = appInfos # Since it already contains a dict of most fingerprints
     output['app_permissions'] = list(appPermissions)
@@ -567,7 +574,6 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     output['activities'] = list(appActivities)
     output['s_and_r'] = list(servicesANDreceiver)
     output['urls'] = list(appUrls)
-    output['networks'] = list(appNet)
     output['providers'] = list(appProviders)
     output['included_files_src'] = list(appFilesSrc)
     output['included_files'] = appFiles
@@ -595,8 +601,10 @@ def createOutput(workingDir, appNet, appProviders, appPermissions, appFeatures, 
     jsonFile.close()
 
     # Transfer static analysis data to Neo4J by creating a node
-    create_node_static(output)
-
+    try:
+        create_node_static(output)
+    except:
+        print "Adding to Neo4J failed!"
 
 def run(sampleFile, workingDir):
     if misc_config.ENABLE_STOPPING_TIME and misc_config.LOGFILE_STOPPING_FILE:
@@ -674,10 +682,10 @@ def run(sampleFile, workingDir):
     if misc_config.ENABLE_PARSING_CLASSES: dict_dex['classes'] = list(set([ x.get_name().strip() for x in d.get_classes()]))
     if misc_config.ENABLE_PARSING_METHODS: dict_dex['methods'] = list(set([ x.get_name().strip() for x in d.get_methods()]))
     print "create json report..."
-    createOutput(workingDir,appNet,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,ads_dict,
+    createOutput(workingDir,appProviders,appPermissions,appFeatures,appIntents,serviceANDreceiver,ads_dict,
                  appUrls,appInfos,api_dict,appFilesSrc,appActivities, cert, appFiles, dict_dex)
     print "copy icon image..."
-    copyIcon(PREFIX,workingDir)
+    copyIcon(PREFIX, workingDir)
     print "closing log-file..."
     closeLogFile(logFile)
 

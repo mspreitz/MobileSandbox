@@ -29,37 +29,37 @@
                 <td>
                 {% for entry in value %}
                     {% if label == 'Static' %}
-                        {% if entry == "False" %}
-                            running <br>
+                        {% if entry == "analyzing" %}
+                            working <br><br>
                         {% else %}
-                            <a href="/show/?report={{ entry }}&type=static">Report</a> <br>
+                            <a href="/show/?report={{ entry }}&type=static">Report</a> <br><br>
                         {% endif %}
                     {% endif %}
                     {% if label == 'Dynamic' %}
-                        {% if entry == "False" %}
-                            running <br>
+                        {% if entry == "analyzing" %}
+                            working <br><br>
                         {% else %}
-                            <a href="/show/?report={{ entry }}&type=dynamic">Report</a> <br>
+                            <a href="/show/?report={{ entry }}&type=dynamic">Report</a> <br><br>
                         {% endif %}
                     {% endif %}
                     {% if label == 'Decompiled Files' %}
-                        {% if entry == "False" %}
-                            -- <br>
+                        {% if entry == "analyzing" %}
+                            -- <br><br>
                         {% else %}
-                            <a href="/download/?token={{ entry }}">Download</a> <br>
+                            <a href="/download/?token={{ entry }}">Download</a> <br><br>
                         {% endif %}
                     {% endif %}
                     {% if label == 'Filename' %}
-                        {{entry}} <br>
+                        {{entry}} <br><br>
                     {% endif %}
                     {% if label == 'SHA1' %}
-                        {{entry}} <br>
+                        {{entry}} <br><br>
                     {% endif %}
                     {% if label == 'Status' %}
                         {% if entry == 'finished-1' or entry == 'finished-2' %}
-                            running <br>
+                            running <br><br>
                         {% else %}
-                            {{entry}} <br>
+                            {{entry}} <br><br>
                         {% endif %}
                     {% endif %}
                 {% endfor %}

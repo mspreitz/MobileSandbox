@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import datetime
+import sys
+sys.path.append('../')
 
 from StaticAnalyzer import run
 
@@ -84,8 +86,6 @@ while(running):
         apkFile = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_APK) # APK in Samples Directory
         unpackPath = '{}/{}'.format(apkPath, settings.DEFAULT_NAME_DIR_UNPACK) # Unpacked Resources Directory in Samples Directory
 
-        # If the resources directory already exists, that means we already executed the static analysis on the sample.
-        # TODO Recurring analysis on updated modules don't work this way : ( - fnd some other mechanism to check on already executed analysis!
         if os.path.exists(unpackPath):
             print 'ERROR: Resources Directory already exists for sample in Queue [{}]. Analysis underway or already done. Abort!'.format(sha256)
             time.sleep(5)
@@ -104,7 +104,6 @@ while(running):
 
         # Create BACKEND direcory that contains the unpacked resources
         try:
-            #print unpackPath
             os.makedirs(unpackPath)
         except os.error:
             if misc_config.ENABLE_SENTRY_LOGGING:
@@ -169,7 +168,6 @@ while(running):
         # Delete sample from queue
         db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
 
-        # Todo: Mail muss noch getestet werden...
         sendMailTo = ""
 
         stat = db.execute("SELECT status FROM analyzer_metadata WHERE sha256='%s'" % sha256)
@@ -188,8 +186,11 @@ while(running):
             if sendMailTo == "":
                 co = db.execute("SELECT email FROM analyzer_queue WHERE sha256='%s'" % sha256)
                 ro = db.fetchall()
+            if len(ro) > 0:
                 sendMailTo = ro[0][0]
-            mail.sendNotification(sendMailTo, sha256)
+                mail.sendNotification(sendMailTo, sha256)
+            else:
+                mail.sendNotification(sendMailTo, sha256)
         else:
             db.execute("UPDATE analyzer_metadata SET status='finished-1' WHERE sha256='%s'" % sha256)
         db.connection.commit()

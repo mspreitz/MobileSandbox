@@ -43,7 +43,7 @@ fi
 
 echo -e "\n\n"
 echo -e "[*] Installation is finished!"
-echo -e "[*] You can now start to configure cuckoo, postgresql, sentry and mobilesanbox."
+echo -e "[*] You can now start to configure cuckoo, postgresql and mobilesanbox."
 exit 1 
 
 

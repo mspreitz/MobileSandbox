@@ -7,12 +7,10 @@ DJANGO_ROOT = '/var/www/html/Backend/mobilesandbox/'
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS.append('mobilesandbox.org')
 ALLOWED_HOSTS.append('131.188.31.187')
-#ALLOWED_HOSTS.append('localhost')
-#ALLOWED_HOSTS.append('127.0.0.1')
-#ALLOWED_HOSTS.append('[::1]')
 
-DEBUG = True
+DEBUG = False
 #TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

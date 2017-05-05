@@ -9,6 +9,4 @@ StaticAnalysis/src/
 
 src/
 DynamicAnalysis/cuckoo/db
-
-# Individual misc_config in config folder
-config/misc_config.py
+cuckoo.ova

@@ -1,12 +1,10 @@
 from django.db import models
 
-# NOTE: Please do only user lowercase column names. postgresql is a bit hard to use with uppercase column names
-# NOTE See http://stackoverflow.com/questions/37910287/sql-hint-to-reference-a-column
-
 
 class FileUpload(models.Model):
     file = models.FileField(upload_to='./')
     title = models.CharField(max_length=200)
+
 
 class Attachment(models.Model):
     data = models.ForeignKey(FileUpload, verbose_name='Uploaded Data Blob')

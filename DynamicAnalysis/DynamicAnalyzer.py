@@ -309,7 +309,10 @@ def createOutput(workingDir, cuckooID):
     jsonFile.close()
 
     # Add dynamic report data of cuckoo to Neo4j
-    create_node_dynamic(data_report_cuckoo)
+    try:
+        create_node_dynamic(data_report_cuckoo)
+    except:
+        print "Adding to Neo4J failed!"
 
 
 # Main Programm

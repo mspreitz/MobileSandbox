@@ -13,8 +13,6 @@ import sys
 import os
 import misc_config
 import traceback
-import smtplib
-from email.mime.text import MIMEText
 import Backend.analyzer.mail as mail
 
 if misc_config.ENABLE_SENTRY_LOGGING:
@@ -54,32 +52,6 @@ running = True
 
 while(running):
     rows = None
-
-    #Check for jobs that are too long in the queue and restart them
-    # try:
-    #     col = db.execute("SELECT id, starttime, retry, sha256 FROM analyzer_queue WHERE type='dynamic' AND status='running'")
-    #     rows = db.fetchall()
-    # except psycopg2.ProgrammingError as pe:
-    #     if misc_config.ENABLE_SENTRY_LOGGING:
-    #         client.captureException()
-    #     print 'ERROR', pe
-    #     time.sleep(5)
-    #
-    # for (sampleID, starttime, retry, sha256) in rows:
-    #     currentTime = datetime.now()
-	#     starttime = starttime.replace(tzinfo=None)
-    #     distance = (currentTime - starttime).total_seconds()
-    #
-    #     if distance > settings.TIMEOUT:
-    #         if retry <= settings.RETRY:
-    #             retry = retry + 1
-    #             db.execute("UPDATE analyzer_queue SET status='idle', retry=%s, "
-    #                        "starttime=CURRENT_TIMESTAMP WHERE id=%s AND type='dynamic'" % (retry, sampleID))
-    #             db.connection.commit()
-    #         else:
-    #             print "The dynamic analysis of the sample %s failed" % sha256
-
-
     try:
         col = db.execute("SELECT id, fileName, sha256, path FROM analyzer_queue WHERE type='dynamic' AND status='idle'")
         rows = db.fetchall()
@@ -176,9 +148,6 @@ while(running):
         # Send Notification Mail
         sendMailTo = ""
 
-        # Todo: Mail noch testen... Auch ein paar andere Änderungen wurden gemacht die getestet gehören!!
-        # Todo !!!
-
         # Set new sample status
         db.execute("DELETE FROM analyzer_queue WHERE id=%s" % sampleID)
         stat = db.execute("SELECT status FROM analyzer_metadata WHERE sha256='%s'" % sha256)
@@ -196,8 +165,11 @@ while(running):
             if sendMailTo == "":
                 co = db.execute("SELECT email FROM analyzer_queue WHERE sha256='%s'" % sha256)
                 ro = db.fetchall()
-                sendMailTo = ro[0][0]
-            mail.sendNotification(sendMailTo, sha256)
+            if len(ro) > 0:
+                    sendMailTo = ro[0][0]
+                    mail.sendNotification(sendMailTo, sha256)
+            else:
+                mail.sendNotification(sendMailTo, sha256)
         else:
             db.execute("UPDATE analyzer_metadata SET status='finished-2' WHERE sha256='%s'" % sha256)
         db.connection.commit()

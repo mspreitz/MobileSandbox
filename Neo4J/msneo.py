@@ -285,7 +285,7 @@ def create_node_static(datadict):
     create_list_nodes_rels(graph, tx, na, 'URL', datadict['urls'], 'CONTAINS_URL', attributes=list_attributes)
 
 
-    create_list_nodes_rels(graph, tx, na, 'Networks', datadict['networks'], 'NETWORK')
+    #create_list_nodes_rels(graph, tx, na, 'Networks', datadict['networks'], 'NETWORK')
     create_list_nodes_rels(graph, tx, na, 'AD_Network', datadict['detected_ad_networks'], 'AD_NETWORK')
 
 

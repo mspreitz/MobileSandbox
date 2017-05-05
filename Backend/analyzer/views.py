@@ -1,10 +1,9 @@
+import io
 import json
 import re
 from collections import OrderedDict
-
 import sys
 import zipfile
-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -13,13 +12,14 @@ from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
-
 from classifier import classify
 from .forms import UploadFormMulti
 from .models import FileUpload, Queue, Metadata, ClassifiedApp
 from datastructure import *
 from django.db.models import Q
 from django.conf import settings
+from mhash import *
+"""Edit path to config file"""
 PATH_MODULE_CONFIG='/var/www/html/config/'
 sys.path.append(PATH_MODULE_CONFIG)
 reload(sys)
@@ -30,14 +30,12 @@ if misc_config.ENABLE_SENTRY_LOGGING:
     from raven import Client
     client = Client('http://46a1768b67214ab3be829c0de0b9b96f:60acd07481a449c6a44196e166a5d613@localhost:9000/2')
 
-
-from mhash import *
-
 # Constants
-TMP_PATH = misc_config.TMP_PATH
-BASE_URL = misc_config.BASE_URL
+TMP_PATH = misc_config.BACKEND_TMP_PATH
+BASE_URL = misc_config.SANBOX_BASE_URL
 
 # Views
+
 def index(request):
     return render_to_response("base.html", context_instance=RequestContext(request))
 
@@ -111,13 +109,8 @@ def loginUser(request):
     if request.method == 'POST':
         email = request.POST['email']
         passwd = request.POST['password']
-        #try:
-        #    user = User.objects.get(username=email)
-        #except:
-        #    user = None
         auth_user = authenticate(username=email, password=passwd)
         if auth_user is not None:
-            #auth_user = authenticate(username=email, password=passwd)
             login(request, auth_user)
             # Redirect to member area
             return redirect('/home')
@@ -159,7 +152,7 @@ def userHome(request):
 @login_required(login_url='/userLogin')
 def showHistory(request):
     username = request.user.username
-    result = Metadata.objects.filter(username=username)
+    result = Metadata.objects.filter(username=username).order_by('-id')
     data = OrderedDict()
     sha1 = []
     sha256 = []
@@ -176,25 +169,27 @@ def showHistory(request):
                 static.append(dat.sha256)
                 decompiled.append(dat.sha256)
             else:
-                static.append("False")
-                decompiled.append("False")
+                static.append("analyzing")
+                decompiled.append("analyzing")
 
             if dat.status == "finished-2" or dat.status == "complete":
                 dynamic.append(dat.sha256)
             else:
-                dynamic.append("False")
+                dynamic.append("analyzing")
 
             if dat.status == "complete":
                 sha256.append(dat.sha256)
 
             filename.append(dat.filename)
             status.append(dat.status)
+
         else:
             if dat.status == "finished-1" or dat.status == "complete":
                 static = [dat.sha256]
                 decompiled = [dat.sha256]
             else:
                 static = ['analyzing']
+                decompiled = ['analyzing']
 
             if dat.status == "finished-2" or dat.status == "complete":
                 dynamic = [dat.sha256]
@@ -215,16 +210,23 @@ def showHistory(request):
 
     return render_to_response('history.html', {"data": data}, context_instance=RequestContext(request))
 
+
 def dataIsAPK(data):
     magic = '\x50\x4b\x03\x04' # ZIP Magic
+    apkfile = io.BytesIO(data)
+    z = zipfile.ZipFile(apkfile)
     if data[:4] != magic: return False
+
+    isAPK = all(x in z.namelist() for x in ["classes.dex", "AndroidManifest.xml", "resources.arsc"])
+    if not isAPK:
+        return False
+
     return True
 
 
 # Upload file and do sanity check
-#Use default values and set those parameters at the last positions e.g. username, anonymous=True
 @csrf_protect
-def uploadFile(request, username, anonymous=True):
+def uploadFile(request, username, anonymous=True): # TODO Use default values and set those parameters at the last positions e.g. username, anonymous=True
     if not settings.PATH_SAMPLES or settings.PATH_SAMPLES == '':
         print 'Fatal Failure. Abort!'
         sys.exit(1)
@@ -240,13 +242,15 @@ def uploadFile(request, username, anonymous=True):
     # NOTE: sentFiles are InMemoryUploadedFiles - Binary blob already available - no need for open!
     for sentFile in request.FILES.getlist('attachments'):
         data = sentFile.read()
+
+
         if not data:
             uploadedFiles[sentFile.name]['error'] = 'Could not read APK file!'
             continue
 
         if not dataIsAPK(data):
-            uploadedFiles[sentFile.name]['error'] = 'This file is not an APK file!'
-            continue
+            message = "This file is not APK format."
+            return render_to_response('error.html', {'message': message}, context_instance=RequestContext(request))
 
         # Hash sha256 first and test if it already exists
         appInfos = {}
@@ -265,7 +269,6 @@ def uploadFile(request, username, anonymous=True):
                 queue = Queue.objects.get(sha256=appInfos['sha256'], type="static")
             elif Metadata.objects.filter(sha256=appInfos['sha256']).exists():
                 queue = Metadata.objects.get(sha256=appInfos['sha256'])
-
 
             if queue is not None and (queue.status == 'idle' or queue.status == 'running'):
                 entries = Queue.objects.all()
@@ -304,20 +307,6 @@ def uploadFile(request, username, anonymous=True):
         # Save the APK to the generated directory
         apkFile = '{}/sample.apk'.format(apkDir)
         with open(apkFile, 'wb') as f: f.write(data)
-
-        # Since zipfile cannot read from stream, we have to check for zipfile contents here
-        # Second APK test on the saved file
-        try:
-            z = zipfile.ZipFile(apkFile)
-        except zipfile.BadZipfile:
-            uploadedFiles[sentFile.name]['error'] = 'Sample has to be in APK format: Not a ZIP file'
-            continue
-
-        zfiles = set(z.namelist())
-        afiles = set(['classes.dex', 'AndroidManifest.xml'])
-        if len(afiles-zfiles) != 0:
-            uploadedFiles[sentFile.name]['error'] = 'One of the following files is not in the sample: {}'.format(afiles)
-            continue
 
         # Put file in Queue for analysis
         if anonymous and not (request.POST.get('email') == ""):
@@ -382,7 +371,7 @@ def uploadFile(request, username, anonymous=True):
 
     # Return redirect link for every successful report - or redirect to the report page
     # For every error in the uploadedFiles, print a table with apkname and error
-    templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles, 'hash': appInfos['sha256']}
+    templatedict = {'url' : BASE_URL, 'uploaded_files': uploadedFiles, 'hash': appInfos['sha256'] }
     template = 'anonUploadSuccess.html'
     if not anonymous:
         template = 'uploadSuccess.html'
@@ -463,7 +452,7 @@ def showReport(request):
                     else:
                         count += 1
             if found:
-                res = 'However your sample is in the queue and has position %s. This should give you an estimate when the analysis is finished' % count
+                res = 'However your sample is in the queue and has position {}. This should give you an estimate when the analysis is finished'.format(count)
 
     if file_report_static is None and type == "static":
         return render_to_response('error.html', {'message': 'The report for this sample does not exist. '+res+' Please try'
@@ -569,6 +558,7 @@ def search(request):
         return render_to_response('error.html', {'message': 'We could not find this sample in our database! '
                                                             'Please submit it to our system.'},context_instance=RequestContext(request))
 
+
 def loadResults(sha256):
     hashedPath 		= getPathFromSHA256(sha256)
     path_apk            = '{}/{}'.format(settings.PATH_SAMPLES,hashedPath)
@@ -585,8 +575,7 @@ def loadResults(sha256):
     file_report_static  = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_STATIC)
 
     if os.path.isfile(file_report_static):
-    #    reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
-    #    return reports
+
         with open(file_report_static, 'r') as f:
             jsondata_static = f.read()
             jsondata_static = json.loads(jsondata_static)
@@ -596,8 +585,7 @@ def loadResults(sha256):
 
     file_report_dynamic = '{}/{}'.format(path_reports, settings.DEFAULT_NAME_REPORT_DYNAMIC)
     if os.path.isfile(file_report_dynamic):
-    #    reports = (file_report_static, file_report_dynamic, jsondata_static, jsondata_dynamic, screenshots)
-    #    return reports
+
         with open(file_report_dynamic, 'r') as f:
             jsondata_dynamic = f.read()
             jsondata_dynamic = json.loads(jsondata_dynamic)
