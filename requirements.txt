@@ -1,4 +1,4 @@
-Django==1.11
+Django==1.11.15
 ssdeep
 chilkat
 py2neo
